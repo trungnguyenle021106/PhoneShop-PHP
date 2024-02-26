@@ -11,7 +11,7 @@
 <body>
     <div class="page">
         <?php
-        require("PAGES/TopMenu.php");
+        require("PAGES/TopMenu.php");git 
         ?>
         <?php
         require("PAGES/Content.php");
