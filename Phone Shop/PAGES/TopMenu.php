@@ -7,16 +7,13 @@
             <a href="">Điện thoại</a>
         </li>
         <li class="element_TopMenu">
-            <a href="">Điện thoại</a>
+            <a href="">Phụ kiện</a>
         </li>
         <li class="element_TopMenu">
-            <a href="">Điện thoại</a>
+            <a href="index.php?page=Promotion">Khuyến mãi</a>
         </li>
         <li class="element_TopMenu">
-            <a href="">Điện thoại</a>
-        </li>
-        <li class="element_TopMenu">
-            <a href="">Điện thoại</a>
+            <a href="">About us</a>
         </li>
     </ul>
     <div class="container_IconCart">

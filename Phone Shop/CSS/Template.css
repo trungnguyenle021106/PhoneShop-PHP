@@ -19,9 +19,12 @@
 }
 
 .container_LogoShop {
+    margin-right: 50px;
     width: 15%;
     height: 100%;
 }
+
+/* Them margin-right */
 
 .container_LogoShop img {
     margin-top: 15px;
@@ -50,7 +53,7 @@
     display: inline-block;
     width: 200px;
     height: 80%;
-    margin: 10px 1px;
+    margin: 10px 10px;
 }
 
 .element_TopMenu a {
@@ -74,10 +77,11 @@
 
 .content {
     width: 100%;
-    height: auto;
+    min-height: 1000px;
+    max-height: none;
 }
 
-
+/* SUA O DAY NUA */
 /* CONTENT */
 
 /* FOOTER */
