@@ -1,0 +1,124 @@
+.page {
+    width: 70%;
+    min-height: 1000px;
+    max-height: none;
+    margin: 0px auto;
+}
+
+
+/* TOP MENU */
+
+.topMenu {
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+}
+
+.container_LogoShop {
+    width: 15%;
+    height: 100%;
+}
+
+.container_LogoShop img {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.container_IconCart {
+    width: 5%;
+    height: 100%;
+}
+
+.container_IconCart img {
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.container_Element_TopMenu {
+    height: 100%;
+    width: 80%;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+
+.element_TopMenu {
+    display: inline-block;
+    width: 200px;
+    height: 80%;
+    margin: 10px 1px;
+}
+
+.element_TopMenu a {
+    color: black;
+    text-align: center;
+    line-height: 50px;
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+
+.element_TopMenu a:hover {
+    text-decoration: underline;
+}
+
+/* TOP MENU */
+
+/* CONTENT */
+
+.content {
+    width: 100%;
+    height: auto;
+}
+
+
+/* CONTENT */
+
+/* FOOTER */
+
+.myFooter {
+    width: 100%;
+    height: 280px;
+    background-color: rgb(32, 33, 38);
+}
+
+.container_Col_myFooter {
+    width: 70%;
+    height: 100%;
+    margin: 0px auto;
+    display: flex;
+}
+
+.col1 {
+    width: 60%;
+    height: 100%;
+}
+
+.col2 {
+    width: 20%;
+    height: 100%;
+}
+
+.row_OfCol {
+    width: 100%;
+    display: flex;
+    margin: 20px;
+}
+
+.row_OfCol a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.row_OfCol a:hover{
+    text-decoration: underline;
+}
+/* FOOTER */
