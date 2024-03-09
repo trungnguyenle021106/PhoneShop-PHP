@@ -7,6 +7,10 @@
             {
                 require("Promotion.php");
             }
+            if($_GET['page']=='ShopingCart')
+            {
+                require("ShopingCart.php");
+            }
         }
     ?>
 </div>

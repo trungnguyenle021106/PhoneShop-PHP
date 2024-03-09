@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Template.css">
     <link rel="stylesheet" href="CSS/Promotion.css">
+    <link rel="stylesheet" href="CSS/ShoppingCart.css">
     <title>Document</title>
 </head>
 

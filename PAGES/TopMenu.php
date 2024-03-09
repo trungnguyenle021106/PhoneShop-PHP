@@ -17,6 +17,8 @@
         </li>
     </ul>
     <div class="container_IconCart">
-        <img src="https://www.themobileshop.ca/static/6de947887c9459c2df599f1231c7775b/04504/shopping-cart.webp" alt="">
+        <a href="index.php?page=ShopingCart">
+            <img src="https://www.themobileshop.ca/static/6de947887c9459c2df599f1231c7775b/04504/shopping-cart.webp" alt="">
+        </a>
     </div>
 </div>
