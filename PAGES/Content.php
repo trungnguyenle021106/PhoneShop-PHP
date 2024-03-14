@@ -7,6 +7,10 @@
             {
                 require("Promotion.php");
             }
+            elseif($_GET['page']=='Phones')
+            {
+                require("Phones.php");
+            }
         }
     ?>
 </div>

@@ -5,7 +5,7 @@
         <!-- </div> -->
         <ul class="container_Element_TopMenu">
             <li class="element_TopMenu">
-                <a href="">Điện thoại</a>
+                <a href="index.php?page=Phones">Điện thoại</a>
             </li>
             <li class="element_TopMenu">
                 <a href="">Điện thoại</a>
