@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/promotion.css">
     <link rel="stylesheet" href="css/phone.css">
+    <link rel="stylesheet" href="css/accessories.css">
     <title>Document</title>
 </head>
 

@@ -11,6 +11,9 @@
             {
                 require("Phones.php");
             }
+            elseif($_GET['page']=='Accessories'){
+                require("accessories_Content.php");
+            }
         }
     ?>
 </div>

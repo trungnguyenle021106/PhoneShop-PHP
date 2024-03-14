@@ -11,7 +11,7 @@
                 <a href="">Điện thoại</a>
             </li>
             <li class="element_TopMenu">
-                <a href="">Điện thoại</a>
+                <a href="index.php?page=Accessories">Phụ kiện</a>
             </li>
             <li class="element_TopMenu">
             <a href="index.php?page=Promotion">Khuyến mãi</a>

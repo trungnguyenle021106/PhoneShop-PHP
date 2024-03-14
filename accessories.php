@@ -22,6 +22,6 @@
     <?php
     require("PAGES/accessories_Footer.php");
     ?>
-<script src="accessories.js"></script>
+<script src="js/accessories.js"></script>
 </body>
 </html>
