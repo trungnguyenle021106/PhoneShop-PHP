@@ -15,8 +15,8 @@
                         <div class="slide-container">
                                 <div class="slides">
                                         <a href=""><img src="image/img2.webp" alt="##"></a>
-                                        <a href=""><img src="image/img3.webp" alt="##"></a>
-                                        <a href=""><img src="image/img1.webp" alt="##"></a>
+                                        <!-- <a href=""><img src="image/img3.webp" alt="##"></a>
+                                        <a href=""><img src="image/img1.webp" alt="##"></a> -->
                                 </div>
                         </div>
                 </div>
@@ -206,7 +206,7 @@
                         </div>
                 </div>
                 <div class="footer_content">
-                        <h2 style="text-align: center">Latest & Featured</h2>
+                        <h2 style="text-align: center; font-size: 20px;">Latest & Featured</h2>
                         <section>
                                 <a href="" class="products" style="border: 1px solid black;">
                                         <div class="name">Zagg</div>
@@ -259,21 +259,21 @@
                                         <div class="price">$39.95</div>
                                 </a>
                         </section>
-                        <div class="legal-details">
-                                <div class="content">
+                        <div class="legal-details">     
                                         <div>Legal details</div>
-                                        <i class="fa-solid fa-chevron-down" id="arrow-footer"></i>
-                                </div>
-                                <pre style="font-family: Arial, Helvetica, sans-serif; padding: 10px; margin-top:-10px; ">Information about the manufacturers and their products has been supplied by the manufacturers or their distributors and Loblaws Inc. does not
+
+                                        <pre style="margin-top: 30px; font-size: 15px; ">Information about the manufacturers and their products has been supplied by the manufacturers or their distributors and Loblaws Inc. does not
+
 guarantee the accuracy or suitability of any such information.  All trademarks are the property of their respective owners.
 
 Carrier Selection is current as of June 20, 2023. Based on comparison with other Canadian retailers and their carrier availability.
 
 The Mobile Shop™ is a division of Loblaws Inc.</pre>
-                        </div>
+                                </div>
+                  
                 </div>
         </div>
-        <div class="scroll_down_btn">
+        <!-- <div class="scroll_down_btn">
                 <i class="fa-solid fa-arrow-down" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>
                 <span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: red">Back down</span>
         </div>
@@ -281,7 +281,7 @@ The Mobile Shop™ is a division of Loblaws Inc.</pre>
                 <i class="fa-solid fa-arrow-up" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>
                 <span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: red; margin-left: 10px;">Back up</span>
         </div>
-        </div>
+        </div> -->
 </body>
 
 </html>
