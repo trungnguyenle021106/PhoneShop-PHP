@@ -61,7 +61,8 @@ a {
 }
 
 .bannerMain{
-    margin-left: 197px;
+    display: flex;
+    justify-content: center;
     
 }
 .bannerMain__img{
@@ -115,7 +116,9 @@ a {
     letter-spacing: 0px;
     line-height: 61px;
     margin-bottom: 90px;
-    margin-left: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 .listBrand{
     display: flex;
@@ -147,7 +150,7 @@ a {
     flex-wrap: wrap;
     max-width: 1280px;
     align-items: stretch;
-    margin: 40px 195px;
+    margin: 40px auto;
 }
 .phoneSectionContainer__title{
     font-family: sans-serif;
