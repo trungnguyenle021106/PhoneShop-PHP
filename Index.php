@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/phone.css">
     <link rel="stylesheet" href="css/accessories.css">
     <link rel="stylesheet" href="css/Shoppingcart.css">
+    <link rel="stylesheet" href="css/Home.css">
+
     <title>Document</title>
 </head>
 

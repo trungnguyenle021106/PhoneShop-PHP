@@ -12,11 +12,15 @@
                 require("Phones.php");
             }
             elseif($_GET['page']=='Accessories'){
-                require("accessories_Content.php");
+                require("Accessories.php");
             }
             elseif($_GET['page']=='ShoppingCart')
             {
                 require("ShoppingCart.php");
+            }
+            elseif($_GET['page']=='Home')
+            {
+                require("Home.php");
             }
         }
     ?>
