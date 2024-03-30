@@ -1,7 +1,7 @@
 <div class="topMenu-wrap">
     <div class="topMenu">
         <!-- <div class="container_LogoShop"> -->
-            <a href="PAGES/Home.php">
+            <a href="index.php?page=Home">
             <img class="logo-img" src="https://www.themobileshop.ca/static/3bc89f0a05845489d58f7237b889329c/TMS-Logo_Black_New-Tagline_EN.svg" alt="">
             </a>
             <!-- </div> -->

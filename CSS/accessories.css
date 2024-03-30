@@ -4,9 +4,10 @@
 
 /* CONTENT */
 
-.content {
-    width: 100%;
+.accessories_content {
+    width: 1280px;
     height: auto;
+    margin: 0px auto;
 }
 
 .top-image{
