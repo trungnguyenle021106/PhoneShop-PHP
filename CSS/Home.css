@@ -105,6 +105,7 @@ a {
     cursor: pointer;
 }
 .chooseByBrand{
+    width: 100%;
     padding: 40px 2.5rem;
     background-image: linear-gradient(rgb(255, 255, 255), rgb(241, 241, 241));
 }
