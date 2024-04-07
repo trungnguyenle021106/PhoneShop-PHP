@@ -20,11 +20,24 @@
                     <li class="element_TopMenu">
                     <a href="">About us</a>
                     </li>
+                    <li class="element_TopMenu">
+                    <a href="index.php?page=ShoppingCart">
+                        <img src="https://www.themobileshop.ca/static/6de947887c9459c2df599f1231c7775b/04504/shopping-cart.webp" alt="">
+                    </a>
+                    </li>
+                    
+                    <li style="display: flex;" class="element_TopMenu">
+                    <div id="user_name"">N</div>
+                        <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >
+                            <img class="Img_user" src="Img/ic_user.png" alt="">
+                        </a>
+                    </li>
                 </ul>
                 <!-- <div class="container_IconCart"> -->
-                <a href="index.php?page=ShoppingCart">
-                    <img src="https://www.themobileshop.ca/static/6de947887c9459c2df599f1231c7775b/04504/shopping-cart.webp" alt="">
-                </a>
+                
+                
+
+                
                 <!-- </div> -->
             </div>
         </div>
