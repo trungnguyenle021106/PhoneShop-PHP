@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/Shoppingcart.css">
     <link rel="stylesheet" href="css/Home.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/register.css">
 
     <title>Document</title>
 </head>

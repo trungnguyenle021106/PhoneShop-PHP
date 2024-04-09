@@ -1,10 +1,10 @@
 <!-- <h2>Modal Login Form</h2>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
-
+<link rel="stylesheet" href="/PhoneShop/CSS/login.css">
 <div id="id01" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php" method="post">
+  <form class="modal-content animate" action="" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
       <img src="Img/ic_user.png" alt="Avatar" class="avatar">
@@ -25,7 +25,7 @@
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="Register">Bạn chưa có tài khoản <a href="#">Đăng ký ngay</a></span>
+      <span class="Register">Bạn chưa có tài khoản <a href="/PhoneShop/PAGES/Register.php" >Đăng ký ngay</a></span>
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>

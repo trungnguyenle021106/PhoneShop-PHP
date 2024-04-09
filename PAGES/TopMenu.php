@@ -25,7 +25,6 @@
                         <img src="https://www.themobileshop.ca/static/6de947887c9459c2df599f1231c7775b/04504/shopping-cart.webp" alt="">
                     </a>
                     </li>
-                    
                     <li style="display: flex;" class="element_TopMenu">
                     <div id="user_name"">N</div>
                         <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >
