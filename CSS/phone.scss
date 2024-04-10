@@ -5,7 +5,7 @@
         flex: 1;
         margin-right: 24px;
 
-        .content {
+        .container-left-info {
             margin-top: 32px;
 
             .header {
@@ -14,28 +14,28 @@
                 border-bottom: 2px solid #eee;
                 padding-bottom: 8px;
                 
-                .title {
+                .header-title {
                     color: rgb(51, 51, 51);
-                    font-size: 1rem;
+                    font-size: 18px;
                     font-weight: 600;
                 }
 
-                .btn-clear {
+                .header-clear-all {
                     color: rgb(51, 51, 51);
                     border: 0;
                     cursor: pointer;
-                    font-size: 1rem;
+                    font-size: 16px;
                     font-weight: 600;
                     text-decoration: underline;
                     background-color: transparent;
                 }
             }
 
-            .list {
+            .content {
                 display: flex;
                 flex-wrap: wrap;
 
-                .list-item {
+                .content-item {
                     width: 50%;
                     margin: 4px 0px;
 
@@ -62,20 +62,20 @@
 
         }
 
-        .wrap {
-            .item {
+        .advanced-wrap {
+            .advanced-item {
                 display: flex;
                 justify-content: space-between;
                 border-bottom: 2px solid #eee;
                 padding-bottom: 8px;
                 margin-top: 28px;
 
-                .title {
-
+                .advanced-title {
+                    font-size: 16px;
                 }
 
-                .btn {
-                    .icon {
+                .advanced-btn {
+                    .advanced-icon {
 
                     }
                 }
@@ -86,12 +86,13 @@
     .container-right {
         flex: 3;
 
-        .content {
-            .header {
+        .right-content {
+
+            .content-header {
                 display: flex;
                 justify-content: space-between;
     
-                .pts {
+                .header-pts {
                     width: 42%;
                     display: flex;
                     justify-content: center;
@@ -100,19 +101,19 @@
                     border: 2px solid rgb(243, 243, 243);
                     border-radius: 10px;
 
-                    .icon {
+                    .pts-icon {
                         width: 60px;
                         height: 60px;
                     }
 
-                    .title {
+                    .pts-title {
                         font-size: 18px;
                         font-weight: 600;
                         text-align: center;
                         padding: 0 16px;
                     }
 
-                    .btn {
+                    .pts-btn {
                         background-color: rgb(235, 0, 0);
                         border: none;
                         height: 40px;
@@ -125,13 +126,13 @@
                         box-shadow: rgba(53, 43, 43, 0.24) 0px 2px 4px 0px;
                     }
 
-                    .btn:hover {
+                    .pts-btn:hover {
                         background-color: rgb(255, 255, 255);
                         color: rgb(235, 0, 0);
                     }
                 }
 
-                .search {
+                .header-search {
                     width: 42%;
                     display: flex;
                     justify-content: center;
@@ -140,19 +141,19 @@
                     border: 2px solid rgb(243, 243, 243);
                     border-radius: 10px;
 
-                    .icon {
+                    .search-icon {
                         width: 60px;
                         height: 60px;
                     }
 
-                    .title {
+                    .search-title {
                         font-size: 18px;
                         font-weight: 600;
                         text-align: center;
                         padding: 0 16px;
                     }
 
-                    .btn {
+                    .search-btn {
                         height: 40px;
                         min-width: 150px;
                         font-weight: 700;
@@ -165,71 +166,71 @@
                 }
             }
 
-            .container {
+            .content-container {
                 display: block;
 
-                .banner {
+                .container-banner {
                     margin-top: 36px;
                     width: 100%;
                     border-radius: 5px;
                 }
 
-                .title {
+                .container-title {
                     font-size: 32px;
                     font-weight: 600;
                     color: rgb(51, 51, 51);
                     margin-top: 60px;
                 }
 
-                .phone {
+                .phone-list {
                     display: flex;
                     flex-wrap: wrap;
 
-                    .item {
+                    .phone-item {
                         width: calc(33% - 16px);
                         height: auto ;
                         display: flex;
                         margin: 8px 8px 40px 8px;
                         flex-wrap: wrap;
                     
-                        .img {
+                        .phone-img {
                             width: 45%;
                             object-fit: contain;
                         }
 
-                        .wrap {
+                        .phone-wrap {
                             width: 50%;
                             padding-left: 12px;
 
-                            .link {
+                            .phone-link {
                                 text-decoration: none;
                                 color: #333;
                                 font-weight: 600;
                                 font-size: 18px;
 
-                                .producer {
+                                .phone-producer {
                                     margin-bottom: 8px;
                                 }
                             }
 
-                            .color {
+                            .phone-color {
                                 margin-bottom: 8px;
                                 
                                 p {
-                                    .price {
+                                    .phone-price {
                                         color: rgb(51, 51, 51);
                                         font-size: 25px;
                                         font-weight: 600;
                                     }
 
-                                    .guarantee {
+                                    .phone-guarantee {
                                         margin-top: 8px;
                                     }
                                 }
                             }
                         }
                         
-                        .footer {
+                        .phone-footer {
                             flex: 1;
                             border-top: 1px solid rgb(219, 219, 219);
                             border-bottom: 1px solid rgb(219, 219, 219);
@@ -242,13 +243,13 @@
                             padding: 10px 3px;
                             margin-top: 28px;
 
-                            .wrap {
+                            .phone-footer-wrap {
                                 .check-box {
 
                                 }
                             }
 
-                            .detail {
+                            .phone-detail {
                                 border-radius: 35px;
                                 border: 2px solid rgb(51, 51, 51);
                                 text-decoration: none;

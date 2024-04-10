@@ -1,5 +1,6 @@
 .page {    
     max-width: 100%;
+    width: 100%;
 }
 
 /* TOP MENU */
@@ -86,8 +87,7 @@
 
 .content {
     width: 100%;
-    min-height: 1000px;
-    max-height: none;
+    height: auto;
 }
 
 /* SUA O DAY NUA */

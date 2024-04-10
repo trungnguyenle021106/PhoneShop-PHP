@@ -3,7 +3,10 @@
     <?php
         if(isset($_GET['page']))
         {
-            if($_GET['page']=='Promotion')
+            if($_GET['item'] == 'iphone') {
+                require("DetailPhone.php");
+            }
+            elseif($_GET['page']=='Promotion')
             {
                 require("Promotion.php");
             }

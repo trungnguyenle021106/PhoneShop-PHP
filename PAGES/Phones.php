@@ -224,7 +224,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
                     
@@ -255,7 +255,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -286,7 +286,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -317,7 +317,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -348,7 +348,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -379,7 +379,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -410,7 +410,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -441,7 +441,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -472,7 +472,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -503,7 +503,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -534,7 +534,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -565,7 +565,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -596,7 +596,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -627,7 +627,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
 
@@ -658,7 +658,7 @@
                                 <input class="content-item-check" type="checkbox">
                                 <span>Compare</span>
                             </div>
-                            <a href="#" class="phone-detail">View details</a>
+                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
                         </div>
                     </div>
                 </div>
