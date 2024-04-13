@@ -1,3 +1,11 @@
+<?php
+session_start();
+$userName = "N"; // Giá trị mặc định nếu không tìm thấy tên trong session
+if (isset($_SESSION['user_name'])) {
+    $userName = $_SESSION['user_name']; // Lấy tên từ session nếu đã đăng nhập
+}
+?>
+
 <div class="topMenu-wrap">
         <div class="topMenu">
             <div class="wraper">
@@ -26,7 +34,10 @@
                     </a>
                     </li>
                     <li style="display: flex;" class="element_TopMenu">
-                    <div id="user_name"">N</div>
+
+                        <div id="user_name"><?php echo htmlspecialchars($userName); ?></div> 
+                        <!-- Hiển thị tên người dùng -->
+                        
                         <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >
                             <img class="Img_user" src="Img/ic_user.png" alt="">
                         </a>

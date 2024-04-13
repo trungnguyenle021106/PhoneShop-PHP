@@ -17,7 +17,7 @@ $data = array(
     "THUE_SUAT" => "100",
     "THANH_TIEN" => "35234"
 );
-$connect->create("chi_tiet_hoadon", $data);
+// $connect->create("chi_tiet_hoadon", $data);
 // THÊM VÀO DATABASE
 
 // ĐỌC DỮ LIỆU TỪ DATABASE
