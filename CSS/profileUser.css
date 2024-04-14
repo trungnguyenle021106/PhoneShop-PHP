@@ -1,18 +1,17 @@
-body{
-    background-color: rgb(241, 241, 241);
-}
+
 .profile_content_container{
     margin: auto;
     width: 70vw;
-    /* height: 70vh; */
     display: flex;
-    justify-content: center;
-    background-color: white;
+    justify-content: space-between;
+    background-color: #ECECEC;
+    border-radius: 10px;
     
 }
 .profile_left{
+    background-color: white;
+    border-radius: 7px;
     width: 30%;
-    
 }
 .profile_left img {
     margin: 20px auto;
@@ -26,7 +25,9 @@ body{
     font-size: 17px;
 } 
 .profile_content{
-    width: 70%;
+    background-color: white;
+    width: 69.5%;
+    border-radius: 7px;
 }
 .item_menu:hover{
     color: rgb(235, 0, 0);
@@ -37,11 +38,12 @@ body{
     margin: auto;
 }
 .input_field > div label{
+    width: 20%;
     font-size: 18px;
     
 }
 form .input_field > div input{
-    width: 75%;
+    width: 70%;
     padding: 10px;
     border: none;
     outline: none;
@@ -60,7 +62,7 @@ form .submit {
 form .input_field > div{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin-bottom: 18px;
 }

@@ -44,6 +44,7 @@
         $condition = "MA_KH = 1";
         $result = $conn->read( $tableName ,$condition);
         $hoTen = $result[0]['HOTEN_KH'];
+        $gioiTinh = $result[0]['G_TINH'];
         $maTK = $result[0]['MA_TK'];
         $diaChi = $result[0]['DIA_CHI'];
         $soDT = $result[0]['SO_DT'];
@@ -58,9 +59,9 @@
         
         $conn->closeConnection();
 ?>
-<body>
+<body style="background-color: #ECECEC;">
     <div class="profile_content_container">
-        <div class="profile_left">
+        <div class="profile_left" >
             <img src="../Img/avtUser.png" alt="" >
             <span style="display: block; text-align: center;font-size: 18px;
             font-weight: bold;
@@ -76,6 +77,10 @@
                     <div>
                         <label for="name">Họ tên:</label>
                         <input type="text" name="name" id="name" value="<?php echo $hoTen; ?>" required>
+                    </div>
+                    <div>
+                        <label for="name">Giới tính:</label>
+                        <input type="text" name="sex" id="sex" value="<?php echo $gioiTinh; ?>" required>
                     </div>
                     <div>
                         <label for="address">Địa chỉ:</label>
@@ -145,6 +150,10 @@
                     <div>
                         <label for="name">Họ tên:</label>
                         <input type="text" name="name" id="name" value="<?php echo $hoTen; ?>" required>
+                    </div>
+                    <div>
+                        <label for="name">Giới tính:</label>
+                        <input type="text" name="sex" id="sex" value="<?php echo $gioiTinh; ?>" required>
                     </div>
                     <div>
                         <label for="address">Địa chỉ:</label>
