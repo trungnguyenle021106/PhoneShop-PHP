@@ -1,0 +1,72 @@
+body{
+    background-color: rgb(241, 241, 241);
+}
+.profile_content_container{
+    margin: auto;
+    width: 70vw;
+    /* height: 70vh; */
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    
+}
+.profile_left{
+    width: 30%;
+    
+}
+.profile_left img {
+    margin: 20px auto;
+    display: block;
+    width: 200px;
+    height: 200px;
+}
+.profile_left p {
+    margin-top: 30px;
+    font-family: sans-serif;
+    font-size: 17px;
+} 
+.profile_content{
+    width: 70%;
+}
+.item_menu:hover{
+    color: rgb(235, 0, 0);
+    cursor: pointer;
+}
+.item_menu{
+    width: fit-content;
+    margin: auto;
+}
+.input_field > div label{
+    font-size: 18px;
+    
+}
+form .input_field > div input{
+    width: 75%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #4a4a4a;
+    color: #000;
+    font-size: 18px;
+}
+form > div .submit {
+    font-size: 18px;
+}
+form .submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+form .input_field > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.input_field{
+    padding-top: 20px;
+}
+.table{
+    font-size: 18px;
+}

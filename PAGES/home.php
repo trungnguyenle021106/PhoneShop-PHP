@@ -14,19 +14,19 @@
         <div class="bannerWrapper">
             <div class="bannerWrapper__img">
                 <div class="bannerWrapper__btn"><a href="">View offers</a></div>
-                <img src="../img/TMS_MarchMadness_150K_iPhone14Pl.png" alt=""></div>
+                <img src="Img/TMS_MarchMadness_150K_iPhone14Pl.png" alt=""></div>
             <div class="bannerWrapper__img">
                 <div class="bannerWrapper__btn"><a href="">View offers</a></div>
-                <img src="../img/TMS_Freedom_Only-Offer_Web_Homep.png" alt=""></div>
+                <img src="Img/TMS_Freedom_Only-Offer_Web_Homep.png" alt=""></div>
             <div class="bannerWrapper__img">
                 <div class="bannerWrapper__btn"><a href="">Learn more</a></div>
-                <img src="../img/PCMobile_MarchMadness_TMS-Homepa.png" alt=""></div>
+                <img src="Img/PCMobile_MarchMadness_TMS-Homepa.png" alt=""></div>
         </div>
 
         <div class="bannerMain">
             <div class="bannerMain__img">
                 <div class="bannerMain__btn"><a href="">Shop now</a></div>
-                <img src="../img/TMS_SamsungS24-Price-Promo_Web_P.png" alt=""></div>
+                <img src="Img/TMS_SamsungS24-Price-Promo_Web_P.png" alt=""></div>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
                 <div class="listBrand">
                     <div class="itemListBrand itemListBrand__Apple">
                         <a href="">
-                            <img src="../img/iphone-12-pro_gold_front.png" alt="">
+                            <img src="Img/iphone-12-pro_gold_front.png" alt="">
                             <p>Apple</p>
                         </a>
                         
@@ -44,7 +44,7 @@
                     </div>
                     <div class="itemListBrand itemListBrand__Samsung">
                         <a href="">
-                            <img src="../img/sm-f926_zfold3_5g_front_phantomb.png" alt="">
+                            <img src="Img/sm-f926_zfold3_5g_front_phantomb.png" alt="">
                             <p>Samsung</p>
                         </a>
                         
@@ -52,7 +52,7 @@
                     </div>
                     <div class="itemListBrand itemListBrand__Motorola">
                         <a href="">
-                            <img src="../img/moto-g-power_flash-gray_front.png" alt="">
+                            <img src="Img/moto-g-power_flash-gray_front.png" alt="">
                             <p>Motorola</p>
                         </a>
                         
@@ -60,7 +60,7 @@
                     </div>
                     <div class="itemListBrand itemListBrand__Google">
                         <a href="">
-                            <img src="../img/google-pixel-6-pro-front.png" alt="">
+                            <img src="Img/google-pixel-6-pro-front.png" alt="">
                             <p>Google</p>
                         </a>
                         
@@ -68,7 +68,7 @@
                     </div>
                     <div class="itemListBrand itemListBrand__TCL">
                         <a href="">
-                            <img src="../img/tcl_20-s_milky-way-grey_front.png" alt="">
+                            <img src="Img/tcl_20-s_milky-way-grey_front.png" alt="">
                             <p>TCL</p>
                         </a>
                         
@@ -76,7 +76,7 @@
                     </div>
                     <div class="itemListBrand itemListBrand__Alcatel">
                         <a href="">
-                            <img src="../img/Alcatel-1_black_front.png" alt="">
+                            <img src="Img/Alcatel-1_black_front.png" alt="">
                             <p>Alcatel</p>
                         </a>
                         
@@ -90,8 +90,8 @@
                 <div class="phoneContainer">
                     <div class="phone">
                         <a class="img_phone" href="">
-                            <div class="img_front"><img src="../img/Galaxy-A54-5G_Awesome-Graphite_F.png" alt=""></div>
-                            <div class="img_back"><img src="../img/Galaxy-A54-5G_Awesome-Graphite_B.png" alt=""></div>
+                            <div class="img_front"><img src="Img/Galaxy-A54-5G_Awesome-Graphite_F.png" alt=""></div>
+                            <div class="img_back"><img src="Img/Galaxy-A54-5G_Awesome-Graphite_B.png" alt=""></div>
                         </a>
                         <div class="infor">
                             <a title="Samsung Galaxy A54" href="">
@@ -167,8 +167,8 @@
                     </div>
                     <div class="phone">
                         <a class="img_phone" href="">
-                            <div class="img_front"><img src="../img/Google-Pixel7a_Carbon_Front.png" alt=""></div>
-                            <div class="img_back"><img src="../img/Google-Pixel7a_Carbon_Back.png" alt=""></div>
+                            <div class="img_front"><img src="Img/Google-Pixel7a_Carbon_Front.png" alt=""></div>
+                            <div class="img_back"><img src="Img/Google-Pixel7a_Carbon_Back.png" alt=""></div>
                         </a>
                         <div class="infor">
                             <a title="Google Pixel 7a" href="">
@@ -244,7 +244,7 @@
                     </div>
                     <div class="phone">
                         <a class="img_phone" href="">
-                            <div id="iphone14Img"><img src="../img/iPhone_14_Plus_Blue_Pure_Double.png" alt="" ></div>
+                            <div id="iphone14Img"><img src="Img/iPhone_14_Plus_Blue_Pure_Double.png" alt="" ></div>
                             
                         </a>
                         <div class="infor">
@@ -344,8 +344,8 @@
                     </div>
                     <div class="phone">
                         <a class="img_phone" href="">
-                            <div class="img_front"><img src="../img/Galaxy-S23-FE_Graphite_Front.png" alt=""></div>
-                            <div class="img_back"><img src="../img/Galaxy-S23-FE_Graphite_Back.png" alt=""></div>
+                            <div class="img_front"><img src="Img/Galaxy-S23-FE_Graphite_Front.png" alt=""></div>
+                            <div class="img_back"><img src="Img/Galaxy-S23-FE_Graphite_Back.png" alt=""></div>
                         </a>
                         <div class="infor">
                             <a title="Samsung Galaxy S23 FE 5G" href="">
@@ -421,8 +421,8 @@
                     </div>
                     <div class="phone">
                         <a class="img_phone" href="">
-                            <div class="img_front"><img src="../img/galaxy-s22_phantomwhite_front.png" alt=""></div>
-                            <div class="img_back"><img src="../img/galaxy-s22_phantomwhite_back.png" alt=""></div>
+                            <div class="img_front"><img src="Img/galaxy-s22_phantomwhite_front.png" alt=""></div>
+                            <div class="img_back"><img src="Img/galaxy-s22_phantomwhite_back.png" alt=""></div>
                         </a>
                         <div class="infor">
                             <a title="Samsung Galaxy S22 5G" href="">
@@ -516,8 +516,8 @@
                     </div>
                     <div class="phone">
                         <a class="img_phone" href="">
-                            <div class="img_front"><img src="../img/galaxy-s21-fe-5g_grphite-grey_fr.png" alt=""></div>
-                            <div class="img_back"><img src="../img/galaxy-s21-fe-5g_grphite-grey_ba.png" alt=""></div>
+                            <div class="img_front"><img src="Img/galaxy-s21-fe-5g_grphite-grey_fr.png" alt=""></div>
+                            <div class="img_back"><img src="Img/galaxy-s21-fe-5g_grphite-grey_ba.png" alt=""></div>
                         </a>
                         <div class="infor">
                             <a title="Samsung Galaxy S21 FE 5G" href="">
@@ -620,14 +620,14 @@
                             are here to help you find the best device and plan.
                         </p>
                     </div>
-                    <img src="../img/Mobilst_Woman_home-page_desktop.png" alt="">
+                    <img src="Img/Mobilst_Woman_home-page_desktop.png" alt="">
                 </div>
                 <a class="seeAllPhone" href="" >See all phones</a>
             </div>
             <div class="bannerMain">
                 <div class="bannerMain__img">
                     <div class="bannerMain__btn"><a href="">Sign up</a></div>
-                    <img src="../img/TMS_BAU_15K-email-new-suscribers.png" alt=""></div>
+                    <img src="Img/TMS_BAU_15K-email-new-suscribers.png" alt=""></div>
                 </div>
             </div>
         </section>
