@@ -98,7 +98,7 @@ function LoadDataForPage(page) {
                     elementPage.push(sanPham[i]);
                 }
             }
-            hello(elementPage);
+           
             //Lấy số trang có thể có
             for (var i = 0; i < sanPham.length; i++) {
                 element++
