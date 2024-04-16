@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/Template.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/promotion.css">
-    <link rel="stylesheet" href="css/phone.scss">
+    <!-- <link rel="stylesheet" href="css/phone.scss"> -->
     <link rel="stylesheet" href="css/accessories.css">
     <link rel="stylesheet" href="css/Shoppingcart.css">
     <link rel="stylesheet" href="css/Home.css">
@@ -26,7 +26,7 @@
         require("PAGES/Content.php");
         ?>
     </div>
-    <img src="Img/" alt="">
+    <!-- <img src="Img/" alt=""> -->
     <?php
     require("PAGES/Footer.php");
 

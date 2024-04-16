@@ -3,6 +3,10 @@ session_start();
 $userName = "N"; // Giá trị mặc định nếu không tìm thấy tên trong session
 if (isset($_SESSION['user_name'])) {
     $userName = $_SESSION['user_name']; // Lấy tên từ session nếu đã đăng nhập
+
+}
+if (isset($_SESSION['Ma_KhachHang'])) {
+    $Ma_KhachHang = $_SESSION['Ma_KhachHang']; 
 }
 ?>
 
