@@ -26,7 +26,6 @@
         require("PAGES/Content.php");
         ?>
     </div>
-    <!-- <img src="Img/" alt=""> -->
     <?php
     require("PAGES/Footer.php");
 

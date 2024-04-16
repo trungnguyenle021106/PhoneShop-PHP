@@ -7,8 +7,11 @@
     <title>Document</title>
 </head>
 
-<body onload="LoadDataForPage(1)">
-
+<body>
+    <input type="button" onclick="add()" value="create">
+    <input type="button" onclick="update()" value="update">
+    <input type="button" onclick="Delete()" value="delete">
+    <input type="button" onclick="read()" value="read">
     <div id="container">
     <ul id="elementPage">
 
@@ -17,5 +20,6 @@
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="./js/page.js"></script>
+
+<script src="./js/TEST_CRUD_AJAX_PHP.js"></script>
 </html>
