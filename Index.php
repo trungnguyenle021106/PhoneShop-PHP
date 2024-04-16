@@ -10,7 +10,7 @@
     <!-- <link rel="stylesheet" href="css/phone.scss"> -->
     <link rel="stylesheet" href="css/accessories.css">
     <link rel="stylesheet" href="css/Shoppingcart.css">
-    <link rel="stylesheet" href="css/Home.css">
+    <!-- <link rel="stylesheet" href="css/Home.css"> -->
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/register.css">
 
@@ -19,6 +19,7 @@
 
 <body>
     <?php
+
     require("PAGES/TopMenu.php");
     ?>
     <div class="page">
