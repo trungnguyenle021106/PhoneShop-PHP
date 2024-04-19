@@ -116,7 +116,7 @@ function loadData(pageNumber, itemsPerPage, maxPage) {
             condition: condition
         },
         success: function (response) {
-            var dataArray = convert_JsonToArray_Accessories(response);
+            var dataArray = convert_JsonToArray(response);
             var dataForPage = GetDataForPage(dataArray, pageNumber, itemsPerPage);
             var html = "";
             for (var i = 0; i < dataForPage.length; i++) {
@@ -185,7 +185,7 @@ function changePriceToString(price) {
     return s.split("").reverse().join("");
 }
 
-function convert_JsonToArray_Accessories(dataJsonArray) {
+function convert_JsonToArray(dataJsonArray) {
     var dataArray = [];
     for (var key in dataJsonArray) {
         if(dataJsonArray[key].MA_LOAI == 2)

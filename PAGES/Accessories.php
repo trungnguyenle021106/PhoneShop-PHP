@@ -1,23 +1,4 @@
 
-<?php
-require './Model/Database.php';
-$connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
-$connection->connectDB();
-
-$list_phukien = $connection->read('san_pham');
-foreach ($list_phukien as $key => $item) {
-        if ($item["MA_LOAI"] == 1) {
-            unset($list_phukien[$key]);
-        }
-    }
-
-
-$data = array(
-        'san_pham' => $list_phukien
-);
-
-
-?>
 
 <div class="accessories_content">
 
@@ -132,7 +113,7 @@ $data = array(
 
 window.onload = function() {
         
-        loadData(1, 11, 3)
+        loadData(1, 5, 4)
     }
 
 </script>
