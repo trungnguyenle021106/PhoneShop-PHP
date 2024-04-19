@@ -19,19 +19,20 @@ function GetDataForPage(dataArray, pageNumber, itemsPerPage) {
 // Lần lượt các tham số được truyền vào hàm này là : mảng chứa các sản phẩm, số trang muốn hiển thị, 
 // số lượng sản phẩm 1 trang hiển thị, số thứ tự trang tối đa hiển thị
 function GetNumberOfPages(dataArray, pageNumber, itemsPerPage, maxPage) {
+    // console.log(pageNumber+", "+itemsPerPage+", "+maxPage)
     var numberPages_Array = [];
     var totalPage = Math.ceil(dataArray.length / itemsPerPage);
-    var temp1 = 0;
-    var temp2 = 0;
+    var t1 = 0;
+    var t2 = 0;
 
-    for (i = 1; i < totalPage; i++) {
-        temp2 = i * maxPage;
-        temp1 = t2 - maxPage + 1;
-        if (pageNumber > temp1 && pagpageNumber < temp2) {
+    for (var i = 1; i < totalPage; i++) {
+        t2 = i * maxPage;
+        t1 = t2 - maxPage + 1;
+        if (pageNumber >= t1 && pageNumber <= t2) {
             break;
         }
     }
-
+    // console.log(t1+", "+t2)
     if(totalPage < t2)
     {
         for(var i = t1; i<=totalPage;i++)
@@ -45,6 +46,8 @@ function GetNumberOfPages(dataArray, pageNumber, itemsPerPage, maxPage) {
             numberPages_Array.push(i);
         }
     }
+    // console.log(dataArray);
+    // console.log(numberPages_Array)
     return numberPages_Array;
 }
 // Hàm này sẽ trả về số trang tiếp theo khi bấm nút <<
