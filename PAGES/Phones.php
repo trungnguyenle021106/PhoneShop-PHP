@@ -104,10 +104,6 @@
             </div>
         </div>
 
-
-
-
-
         <h1 class="advanced">Advanced</h1>
         <div class="advanced-wrap">
             <div class="advanced-item">
@@ -143,167 +139,40 @@
     </div>
     <div class="container-right">
         <div class="right-content">
-
-
             <div class="content-container">
-
                 <h1 class="container-title">Phones</h1>
                 <div class="phone-list">
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
+                    <?php
+                        require("./Model/Database.php");
 
+                        $server ="localhost";
+                        $username = "root";
+                        $password = "";
+                        $database = "qldienthoai";
 
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
+                        $connect = new MyConnection($server, $username, $password, $database);
+                        $connect->connectDB();
 
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-        
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">iPhone 15 Pro Max Apple BLUE PACIFIC aaaaaaaaaaaaaaaaa</p>
-                            </a>
-                           
-                        </div>
-                        
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                            <span style="font-size: 20px; font-weight:bold ">Giá : 20.000.000 đ</span>
-                            </div>
-                            <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-  
+                        $products = $connect->read("san_pham","MA_LOAI = 1");
+                        foreach ($products as $product) {
+                            echo '<div class="phone-item">
+                                <img class="phone-img" src="/phoneShop/img/'. $product["HINH_ANH"] . '" alt="chua co anh">
+                                <div class="phone-wrap">
+                                    <a href="#" class="phone-link">
+                                        <p class="phone-producer">'. $product["TEN_SP"] .'</p>
+                                    </a>
+                                </div>
+                                
+                                <div class="phone-footer">
+                                    <div class="phone-footer-wrap">
+                                    <span style="font-size: 20px; font-weight:bold ">Giá : '. $product["GIA_BAN"] . 'đ</span>
+                                    </div>
+                                    <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
+                                </div>
+                            </div>';
+                        }
+                        $connect->closeConnection();
+                    ?>
                 </div>
             </div>
         </div>

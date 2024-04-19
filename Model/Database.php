@@ -18,7 +18,7 @@ class MyConnection
         if ($this->connection->connect_error) {
             die("Kết nối đến MySQL thất bại: " . $this->connection->connect_error);
         }
-        echo "Kết nối đến MySQL thành công!";
+        // echo "Kết nối đến MySQL thành công!";
     }
 
     public function query($sql)
@@ -30,7 +30,7 @@ class MyConnection
     {
         if ($this->connection) {
             $this->connection->close();
-            echo "Kết nối đã đóng!";
+            // echo "Kết nối đã đóng!";
         }
     }
 
