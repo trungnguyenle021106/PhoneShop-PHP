@@ -81,7 +81,7 @@ $connect->connectDB();
         <?php
         foreach( $connect->read("nha_sx") as $row){
         ?>
-            <option value="<?php echo $row['MA_NSX']; ?>"><?php echo $row['MA_NSX']; ?></option>
+            <option value="<?php echo $row['MA_NSX']; ?>"><?php echo $row['TEN_NSX']; ?></option>
             <?php } ?>
         </select>
       </div>
