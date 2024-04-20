@@ -76,7 +76,7 @@ class MyConnection
         }
         $set = implode(", ", $set);
         $sql = "UPDATE $tableName SET $set WHERE $id_name = $id";
-        
+
         if ($this->connection->query($sql) === TRUE) {
             return true;
         } else {

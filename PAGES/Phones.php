@@ -6,7 +6,7 @@
                 <span class="header-clear-all">Clear All</span>
             </div>
 
-            <div class="content">
+            <div class="content1">
                 <div class="content-item">
                     <input type="checkbox" class="content-item-check" />
                     <span class="conten-item-title">Bell</span>
@@ -55,7 +55,7 @@
                 <span class="header-title">Brand</span>
             </div>
 
-            <div class="content">
+            <div class="content1">
                 <div class="content-item">
                     <input type="checkbox" class="content-item-check" />
                     <span class="conten-item-title">Apple</span>
@@ -88,7 +88,7 @@
                 <span class="header-title">Categories</span>
             </div>
 
-            <div class="content">
+            <div class="content1">
                 <div class="content-item">
                     <input type="checkbox" class="content-item-check" />
                     <span class="conten-item-title">Phones</span>
@@ -133,8 +133,6 @@
                     <i class="icon"></i>
                 </button>
             </div>
-
-
         </div>
     </div>
     <div class="container-right">
@@ -142,43 +140,20 @@
             <div class="content-container">
                 <h1 class="container-title">Phones</h1>
                 <div class="phone-list">
-                    <?php
-                        require("./Model/Database.php");
-
-                        $server ="localhost";
-                        $username = "root";
-                        $password = "";
-                        $database = "qldienthoai";
-
-                        $connect = new MyConnection($server, $username, $password, $database);
-                        $connect->connectDB();
-
-                        $products = $connect->read("san_pham","MA_LOAI = 1");
-                        foreach ($products as $product) {
-                            echo '<div class="phone-item">
-                                <img class="phone-img" src="/phoneShop/img/'. $product["HINH_ANH"] . '" alt="chua co anh">
-                                <div class="phone-wrap">
-                                    <a href="#" class="phone-link">
-                                        <p class="phone-producer">'. $product["TEN_SP"] .'</p>
-                                    </a>
-                                </div>
-                                
-                                <div class="phone-footer">
-                                    <div class="phone-footer-wrap">
-                                    <span style="font-size: 20px; font-weight:bold ">Giá : '. $product["GIA_BAN"] . 'đ</span>
-                                    </div>
-                                    <a href="?page=Phones&&item=iphone" class="phone-detail">View details</a>
-                                </div>
-                            </div>';
-                        }
-                        $connect->closeConnection();
-                    ?>
+                    <!-- innerHTML page  -->
                 </div>
+                <div class="nav">
+                    <!-- inner nav -->
+                </div>
+                <!-- test -->
+                <!-- <div id="slider">
+                    <div class="left1"></div>
+                    <div class="right1"></div>
+                </div> -->
+                <!-- test -->
             </div>
         </div>
     </div>
+    <script src="/phoneShop/js/pageHandler.js"></script>
+    <script src="/phoneShop/js/phone.js"></script>
 </div>
-
-<?php
-echo '';
-?>

@@ -1,7 +1,7 @@
 <?php
 require("Database.php");
 
-$server ="localhost";
+$server = "localhost";
 $username = "root";
 $password = "";
 $database = "qldienthoai";
@@ -17,7 +17,7 @@ $data = array(
     "THUE_SUAT" => "100",
     "THANH_TIEN" => "35234"
 );
-$connect->create("chi_tiet_hoadon", $data);
+// $connect->create("chi_tiet_hoadon", $data);
 // THÊM VÀO DATABASE
 
 // ĐỌC DỮ LIỆU TỪ DATABASE
@@ -28,15 +28,15 @@ foreach ($chi_tiet_hoadons as $chi_tiet_hoadon) {
 // ĐỌC DỮ LIỆU TỪ DATABASE
 
 //CẬP NHẬT DỮ LIỆU DATABASE
-$MA_LOAI = 3;
+$MA_SP = 12;
 $data = array(
-    "TEN_lOAI" => "Jane Smith"
+    "TEN_SP" => "Jane Smith",
+    "GIA_BAN" => 1
 );
-$connect->update("loai", "MA_LOAI" , $MA_LOAI, $data);
+$connect->update("san_pham", "MA_SP", $MA_SP, $data);
 //CẬP NHẬT DỮ LIỆU DATABASE
 
 //XÓA 
 $MA_LOAI = 3;
-$connect->delete("loai", "MA_lOAI" , $MA_LOAI);
+$connect->delete("loai", "MA_lOAI", $MA_LOAI);
 //XÓA 
-?>
