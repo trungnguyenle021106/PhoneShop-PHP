@@ -112,7 +112,7 @@
 <script>
 
 window.onload = function() {
-        loadData(1, 5, 4)
+        loadData(1, 3, 3)
     }
 
 </script>
