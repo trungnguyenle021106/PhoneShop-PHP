@@ -116,27 +116,33 @@ function loadData(pageNumber, itemsPerPage, maxPage) {
             condition: condition
         },
         success: function (response) {
-            var dataArray = convert_JsonToArray(response);
+            // Khi lấy về là mảng json cần convert sang lại mảng bình thường của js
+            // pageHandler có tham số truyền vào là mảng của js
+            var dataArray = convert_JsonToArray(response); 
             var dataForPage = GetDataForPage(dataArray, pageNumber, itemsPerPage);
-            var html = "";
-            for (var i = 0; i < dataForPage.length; i++) {
-                html += '<a href="" class="products">';
-                html += '<div class="name">' + dataForPage[i].TEN_SP + '</div>';
-                html += '<div class="Img"><img src="Img/' + dataForPage[i].HINH_ANH + '"></div>';
-                html += '<div class="price">' + changePriceToString(dataForPage[i].GIA_BAN) + '</div>';
-                html += '</a>';
-            }
-
-            var accessories_page = document.getElementById("accessories_page");
-            accessories_page.innerHTML = html;
-
-            loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage)
+            
+            loadDataForPage(dataForPage);
+            loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage);
         },
         error: function (xhr, status, error) {
             console.log(error);
         }
     });
 
+}
+
+function loadDataForPage(dataForPage)
+{   var html = ""
+    for (var i = 0; i < dataForPage.length; i++) {
+        html += '<a href="" class="products">';
+        html += '<div class="name">' + dataForPage[i].TEN_SP + '</div>';
+        html += '<div class="Img"><img src="Img/' + dataForPage[i].HINH_ANH + '"></div>';
+        html += '<div class="price">' + changePriceToString(dataForPage[i].GIA_BAN) + '</div>';
+        html += '</a>';
+    }
+
+    var accessories_page = document.getElementById("accessories_page");
+    accessories_page.innerHTML = html;
 }
 
 function loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage) {
