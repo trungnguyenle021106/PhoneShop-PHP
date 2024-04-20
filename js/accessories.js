@@ -194,7 +194,7 @@ function changePriceToString(price) {
 function convert_JsonToArray(dataJsonArray) {
     var dataArray = [];
     for (var key in dataJsonArray) {
-        if(dataJsonArray[key].MA_LOAI == 2)
+        if(dataJsonArray[key].MA_LOAI != 1)
         {
             dataArray.push(dataJsonArray[key]);
         }
