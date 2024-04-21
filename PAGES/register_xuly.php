@@ -1,21 +1,21 @@
 <?php
-// Kiểm tra nếu có dữ liệu được gửi từ phía client
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy dữ liệu từ POST request
-    $username = $_POST["username"];
-    $password = $_POST["password"];
-    $passwordRepeat = $_POST["passwordRepeat"];
+require __DIR__ . '/../Model/Database.php';
+session_start(); // Khởi động phiên
 
-    // Khởi tạo mảng để lưu các thông báo lỗi
-    $errors = array();
-// Hàm kiểm tra ký tự đặc biệt
-function hasSpecialChars($str) {
+
+// Hàm kiểm tra tài khoản và mật khẩu
+function validateRegistration($username, $password, $passwordRepeat) {
+  $errors = [];
+
+  // Kiểm tra các điều kiện và thêm thông báo lỗi nếu cần
+  // Hàm kiểm tra ký tự đặc biệt
+  function hasSpecialChars($str) {
     $regex = '/[\'^£$%&*()}{@#$~+=:;?.<>,\/\[\]|\-_ ]/';
     return preg_match($regex, $str);
   }
 
-// Kiểm tra username
-if (strlen($username) < 6) {
+  // Kiểm tra username
+  if (strlen($username) < 6) {
     $errors['usernameError'] = "Tên tài khoản ngắn hơn 6 ký tự.";
   } elseif (hasSpecialChars($username)) {
     $errors['usernameError'] = "Tên tài khoản không được có ký tự đặc biệt.";
@@ -23,12 +23,12 @@ if (strlen($username) < 6) {
     $errors['usernameError'] = "Tên tài khoản không được bắt đầu bằng số.";
   }
 
-
-// Hàm kiểm tra mật khẩu mạnh
-function isStrongPassword($password) {
+  // Hàm kiểm tra mật khẩu mạnh
+  function isStrongPassword($password) {
     $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~!@#$%^&*()_+\-=\[\]{};:\'"\\|,.<>\/?])(?=.{8,})/';
     return preg_match($regex, $password);
   }
+
   // Kiểm tra mật khẩu
   if (strlen($password) < 8) {
     $errors['passwordError'] = "Mật khẩu không được ngắn hơn 8 ký tự.";
@@ -36,14 +36,62 @@ function isStrongPassword($password) {
     $errors['passwordError'] = "Mật khẩu phải chứa ít nhất một chữ cái viết thường, một chữ cái viết hoa, một chữ số và một ký tự đặc biệt.";
   }
 
-    if ($password !== $passwordRepeat) {
-        $errors['passwordRepeatError'] = "Mật khẩu không khớp.";
-    }
+  if ($password !== $passwordRepeat) {
+    $errors['passwordRepeatError'] = "Mật khẩu không khớp.";
+  }
 
-    // Chuyển đổi mảng $errors sang JSON trước khi gửi
-    $errorsJSON = json_encode($errors);
-
-    // Gửi chuỗi JSON
-    echo $errorsJSON;
+  return $errors;
 }
+
+// Hàm lưu tài khoản vào cơ sở dữ liệu
+function saveTK($username, $password) {
+  $server = "localhost";
+  $username1 = "root";
+  $password1 = "";
+  $database = "qldienthoai";
+
+  $connect = new MyConnection($server, $username1, $password1, $database);
+  $connect->connectDB();
+
+  // Kiểm tra tài khoản đã tồn tại hay chưa
+  $existing_accounts = $connect->read("tai_khoan", "TEN_TK = '$username'");
+  $errors = [];
+  
+  if (!empty($existing_accounts)) {
+      $connect->closeConnection();
+      $errors['usernameError'] = "Tài khoản đã tồn tại.";
+      return  $errors;
+  } else {
+      $currentDate = date("Y-m-d H:i:s"); // Lấy ngày và giờ hiện tại
+      $data = [
+          "TEN_TK" => $username,
+          "MAT_KHAU" => $password,
+          "NGAY_TAO_TK" => $currentDate,
+          "TINH_TRANG" => "True",
+          "MA_Q" => "2"
+      ];
+      // $connect->create("tai_khoan", $data);
+      $connect->closeConnection();
+      $errors['success'] = 'Đăng ký thành công';
+      return  $errors;
+  }
+}
+
+// Xử lý yêu cầu đăng ký
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $username = $_POST["username"];
+  $password = $_POST["password"];
+  $passwordRepeat = $_POST["passwordRepeat"];
+
+  $errors = validateRegistration($username, $password, $passwordRepeat);
+
+  if (!empty($errors)) {
+      echo json_encode($errors);
+  } else {
+     $result = saveTK($username, $password);
+     echo json_encode($result);
+  }
+}
+
+
 ?>

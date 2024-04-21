@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Đăng ký</title>
-<link rel="stylesheet" href="/PhoneShop/CSS/register.css">
+<link rel="stylesheet" href="/CSS/register.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -17,14 +17,14 @@ $(document).ready(function() {
         // Gửi dữ liệu form đến máy chủ sử dụng AJAX
         $.ajax({
             type: "POST",
-            url: "/PhoneShop/PAGES/register_xuly.php", // Đường dẫn đến file xử lý dữ liệu đăng ký ở phía máy chủ
+            url: "/PAGES/register_xuly.php", // Đường dẫn đến file xử lý dữ liệu đăng ký ở phía máy chủ
             data: {
                 username: username,
                 password: password,
                 passwordRepeat: passwordRepeat
             },
             success: function(response) {
-              console.log(response)
+               console.log(response)
               // Parse JSON response thành object
               var errors = JSON.parse(response);
 
@@ -34,9 +34,14 @@ $(document).ready(function() {
                   $("#usernameError").html(errors.usernameError || "");
                   $("#passwordError").html(errors.passwordError || "");
                   $("#passwordRepeatError").html(errors.passwordRepeatError || "");
+                  if (errors.success !== null && errors.success !== '') {
+                    // Nếu không có lỗi, hiển thị thông báo thành công và làm điều gì đó khác
+                    console.log(errors.success);
+                    // Ví dụ: chuyển hướng người dùng đến trang khác sau khi đăng ký thành công
+                    window.location.href = "/PAGES/Login.php?show=true";
+                  }
               } else {
-                  // Nếu không có lỗi, có thể làm điều gì đó khác, hoặc không làm gì cả
-                  console.log("Đăng ký thành công!");
+                console.log("có lỗi xảy ra ");
               }
             }
         });
@@ -68,7 +73,7 @@ $(document).ready(function() {
   </div>
 
   <div class="container1 signin">
-    <p>Bạn đã có tài khoản? <a href="/PhoneShop/PAGES/Login.php">Đăng nhập</a>.</p>
+    <p>Bạn đã có tài khoản? <a href="/PAGES/Login.php?show=true">Đăng nhập</a>.</p>
   </div>
 
 </form>

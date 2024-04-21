@@ -28,8 +28,8 @@ function checkLogin() {
                     //chuyen hướng trang
                 }
                 setTimeout(function() {
-                    document.getElementById('id01').style.display = 'none';
-                    // window.location.href = '/homepage';
+                    // document.getElementById('id01').style.display = 'none';
+                    window.location.href = '/Index.php';
                 }, 2000);
             } else {
                 $('#messenger').text(kq.message);
