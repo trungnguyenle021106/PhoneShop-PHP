@@ -146,10 +146,20 @@
                     <!-- inner nav -->
                 </div>
                 <!-- test -->
-                <!-- <div id="slider">
-                    <div class="left1"></div>
-                    <div class="right1"></div>
-                </div> -->
+                <div class="container-search-price">
+                    <div class="content-price">
+                        <p class="price-left">0đ</p>
+                        <p class="price-right">100.000.000đ</p>
+                    </div>
+                    <div id="slider">                    
+                        <div class="left1"></div>
+                        <div class="right1"></div>
+                    </div>
+                    <div class="group-btn">
+                        <div class="btn-close">đóng</div>
+                        <div class="btn-search">xem kết quả</div>
+                    </div>
+                </div>
                 <!-- test -->
             </div>
         </div>

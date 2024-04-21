@@ -1,36 +1,79 @@
-// var slider = document.getElementById("slider");
-// var left = document.querySelector('.left1')
-// var right = document.querySelector('.right1')
 // test keo trai phai
-// function moveSliderLeft(event) {
-//     var rect = slider.getBoundingClientRect();
-//     var pos = (event.clientX - rect.left) / rect.width;
-//     pos = Math.min(1, Math.max(0, pos));
-//     left.style.left = (pos * 100) - 3 + "%"
-// }
+var slider = document.getElementById("slider");
+var left = document.querySelector('.left1')
+var right = document.querySelector('.right1')
+var priceLeft = document.querySelector('.price-left')
+var priceRight = document.querySelector('.price-right')
 
-// function moveSliderRight(event) {
-//     var rect = slider.getBoundingClientRect();
-//     var pos = (event.clientX - rect.left) / rect.width;
-//     pos = Math.min(1, Math.max(0, pos));
-//     right.style.left = (pos * 100) - 3 + "%"
-// }
+function formatCurrency(number) {
+    let strNumber = Math.abs(number).toString();
+    let parts = strNumber.split(".");
+    let integerPart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+    let formattedInteger = "";
 
-// left.addEventListener("mousedown", function(event) {
-//     moveSliderLeft(event);
-//     window.addEventListener("mousemove", moveSliderLeft);
-//     window.addEventListener("mouseup", function() {
-//         window.removeEventListener("mousemove", moveSliderLeft);
-//     })
-// })
+    for (let i = integerPart.length - 1; i >= 0; i--) {
+        formattedInteger = integerPart[i] + formattedInteger;
+        if ((integerPart.length - i) % 3 === 0 && i !== 0) {
+            formattedInteger = "." + formattedInteger;
+        }
+    }
 
-// right.addEventListener("mousedown", function(event) {
-//     moveSliderRight(event);
-//     window.addEventListener("mousemove", moveSliderRight);
-//     window.addEventListener("mouseup", function() {
-//         window.removeEventListener("mousemove", moveSliderRight);
-//     })
-// })
+    let formattedNumber = formattedInteger + decimalPart;
+
+    if (number < 0) {
+        formattedNumber = "-" + formattedNumber;
+    }
+    return formattedNumber;
+}
+
+function moveSliderLeft(event) {
+    var rect = slider.getBoundingClientRect();
+    var pos = (event.clientX - rect.left) / rect.width;
+    pos = Math.min(1, Math.max(0, pos));
+    perRight = parseFloat(right.style.left.substring(0, right.style.left.length - 1))
+
+    if((pos * 100) - 3 < 97 && isNaN(perRight)) {
+        left.style.left = (pos * 100) - 3 + "%"
+        priceLeft.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    } 
+    else if((pos * 100) - 3 < perRight) {
+        left.style.left = (pos * 100) - 3 + "%"
+        priceLeft.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    }
+}
+
+function moveSliderRight(event) {
+    var rect = slider.getBoundingClientRect();
+    var pos = (event.clientX - rect.left) / rect.width;
+    pos = Math.min(1, Math.max(0, pos))
+    perLeft = parseFloat(left.style.left.substring(0, left.style.left.length - 1))
+
+    if((pos * 100) - 3 > -3 && isNaN(perLeft)) {
+        right.style.left = (pos * 100) - 3 + "%"
+        priceRight.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    } 
+    else if((pos * 100) - 3 > perLeft) {
+        right.style.left = (pos * 100) - 3 + "%"
+        priceRight.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    }
+}
+
+left.addEventListener("mousedown", function(event) {
+    moveSliderLeft(event);
+    window.addEventListener("mousemove", moveSliderLeft);
+    window.addEventListener("mouseup", function() {
+        window.removeEventListener("mousemove", moveSliderLeft);
+    })
+})
+
+right.addEventListener("mousedown", function(event) {
+    moveSliderRight(event);
+    window.addEventListener("mousemove", moveSliderRight);
+    window.addEventListener("mouseup", function() {
+        window.removeEventListener("mousemove", moveSliderRight);
+    })
+})
 // het test
 
 const phone = {
