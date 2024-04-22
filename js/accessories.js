@@ -169,7 +169,7 @@ function loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage) {
 }
 
 function changePriceToString(price) {
-    var s = "đ";
+    var s = "";
     var temp = 0;
     var flag = 0;
     var amountDot = Math.round(price.length / 3);
@@ -188,7 +188,7 @@ function changePriceToString(price) {
             s = s + price[i];
         }
     }
-    return s.split("").reverse().join("");
+    return s.split("").reverse().join("") + "đ";
 }
 
 function convert_JsonToArray(dataJsonArray) {
