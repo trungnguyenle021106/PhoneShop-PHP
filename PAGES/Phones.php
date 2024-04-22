@@ -1,109 +1,68 @@
 <div class="container">
     <div class="container-left">
+        <?php
+            require 'Model/Database.php';
+            $connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
+            $connection->connectDB();
+            $category = $connection->read('loai');
+            $made = $connection->read('nha_sx');
+            
+            echo '<div class="container-left-info">
+                        <div class="header">
+                            <span class="header-title">Danh mục</span>
+                        </div>
+                        <div class="content1">';
+
+            foreach ($category as $item) {
+                echo '
+                    <div class="content-item">
+                        <input type="checkbox" class="content-item-check" checked/>
+                        <span class="content-item-title">'. $item["TEN_LOAI"] .'</span>
+                    </div>';
+                            
+            }
+            
+            echo'</div>
+            </div>
+            <div class="container-left-info">
+                <div class="header">
+                    <span class="header-title">Hãng</span>
+                </div>
+
+                <div class="content1">';
+
+            foreach ($made as $item) {
+                echo '
+                    <div class="content-item">
+                        <input type="checkbox" class="content-item-check" checked/>
+                        <span class="content-item-title">
+                        '. $item["TEN_NSX"] .'</span>
+                    </div>';
+            }
+
+            echo '</div>
+            </div>';
+            $connection->closeConnection();
+        ?>
         <div class="container-left-info">
             <div class="header">
-                <span class="header-title">Carriers</span>
-                <span class="header-clear-all">Clear All</span>
+                <span class="header-title">Sắp xếp</span>
             </div>
-
             <div class="content1">
                 <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Bell</span>
+                    <input name="price" type="radio" class="content-item-check" checked/>
+                    <span class="content-item-title">Giá: mặc định</span>
                 </div>
                 <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Rogers</span>
+                    <input name="price" type="radio" class="content-item-check"/>
+                    <span class="content-item-title">Giá: nhỏ đến lớn</span>
                 </div>
                 <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Telus</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Freedom Mobile</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Fido</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Koodo</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Virgin</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Chatr</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Lucky Moblie</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">PC Mobile</span>
+                    <input name="price" type="radio" class="content-item-check"/>
+                    <span class="content-item-title">Giá: lớn đến nhỏ</span>
                 </div>
             </div>
         </div>
-
-        <div class="container-left-info">
-            <div class="header">
-                <span class="header-title">Brand</span>
-            </div>
-
-            <div class="content1">
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Apple</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Samsung</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Motorola</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Google</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">TCL</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">ALcatel</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-left-info">
-            <div class="header">
-                <span class="header-title">Categories</span>
-            </div>
-
-            <div class="content1">
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Phones</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Prepaid Phones</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check" />
-                    <span class="conten-item-title">Tablets</span>
-                </div>
-            </div>
-        </div>
-
         <h1 class="advanced">Advanced</h1>
         <div class="advanced-wrap">
             <div class="advanced-item">
@@ -146,7 +105,7 @@
                     <!-- inner nav -->
                 </div>
                 <!-- test -->
-                <div class="container-search-price">
+                <!-- <div class="container-search-price">
                     <div class="content-price">
                         <p class="price-left">0đ</p>
                         <p class="price-right">100.000.000đ</p>
@@ -159,7 +118,7 @@
                         <div class="btn-close">đóng</div>
                         <div class="btn-search">xem kết quả</div>
                     </div>
-                </div>
+                </div> -->
                 <!-- test -->
             </div>
         </div>
