@@ -1,108 +1,164 @@
 
-// // //tạo hiệu ứng trượt slide
-// const slider = document.querySelector('.slide-container');
-// const slides = document.querySelector('.slides');
-// let currentSlide = 0;
-// const totalSlides = 2; // Số lượng tổng ảnh trong container (trong trường hợp này là 3)
+// test keo trai phai
+var slider = document.getElementById("slider-accessories");
+var left = document.querySelector('.left1-accessories')
+var right = document.querySelector('.right1-accessories')
+var priceLeft = document.querySelector('.price-left-accessories')
+var priceRight = document.querySelector('.price-right-accessories')
+var btn_Price_Multi_Slider = document.getElementById("btn_Price_Multi_Slider");
+var Price_Multi_Slider = document.getElementById("Price_Multi_Slider");
+var btn_close_price_slider = document.getElementById("btn_close_price_slider");
 
-// function updateSliderPosition() {
-//     const offset = -currentSlide * 736; // 736 là image width
-//     slides.style.transform = `translateX(${offset}px)`;
-// }
+btn_Price_Multi_Slider.addEventListener("click", function () {
+    Price_Multi_Slider.style.display = "block";
+});
 
-
-// updateSliderPosition();
-// //tự động trượt slide 
-// let autoslide;
-
-// function changeslide() {
-//     if (currentSlide < totalSlides) {
-//         currentSlide++;
-//     } else {
-//         currentSlide = 0 // trượt về slide đầu
-//     }
-//     updateSliderPosition();
-// }
-
-// function startAutoSlide() {
-//     autoslide = setInterval(() => { changeslide(); }, 1500);//hàm tạo sự kiện tự động sau 1 khoảng thời gian  sau 2s
-// }
-
-// function stopAutoSlide() {
-//     clearInterval(autoslide);
-// }
-
-// //bắt đầu tự động trượt slide khi vào wed
-// startAutoSlide();
-
-// //tạm dựng khi hover chuột vào slider
-// slider.addEventListener('mouseenter', stopAutoSlide);
-
-// //tiếp tục khỉ rẻ chuột ra khỏi slider
-// slider.addEventListener('mouseleave', startAutoSlide);
-
-// //--------------------------------------------------------//
+btn_close_price_slider.addEventListener("click", function () {
+    Price_Multi_Slider.style.display = "none";
+});
 
 
-// //-------------------------------------------------------//
-// //tạo hiệu ứng scroll lên xuống
+function formatCurrency(number) {
+    let strNumber = Math.abs(number).toString();
+    let parts = strNumber.split(".");
+    let integerPart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+    let formattedInteger = "";
 
-// //nut lên
-// document.addEventListener('DOMContentLoaded', function () {
-//     var scroll_btn = document.querySelector('.scroll_up_btn');
-//     var isScrolling = false; // Biến để xác định trạng thái cuộn
+    for (let i = integerPart.length - 1; i >= 0; i--) {
+        formattedInteger = integerPart[i] + formattedInteger;
+        if ((integerPart.length - i) % 3 === 0 && i !== 0) {
+            formattedInteger = "." + formattedInteger;
+        }
+    }
 
-//     scroll_btn.addEventListener('click', function () {
-//         // Cuộn lên trên
-//         window.scrollTo({
-//             top: 0,
-//             behavior: 'smooth'
-//         });
-//     });
+    let formattedNumber = formattedInteger + decimalPart;
 
-//     window.addEventListener('scroll', function () {
-//         if (document.documentElement.scrollTop > 10) {
-//             if (!isScrolling) { // Nếu đang ngừng cuộn
-//                 isScrolling = true; // Đặt trạng thái cuộn
-//                 scroll_btn.style.right = "0px"; // Hiển thị nút khi cuộn trang xuống
-//             }
-//         } else {
-//             isScrolling = false; // Đặt trạng thái cuộn
-//             scroll_btn.style.right = "-100px"; // Ẩn nút khi cuộn lên đầu
-//         }
-//     });
-// });
+    if (number < 0) {
+        formattedNumber = "-" + formattedNumber;
+    }
+    return formattedNumber;
+}
 
-// //nút xuống
-// document.addEventListener('DOMContentLoaded', function () {
-//     var scroll_btn1 = document.querySelector('.scroll_down_btn');
-//     var isScrolling1 = false; // Biến để xác định trạng thái cuộn
+function moveSliderLeft(event) {
+    var rect = slider.getBoundingClientRect();
+    var pos = (event.clientX - rect.left) / rect.width;
+    pos = Math.min(1, Math.max(0, pos));
+    perRight = parseFloat(right.style.left.substring(0, right.style.left.length - 1))
 
-//     scroll_btn1.addEventListener('click', function () {
-//         // Cuộn  xuống
-//         window.scrollTo({
-//             top: document.body.scrollHeight, // Cuộn đến cuối trang
-//             behavior: 'smooth'
-//         });
-//     });
+    if ((pos * 100) - 3 < 97 && isNaN(perRight)) {
+        left.style.left = (pos * 100) - 3 + "%"
+        priceLeft.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    }
+    else if ((pos * 100) - 3 < perRight) {
+        left.style.left = (pos * 100) - 3 + "%"
+        priceLeft.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    }
+}
 
-//     window.addEventListener('scroll', function () {
-//         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-//             if (!isScrolling1) { // Nếu đang ngừng cuộn
-//                 scroll_btn1.style.left = "-100px";
-//                 isScrolling1 = true; // Đặt trạng thái cuộn
-//             }
-//         } else {
-//             scroll_btn1.style.left = "0px";
-//             isScrolling1 = false; // Đặt trạng thái cuộn
-//         }
-//     });
-// });
-//-------------------------------------------------------//
+function moveSliderRight(event) {
+    var rect = slider.getBoundingClientRect();
+    var pos = (event.clientX - rect.left) / rect.width;
+    pos = Math.min(1, Math.max(0, pos))
+    perLeft = parseFloat(left.style.left.substring(0, left.style.left.length - 1))
+
+    if ((pos * 100) - 3 > -3 && isNaN(perLeft)) {
+        right.style.left = (pos * 100) - 3 + "%"
+        priceRight.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    }
+    else if ((pos * 100) - 3 > perLeft) {
+        right.style.left = (pos * 100) - 3 + "%"
+        priceRight.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
+    }
+}
+
+left.addEventListener("mousedown", function (event) {
+    moveSliderLeft(event);
+    window.addEventListener("mousemove", moveSliderLeft);
+    window.addEventListener("mouseup", function () {
+        window.removeEventListener("mousemove", moveSliderLeft);
+    })
+})
+
+right.addEventListener("mousedown", function (event) {
+    moveSliderRight(event);
+    window.addEventListener("mousemove", moveSliderRight);
+    window.addEventListener("mouseup", function () {
+        window.removeEventListener("mousemove", moveSliderRight);
+    })
+})
 
 
 
-function loadData(pageNumber, itemsPerPage, maxPage) {
+var dataArray = [];
+
+function setConditionForFilter(selectedLoaiValue, loai, selectedNSXValue, nsx, selectedSXValue, sx) {
+    var condition = "";
+    if (selectedLoaiValue != "" && selectedNSXValue != "" && selectedSXValue != "") {
+        condition = condition + loai + " AND " + nsx + " " + sx;
+    }
+    else if (selectedNSXValue != "" && selectedSXValue != "") {
+        condition = condition + nsx + " " + sx;
+    }
+    else if (selectedLoaiValue != "" && selectedSXValue != "") {
+        condition = condition + loai + " " + sx;
+    }
+    else if (selectedNSXValue != "") {
+        condition = condition + nsx;
+    }
+    else if (selectedLoaiValue != "") {
+        condition = condition + loai;
+    }
+    else if (selectedSXValue != "") {
+        condition = condition + " 1=1 " + sx;
+    }
+    return condition;
+}
+
+function setDataForFilter() {
+    var selectLoaiElement = document.getElementById("loai");
+    var selectedLoaiValue = selectLoaiElement.value;
+    var loai = " MA_LOAI =" + selectedLoaiValue;
+
+    var selectNSXElement = document.getElementById("nsx");
+    var selectedNSXValue = selectNSXElement.value;
+    var nsx = " MA_NSX = " + selectedNSXValue;
+
+    var selectSXElement = document.getElementById("sapxep");
+    var selectedSXValue = selectSXElement.value;
+    var sx = "";
+    if (selectedSXValue == "GIA_TANG_DAN") {
+        sx = "ORDER BY GIA_BAN ASC";
+    }
+    else if (selectedSXValue == "GIA_GIAM_DAN") {
+        sx = "ORDER BY GIA_BAN DESC";
+    }
+
+    var operation = "Read";
+    var tableName = "san_pham";
+    var condition = setConditionForFilter(selectedLoaiValue, loai, selectedNSXValue, nsx, selectedSXValue, sx);
+
+    $.ajax({
+        url: 'AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+
+            dataArray = convert_JsonToArray(response);
+            loadData(1, 3, 3);
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function setDataOnload() {
     var operation = "Read";
     var tableName = "san_pham";
     var condition = "";
@@ -116,23 +172,24 @@ function loadData(pageNumber, itemsPerPage, maxPage) {
             condition: condition
         },
         success: function (response) {
-            // Khi lấy về là mảng json cần convert sang lại mảng bình thường của js
-            // pageHandler có tham số truyền vào là mảng của js
-            var dataArray = convert_JsonToArray(response); 
-            var dataForPage = GetDataForPage(dataArray, pageNumber, itemsPerPage);
-            
-            loadDataForPage(dataForPage);
-            loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage);
+
+            dataArray = convert_JsonToArray(response);
+            loadData(1, 8, 3);
         },
         error: function (xhr, status, error) {
             console.log(error);
         }
     });
-
 }
 
-function loadDataForPage(dataForPage)
-{   var html = ""
+function loadData(pageNumber, itemsPerPage, maxPage) {
+    var dataForPage = GetDataForPage(dataArray, pageNumber, itemsPerPage);
+    loadDataForPage(dataForPage);
+    loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage);
+}
+
+function loadDataForPage(dataForPage) {
+    var html = ""
     for (var i = 0; i < dataForPage.length; i++) {
         html += '<a href="" class="products">';
         html += '<div class="name">' + dataForPage[i].TEN_SP + '</div>';
@@ -192,12 +249,12 @@ function changePriceToString(price) {
 }
 
 function convert_JsonToArray(dataJsonArray) {
-    var dataArray = [];
+    var Array = [];
     for (var key in dataJsonArray) {
-        if(dataJsonArray[key].MA_LOAI != 1)
-        {
-            dataArray.push(dataJsonArray[key]);
+        if (dataJsonArray[key].MA_LOAI != 1) {
+            Array.push(dataJsonArray[key]);
         }
     }
-    return dataArray;
-}   
+    return Array;
+}
+

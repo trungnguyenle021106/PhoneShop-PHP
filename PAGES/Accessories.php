@@ -3,31 +3,48 @@
         <div class="filter">
 
 
-                <select class="item-filter" id="loai">
-                        <option value="type">LOẠI</option>
-                        <option value="Tai nghe">TAI NGHE</option>
-                        <option value="Sac">SẠC</option>
-                        <option value="Op lung">ỐP LƯNG</option>
+                <select class="item-filter" id="loai" onchange="setDataForFilter()">
+                        <option value="">LOẠI</option>
+                        <option value="3">TAI NGHE</option>
+                        <option value="5">SẠC</option>
+                        <option value="4">ỐP LƯNG</option>
                 </select>
 
-                <select class="item-filter" id="nsx">
-                        <option value="producer">THƯƠNG HIỆU</option>
-                        <option value="Apple">APPLE</option>
-                        <option value="Samsung">SAMSUNG</option>
+                <select class="item-filter" id="nsx" onchange="setDataForFilter()">
+                        <option value="">THƯƠNG HIỆU</option>
+                        <option value="1">APPLE</option>
+                        <option value="2">SAMSUNG</option>
                         <option value="Google">GOOGLE</option>
                         <option value="Oppo">OPPO</option>
                 </select>
-                <select class="item-filter" id="sapxep">
-                        <option value="sort">SẮP XẾP</option>
-                        <option value="Apple">GIÁ TĂNG DẦN</option>
-                        <option value="Samsung">GIÁ GIẢM DẦN</option>
+                <select class="item-filter" id="sapxep" onchange="setDataForFilter()">
+                        <option value="">SẮP XẾP</option>
+                        <option value="GIA_TANG_DAN">GIÁ TĂNG DẦN</option>
+                        <option value="GIA_GIAM_DAN">GIÁ GIẢM DẦN</option>
                 </select>
-                <div id="sort-option" class="item-filter">
-                        <i class="fa-solid fa-chevron-down" id="arrow"></i>
+                <div style="background-color:white;" id="btn_Price_Multi_Slider" class="item-filter" style="position: relative;">
+                GIÁ
+                        <!-- test -->
+                        <div class="container-search-price-accessories" id="Price_Multi_Slider" style="position: absolute; top:50px; 
+                        z-index:1; display:none">
+                                <div class="content-price-accessories">
+                                        <p class="price-left-accessories">0đ</p>
+                                        <p class="price-right-accessories">100.000.000đ</p>
+                                </div>
+                                <div id="slider-accessories">
+                                        <div class="left1-accessories"></div>
+                                        <div class="right1-accessories"></div>
+                                </div>
+                                <div class="group-btn-accessories">
+                                        <div class="btn-close-accessories" id="btn_close_price_slider">đóng</div>
+                                        <div class="btn-search-accessories">xem kết quả</div>
+                                </div>
+                        </div>
+                        <!-- test -->
                 </div>
 
-                
-                <button id="btn-clear" style=""><span>CLEAR</span></button>
+
+                <button id="btn-clear"><span>CLEAR</span></button>
         </div>
         <div class="accessories_section" id="accessories_page">
                 <a href="" class="products">
@@ -68,28 +85,28 @@
                                 echo '</a>';
                         }
 
-                        function changePriceToString($price) {
+                        function changePriceToString($price)
+                        {
                                 $s = "";
                                 $temp = 0;
                                 $flag = 0;
                                 $amountDot = round(strlen($price) / 3);
-                            
+
                                 if (strlen($price) % 3 == 0) {
-                                    $amountDot--;
+                                        $amountDot--;
                                 }
                                 for ($i = strlen($price) - 1; $i >= 0; $i--) {
-                                    $temp++;
-                                    if ($temp == 3 && $flag < $amountDot) {
-                                        $s = $s . $price[$i] . ".";
-                                        $flag++;
-                                        $temp = 0;
-                                    }
-                                    else {
-                                        $s = $s . $price[$i];
-                                    }
+                                        $temp++;
+                                        if ($temp == 3 && $flag < $amountDot) {
+                                                $s = $s . $price[$i] . ".";
+                                                $flag++;
+                                                $temp = 0;
+                                        } else {
+                                                $s = $s . $price[$i];
+                                        }
                                 }
-                                return strrev($s)."đ";
-                            }
+                                return strrev($s) . "đ";
+                        }
 
                         $connection->closeConnection();
                         ?>
@@ -110,12 +127,12 @@
         </div>
 </div>
 
-<script src="/js/accessories.js"></script>
-<script src="/js/pageHandler.js"></script>
+<script src="./js/accessories.js"></script>
+<script src="./js/pageHandler.js"></script>
 
 <script>
         window.onload = function() {
-                loadData(1, 3, 3)
+                setDataOnload();
         }
 </script>
 <!-- <div class="scroll_down_btn">
