@@ -3,30 +3,29 @@
         <div class="filter">
 
 
-                <select class="item-filter" id="loai" onchange="setDataForFilter()">
+                <select class="item-filter-accesories" id="loai" onchange="setDataForFilter()">
                         <option value="">LOẠI</option>
                         <option value="3">TAI NGHE</option>
                         <option value="5">SẠC</option>
                         <option value="4">ỐP LƯNG</option>
                 </select>
 
-                <select class="item-filter" id="nsx" onchange="setDataForFilter()">
+                <select class="item-filter-accesories" id="nsx" onchange="setDataForFilter()">
                         <option value="">THƯƠNG HIỆU</option>
                         <option value="1">APPLE</option>
                         <option value="2">SAMSUNG</option>
                         <option value="Google">GOOGLE</option>
                         <option value="Oppo">OPPO</option>
                 </select>
-                <select class="item-filter" id="sapxep" onchange="setDataForFilter()">
+                <select class="item-filter-accesories" id="sapxep" onchange="setDataForFilter()">
                         <option value="">SẮP XẾP</option>
                         <option value="GIA_TANG_DAN">GIÁ TĂNG DẦN</option>
                         <option value="GIA_GIAM_DAN">GIÁ GIẢM DẦN</option>
                 </select>
-                <div style="background-color:white;" id="btn_Price_Multi_Slider" class="item-filter" style="position: relative;">
-                GIÁ
+                <div style="position: relative;" id="btn_Price_Multi_Slider" class="item-filter-accesories">
+                        <span>GIÁ KHOẢNG</span>
                         <!-- test -->
-                        <div class="container-search-price-accessories" id="Price_Multi_Slider" style="position: absolute; top:50px; 
-                        z-index:1; display:none">
+                        <div class="container-search-price-accessories" id="Price_Multi_Slider">
                                 <div class="content-price-accessories">
                                         <p class="price-left-accessories">0đ</p>
                                         <p class="price-right-accessories">100.000.000đ</p>
@@ -43,21 +42,17 @@
                         <!-- test -->
                 </div>
 
-
-                <button id="btn-clear"><span>CLEAR</span></button>
+                <div class="item-filter-accesories"> Clear ALL </div>
         </div>
         <div class="accessories_section" id="accessories_page">
-                <a href="" class="products">
+                
+                <!-- <a href="" class="products">
                         <div class="name">Hypergear</div>
                         <div class="discrible">Hypergear 20W White USB-C PD Wall Charger Hub</div>
 
                         <div class="Img"><img src="Img/hypergear.png" alt="##"></div>
                         <div class="price">$19.99</div>
-                </a>
-
-
-
-
+                </a> -->
         </div>
         <div class="change_slide_content">
                 <div class="change_slide" id="Pagination">
@@ -110,20 +105,14 @@
 
                         $connection->closeConnection();
                         ?>
-                        <a href="" class="products" style="border: 1px solid black;">
+                        <!-- <a href="" class="products" style="border: 1px solid black;">
                                 <div class="name">Zagg</div>
                                 <div class="discrible">iPhone 15/14/13 ZAGG (GEAR4) Crystal Palace Case</div>
 
                                 <div class="Img"><img src="Img/zagg.jpg" alt="##"></div>
                                 <div class="price">$49.99</div>
-                        </a>
-
-
-
-
+                        </a> -->
                 </div>
-
-
         </div>
 </div>
 
@@ -135,12 +124,3 @@
                 setDataOnload();
         }
 </script>
-<!-- <div class="scroll_down_btn">
-                <i class="fa-solid fa-arrow-down" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>
-                <span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: red">Back down</span>
-        </div>
-        <div class="scroll_up_btn">
-                <i class="fa-solid fa-arrow-up" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>
-                <span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: red; margin-left: 10px;">Back up</span>
-        </div>
-        </div> -->

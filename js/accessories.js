@@ -9,6 +9,7 @@ var btn_Price_Multi_Slider = document.getElementById("btn_Price_Multi_Slider");
 var Price_Multi_Slider = document.getElementById("Price_Multi_Slider");
 var btn_close_price_slider = document.getElementById("btn_close_price_slider");
 
+Price_Multi_Slider.style.display = "none";
 btn_Price_Multi_Slider.addEventListener("click", function () {
     Price_Multi_Slider.classList.add("dp-block")
 });

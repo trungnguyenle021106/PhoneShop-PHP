@@ -72,7 +72,7 @@ top: 12px;
     font-weight: bold;
 }
 
-.item-filter{
+.item-filter-accesories{
     position: relative;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -80,13 +80,14 @@ top: 12px;
     width: 15%;
     height: 50px;
     text-indent: 5px; /* dịch text sang bên phải*/
-
+    background-color: white;
     border-radius: 5px;
     padding: 2px;
     margin-top: 10px;
+    font-size:15px; cursor:pointer; text-align:center; line-height:50px
 }
 
-.item-filter option{
+.item-filter-accesories option{
    font-size: 20px;
 }
 
@@ -250,7 +251,10 @@ font-weight: bold;
     padding: 8px;
     box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
     background-color: white;
-}
+    position: absolute;
+    top:50px; 
+    z-index:1; 
+    display:block;}
 
 .content-price-accessories {
     display: flex;
@@ -329,38 +333,4 @@ font-weight: bold;
 
 
 
-
-/* CONTENT */
-
-/* scroll button
-.scroll_down_btn{
-    width: 70px;
-    height: 70px;
-    background-color: white;
-    top: 100px;
-    left: -100px;
-    transition: left 0.3s ease;
-    position: fixed;
-    border: 1px solid black;
-    cursor: pointer;
-}
-.scroll_down_btn:hover{
-    background-color: black;
-}
-.scroll_up_btn{
-    width: 70px;
-    height: 70px;
-    background-color: white;
-    bottom: 100px;
-    right: -100px;
-    transition: right 0.3s ease; 
-    position: fixed;
-    border: 1px solid black;
-    cursor: pointer;
-}
-.scroll_up_btn:hover{
-    background-color: black;
-    transition: background-color 0.3s ease;
-} */
-/* scroll button */ 
 
