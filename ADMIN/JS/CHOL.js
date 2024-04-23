@@ -1,0 +1,188 @@
+// Gọi hàm read để lấy dữ liệu 
+read();
+// Gọi hàm read để lấy dữ liệu 
+
+
+
+ //loadData
+ function read() {
+    var operation = "Read";
+    var tableName = "cau_hinh_oplung";
+    var condition = "";
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function(response) {
+
+            // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
+            DisplayElementPage(response);
+
+            //cập nhật lại số lượng sản phẩm
+            var SLCHOL_HT = document.querySelector('#SLCHOL_HT span');
+            var rows = document.querySelectorAll('#table_CHOL table tbody tr ');
+            SLCHOL_HT.innerText = rows.length;
+            //cập nhật lại số lượng sản phẩm
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+   //loadData
+
+   
+
+function update()
+{
+
+        var data = {
+            CHAT_LIEU: $('#CL_CHOL_sua').val(),
+            TINH_NANG: $('#TN_CHOL_sua').val(),
+          };
+          var jsonData = JSON.stringify(data);
+
+    var operation = "Update";
+    var tableName = "cau_hinh_oplung";
+    var idName = "MA_CHOL";
+    var idValue = $('#MACHOL_sua').val();
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData : jsonData,
+            operation: operation,
+            tableName: tableName,
+            idName : idName,
+            idValue : idValue
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+   // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
+
+   function DisplayElementPage(elementPage) {
+    var html = "";
+    for (var i = 0; i < elementPage.length; i++) {
+        html += `
+        <tr>
+        <td id="CHOL_MACHOL" style="display: none;">${elementPage[i].MA_CHOL} </td>
+        <td id="CHOL_MASP">${elementPage[i].MA_SP} </td>
+        <td id="CHOL_CL">${elementPage[i].CHAT_LIEU} </td>
+        <td id="CHOL_TN">${elementPage[i].TINH_NANG} </td>
+        <form action="" method="POST">
+        <td><input type="button" id="CHOL_sua_btn" class="thaotac" value="sửa"></td>
+        </form></tr>
+        `;
+
+        var tbody = document.getElementById("data");
+        tbody.innerHTML = html;
+
+            
+                // Gán sự kiện cho nút sửa mới tạo
+    tbody.querySelector('#CHOL_sua_btn').addEventListener('click', function(){   
+        var form_sua_CHOL = document.getElementById('container_suaCHOL')
+        var tr = this.parentElement.parentElement;
+        
+        form_sua_CHOL.querySelector('#CL_CHOL_sua').value = tbody.querySelector('#CHOL_CL').innerText;
+        form_sua_CHOL.querySelector('#TN_CHOL_sua').value = tbody.querySelector('#CHOL_TN').innerText;
+        form_sua_CHOL.querySelector('#MACHOL_sua').value = tbody.querySelector('#CHOL_MACHOL').innerText;
+
+        form_sua_CHOL.style.display = 'block';
+    });
+    
+}
+}        
+
+
+//chức năng ẩn hiện form sửa
+document.addEventListener('click', function(event){
+    var form_sua_CHOL = document.getElementById('container_suaCHOL');
+    if(event.target === form_sua_CHOL){
+        form_sua_CHOL.style.display = 'none';
+    }
+
+})
+    //chức năng ẩn hiện form sửa
+
+
+    
+    // chức năng tìm kiếm
+document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(event){
+    event.preventDefault();
+ var opt = document.getElementById('opt_timkiem_CHOL').value;
+ var txt = document.getElementById('txt_timkiem_CHOL').value;
+  var rows = document.querySelectorAll('#table_CHOL table tbody tr');
+ 
+ if(opt === 'MACHOL'){
+ 
+     for(var i = 0; i < rows.length; i++){
+         var MACHOL = rows[i].querySelector('#CHOL_MACHOL').innerText;
+         if(MACHOL.indexOf(txt) !== -1){
+             rows[i].style.display = 'table-row';
+         }
+         else{ 
+             rows[i].style.display = 'none';
+          }
+     }
+ }
+ 
+ 
+ else if(opt === 'MASP'){
+ 
+ for(var i = 0; i < rows.length; i++){
+     var MaCHOL = rows[i].querySelector('#CHOL_MASP').innerText;
+     if(MaCHOL.includes(txt)){
+         rows[i].style.display = 'table-row';
+     }
+     else{ 
+         rows[i].style.display = 'none';
+      }
+ }
+ }
+ 
+ 
+ else if(opt === 'CL') {
+     for(var i = 0; i < rows.length; i++){
+     var MaCHOL = rows[i].querySelector('#CHOL_CL').innerText;
+     if(MaCHOL.includes(txt)){
+         rows[i].style.display = 'table-row';
+     }
+     else{ 
+         rows[i].style.display = 'none';
+      }
+ }
+ }
+ 
+ else if(opt === 'TN') {
+     for(var i = 0; i < rows.length; i++){
+     var MaCHOL = rows[i].querySelector('#CHOL_TN').innerText;
+     if(MaCHOL.includes(txt)){
+         rows[i].style.display = 'table-row';
+     }
+     else{ 
+         rows[i].style.display = 'none';
+      }
+ }
+ }
+ 
+ 
+ else{
+     for(var i = 0; i < rows.length; i++) {
+       rows[i].style.display = 'table-row';
+     }
+ }
+ })
+//chức năng tìm kiếm 

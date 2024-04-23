@@ -1,9 +1,6 @@
 .page {    
-    max-width: 1280px;
-    min-width: 1280px;
-    margin: 0px auto;
+    max-width: 100%;
 }
-
 
 /* TOP MENU */
 
@@ -16,12 +13,16 @@
 }
 
 .topMenu {
+    min-width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.wraper {
     max-width: 1280px;
-    min-width: 1280px;
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-color: white;
     display: flex;
     margin: 0 auto;
 }

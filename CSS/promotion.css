@@ -1,6 +1,7 @@
 .promotion_Page{
-    width: 100%;
+    width: 1280px;
     height: 100%;
+    margin: 0px auto;
 }
 
 .element_Promotion{
