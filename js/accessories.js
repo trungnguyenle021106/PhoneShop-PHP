@@ -10,11 +10,12 @@ var Price_Multi_Slider = document.getElementById("Price_Multi_Slider");
 var btn_close_price_slider = document.getElementById("btn_close_price_slider");
 
 btn_Price_Multi_Slider.addEventListener("click", function () {
-    Price_Multi_Slider.style.display = "block";
+    Price_Multi_Slider.classList.add("dp-block")
 });
 
-btn_close_price_slider.addEventListener("click", function () {
-    Price_Multi_Slider.style.display = "none";
+btn_close_price_slider.addEventListener("click", function (e) {
+    e.stopPropagation()
+    Price_Multi_Slider.classList.remove("dp-block")
 });
 
 
