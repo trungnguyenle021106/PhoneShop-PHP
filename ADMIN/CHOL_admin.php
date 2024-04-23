@@ -37,7 +37,6 @@ $connect->connectDB();
     <table>
         <thead style=" background-color: #746d6d11; font-weight: bold;">
             <tr>
-                <td>Mã ốp lưng</td>
                 <td>Mã sản phẩm</td>
                 <td>Chất liệu</td>
                 <td>Tính năng</td>
@@ -45,7 +44,7 @@ $connect->connectDB();
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="data">
 
         </tbody>
     </table>
@@ -73,17 +72,21 @@ $connect->connectDB();
         <div>
             <label for="">Chất liệu: </label> 
             <input type="text" name="CL_CHOL" id="CL_CHOL_sua"> 
+        </div>
         <div>
             <label for="">Tính năng: </label> 
-            <input type="text" name="TN_CHOL" id="TN_CHOL"> 
+            <input type="text" name="TN_CHOL" id="TN_CHOL_sua">
+        </div> 
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="hidden" name="MACHOL" value="" id="MACHOL_sua"> 
-        <input type="submit" class="btn_suaCHOL" name="btn_suaCHOL" value="sửa">
+        <input type="submit" class="btn_suaCHOL" name="btn_suaCHOL" value="sửa" onclick="update()">
 
     </form>
   
 </div>
-
 </div>
+</div>
+
+
 
 <script src="JS/CHOL.js"></script>

@@ -30,33 +30,96 @@ read();
             //cập nhật lại số lượng sản phẩm
         },
         error: function(xhr, status, error) {
-            console.log(error);
+            consSe.log(error);
         }
     });
 }
    //loadData
 
 
+   function update()
+{
+
+        var data = {
+            KET_NOI: $('#KN_CHS_sua').val(),
+            CONG_SUAT: $('#CS_CHS_sua').val() + " W",
+            TINH_NANG: $('#TN_CHS_sua').val()
+          };
+          var jsonData = JSON.stringify(data);
+
+    var operation = "Update";
+    var tableName = "cau_hinh_sac";
+    var idName = "MA_CHS";
+    var idValue = $('#MACHS_sua').val();
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData : jsonData,
+            operation: operation,
+            tableName: tableName,
+            idName : idName,
+            idValue : idValue
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+
+
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
-
-function DisplayElementPage(elementPage) {
-    var ulContainer = document.querySelector("#table_CHS table tbody");
-    
+   function DisplayElementPage(elementPage) {
+    var html = "";
     for (var i = 0; i < elementPage.length; i++) {
-        var tr = document.createElement('tr');
-        var content = '<tr><td id="CHS_MACHS">'+ elementPage[i].MA_CHS + '</td><td id="CHS_MASP">'+ elementPage[i].MA_SP + '</td><td id="CHS_KN">'+ elementPage[i].KET_NOI + '</td><td id="CHS_CS">'+ elementPage[i].CONG_SUAT + '</td><td id="CHS_TN">'+ elementPage[i].TINH_NANG + '</td><form action="" method="POST"><td><input type="button" id="CHS_sua_btn" class="thaotac" value="sửa"></td></form></tr>';
+        html += `
+        <tr>
+        <td id="CHS_MACHS" style="display: none; ">${elementPage[i].MA_CHS}</td>
+        <td id="CHS_MASP">${elementPage[i].MA_SP}</td>
+        <td id="CHS_KN">${elementPage[i].KET_NOI}</td>
+        <td id="CHS_CS">${elementPage[i].CONG_SUAT}</td>
+        <td id="CHS_TN">${elementPage[i].TINH_NANG}</td>
+        <form action="" method="POST">
+        <td><input type="button" id="CHS_sua_btn" class="thaotac" value="sửa"></td>
+        </form></tr>
+        `;
+
+        var tbody = document.getElementById("data");
+        tbody.innerHTML = html;
+
+            
+                // Gán sự kiện cho nút sửa mới tạo
+    tbody.querySelector('#CHS_sua_btn').addEventListener('click', function(){   
+        var form_sua_CHS = document.getElementById('container_suaCHS')
+        var tr = this.parentElement.parentElement;
         
-            tr.innerHTML = content;
-            ulContainer.append(tr);   
+        form_sua_CHS.querySelector('#KN_CHS_sua').value = tbody.querySelector('#CHS_KN').innerText;
+        form_sua_CHS.querySelector('#CS_CHS_sua').value = tbody.querySelector('#CHS_CS').innerText.split(" W")[0];
+        form_sua_CHS.querySelector('#TN_CHS_sua').value = tbody.querySelector('#CHS_TN').innerText;
+        form_sua_CHS.querySelector('#MACHS_sua').value = tbody.querySelector('#CHS_MACHS').innerText;
+
+        form_sua_CHS.style.display = 'block';
+    });
     
-             // Gán sự kiện cho nút thêm cấu hình mới tạo
-        tr.querySelector('#CHS_sua_btn').addEventListener('click', function(){   
-        });
-        
-    }
+}
+}        
+
+
+//chức năng ẩn hiện form sửa
+document.addEventListener('click', function(event){
+    var form_sua_CHS = document.getElementById('container_suaCHS');
+    if(event.target === form_sua_CHS){
+        form_sua_CHS.style.display = 'none';
     }
 
+})
+    //chức năng ẩn hiện form sửa
 
 
     

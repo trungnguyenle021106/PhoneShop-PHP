@@ -11,7 +11,7 @@
 <body id="body_admin">
     <header id="header_admin">
     <div id="logo">
-    <a href=""><image src="../Img/logo.png"></image></a>
+    <a href=""><image src="../Img/logo.png" style="width: 350px;"></image></a>
     </div>
     <div id="title">
         <?php

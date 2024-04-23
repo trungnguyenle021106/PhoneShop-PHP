@@ -4,7 +4,8 @@ read();
 
 
 function add()
-{
+{       
+
         var loai = $("#opt_loai").val();
         var MANSX = $("#opt_MANSX").val();
         var Ten_SP = $("#TenSP_add").val();
@@ -58,7 +59,7 @@ $.ajax({
         var loai = $("#opt_themCH").val();
 
     if(loai === "1"){
-        if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== ""){
+        if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== "" && $("#OS_them").val() !== ""){
         
             var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
             MASP_check.push($("#MaSP_them").val());
@@ -74,7 +75,8 @@ $.ajax({
                 MAU_SAC: $("#MS_them").val(),
                 PIN: $("#PIN_them").val() + "Mah",
                 CAMERA_TRUOC: $("#CAMTRC_them").val() + "px",
-                CAMERA_SAU: $("#CAMSAU_them").val() + "px"
+                CAMERA_SAU: $("#CAMSAU_them").val() + "px",
+                OS: $("#OS_them").val()
             };
             
             var jsonData = JSON.stringify(data);
@@ -284,33 +286,83 @@ var file = filePath.split('\\').pop();
     });
 }
 
-function Delete(MASP)
-{
-    location.reload();
+function Delete(MASP) {
     var operation = "Delete";
-    var tableName = "san_pham";
     var idName = "MA_SP";
     var idValue = MASP;
+
+    // Hàm xóa từng bảng
+    function deleteFromTable(tableName, idName, idValue) {
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                operation: operation,
+                tableName: tableName,
+                idName: idName,
+                idValue: idValue
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+    }
+
+    // Xóa cấu hình tai nghe
+    deleteFromTable("cau_hinh_tai_nghe", idName, idValue);
+
+    // // Xóa cấu hình điện thoại
+    deleteFromTable("cau_hinh_dien_thoai", idName, idValue);
+
+    // // Xóa cấu hình sạc
+    deleteFromTable("cau_hinh_sac", idName, idValue);
+
+    // // Xóa cấu hình ốp lưng
+    deleteFromTable("cau_hinh_oplung", idName, idValue);
+
+    // // Xóa chi tiết hóa đơn
+    deleteFromTable("chi_tiet_hoadon", idName, idValue);
+
+    // // Xóa chi tiết nhập
+    deleteFromTable("chi_tiet_nhap", idName, idValue);
+
+    // Đọc mã serial và xóa phiếu bảo hành và mã serial
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {
-            operation: operation,
-            tableName: tableName,
-            idName : idName,
-            idValue : idValue
+            operation: "Read",
+            tableName: "serial",
+            condition: "MA_SP=" + MASP,
         },
         success: function(response) {
-            console.log(response);
+            var array = JSON.stringify(response);
+                // Xóa phiếu bảo hành
+                deleteFromTable("phieu_bao_hanh", "MA_SERIAL", array[15]);
+                // Xóa mã serial
+                deleteFromTable("serial", "MA_SP", MASP);
+            
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
 
-} 
+    // Xóa sản phẩm
+    deleteFromTable("san_pham", idName, idValue);
+    location.reload();
 
+
+}
+
+                
+                
   
  //loadData
   function read() {
@@ -365,8 +417,21 @@ SLSP_HT.innerText = rows.length;
     for (var i = 0; i < elementPage.length; i++) {
         var tr = document.createElement('tr');
         var p = "<?php echo $_POST['page'];?>";
-        var content = '<tr><td id="SP_MASP">'+ elementPage[i].MA_SP+'</td><td id="SP_MALOAI">'+elementPage[i].MA_LOAI+'</td><td id="SP_MANSX">'+elementPage[i].MA_NSX+'</td><td id="SP_TEN">'+elementPage[i].TEN_SP+'</td><td id="SP_GIA">'+elementPage[i].GIA_BAN+'</td><td id="SP_ANH"><img src="../Img/'+elementPage[i].HINH_ANH+'" alt="##" style="height: 50px;"></td><td id="SP_SL">'+elementPage[i].SO_LUONG +'</td> <form action="" method="POST" id="dieukien_xoa"><input type="hidden" name="page" value="'+p+'"><input type="hidden" name="MASP_xoa" value="'+elementPage[i].MA_SP+'"><td><input type="submit" name="SP_xoa_btn" class="thaotac SP_xoa_btn" value="xóa" onclick="Delete('+elementPage[i].MA_SP+')"></td></form><form action="" method="POST" id="dieukien_sua"><td><input type="button" id="SP_sua_btn" class="thaotac" value="sửa"></td></form></form> <form action="" method="POST" id="dieukien_themCH"><td><input type="button" id="SP_themCH_btn" class="thaotac" value="Thêm CH"></td></form></tr>';
-        var content1 = '<tr><td id="SP_MASP">'+ elementPage[i].MA_SP+'</td><td id="SP_MALOAI">'+elementPage[i].MA_LOAI+'</td><td id="SP_MANSX">'+elementPage[i].MA_NSX+'</td><td id="SP_TEN">'+elementPage[i].TEN_SP+'</td><td id="SP_GIA">'+elementPage[i].GIA_BAN+'</td><td id="SP_ANH"><img src="../Img/'+elementPage[i].HINH_ANH+'" alt="##" style="height: 50px;"></td><td id="SP_SL">'+elementPage[i].SO_LUONG +'</td> <form action="" method="POST" id="dieukien_xoa"><input type="hidden" name="page" value="'+p+'"><input type="hidden" name="MASP_xoa" value="'+elementPage[i].MA_SP+'"><td id="xxx"><input type="submit" name="SP_xoa_btn" class="thaotac SP_xoa_btn" value="xóa" onclick="Delete('+elementPage[i].MA_SP+')"></td></form><form action="" method="POST" id="dieukien_sua"><td><input type="button" id="SP_sua_btn" class="thaotac" value="sửa"></td></form></form></tr>';
+        var ten_loai;
+        if(elementPage[i].MA_LOAI == 1){
+            ten_loai = "Điện thoại";
+        }
+        else if(elementPage[i].MA_LOAI == 3){
+            ten_loai = "Tai nghe";
+        }
+        else if(elementPage[i].MA_LOAI == 4){
+            ten_loai = "Ốp lưng";
+        }
+        else if(elementPage[i].MA_LOAI == 5){
+            ten_loai = "Sạc";
+        }
+        var content = '<tr><td id="SP_MASP">'+ elementPage[i].MA_SP+'</td><td id="SP_MALOAI">'+ten_loai+'</td><td id="SP_MANSX">'+elementPage[i].MA_NSX+'</td><td id="SP_TEN">'+elementPage[i].TEN_SP+'</td><td id="SP_GIA">'+changePriceToString(elementPage[i].GIA_BAN)+'</td><td id="SP_ANH"><img src="../Img/'+elementPage[i].HINH_ANH+'" alt="##" style="height: 50px;"></td><td id="SP_SL">'+elementPage[i].SO_LUONG +'</td> <form action="" method="POST" id="dieukien_xoa"><input type="hidden" name="page" value="'+p+'"><input type="hidden" name="MASP_xoa" value="'+elementPage[i].MA_SP+'"><td><input type="submit" name="SP_xoa_btn" class="thaotac SP_xoa_btn" value="xóa" onclick="Delete('+elementPage[i].MA_SP+')"></td></form><form action="" method="POST" id="dieukien_sua"><td><input type="button" id="SP_sua_btn" class="thaotac" value="sửa"></td></form></form> <form action="" method="POST" id="dieukien_themCH"><td><input type="button" id="SP_themCH_btn" class="thaotac" value="Thêm CH"></td></form></tr>';
+        var content1 = '<tr><td id="SP_MASP">'+ elementPage[i].MA_SP+'</td><td id="SP_MALOAI">'+ten_loai+'</td><td id="SP_MANSX">'+elementPage[i].MA_NSX+'</td><td id="SP_TEN">'+elementPage[i].TEN_SP+'</td><td id="SP_GIA">'+changePriceToString(elementPage[i].GIA_BAN)+'</td><td id="SP_ANH"><img src="../Img/'+elementPage[i].HINH_ANH+'" alt="##" style="height: 50px;"></td><td id="SP_SL">'+elementPage[i].SO_LUONG +'</td> <form action="" method="POST" id="dieukien_xoa"><input type="hidden" name="page" value="'+p+'"><input type="hidden" name="MASP_xoa" value="'+elementPage[i].MA_SP+'"><td id="xxx"><input type="submit" name="SP_xoa_btn" class="thaotac SP_xoa_btn" value="xóa" onclick="Delete('+elementPage[i].MA_SP+')"></td></form><form action="" method="POST" id="dieukien_sua"><td><input type="button" id="SP_sua_btn" class="thaotac" value="sửa"></td></form></form></tr>';
 
         var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
         var count = false;
@@ -440,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function(){
 opt.addEventListener('change',function(){
     if(opt.value == '1'){
     section_CHDT.style.display = 'block';
-    form.style.height = '590px';
+    form.style.height = '660px';
     section_CHTN.style.display = 'none';
     section_CHS.style.display = 'none';
     section_CHOL.style.display = 'none';
@@ -554,4 +619,34 @@ container.addEventListener('click', function(event) {
  //chức năng tìm kiếm
 
 
+ //hàm xử lí tiền
+ //1000000  -> 1.000.000 đ
+function changePriceToString(price) {
+    var s = "";
+    var temp = 0;
+    var flag = 0;
+    var amountDot = Math.round(price.length / 3);
+
+    if (price.length % 3 == 0) {
+        amountDot--;
+    }
+    for (var i = price.length - 1; i >= 0; i--) {
+        temp++;
+        if (temp == 3 && flag < amountDot) {
+            s = s + price[i] + ".";
+            flag++;
+            temp = 0;
+        }
+        else {
+            s = s + price[i];
+        }
+    }
+    return s.split("").reverse().join("") + "đ";
+}
+
+//1.000.000 đ -> 1000000
+function changePriceToNormal(price)
+{
+    return price.replace(/\D/g, "");
+}
 

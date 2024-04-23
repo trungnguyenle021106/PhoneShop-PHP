@@ -45,11 +45,12 @@ $connect->connectDB();
                 <td>Pin</td>
                 <td>Camera trước</td>
                 <td>Camera sau</td>
+                <td>OS</td>
                 <td>Thao tác</td>
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="data">
              <!-- nơi hiển thị sản phẩm -->
         </tbody>
     </table>
@@ -101,6 +102,10 @@ $connect->connectDB();
 <div>
         <label for="">Camera sau: </label>
         <input type="number" name="CAMSAU_CHDT" id="CAMSAU_CHDT_sua"> 
+</div>
+<div>
+        <label for="">OS: </label>
+        <input type="text" id="OS_CHDT_sua"> 
 </div>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="hidden" name="MACHDT" value="" id="MACHDT_sua"> 

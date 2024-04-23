@@ -38,7 +38,7 @@ $connect->connectDB();
         <thead style=" background-color: #746d6d11; font-weight: bold;">
             <tr>
                 <td>Mã sản phẩm</td>
-                <td>Mã loại</td>
+                <td>Loại</td>
                 <td>Mã nhà sản xuất</td>
                 <td>Tên sản phẩm</td>
                 <td>Giá</td>
@@ -102,7 +102,11 @@ $connect->connectDB();
       <label for="">Loại: </label>
         <select name="Loai" id="opt_loai" style="border: 2px solid black;">
             <option value="1">Điện thoại</option>
-            <option value="2">Phụ kiện</option>
+            <option value="3">Tai nghe</option>
+            <option value="4">Ốp lưng</option>
+            <option value="5">Sạc</option>
+
+
         </select>
       </div>
 

@@ -38,7 +38,6 @@ $connect->connectDB();
     <table>
         <thead style=" background-color: #746d6d11; font-weight: bold;">
             <tr>
-                <td>Mã sạc</td>
                 <td>Mã sản phẩm</td>
                 <td>Kết nối</td>
                 <td>Công suất</td>
@@ -47,7 +46,7 @@ $connect->connectDB();
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="data">
 
         </tbody>
     </table>
@@ -76,17 +75,21 @@ $connect->connectDB();
         <div>
             <label for="">Kết nối: </label> 
             <input type="text" name="KN_CHS" id="KN_CHS_sua"> 
+        </div>
         <div>
             <label for="">Công suất: </label> 
-            <input type="number" name="CS_CHS" id="CS_CHS"> 
-            <div>
+            <input type="number" name="CS_CHS" id="CS_CHS_sua"> 
+        </div>
+        <div>
             <label for="">Tính năng: </label> 
-            <input type="text" name="TN_CHS" id="TN_CHS"> 
+            <input type="text" name="TN_CHS" id="TN_CHS_sua"> 
+        </div>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="hidden" name="MACHS" value="" id="MACHS_sua"> 
-        <input type="submit" class="btn_suaCHS" name="btn_suaCHS" value="sửa">
+        <input type="submit" class="btn_suaCHS" name="btn_suaCHS" value="sửa" onclick="update()">
 
     </form>
     </div>
+
 
     <script src="JS/CHS.js"></script>

@@ -37,7 +37,6 @@ $connect->connectDB();
     <table>
         <thead style=" background-color: #746d6d11; font-weight: bold;">
             <tr>
-                <td>Mã tai nghe</td>
                 <td>Mã sản phẩm</td>
                 <td>Kết nối</td>
                 <td>Tính năng</td>
@@ -45,7 +44,7 @@ $connect->connectDB();
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="data">
 
         </tbody>
 
@@ -74,12 +73,14 @@ $connect->connectDB();
         <div>
             <label for="">Kết nối </label> 
             <input type="text" name="KN_CHTN" id="KN_CHTN_sua"> 
+        </div>
         <div>
             <label for="">Tính năng: </label> 
-            <input type="text" name="TN_CHTN" id="TN_CHTN"> 
+            <input type="text" name="TN_CHTN" id="TN_CHTN_sua"> 
+        </div>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="hidden" name="MACHTN" value="" id="MACHTN_sua"> 
-        <input type="submit" class="btn_suaCHTN" name="btn_suaCHTN" value="sửa">
+        <input type="submit" class="btn_suaCHTN" name="btn_suaCHTN" value="sửa" onclick="update()">
 
     </form>
     </div>

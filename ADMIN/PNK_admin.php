@@ -4,6 +4,7 @@ $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
 <link rel="stylesheet" href="CSS/PNK_admin.css">
+<script src="https://kit.fontawesome.com/3918fe69ba.js" crossorigin="anonymous"></script>
 <div  class="change_page_PN">
 <form action="" method="POST">
    <input type="hidden" name="page" value="Nhập hàng">
@@ -77,5 +78,9 @@ $connect->connectDB();
 </div>
 </div>
 
+<?php
+require("form_them_PNK.php");
+?>
 <script src="JS/PNK.js"></script>
+
 

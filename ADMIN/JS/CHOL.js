@@ -36,27 +36,86 @@ read();
 }
    //loadData
 
+   
+
+function update()
+{
+
+        var data = {
+            CHAT_LIEU: $('#CL_CHOL_sua').val(),
+            TINH_NANG: $('#TN_CHOL_sua').val(),
+          };
+          var jsonData = JSON.stringify(data);
+
+    var operation = "Update";
+    var tableName = "cau_hinh_oplung";
+    var idName = "MA_CHOL";
+    var idValue = $('#MACHOL_sua').val();
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData : jsonData,
+            operation: operation,
+            tableName: tableName,
+            idName : idName,
+            idValue : idValue
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
-
    function DisplayElementPage(elementPage) {
-    var ulContainer = document.querySelector("#table_CHOL table tbody");
-    
+    var html = "";
     for (var i = 0; i < elementPage.length; i++) {
-        var tr = document.createElement('tr');
-        var content = '<tr><td id="CHOL_MACHOL">'+ elementPage[i].MA_CHOL + ' </td><td id="CHOL_MASP">'+ elementPage[i].MA_SP + ' </td><td id="CHOL_CL">'+ elementPage[i].CHAT_LIEU + ' </td><td id="CHOL_TN">'+ elementPage[i].TINH_NANG + ' </td><form action="" method="POST"><td><input type="button" id="CHOL_sua_btn" class="thaotac" value="sửa"></td></form></tr>';
+        html += `
+        <tr>
+        <td id="CHOL_MACHOL" style="display: none;">${elementPage[i].MA_CHOL} </td>
+        <td id="CHOL_MASP">${elementPage[i].MA_SP} </td>
+        <td id="CHOL_CL">${elementPage[i].CHAT_LIEU} </td>
+        <td id="CHOL_TN">${elementPage[i].TINH_NANG} </td>
+        <form action="" method="POST">
+        <td><input type="button" id="CHOL_sua_btn" class="thaotac" value="sửa"></td>
+        </form></tr>
+        `;
+
+        var tbody = document.getElementById("data");
+        tbody.innerHTML = html;
+
+            
+                // Gán sự kiện cho nút sửa mới tạo
+    tbody.querySelector('#CHOL_sua_btn').addEventListener('click', function(){   
+        var form_sua_CHOL = document.getElementById('container_suaCHOL')
+        var tr = this.parentElement.parentElement;
         
-            tr.innerHTML = content;
-            ulContainer.append(tr);   
+        form_sua_CHOL.querySelector('#CL_CHOL_sua').value = tbody.querySelector('#CHOL_CL').innerText;
+        form_sua_CHOL.querySelector('#TN_CHOL_sua').value = tbody.querySelector('#CHOL_TN').innerText;
+        form_sua_CHOL.querySelector('#MACHOL_sua').value = tbody.querySelector('#CHOL_MACHOL').innerText;
+
+        form_sua_CHOL.style.display = 'block';
+    });
     
-             // Gán sự kiện cho nút thêm cấu hình mới tạo
-        tr.querySelector('#CHOL_sua_btn').addEventListener('click', function(){   
-        });
-        
-    }
-    }
+}
+}        
 
 
+//chức năng ẩn hiện form sửa
+document.addEventListener('click', function(event){
+    var form_sua_CHOL = document.getElementById('container_suaCHOL');
+    if(event.target === form_sua_CHOL){
+        form_sua_CHOL.style.display = 'none';
+    }
+
+})
+    //chức năng ẩn hiện form sửa
 
 
     

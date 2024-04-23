@@ -1,6 +1,6 @@
 
 <div id="container_themSP" style="position: absolute; top: 0px;left: 0px; width: 100%; height: 100%; background-color: rgba(128, 128, 128, 0.5); display: none;">
-    <form action="" method="POST" id="form_add_SP" style=" margin: 0 auto;  padding: 30px; background-color: #f9f9f9; width: 40%; height: 590px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative; top: 50px;">
+    <form action="" method="POST" id="form_add_SP" style=" margin: 0 auto;  padding: 30px; background-color: #f9f9f9; width: 40%; height: 660px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative; top: 0px;">
         <h2 style="text-align: center; margin-bottom: 20px;">Cấu hình sản phẩm</h2>
         <label for="opt_themCH">Loại: </label>
        <select name="" id="opt_themCH" style="margin-bottom: 10px;">
@@ -37,6 +37,10 @@
         <div style="margin-bottom: 15px;">
             <label for="CAMSAU_them" style="display: block; font-weight: bold;">CAMERA sau:</label>
             <input type="text" name="CAMSAU" id="CAMSAU_them" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="OS_them" style="display: block; font-weight: bold;">Hệ điều hành: </label>
+            <input type="text" name="OS" id="OS_them" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
         </div>
         </section>
 

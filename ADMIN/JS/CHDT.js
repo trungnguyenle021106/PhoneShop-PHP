@@ -13,7 +13,8 @@ function update()
             MAU_SAC: $('#MS_CHDT_sua').val(),
             PIN: $('#PIN_CHDT_sua').val() + "Mah",
             CAMERA_TRUOC: $('#CAMTRC_CHDT_sua').val() + "px",
-            CAMERA_SAU: $('#CAMSAU_CHDT_sua').val() + "px"
+            CAMERA_SAU: $('#CAMSAU_CHDT_sua').val() + "px",
+            OS: $('#OS_CHDT_sua').val()
           };
           var jsonData = JSON.stringify(data);
 
@@ -80,28 +81,41 @@ SLSP_HT.innerText = rows.length;
 
 
 function DisplayElementPage(elementPage) {
-var ulContainer = document.querySelector("#table_CHDT table tbody");
-
-for (var i = 0; i < elementPage.length; i++) {
-    var tr = document.createElement('tr');
-    var content = '<tr><td id="CHDT_MACHDT" style="display: none;">'+ elementPage[i].MA_CHĐT + ' </td><td id="CHDT_SP"> '+ elementPage[i].MA_SP + ' </td><td id="CHDT_RAM">'+ elementPage[i].RAM + '  </td><td id="CHDT_BNT">'+ elementPage[i].BO_NHO_TRONG + '  </td><td id="CHDT_MH">'+ elementPage[i].MAN_HINH + ' </td><td id="CHDT_MS">'+ elementPage[i].MAU_SAC + ' </td><td id="CHDT_PIN">'+ elementPage[i].PIN + ' </td> <td id="CHDT_CAMTRC">'+ elementPage[i].CAMERA_TRUOC + ' </td> <td id="CHDT_CAMSAU">'+ elementPage[i].CAMERA_SAU + ' </td><form action="" method="POST"><td><input type="submit" id="CHDT_sua_btn" class="thaotac" value="sửa"></td></form></tr>';
+    var html = "";
+    for (var i = 0; i < elementPage.length; i++) {
+        html += `
+        <tr>
+        <td id="CHDT_MACHDT" style="display: none;">${elementPage[i].MA_CHĐT}</td>
+        <td id="CHDT_SP">${elementPage[i].MA_SP}</td>
+        <td id="CHDT_RAM">${elementPage[i].RAM}</td>
+        <td id="CHDT_BNT">${elementPage[i].BO_NHO_TRONG}</td>
+        <td id="CHDT_MH">${elementPage[i].MAN_HINH}</td>
+        <td id="CHDT_MS">${elementPage[i].MAU_SAC}</td>
+        <td id="CHDT_PIN">${elementPage[i].PIN}</td> 
+        <td id="CHDT_CAMTRC">${elementPage[i].CAMERA_TRUOC}</td> 
+        <td id="CHDT_CAMSAU">${elementPage[i].CAMERA_SAU}</td>
+        <td id="CHDT_OS" >${elementPage[i].OS}</td>
+        <form action="" method="POST"><td><input type="submit" id="CHDT_sua_btn" class="thaotac" value="sửa"></td>
+        </form></tr>
+        `;
     
-        tr.innerHTML = content;
-        ulContainer.append(tr);   
+    var tbody = document.getElementById("data");
+    tbody.innerHTML = html;
 
          // Gán sự kiện cho nút sửa mới tạo
-    tr.querySelector('#CHDT_sua_btn').addEventListener('click', function(){   
+    tbody.querySelector('#CHDT_sua_btn').addEventListener('click', function(){   
         var form_sua_CHDT = document.getElementById('container_suaCHDT')
         var tr = this.parentElement.parentElement;
         
-        form_sua_CHDT.querySelector('#RAM_CHDT_sua').value = tr.querySelector('#CHDT_RAM').innerText.split("GB")[0];
-        form_sua_CHDT.querySelector('#BNT_CHDT_sua').value = tr.querySelector('#CHDT_BNT').innerText.split("GB")[0];
-        form_sua_CHDT.querySelector('#MH_CHDT_sua').value = tr.querySelector('#CHDT_MH').innerText;
-        form_sua_CHDT.querySelector('#MS_CHDT_sua').value = tr.querySelector('#CHDT_MS').innerText;
-        form_sua_CHDT.querySelector('#PIN_CHDT_sua').value = tr.querySelector('#CHDT_PIN').innerText.split("Mah")[0];
-        form_sua_CHDT.querySelector('#CAMTRC_CHDT_sua').value = tr.querySelector('#CHDT_CAMTRC').innerText.split("px")[0];
-        form_sua_CHDT.querySelector('#CAMSAU_CHDT_sua').value = tr.querySelector('#CHDT_CAMSAU').innerText.split("px")[0];
-        form_sua_CHDT.querySelector('#MACHDT_sua').value = tr.querySelector('#CHDT_MACHDT').innerText;
+        form_sua_CHDT.querySelector('#RAM_CHDT_sua').value = tbody.querySelector('#CHDT_RAM').innerText.split("GB")[0];
+        form_sua_CHDT.querySelector('#BNT_CHDT_sua').value = tbody.querySelector('#CHDT_BNT').innerText.split("GB")[0];
+        form_sua_CHDT.querySelector('#MH_CHDT_sua').value = tbody.querySelector('#CHDT_MH').innerText;
+        form_sua_CHDT.querySelector('#MS_CHDT_sua').value = tbody.querySelector('#CHDT_MS').innerText;
+        form_sua_CHDT.querySelector('#OS_CHDT_sua').value = tbody.querySelector('#CHDT_OS').innerText;
+        form_sua_CHDT.querySelector('#PIN_CHDT_sua').value = tbody.querySelector('#CHDT_PIN').innerText.split("Mah")[0];
+        form_sua_CHDT.querySelector('#CAMTRC_CHDT_sua').value = tbody.querySelector('#CHDT_CAMTRC').innerText.split("px")[0];
+        form_sua_CHDT.querySelector('#CAMSAU_CHDT_sua').value = tbody.querySelector('#CHDT_CAMSAU').innerText.split("px")[0];
+        form_sua_CHDT.querySelector('#MACHDT_sua').value = tbody.querySelector('#CHDT_MACHDT').innerText;
 
         form_sua_CHDT.style.display = 'block';
     });
@@ -114,7 +128,6 @@ document.addEventListener('click', function(event){
     if(event.target === form_sua_CHDT){
         form_sua_CHDT.style.display = 'none';
     }
-
 })
     //chức năng ẩn hiện form sửa
 
