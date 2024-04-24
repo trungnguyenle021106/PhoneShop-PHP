@@ -36,13 +36,13 @@
                                 </div>
                                 <div class="group-btn-accessories">
                                         <div class="btn-close-accessories" id="btn_close_price_slider">đóng</div>
-                                        <div class="btn-search-accessories">xem kết quả</div>
+                                        <div class="btn-search-accessories" id="btn_result_price_slider">xem kết quả</div>
                                 </div>
                         </div>
                         <!-- test -->
                 </div>
 
-                <div class="item-filter-accesories"> Clear ALL </div>
+                <div class="item-filter-accesories" id="btn_ClearAll"> Clear ALL </div>
         </div>
         <div class="accessories_section" id="accessories_page">
                 
@@ -69,6 +69,7 @@
                 <div class="accessories_section">
                         <?php
                         require './Model/Database.php';
+                        require './PAGES/XuLyTienVND.php';
                         $connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
                         $connection->connectDB();
                         $list_data = $connection->read('san_pham', "MA_LOAI <> 1 ORDER BY MA_SP DESC LIMIT 5");
@@ -80,28 +81,7 @@
                                 echo '</a>';
                         }
 
-                        function changePriceToString($price)
-                        {
-                                $s = "";
-                                $temp = 0;
-                                $flag = 0;
-                                $amountDot = round(strlen($price) / 3);
-
-                                if (strlen($price) % 3 == 0) {
-                                        $amountDot--;
-                                }
-                                for ($i = strlen($price) - 1; $i >= 0; $i--) {
-                                        $temp++;
-                                        if ($temp == 3 && $flag < $amountDot) {
-                                                $s = $s . $price[$i] . ".";
-                                                $flag++;
-                                                $temp = 0;
-                                        } else {
-                                                $s = $s . $price[$i];
-                                        }
-                                }
-                                return strrev($s) . "đ";
-                        }
+                
 
                         $connection->closeConnection();
                         ?>
@@ -116,9 +96,9 @@
         </div>
 </div>
 
-<script src="./js/accessories.js"></script>
-<script src="./js/pageHandler.js"></script>
-
+<script src="../js/accessories.js"></script>
+<script src="../js/pageHandler.js"></script>
+<script src="../js/XuLyTienVND.js"></script>
 <script>
         window.onload = function() {
                 setDataOnload();

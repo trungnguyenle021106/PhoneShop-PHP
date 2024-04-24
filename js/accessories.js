@@ -8,6 +8,24 @@ var priceRight = document.querySelector('.price-right-accessories')
 var btn_Price_Multi_Slider = document.getElementById("btn_Price_Multi_Slider");
 var Price_Multi_Slider = document.getElementById("Price_Multi_Slider");
 var btn_close_price_slider = document.getElementById("btn_close_price_slider");
+var btn_result_price_slider = document.getElementById("btn_result_price_slider");
+var btn_ClearAll = document.getElementById("btn_ClearAll");
+
+var selectLoaiElement = document.getElementById("loai");
+var selectNSXElement = document.getElementById("nsx");
+var selectSXElement = document.getElementById("sapxep");
+
+btn_ClearAll.addEventListener("click", function () {
+    selectLoaiElement.value = "";
+    selectNSXElement.value = "";
+    selectSXElement.value = "";
+    left.style.left = "-3%"
+    priceLeft.innerText = "0đ"
+    right.style.left = "97%"
+    priceRight.innerText = "100.000.000đ"
+    setDataForFilter();
+});
+
 
 Price_Multi_Slider.style.display = "none";
 btn_Price_Multi_Slider.addEventListener("click", function () {
@@ -19,6 +37,11 @@ btn_close_price_slider.addEventListener("click", function (e) {
     Price_Multi_Slider.classList.remove("dp-block")
 });
 
+btn_result_price_slider.addEventListener("click", function (e) {
+    e.stopPropagation()
+    Price_Multi_Slider.classList.remove("dp-block")
+    setDataForFilter();
+});
 
 function formatCurrency(number) {
     let strNumber = Math.abs(number).toString();
@@ -94,51 +117,116 @@ right.addEventListener("mousedown", function (event) {
 
 var dataArray = [];
 
-function setConditionForFilter(selectedLoaiValue, loai, selectedNSXValue, nsx, selectedSXValue, sx) {
-    var condition = "";
-    if (selectedLoaiValue != "" && selectedNSXValue != "" && selectedSXValue != "") {
-        condition = condition + loai + " AND " + nsx + " " + sx;
+// function setConditionForFilter(selectedLoaiValue, loai, selectedNSXValue, nsx, selectedSXValue, sx) {
+//     var condition = "";
+//     if (selectedLoaiValue != "" && selectedNSXValue != "" && selectedSXValue != "") {
+//         condition = condition + loai + " AND " + nsx + " " + sx;
+//     }
+//     else if (selectedNSXValue != "" && selectedSXValue != "") {
+//         condition = condition + nsx + " " + sx;
+//     }
+//     else if (selectedLoaiValue != "" && selectedSXValue != "") {
+//         condition = condition + loai + " " + sx;
+//     }
+//     else if (selectedNSXValue != "") {
+//         condition = condition + nsx;
+//     }
+//     else if (selectedLoaiValue != "") {
+//         condition = condition + loai;
+//     }
+//     else if (selectedSXValue != "") {
+//         condition = condition + " 1=1 " + sx;
+//     }
+//     return condition;
+// }
+
+function setConditionForFilterVER2(arrayConditionWhere, conditionOrderBy) {
+    var s = "";
+    var flag = false;
+    for (var i = 0; i < arrayConditionWhere.length; i++) {
+        // if (arrayConditionWhere[i].Value_ID != "" && arrayConditionWhere[i + 1] && arrayConditionWhere[i + 1].Value_ID != "") {
+        //     s += arrayConditionWhere[i].Name_ID + " " + arrayConditionWhere[i].Operation + " " + arrayConditionWhere[i].Value_ID + " AND ";
+        // }
+        // else if (arrayConditionWhere[i].Value_ID != "" && (!arrayConditionWhere[i + 1] || arrayConditionWhere[i + 1].Value_ID == "")) {
+        //     s += arrayConditionWhere[i].Name_ID + " " + arrayConditionWhere[i].Operation + " " + arrayConditionWhere[i].Value_ID;
+        // }
+        // else if(i != 0 && s != "")
+        // {
+        //     if(arrayConditionWhere[i].Value_ID == "" && (!arrayConditionWhere[i + 1] || arrayConditionWhere[i + 1].Value_ID !=  ""))
+        //     {
+        //         s+=" AND "
+        //     }
+        // }
+
+        if (flag == true) {
+            s += " AND ";
+            flag = false;
+        }
+        if (arrayConditionWhere[i].Value_ID != "") {
+            s += arrayConditionWhere[i].Name_ID + " " + arrayConditionWhere[i].Operation + " " + arrayConditionWhere[i].Value_ID;
+            flag = true;
+        }
     }
-    else if (selectedNSXValue != "" && selectedSXValue != "") {
-        condition = condition + nsx + " " + sx;
+
+    if (conditionOrderBy == "GIA_TANG_DAN") {
+        s += " ORDER BY GIA_BAN ASC";
     }
-    else if (selectedLoaiValue != "" && selectedSXValue != "") {
-        condition = condition + loai + " " + sx;
+    else if (conditionOrderBy == "GIA_GIAM_DAN") {
+        s += " ORDER BY GIA_BAN DESC";
     }
-    else if (selectedNSXValue != "") {
-        condition = condition + nsx;
+    return s;
+}
+
+function getDataFilterFromClient() {
+    var arrayConditionWhere = []
+
+    
+    var selectedLoaiValue = selectLoaiElement.value;
+    var dataLoai = {
+        Name_ID: "MA_LOAI",
+        Value_ID: selectedLoaiValue,
+        Operation: "="
     }
-    else if (selectedLoaiValue != "") {
-        condition = condition + loai;
+    arrayConditionWhere.push(dataLoai);
+
+
+    var selectedNSXValue = selectNSXElement.value;
+    var dataNsx = {
+        Name_ID: "MA_NSX",
+        Value_ID: selectedNSXValue,
+        Operation: "="
     }
-    else if (selectedSXValue != "") {
-        condition = condition + " 1=1 " + sx;
+    arrayConditionWhere.push(dataNsx);
+
+
+    var dataLowPrice = {
+        Name_ID: "GIA_BAN",
+        Value_ID: changePriceToNormal(priceLeft.innerText),
+        Operation: ">="
     }
-    return condition;
+    arrayConditionWhere.push(dataLowPrice);
+
+
+    var dataHighPrice = {
+        Name_ID: "GIA_BAN",
+        Value_ID: changePriceToNormal(priceRight.innerText),
+        Operation: "<="
+    }
+    arrayConditionWhere.push(dataHighPrice);
+
+   
+    var selectedSXValue = selectSXElement.value;
+
+    console.log(setConditionForFilterVER2(arrayConditionWhere, selectedSXValue))
+    return setConditionForFilterVER2(arrayConditionWhere, selectedSXValue);
 }
 
 function setDataForFilter() {
-    var selectLoaiElement = document.getElementById("loai");
-    var selectedLoaiValue = selectLoaiElement.value;
-    var loai = " MA_LOAI =" + selectedLoaiValue;
-
-    var selectNSXElement = document.getElementById("nsx");
-    var selectedNSXValue = selectNSXElement.value;
-    var nsx = " MA_NSX = " + selectedNSXValue;
-
-    var selectSXElement = document.getElementById("sapxep");
-    var selectedSXValue = selectSXElement.value;
-    var sx = "";
-    if (selectedSXValue == "GIA_TANG_DAN") {
-        sx = "ORDER BY GIA_BAN ASC";
-    }
-    else if (selectedSXValue == "GIA_GIAM_DAN") {
-        sx = "ORDER BY GIA_BAN DESC";
-    }
 
     var operation = "Read";
     var tableName = "san_pham";
-    var condition = setConditionForFilter(selectedLoaiValue, loai, selectedNSXValue, nsx, selectedSXValue, sx);
+
+    var condition = getDataFilterFromClient();
 
     $.ajax({
         url: 'AJAX_PHP/CRUD.php',
@@ -152,7 +240,7 @@ function setDataForFilter() {
         success: function (response) {
 
             dataArray = convert_JsonToArray(response);
-            loadData(1, 3, 3);
+            loadData(1, 8, 3);
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -227,28 +315,7 @@ function loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage) {
     Pagination.innerHTML = html;
 }
 
-function changePriceToString(price) {
-    var s = "";
-    var temp = 0;
-    var flag = 0;
-    var amountDot = Math.round(price.length / 3);
 
-    if (price.length % 3 == 0) {
-        amountDot--;
-    }
-    for (var i = price.length - 1; i >= 0; i--) {
-        temp++;
-        if (temp == 3 && flag < amountDot) {
-            s = s + price[i] + ".";
-            flag++;
-            temp = 0;
-        }
-        else {
-            s = s + price[i];
-        }
-    }
-    return s.split("").reverse().join("") + "đ";
-}
 
 function convert_JsonToArray(dataJsonArray) {
     var Array = [];
