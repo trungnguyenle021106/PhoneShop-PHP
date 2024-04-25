@@ -72,7 +72,7 @@ function saveTK($username, $password) {
       ];
       // $connect->create("tai_khoan", $data);
       $connect->closeConnection();
-      $errors['success'] = 'Đăng ký thành công';
+      $errors['success'] = 'true';
       return  $errors;
   }
 }

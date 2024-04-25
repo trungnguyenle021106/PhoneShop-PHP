@@ -65,7 +65,7 @@ $(document).ready(function() {
                             <div class="dropdown">
                                 <img class="Img_user" src="Img/ic_user.png" alt="User" style="cursor: pointer;">
                                 <div class="dropdown-content">
-                                    <p><a href="/PAGES/logout.php">Đăng xuất</a></p>
+                                    <p><a href="/PhoneShop/PAGES/logout.php">Đăng xuất</a></p>
                                 </div>
                             </div>
                         </li>
@@ -73,7 +73,7 @@ $(document).ready(function() {
                         <li style="display: flex; align-items: center;" class="element_TopMenu">
                             <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
                             <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >
-                                <img class="Img_user" src="Img/ic_user.png" alt="Login" style="cursor: pointer;">
+                                <img class="Img_user" src="/PhoneShop/Img/ic_user.png" alt="Login" style="cursor: pointer;">
                             </a>
                         </li>
                     <?php endif; ?>
