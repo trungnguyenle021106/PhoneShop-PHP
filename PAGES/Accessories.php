@@ -5,17 +5,11 @@
 
                 <select class="item-filter-accesories" id="loai" onchange="setDataForFilter()">
                         <option value="">LOẠI</option>
-                        <option value="3">TAI NGHE</option>
-                        <option value="5">SẠC</option>
-                        <option value="4">ỐP LƯNG</option>
                 </select>
 
                 <select class="item-filter-accesories" id="nsx" onchange="setDataForFilter()">
                         <option value="">THƯƠNG HIỆU</option>
-                        <option value="1">APPLE</option>
-                        <option value="2">SAMSUNG</option>
-                        <option value="Google">GOOGLE</option>
-                        <option value="Oppo">OPPO</option>
+                       
                 </select>
                 <select class="item-filter-accesories" id="sapxep" onchange="setDataForFilter()">
                         <option value="">SẮP XẾP</option>
@@ -56,12 +50,12 @@
         </div>
         <div class="change_slide_content">
                 <div class="change_slide" id="Pagination">
-                        <button id="backPage_Btn">
+                        <!-- <button id="backPage_Btn">
                                 << </button>
                                         <button>1</button>
                                         <button>2</button>
                                         <button>3</button>
-                                        <button id="nextPage_Btn">>></button>
+                                        <button id="nextPage_Btn">>></button> -->
                 </div>
         </div>
         <div class="footer_content">

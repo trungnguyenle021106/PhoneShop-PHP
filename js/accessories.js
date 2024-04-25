@@ -327,3 +327,46 @@ function convert_JsonToArray(dataJsonArray) {
     return Array;
 }
 
+function setArrayValueSelect(tableName, condition, idSelect) {
+    var operation = "Read";
+    $.ajax({
+        url: 'AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+            dataArray = convert_JsonToArray(response);
+            loadValueForSelect(idSelect, dataArray)
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function loadValueForSelect(idSelect, arrayValueSelect)
+{
+
+    var element = document.getElementById(idSelect);
+    var html = element.innerHTML ;
+    for (var i = 0; i < arrayValueSelect.length; i++) {
+        switch (idSelect) {
+            case "loai":
+                html += '<option value="' + arrayValueSelect[i].MA_LOAI + '">' + arrayValueSelect[i].TEN_LOAI + '</option>';
+                break;
+            case "nsx":
+                html += '<option value="' + arrayValueSelect[i].MA_NSX + '">' + arrayValueSelect[i].TEN_NSX + '</option>';
+                break;
+            default:
+                break;
+        }
+    }
+    element.innerHTML = html;
+}
+
+setArrayValueSelect("nha_sx", "", "nsx");
+setArrayValueSelect("loai", "MA_LOAI <> 1", "loai");
