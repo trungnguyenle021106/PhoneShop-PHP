@@ -48,7 +48,8 @@ $connect->connectDB();
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="data">
+            
         </tbody>
     </table>
     </div>
@@ -62,7 +63,7 @@ $connect->connectDB();
         <h2 id="title">Tìm kiếm</h2>
             <select name="" id="opt_timkiem_SP">
                 <option value="MASP">MASP</option>
-                <option value="Loại">Mã loại</option>
+                <option value="Loại">loại</option>
                 <option value="MA_SP">Mã SP</option>
                 <option value="Tên_SP">Tên sản phẩm</option>
             </select>
@@ -113,7 +114,7 @@ $connect->connectDB();
       <div>
       </div>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" class="btn_themSP" name="btn_themSP" value="Thêm" onclick="add()">
+        <input type="button" class="btn_themSP" name="btn_themSP" value="Thêm">
     </form>
 
 
@@ -145,5 +146,5 @@ $connect->connectDB();
 <?php
 require("form_themCHSP_admin.php");
 ?>
-</div>
 <script src="JS/SP.js"></script>
+</div>

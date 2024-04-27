@@ -1,25 +1,33 @@
 
 <section id="container_formthemPNK">
     <div id="content_thmPNK">
+        <button id="btn_an_formthemCTPN">X</button>
     <h2>Thêm phiếu nhập</h2>
 <label for="">Mã nhân viên nhập phiếu: </label>
 <select name="" id="opt_MANV_themPNK">
-    <option value="">1</option>
-    <option value="">2</option>
-    <option value="">3</option>
-    <option value="">4</option>
+    <?php
+            foreach( $connect->read("nhan_vien") as $row){
+    ?>
+    <option value="<?php echo $row["MA_NV"]; ?>"><?php echo $row["MA_NV"]; ?></option>
+    <?php } ?>
 </select>
-<label for="">Mã nhà sản xuất phiếu nhập: </label>
+<label for="">Nhà sản xuất phiếu nhập: </label>
 <select name="" id="opt_MANSX_themPNK">
-    <option value="">1</option>
-    <option value="">2</option>
-    <option value="">3</option>
-    <option value="">4</option>
+<?php
+            foreach( $connect->read("nha_sx") as $row){
+    ?>
+    <option value="<?php echo $row["MA_NSX"]; ?>"><?php echo $row["TEN_NSX"]; ?></option>
+    <?php } ?>
 </select>
 
 <div id="container_content_themPNK">
-
 <div id="left_container_themPNK">
+
+<div id="search_PNK_them">
+        <input type="text" placeholder="Nhập mã sản phẩm cần tìm">
+        <button><img src="../Img/search (1).png" alt="##"></button>
+    </div>
+
     <div id="scroll_themPNK">
         <table>
             <thead>
@@ -29,57 +37,55 @@
                     <td>Hình ảnh</td>
                     <td>Số lượng</td>
             </thead>
-            <tbody>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+            <tbody id="data_SP">
+
             </tbody>
         </table>
-    </div>
-    <div id="search_PNK_them">
-        <input type="text" placeholder="Nhập mã sản phẩm cần tìm">
-        <button><img src="../Img/search (1).png" alt="##"></button>
     </div>
 </div>
 
 <div id="right_container_themPNK">
 <h3>Chi tiết phiếu nhập</h3>
-
 <div id="scroll_themCTPN">
     <table>
         <thead>
             <td>Mã sản phẩm</td>
-            <td style="width: 100px; ">Hình ảnh</td>
+            <td>Tên sản phẩm</td>
             <td>Đơn giá</td>
             <td>Số lượng</td>
             <td>Thành tiền</td>
-            <td>Thoa tác</td>
+            <td>Thao tác</td>
         </thead>
-        <tbody>
-            <td>1</td>
-            <td>2</td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number" readonly></td>
-            <td><button id="xoa_CTPN">Xóa</button></td>
+        <tbody id="data_CTSP">
+
         </tbody>
     </table>
 </div>
 </div>
 </div>
-<button id="them_CTPN">Thêm</button>
+<button id="them_CTPN" onclick="add()">Thêm</button>
     </div>
 </section>
 
 
 
 <style>
+    #btn_an_formthemCTPN{
+        width: 30px;
+        height: 30px;
+        font-size: 30px;
+        position: relative;
+        color: red;
+        border: none;
+        background-color: transparent; 
+        float: right;
+        top: 10px;
+        right: 20px;
+    }
     /* CSS cho container chính */
 #container_formthemPNK{
     height: 100%;
-    /* display: none; */
+    display: none;
     border: 1px solid black;
     position: absolute;
     background-color: rgba(204, 204, 204, 0.8); 
@@ -149,16 +155,16 @@
 
 /* CSS cho left container */
 #left_container_themPNK {
-    width: 50%;
+    width: 40%;
     margin-right: 20px;
-    height: 479px;
+    height: 462px;
 }
 
 
 /* CSS cho right container */
 #right_container_themPNK {
-    width: 50%;
-    height: 559px;
+    width: 60%;
+    height: 543px;
 }
 
 #left_container_themPNK table thead td{
@@ -174,8 +180,11 @@
 /* CSS cho input trong left container */
 #left_container_themPNK input[type="text"]{
     width: 96%;
-    padding: 8px;
     margin-bottom: 15px;
+}
+#right_container_themPNK input[type="number"]{
+   border: none;
+   width: 98%;
 }
 
 
@@ -183,7 +192,6 @@
     width: 30px;
     height: 27px;
     margin-top: 3px;
-
     }
 
 #left_container_themPNK button{
@@ -198,6 +206,7 @@
 #search_PNK_them{
 display: flex;
 height: 50px;
+
 margin-top: 1px;
 
 
@@ -212,12 +221,13 @@ margin-top: 1px;
 
 #scroll_themPNK table, #scroll_themPNK th, #scroll_themPNK td {
     border: 1px solid #ddd;
-}
-
-#scroll_themPNK th, #scroll_themPNK td {
-    padding: 8px;
     text-align: left;
 }
+
+#scroll_themPNK tr:hover{
+    background-color: grey;
+}
+
 
 #scroll_themPNK th {
     background-color: #f2f2f2;
@@ -240,10 +250,11 @@ text-align: center;
 #scroll_themCTPN table, #scroll_themCTPN th, #scroll_themCTPN thead {
     border: 1px solid #ddd;
     padding: 0px;
+    width: 100%;
 }
 
 #scroll_themCTPN th, #scroll_themCTPN td {
-
+    border: 1px solid black;
     text-align: center;
 }
 
@@ -256,5 +267,111 @@ font-weight: bold;
     background-color: red;
     border: 1px solid red;
     color: white;
+    width: 100%;
 }
 </style>
+
+
+
+
+<script>
+
+ //form thêm phiếu nhập
+ $(document).ready(function(){
+    $("#opt_MANSX_themPNK").change(function(){
+        var id = $(this).val();
+        $.post("CTPN_MASP_data.php", {id: id}, function(data){
+            $("#data_SP").html(data);
+        });
+    });
+
+    // Thêm sự kiện click vào các dòng
+    $(document).on('click', '#scroll_themPNK table tbody tr', function() {
+        // Lấy thông tin từ các ô trên dòng
+        var TEN = $(this).find('#TENSP_them').text();
+        var MASP = $(this).find('#MASP_them').text();
+        var tbody = $('#data_CTSP tr');
+        var check = true;
+
+        tbody.each(function(){
+            if($(this).find('#MASP_CTPN').text() === MASP){
+                check = false;
+            }
+        })
+
+        if(check){
+            var html = `
+        <tr>
+                <td id="MASP_CTPN">${MASP}</td>
+                <td id="TEN_CTPN">${TEN}</td>
+                <td id="DONGIA_CTPN"><input type="number" value="0" style="text-align: center"></td>
+                <td id="SL_CTPN"><input type="number" value="0" style="text-align: center"></td>
+                <td id="THANHTIEN_CTPN"><input type="number" value="0" style="text-align: center; " readonly></td>
+                <td><button id="xoa_CTPN">Xóa</button></td>
+        </tr> `;
+        
+        $('#data_CTSP').append(html);
+        }
+        else{
+            alert("Đã thêm sản phẩm");
+        }
+    });
+
+    
+        // Xử lý sự kiện khi nhấn nút "Xóa"
+        $(document).on('click', '#xoa_CTPN', function() {
+        // Lấy dòng chứa nút "Xóa" mà người dùng đã nhấn
+        var tr = $(this).closest('tr');
+        // Loại bỏ dòng đó khỏi bảng
+        tr.remove();
+    });
+});
+
+
+// Xử lý sự kiện tính thành tiền
+$(document).on('change', '#DONGIA_CTPN input', function() {
+    var THANH_TIEN = $(this).closest('tr').find('#THANHTIEN_CTPN input');
+    var SL = $(this).closest('tr').find('#SL_CTPN input');
+
+    THANH_TIEN.val(SL.val() * $(this).val());
+});
+
+$(document).on('change', '#SL_CTPN input', function() {
+    var THANH_TIEN = $(this).closest('tr').find('#THANHTIEN_CTPN input');
+    var DON_GIA = $(this).closest('tr').find('#DONGIA_CTPN input');
+
+    THANH_TIEN.val(DON_GIA.val() * $(this).val());
+});
+
+
+
+//sự kiện tìm kiếm sản phẩm
+document.querySelector('#search_PNK_them button').addEventListener('click',function(){
+    var MASP = document.querySelector('#search_PNK_them input').value;
+    var tobdy_SP = document.querySelectorAll('#data_SP tr');
+    if(MASP !== ""){
+        for(var i = 0; i < tobdy_SP.length; i++){
+        var Ma_SP_cantim = tobdy_SP[i].querySelector('#MASP_them').innerText;
+        if(chuyenDoiChuoi(Ma_SP_cantim).includes(chuyenDoiChuoi(MASP))){
+            tobdy_SP[i].style.display = 'table-row';
+        }
+        else{
+            tobdy_SP[i].style.display = 'none';
+        }
+    }
+}
+    else{
+        for(var i = 0; i < tobdy_SP.length; i++){
+            tobdy_SP[i].style.display = 'table-row';
+        }
+    }
+
+})
+
+function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+}
+
+</script>

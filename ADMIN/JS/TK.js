@@ -36,6 +36,64 @@ SLTK_HT.innerText = rows.length;
 }
    //loadData
 
+
+   function add()
+{
+    
+    var NGAY_TAO = new Date();
+    var TEN_TK = $('#TenTK_add').val();
+    var MAT_KHAU = $('#MATKHAU_add').val();
+    var MA_Q = $('#quyen').val();
+
+    var tr = document.querySelectorAll('#form_TK_admin table tbody tr');
+    var check_TEN_TK = true;
+    for(var i=0; i<tr.length; i++){
+        if(tr[i].querySelector('#TK_TenTK').innerText === TEN_TK){
+            check_TEN_TK = false;
+        }
+    }
+
+    if(TEN_TK === "" || MAT_KHAU === ""){
+        alert('Vui lòng nhập đầy đủ thông tin !!');
+    }
+
+    else if(!check_TEN_TK){
+        alert("Tên tài khoản đã tồn tại !!")
+    }
+    else if(!isValidString(MAT_KHAU)){
+        alert("Mật khẩu phải tối thiểu 6 kí tự và tối đa 11 kí tự không bao gồm kí tự đặc biệt");
+    }
+    else{
+        var data = {
+            TEN_TK: TEN_TK,
+            MAT_KHAU: MAT_KHAU,
+            MA_Q: MA_Q,
+            TINH_TRANG: "không hoạt động",
+            NGAY_TAO_TK: NGAY_TAO
+        };
+    
+        var jsonData = JSON.stringify(data);
+    
+        var operation = "Create";
+        var tableName = "tai_khoan";
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName
+            }, 
+            success: function(response){
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        })
+    }
+   }
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
 
@@ -153,3 +211,35 @@ document.getElementById('btn_timkiem_TK').addEventListener('click', function(eve
  })
  
  //chức năng tìm kiếm
+
+ 
+ //chức năng hiện thị mật khẩu
+ function togglePasswordVisibility() {
+    var passwordField = document.getElementById("MATKHAU_add");
+    var eyeIcon = document.getElementById("eyeIcon");
+  
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+    } else {
+      passwordField.type = "password";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    }
+}
+
+function isValidString(input) {
+    // Kiểm tra độ dài chuỗi
+    if (input.length < 6 || input.length > 11) {
+        return false;
+    }
+
+    // Kiểm tra ký tự đặc biệt
+    var regex = /^[a-zA-Z0-9]+$/; // Chỉ chấp nhận chữ cái và số
+    if (!regex.test(input)) {
+        return false;
+    }
+
+    return true;
+}

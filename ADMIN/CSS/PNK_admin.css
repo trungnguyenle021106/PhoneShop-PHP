@@ -167,7 +167,7 @@
 #form_CTPN_admin table tr td{
     border: 1px solid black;
 }
-#form_CTPN_admin table .thaotac {
+#form_CTPN_admin table #thaotac1 {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -177,7 +177,21 @@
     cursor: pointer;
     font-weight: bold;
 }
-#form_CTPN_admin table .thaotac:hover{
+#form_CTPN_admin table #thaotac1:hover{
+    background-color: #746d6d11;
+}
+
+#form_CTPN_admin table #CTPN_xoa_btn {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_CTPN_admin table #CTPN_xoa_btn:hover{
     background-color: #746d6d11;
 }
 
@@ -275,14 +289,16 @@
     width: 100%;
     height: 100%;
     top: 0px;
+    left: 0px;
 }
 
 #form_suaCTSP {
     text-align: center;
     background-color: rgb(137, 135, 135);
     position: relative;
-    top: 250px;
-    left: 450px;
+    border-radius: 10px;
+    top: 200px;
+    left: 550px;
     width:300px;
     padding: 10px;
 }

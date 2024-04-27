@@ -26,7 +26,7 @@ $connect->connectDB();
                     <td colspan="2">Thao tác</td>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="data">
 
             </tbody>
         </table>
@@ -61,21 +61,19 @@ $connect->connectDB();
         <div>
             <label for="">Tên KH: </label> 
             <input type="text" name="TenKH" id="TenKH_sua"> 
+            </div>
         <div>
             <label for="">SDT: </label> 
             <input type="number" name="SDT_KH" id="SDT_KH"> 
+            </div>
     <div>
         <label for="">Địa chỉ: </label>
         <input type="text" name="DiaChiKH" id="DiaChiKH"> 
-</div>
-        <label for="">CCCD </label>
-        <input type="text" name="CCCDKH" id="CCCDKH"> 
-        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="hidden" name="MAKH" value="" id="MAKH_sua"> 
-        <input type="hidden" id="MAKH_sua" name="MAKH_sua">
-        <input type="submit" class="btn_suaKH" name="btn_suaKH" value="sửa">
-    </form>
     </div>
+    <input type="hidden" id="MAKH_sua">
+    <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+    <input type="submit" id="suaKH_btn" onclick="update()" value="Sửa">
+    </form>
 </div>
 
 <script src="JS/KH.js"></script>

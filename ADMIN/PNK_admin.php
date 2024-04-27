@@ -31,7 +31,7 @@ $connect->connectDB();
                 <td>Mã nhân viên</td>
                 <td>Mã nhà sản xuất</td>
                 <td>Trạng thái</td>
-                <td colspan="3">Thao tác</td>
+                <td colspan="2">Thao tác</td>
             </tr>
         </thead>
 

@@ -4,6 +4,7 @@ $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
 <link rel="stylesheet" href="CSS/TK_admin.css">
+<script src="https://kit.fontawesome.com/3918fe69ba.js" crossorigin="anonymous"></script>
 <div id="form_TK_admin">
 <div id="table_TK">
 <div style="display: flex;">
@@ -59,6 +60,35 @@ $connect->connectDB();
             <input type="submit" value="Tìm" id="btn_timkiem_TK">
     </form>
 
+    <form action="" method="POST" id="form_them_TK">
+        <h2 style="text-align: center; ">Thêm Tài Khoản</h2>
+
+        <div>
+            <label for="">Tài Khoản: </label> 
+            <input type="text" name="TenTK" id="TenTK_add"> <span style="color: red; ">(*)</span>
+        </div>
+        <div style="margin-bottom: 10px; position: relative;">
+            <label for="">Mật Khẩu: </label> 
+            <input type="password" name="MATKHAU" id="MATKHAU_add"> 
+            <span id="togglePassword" onclick="togglePasswordVisibility()" style="position: absolute; right: 60px; top: 3px;">
+            <i id="eyeIcon" class="fa fa-eye"></i> </span>
+            <span style="color: red; ">(*)</span>
+            
+    </div>
+    <div>
+        <label for="">Cấp quyền: </label>
+        <select name="" id="quyen">
+            <?php
+            foreach( $connect->read("quyen") as $row){
+            ?>
+            <option value="<?php echo $row["MA_Q"]; ?>"><?php echo $row["TEN_Q"]; ?></option>
+            <?php } ?>
+        </select>
+    </div>
+
+        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+        <input type="submit" class="btn_themTK" name="btn_themTK" value="Thêm" onclick="add()">
+    </form>
 
 </div>
 </div>

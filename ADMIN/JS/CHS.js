@@ -86,28 +86,32 @@ read();
         <td id="CHS_CS">${elementPage[i].CONG_SUAT}</td>
         <td id="CHS_TN">${elementPage[i].TINH_NANG}</td>
         <form action="" method="POST">
-        <td><input type="button" id="CHS_sua_btn" class="thaotac" value="sửa"></td>
+        <td><input type="button" class="CHS_sua_btn" id="thaotac_CHS" value="sửa" data-index="${i}"></td>
         </form></tr>
         `;
-
+    }
         var tbody = document.getElementById("data");
         tbody.innerHTML = html;
 
             
-                // Gán sự kiện cho nút sửa mới tạo
-    tbody.querySelector('#CHS_sua_btn').addEventListener('click', function(){   
-        var form_sua_CHS = document.getElementById('container_suaCHS')
-        var tr = this.parentElement.parentElement;
-        
-        form_sua_CHS.querySelector('#KN_CHS_sua').value = tbody.querySelector('#CHS_KN').innerText;
-        form_sua_CHS.querySelector('#CS_CHS_sua').value = tbody.querySelector('#CHS_CS').innerText.split(" W")[0];
-        form_sua_CHS.querySelector('#TN_CHS_sua').value = tbody.querySelector('#CHS_TN').innerText;
-        form_sua_CHS.querySelector('#MACHS_sua').value = tbody.querySelector('#CHS_MACHS').innerText;
 
-        form_sua_CHS.style.display = 'block';
-    });
     
-}
+            // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+            var editButtons = document.querySelectorAll('.CHS_sua_btn');
+            editButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var index = this.getAttribute('data-index');
+                    var form_sua_CHS = document.getElementById('container_suaCHS');
+        
+                    form_sua_CHS.querySelector('#KN_CHS_sua').value = elementPage[index].KET_NOI;
+                    console.log(form_sua_CHS.querySelector('#KN_CHS_sua').value);
+                    form_sua_CHS.querySelector('#CS_CHS_sua').value = elementPage[index].CONG_SUAT.split("W")[0];
+                    form_sua_CHS.querySelector('#TN_CHS_sua').value = elementPage[index].TINH_NANG;
+                    form_sua_CHS.querySelector('#MACHS_sua').value = elementPage[index].MA_CHS;
+        
+                    form_sua_CHS.style.display = 'block';
+                });
+            });
 }        
 
 
@@ -148,8 +152,8 @@ document.getElementById('btn_timkiem_CHS').addEventListener('click', function(ev
  
  for(var i = 0; i < rows.length; i++){
      var MaCHS = rows[i].querySelector('#CHS_MASP').innerText;
-     if(MaCHS.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaCHS).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -161,8 +165,8 @@ document.getElementById('btn_timkiem_CHS').addEventListener('click', function(ev
  else if(opt === 'KN') {
      for(var i = 0; i < rows.length; i++){
      var MaCHS = rows[i].querySelector('#CHS_KN').innerText;
-     if(MaCHS.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaCHS).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -173,8 +177,8 @@ document.getElementById('btn_timkiem_CHS').addEventListener('click', function(ev
  else if(opt === 'TN') {
      for(var i = 0; i < rows.length; i++){
      var MaCHS = rows[i].querySelector('#CHS_TN').innerText;
-     if(MaCHS.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaCHS).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -191,3 +195,13 @@ document.getElementById('btn_timkiem_CHS').addEventListener('click', function(ev
  })
  
  //chức năng tìm kiếm
+
+
+ //Lê Ngọc Anh Huy -> lengocanhhuy
+function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+}
+
+

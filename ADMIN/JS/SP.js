@@ -3,72 +3,85 @@ read();
 // Gọi hàm read để lấy dữ liệu 
 
 
-function add()
-{       
+function add(){
+    var loai = $("#opt_loai").val();
+    var MANSX = $("#opt_MANSX").val();
+    var Ten_SP = $("#TenSP_add").val();
+    var Gia = $("#GIA_SP_add").val();
 
-        var loai = $("#opt_loai").val();
-        var MANSX = $("#opt_MANSX").val();
-        var Ten_SP = $("#TenSP_add").val();
-        var Gia = $("#GIA_SP_add").val();
-        var fileInput = $('#ANH_SP_add')[0]; 
+var filePath = $('#ANH_SP_add').val();
+var ANH = filePath.split('\\').pop();
 
-    var filePath = $('#ANH_SP_add').val();
-    var ANH = filePath.split('\\').pop();
-    var files = fileInput.files;
-            
-    if(files.length === 0 || Ten_SP === "" || Gia === ""){
-        alert("Hãy nhập đầy đủ thông tin !!");
-    }
-    else{
-        var data = {
-            MA_LOAI: loai,
-            MA_NSX: MANSX,
-            TEN_SP: Ten_SP,
-            GIA_BAN: Gia + "$",
-            HINH_ANH: ANH,
-            SO_LUONG: 1
-          };
-
-          var jsonData = JSON.stringify(data);
-    
+    var data = {
+        MA_LOAI: loai,
+        MA_NSX: MANSX,
+        TEN_SP: Ten_SP,
+        GIA_BAN: Gia,
+        HINH_ANH: ANH,
+        SO_LUONG: 1
+      };
+      var jsonData = JSON.stringify(data);
+      console.log(jsonData);
 var operation = "Create";
 var tableName = "san_pham";
 $.ajax({
-    url: '../AJAX_PHP/CRUD.php',
-    type: 'POST',
-    dataType: 'json',
-    data: {
-        jsonData : jsonData,
-        operation: operation,
-        tableName: tableName
-    },
-    success: function(response) {
-        console.log(response);
-    },
-    error: function(xhr, status, error) {
-        console.log(error);
-    }
-});
+url: '../AJAX_PHP/CRUD.php',
+type: 'POST',
+dataType: 'json',
+data: {
+    jsonData : jsonData,
+    operation: operation,
+    tableName: tableName
+},
+success: function(response) {
+    console.log(response);
+},
+error: function(xhr, textStatus, errorThrown) {
+    console.log(xhr, textStatus, errorThrown);
 }
-    }
-
+})
+}
 
     function add_CHSP()
 { 
+//thêm sản phẩm trước
+    var loai = $("#opt_loai").val();
+    var MANSX = $("#opt_MANSX").val();
+    var Ten_SP = $("#TenSP_add").val();
+    var Gia = $("#GIA_SP_add").val();
 
-        var loai = $("#opt_themCH").val();
+var filePath = $('#ANH_SP_add').val();
+var ANH = filePath.split('\\').pop();
+
+    var data = {
+        MA_LOAI: loai,
+        MA_NSX: MANSX,
+        TEN_SP: Ten_SP,
+        GIA_BAN: Gia,
+        HINH_ANH: ANH,
+        SO_LUONG: 1
+      };
+      var jsonData = JSON.stringify(data);
+      console.log(jsonData);
+var operation = "Create";
+var tableName = "san_pham";
+$.ajax({
+url: '../AJAX_PHP/CRUD.php',
+type: 'POST',
+dataType: 'json',
+data: {
+    jsonData : jsonData,
+    operation: operation,
+    tableName: tableName
+},
+success: function(response) {
+    var loai = $("#opt_loai").val();
 
     if(loai === "1"){
         if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== "" && $("#OS_them").val() !== ""){
         
-            var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
-            MASP_check.push($("#MaSP_them").val());
-            var jsonMyArray = JSON.stringify(MASP_check);
-            //lưu tất cả nút vào local
-            localStorage.setItem('MASP_check', jsonMyArray);
-
             var data = {
-                MA_SP: $("#MaSP_them").val(),
+                MA_SP: response[response.length-1].MA_SP,
                 RAM: $("#RAM_them").val() + "GB",
                 BO_NHO_TRONG: $("#BNT_them").val() + "GB",
                 MAN_HINH: $("#MH_them").val(),
@@ -108,15 +121,9 @@ $.ajax({
 
     else if(loai === "2"){
         if($("#KNTN_them").val() !== "" && $("#TNTN_them").val() !== ""){
-          
-            var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
-            MASP_check.push($("#MaSP_them").val());
-            var jsonMyArray = JSON.stringify(MASP_check);
-            //lưu tất cả nút vào local
-            localStorage.setItem('MASP_check', jsonMyArray);
 
             var data = {
-                MA_SP: $("#MaSP_them").val(),
+                MA_SP: response[response.length-1].MA_SP,
                 KET_NOI: $("#KNTN_them").val(),
                 TINH_NANG: $("#TNTN_them").val(),
             };
@@ -151,16 +158,10 @@ $.ajax({
     else if(loai === "3"){
         if($("#CHSKN_them").val() !== "" && $("#CsS_them").val() !== "" && $("#CHSTN_them").val() !== ""){
           
-                  
-            var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
-            MASP_check.push($("#MaSP_them").val());
-            var jsonMyArray = JSON.stringify(MASP_check);
-            //lưu tất cả nút vào local
-            localStorage.setItem('MASP_check', jsonMyArray);
 
             var data = {
-                MA_SP: $("#MaSP_them").val(),
-                KET_NOI: $("#KNTN_them").val(),
+                MA_SP: response[response.length-1].MA_SP,       
+                KET_NOI: $("#CHSKN_them").val(),
                 CONG_SUAT: $("#CsS_them").val() + "W",
                 TINH_NANG: $("#CHSTN_them").val()
             };
@@ -193,16 +194,9 @@ $.ajax({
 
     else if(loai === "4"){
         if($("#CLOL_them").val() !== "" && $("#TNOL_them").val() !== ""){
-        
-                
-            var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
-            MASP_check.push($("#MaSP_them").val());
-            var jsonMyArray = JSON.stringify(MASP_check);
-            //lưu tất cả nút vào local
-            localStorage.setItem('MASP_check', jsonMyArray);
 
             var data = {
-                MA_SP: $("#MaSP_them").val(),
+                MA_SP: response[response.length-1].MA_SP,
                 CHAT_LIEU: $("#CLOL_them").val(),
                 TINH_NANG: $("#TNOL_them").val()
             };
@@ -232,6 +226,12 @@ $.ajax({
             alert("Hãy nhập đầy đủ thông tin !!");
         }
     }
+},
+error: function(xhr, status, error) {
+    console.log(error);
+}
+});
+      
 }
     
 function update()
@@ -342,9 +342,10 @@ function Delete(MASP) {
             condition: "MA_SP=" + MASP,
         },
         success: function(response) {
-            var array = JSON.stringify(response);
                 // Xóa phiếu bảo hành
-                deleteFromTable("phieu_bao_hanh", "MA_SERIAL", array[15]);
+                for(var i = 0; i < response.length; i++){
+                    deleteFromTable("phieu_bao_hanh", "MA_SERIAL", response[i].MA_SERIAL);
+                }
                 // Xóa mã serial
                 deleteFromTable("serial", "MA_SP", MASP);
             
@@ -401,22 +402,11 @@ SLSP_HT.innerText = rows.length;
    
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
    
-  //dùng để lưu các sản phẩm đã có cấu hình vào local
-  var MASP_check = [];
-  if(!localStorage.getItem('MASP_check')){
-     var jsonMyArray = JSON.stringify(MASP_check);
-     localStorage.setItem('MASP_check', jsonMyArray);
- }
-  //dùng để lưu các sản phẩm đã có cấu hình vào local
- 
+  //hàm hiển thị dữ liệu
 
-  //hàm hiển thị dữ liệu 
   function DisplayElementPage(elementPage) {
-    var ulContainer = document.querySelector("#table_SP table tbody");
-
+    var html = "";
     for (var i = 0; i < elementPage.length; i++) {
-        var tr = document.createElement('tr');
-        var p = "<?php echo $_POST['page'];?>";
         var ten_loai;
         if(elementPage[i].MA_LOAI == 1){
             ten_loai = "Điện thoại";
@@ -430,54 +420,43 @@ SLSP_HT.innerText = rows.length;
         else if(elementPage[i].MA_LOAI == 5){
             ten_loai = "Sạc";
         }
-        var content = '<tr><td id="SP_MASP">'+ elementPage[i].MA_SP+'</td><td id="SP_MALOAI">'+ten_loai+'</td><td id="SP_MANSX">'+elementPage[i].MA_NSX+'</td><td id="SP_TEN">'+elementPage[i].TEN_SP+'</td><td id="SP_GIA">'+changePriceToString(elementPage[i].GIA_BAN)+'</td><td id="SP_ANH"><img src="../Img/'+elementPage[i].HINH_ANH+'" alt="##" style="height: 50px;"></td><td id="SP_SL">'+elementPage[i].SO_LUONG +'</td> <form action="" method="POST" id="dieukien_xoa"><input type="hidden" name="page" value="'+p+'"><input type="hidden" name="MASP_xoa" value="'+elementPage[i].MA_SP+'"><td><input type="submit" name="SP_xoa_btn" class="thaotac SP_xoa_btn" value="xóa" onclick="Delete('+elementPage[i].MA_SP+')"></td></form><form action="" method="POST" id="dieukien_sua"><td><input type="button" id="SP_sua_btn" class="thaotac" value="sửa"></td></form></form> <form action="" method="POST" id="dieukien_themCH"><td><input type="button" id="SP_themCH_btn" class="thaotac" value="Thêm CH"></td></form></tr>';
-        var content1 = '<tr><td id="SP_MASP">'+ elementPage[i].MA_SP+'</td><td id="SP_MALOAI">'+ten_loai+'</td><td id="SP_MANSX">'+elementPage[i].MA_NSX+'</td><td id="SP_TEN">'+elementPage[i].TEN_SP+'</td><td id="SP_GIA">'+changePriceToString(elementPage[i].GIA_BAN)+'</td><td id="SP_ANH"><img src="../Img/'+elementPage[i].HINH_ANH+'" alt="##" style="height: 50px;"></td><td id="SP_SL">'+elementPage[i].SO_LUONG +'</td> <form action="" method="POST" id="dieukien_xoa"><input type="hidden" name="page" value="'+p+'"><input type="hidden" name="MASP_xoa" value="'+elementPage[i].MA_SP+'"><td id="xxx"><input type="submit" name="SP_xoa_btn" class="thaotac SP_xoa_btn" value="xóa" onclick="Delete('+elementPage[i].MA_SP+')"></td></form><form action="" method="POST" id="dieukien_sua"><td><input type="button" id="SP_sua_btn" class="thaotac" value="sửa"></td></form></form></tr>';
 
-        var MASP_check = JSON.parse(localStorage.getItem('MASP_check'));
-        var count = false;
-        for(var j = 0; j < MASP_check.length; j++) {
-            if(elementPage[i].MA_SP === MASP_check[j]){
-                tr.innerHTML = content1;
-                ulContainer.append(tr);
-                tr.querySelector("#xxx").colSpan = "2";
-                count = true;
-                break;
-            }
-        }
-        if(!count){
-            tr.innerHTML = content;
-            ulContainer.append(tr);   
-             // Gán sự kiện cho nút thêm cấu hình mới tạo
-        tr.querySelector('#SP_themCH_btn').addEventListener('click', function(){
-            var form_them_SP = document.getElementById('container_themSP')
-            var tr = this.parentElement.parentElement;
+        html += `<tr>
+        <td id="SP_MASP">${elementPage[i].MA_SP}</td>
+        <td id="SP_MALOAI">${ten_loai}</td>
+        <td id="SP_MANSX">${elementPage[i].MA_NSX}</td>
+        <td id="SP_TEN">${elementPage[i].TEN_SP}</td>
+        <td id="SP_GIA">${changePriceToString(elementPage[i].GIA_BAN)}</td>
+        <td id="SP_ANH"><img src="../Img/${elementPage[i].HINH_ANH}" alt="##" style="height: 50px;"></td>
+        <td id="SP_SL">${elementPage[i].SO_LUONG}</td> 
+        <form action="" method="POST" id="dieukien_xoa">
+        <input type="hidden" name="page" value="page">
+        <input type="hidden" name="MASP_xoa" value="${elementPage[i].MA_SP}">
+        <td id="xxx"><input type="submit" name="SP_xoa_btn" class="thaotac" value="xóa" onclick="Delete(${elementPage[i].MA_SP})"></td></form>
+        <form action="" method="POST" id="dieukien_sua"><td><input type="button" class="SP_sua_btn" id="thaotac_SP" value="sửa" data-index="${i}"></td></form></form>
+        </tr>
+        `;
+    }
+    var tbody = document.getElementById("data");
+    tbody.innerHTML = html;
+    
 
-            document.querySelector('#MaSP_them').value = tr.querySelector('#SP_MASP').innerText; // lấy mã sản phẩm được ấn vào form sửa 
+    // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+    var editButtons = document.querySelectorAll('.SP_sua_btn');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var index = this.getAttribute('data-index');
+            var form_sua_SP = document.getElementById('container_suaSP');
 
-            form_them_SP.style.display = 'block';
-        });
-        }
+            form_sua_SP.querySelector('#TenSP_sua').value = elementPage[index].TEN_SP;
+            form_sua_SP.querySelector('#Gia_SP').value = changePriceToNormal(elementPage[index].GIA_BAN);
+            form_sua_SP.querySelector('#MASP_sua').value = elementPage[index].MA_SP;
+            form_sua_SP.querySelector('#anh_su').value = elementPage[index].HINH_ANH;
 
-        // Gán sự kiện cho nút sửa mới tạo
-        tr.querySelector('#SP_sua_btn').addEventListener('click', function(){
-            var form_sua_SP = document.getElementById('container_suaSP')
-            var tr = this.parentElement.parentElement;
-            
-            form_sua_SP.querySelector('#TenSP_sua').value = tr.querySelector('#SP_TEN').innerText;
-            form_sua_SP.querySelector('#Gia_SP').value = tr.querySelector('#SP_GIA').innerText;
-            form_sua_SP.querySelector('#MASP_sua').value = tr.querySelector('#SP_MASP').innerText;
-            form_sua_SP.querySelector('#anh_su').value = tr.querySelector('#SP_ANH img').src.split("http://localhost/PhoneShop/Img/")[1];
-            
             form_sua_SP.style.display = 'block';
         });
-    }
- }
-  //hàm hiển thị dữ liệu
-
-
-
-
-
+    });
+}
 
 
 //chức năng ẩn hiện form sửa
@@ -492,7 +471,7 @@ document.addEventListener('click', function(event){
 
 
     //chức năng của form thêm cấu hình
-var opt = document.querySelector('#opt_themCH');
+var opt = document.querySelector('#opt_loai');
 var form = document.querySelector('#form_add_SP');
 
 var section_CHDT =  document.querySelector('#CTN_CHDT');
@@ -535,7 +514,7 @@ else if(opt.value == '4'){
 });
 
 
-
+//chức năng ẩn form thêm cấu hình
 document.addEventListener('DOMContentLoaded', function(event){
 var container = document.getElementById('container_themSP');
 
@@ -545,9 +524,25 @@ container.addEventListener('click', function(event) {
     }
 });
 })
-//chức năng của form thêm cấu hình
+//chức năng ẩn form thêm cấu hình
 
 
+//hiện form thêm cấu hình
+document.querySelector('.btn_themSP').addEventListener('click', function(event){
+    event.preventDefault();
+    var Ten_SP = $("#TenSP_add").val();
+    var Gia = $("#GIA_SP_add").val();
+    var fileInput = $('#ANH_SP_add')[0]; 
+    var files = fileInput.files;
+        
+if(files.length === 0 || Ten_SP === "" || Gia === ""){
+    alert("Hãy nhập đầy đủ thông tin !!");
+}
+else{
+    document.getElementById('container_themSP').style.display = "block";
+}
+})
+//hiện form thêm cấu hình
 
 
   // chức năng tìm kiếm
@@ -574,8 +569,8 @@ container.addEventListener('click', function(event) {
  
  for(var i = 0; i < rows.length; i++){
      var MaNV = rows[i].querySelector('#SP_MALOAI').innerText;
-     if(MaNV.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaNV).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -587,8 +582,8 @@ container.addEventListener('click', function(event) {
  
  for(var i = 0; i < rows.length; i++){
      var MaSP = rows[i].querySelector('#SP_MASP').innerText;
-     if(MaSP.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaSP).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -599,8 +594,8 @@ container.addEventListener('click', function(event) {
  else if(opt === 'Tên_SP') {
      for(var i = 0; i < rows.length; i++){
      var MaSP = rows[i].querySelector('#SP_TEN').innerText;
-     if(MaSP.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaSP).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -649,4 +644,12 @@ function changePriceToNormal(price)
 {
     return price.replace(/\D/g, "");
 }
+
+//Lê Ngọc Anh Huy -> lengocanhhuy
+function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+}
+
 

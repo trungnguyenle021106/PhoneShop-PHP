@@ -26,7 +26,7 @@
 #form_SP_admin table tr td{
     border: 1px solid black;
 }
-#form_SP_admin table .thaotac, .SP_sua_btn, .SP_xoa_btn {
+#form_SP_admin table .thaotac, .SP_sua_btn{
     width: 100%;
     height: 100%;
     padding: 0;
@@ -450,7 +450,7 @@
 #form_CHDT_admin table tr td{
     border: 1px solid black;
 }
-#form_CHDT_admin table .thaotac {
+#form_CHDT_admin table #thaotac_CHDT {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -626,7 +626,7 @@
 #form_CHS_admin table tr td{
     border: 1px solid black;
 }
-#form_CHS_admin table .thaotac {
+#form_CHS_admin table #thaotac_CHS {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -636,7 +636,7 @@
     cursor: pointer;
     font-weight: bold;
 }
-#form_CHS_admin table .thaotac:hover{
+#form_CHS_admin table #thaotac_CHS:hover{
     background-color: #746d6d11;
 }
 
@@ -802,7 +802,7 @@
 #form_CHTN_admin table tr td{
     border: 1px solid black;
 }
-#form_CHTN_admin table .thaotac {
+#form_CHTN_admin table #thaotac_CHTN {
     width: 100%;
     height: 100%;
     padding: 0;

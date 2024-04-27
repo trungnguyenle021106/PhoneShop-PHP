@@ -82,27 +82,28 @@ SLSP_HT.innerText = rows.length;
         <td id="CHTN_KN">${elementPage[i].KET_NOI}</td>
         <td id="CHTN_TN">${elementPage[i].TINH_NANG}</td>
         <form action="" method="POST">
-        <td><input type="button" id="CHTN_sua_btn" class="thaotac" value="sửa"></td>
+        <td><input type="button" class="CHTN_sua_btn" id="thaotac_CHTN" value="sửa" data-index="${i}"></td>
         </form></tr>
         `;
-
+    }
         var tbody = document.getElementById("data");
         tbody.innerHTML = html;
-
-            
-                // Gán sự kiện cho nút sửa mới tạo
-    tbody.querySelector('#CHTN_sua_btn').addEventListener('click', function(){   
-        var form_sua_CHTN = document.getElementById('container_suaCHTN')
-        var tr = this.parentElement.parentElement;
-        
-        form_sua_CHTN.querySelector('#KN_CHTN_sua').value = tbody.querySelector('#CHTN_KN').innerText;
-        form_sua_CHTN.querySelector('#TN_CHTN_sua').value = tbody.querySelector('#CHTN_TN').innerText;
-        form_sua_CHTN.querySelector('#MACHTN_sua').value = tbody.querySelector('#CHTN_MACHTN').innerText;
-
-        form_sua_CHTN.style.display = 'block';
-    });
     
-}
+
+        // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+        var editButtons = document.querySelectorAll('.CHTN_sua_btn');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var index = this.getAttribute('data-index');
+                var form_sua_CHTN = document.getElementById('container_suaCHTN');
+    
+                form_sua_CHTN.querySelector('#KN_CHTN_sua').value = elementPage[index].KET_NOI;
+                form_sua_CHTN.querySelector('#TN_CHTN_sua').value = elementPage[index].TINH_NANG;
+                form_sua_CHTN.querySelector('#MACHTN_sua').value = elementPage[index].MA_CHTN;
+    
+                form_sua_CHTN.style.display = 'block';
+            });
+        });
 }        
 
 
@@ -130,8 +131,8 @@ document.addEventListener('click', function(event){
      
          for(var i = 0; i < rows.length; i++){
              var MACHTN = rows[i].querySelector('#CHTN_MACHTN').innerText;
-             if(MACHTN.indexOf(txt) !== -1){
-                 rows[i].style.display = 'table-row';
+             if(chuyenDoiChuoi(MACHTN).includes(chuyenDoiChuoi(txt))){
+                rows[i].style.display = 'table-row';
              }
              else{ 
                  rows[i].style.display = 'none';
@@ -144,8 +145,8 @@ document.addEventListener('click', function(event){
      
      for(var i = 0; i < rows.length; i++){
          var MaCHTN = rows[i].querySelector('#CHTN_CHTN').innerText;
-         if(MaCHTN.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHTN).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -156,8 +157,8 @@ document.addEventListener('click', function(event){
      else if(opt === 'KN') {
          for(var i = 0; i < rows.length; i++){
          var MaCHTN = rows[i].querySelector('#CHTN_KN').innerText;
-         if(MaCHTN.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHTN).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -168,8 +169,8 @@ document.addEventListener('click', function(event){
      else if(opt === 'TN') {
          for(var i = 0; i < rows.length; i++){
          var MaCHTN = rows[i].querySelector('#CHTN_TN').innerText;
-         if(MaCHTN.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHTN).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -185,5 +186,13 @@ document.addEventListener('click', function(event){
      })
      
      //chức năng tìm kiếm
+
+//Lê Ngọc Anh Huy -> lengocanhhuy
+function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+}
+
 
 

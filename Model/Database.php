@@ -1,4 +1,4 @@
-<?php
+ <?php
 class MyConnection
 {
     private $server, $username, $password, $database;

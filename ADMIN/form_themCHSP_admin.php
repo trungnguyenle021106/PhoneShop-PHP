@@ -2,13 +2,7 @@
 <div id="container_themSP" style="position: absolute; top: 0px;left: 0px; width: 100%; height: 100%; background-color: rgba(128, 128, 128, 0.5); display: none;">
     <form action="" method="POST" id="form_add_SP" style=" margin: 0 auto;  padding: 30px; background-color: #f9f9f9; width: 40%; height: 660px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: relative; top: 0px;">
         <h2 style="text-align: center; margin-bottom: 20px;">Cấu hình sản phẩm</h2>
-        <label for="opt_themCH">Loại: </label>
-       <select name="" id="opt_themCH" style="margin-bottom: 10px;">
-        <option value="1">Điện thoại</option>
-        <option value="2">Tai nghe</option>
-        <option value="3">Sạc</option>
-        <option value="4">Ốp lưng</option>
-       </select>
+        
         <section id="CTN_CHDT">
         <div style="margin-bottom: 15px;">
             <label for="RAM_them" style="display: block; font-weight: bold;">RAM:</label> 
@@ -82,8 +76,7 @@
         </section>
 
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="hidden" name="MASP" id="MaSP_them">
-        <input type="submit" onclick="add_CHSP()" class="btn_themSP" name="btn_themSP" value="Thêm" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; float: right; ">
+        <input type="button" onclick="add()" class="btn_themSP" name="btn_themSP" value="Thêm" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; float: right; ">
     </form>
 </div>
 

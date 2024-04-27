@@ -36,28 +36,150 @@ SLKH_HT.innerText = rows.length;
 }
    //loadData
 
+
+   function update()
+{
+
+        var data = {
+            HOTEN_KH: $('#TenKH_sua').val(),
+            SO_DT: $('#SDT_KH').val(),
+            DIA_CHI: $('#DiaChiKH').val()
+          };
+          var jsonData = JSON.stringify(data);
+
+    var operation = "Update";
+    var tableName = "khach_hang";
+    var idName = "MA_KH";
+    var idValue = $('#MAKH_sua').val();
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData : jsonData,
+            operation: operation,
+            tableName: tableName,
+            idName : idName,
+            idValue : idValue
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+
+
+function Delete(MAKH) {
+    var operation = "Delete";
+    var idName = "MA_KH";
+    var idValue = MAKH;
+
+    // Hàm xóa từng bảng
+    function deleteFromTable(tableName, idName, idValue) {
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                operation: operation,
+                tableName: tableName,
+                idName: idName,
+                idValue: idValue
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+    }
+
+
+    // Đọc mã hóa đơn và xóa hóa đơn
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: "Read",
+            tableName: "hoa_don",
+            condition: "MA_KH=" + MAKH,
+        },
+        success: function(response) {
+                // Xóa chi tiết hóa đơn
+                for(var i = 0; i < response.length; i++){
+                    deleteFromTable("chi_tiet_hoadon", "MA_HD", response[i].MA_HD);
+                }
+                // Xóa hóa đơn
+                deleteFromTable("hoa_don", "MA_KH", MAKH);
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+
+    // Xóa sản phẩm
+    deleteFromTable("khach_hang", idName, idValue);
+    location.reload();
+
+
+}
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
-
-   function DisplayElementPage(elementPage) {
-    var ulContainer = document.querySelector("#table_KH table tbody");
-    
-    for (var i = 0; i < elementPage.length; i++) {
-        var tr = document.createElement('tr');
-        var content = '<tr><td id="KH_MAKH">'+ elementPage[i].MA_KH + '</td><td id="KH_TK">'+ elementPage[i].MA_TK + '</td><td id="KH_ten">'+ elementPage[i].HOTEN_KH + '</td><td id="KH_gioitinh">'+ elementPage[i].G_TINH + '</td><td id="KH_diachi">'+ elementPage[i].DIA_CHI + '</td><td id="KH_SDT">'+ elementPage[i].SO_DT + '</td><td id="KH_CCCD">'+ elementPage[i].SO_CCCD + '</td><form action="" method="POST"><input type="hidden" name="MAKH_xoa" value = <?php echo $row["MA_KH"]; ?><input type="hidden" name="page" value="<?php echo $_POST["page"]; ?><td><input type="submit" value="xóa" class="thaotac"></td></form><form action="" method="POST"><td><input type="button" id="KH_sua_btn" class="thaotac" value="sửa"></td></form></tr>';
+    function DisplayElementPage(elementPage) {
+        var html = "";
+        for (var i = 0; i < elementPage.length; i++) {
+            html += `
+            <tr><td id="KH_MAKH">${elementPage[i].MA_KH}</td>
+            <td id="KH_TK">${elementPage[i].MA_TK}</td>
+            <td id="KH_ten">${elementPage[i].HOTEN_KH}</td>
+            <td id="KH_gioitinh">${elementPage[i].G_TINH}</td>
+            <td id="KH_diachi">${elementPage[i].DIA_CHI}</td>
+            <td id="KH_SDT">${elementPage[i].SO_DT}</td>
+            <td id="KH_CCCD">${elementPage[i].SO_CCCD}</td>
+            <form action="" method="POST">
+            <input type="hidden" name="MAKH_xoa" value = <?php echo $row["MA_KH"]; ?>
+            <input type="hidden" name="page" value="<?php echo $_POST["page"]; ?>
+            <td><input type="submit" value="xóa" class="thaotac_xoa" onclick="Delete(${elementPage[i].MA_KH})"></td></form>
+            <form action="" method="POST"><td><input type="button" class="KH_sua_btn" id="thaotac_KH" value="sửa" data-index="${i}"></td>
+            </form></tr>
+            `;
+        }
+        var tbody = document.getElementById("data");
+        tbody.innerHTML = html;
         
-            tr.innerHTML = content;
-            ulContainer.append(tr);   
     
-             // Gán sự kiện cho nút thêm cấu hình mới tạo
-        tr.querySelector('#KH_sua_btn').addEventListener('click', function(){   
+        // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+        var editButtons = document.querySelectorAll('.KH_sua_btn');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var index = this.getAttribute('data-index');
+                var form_sua_KH = document.getElementById('container_suaKH');
+    
+                form_sua_KH.querySelector('#TenKH_sua').value = elementPage[index].HOTEN_KH;
+                form_sua_KH.querySelector('#SDT_KH').value = elementPage[index].SO_DT;
+                form_sua_KH.querySelector('#DiaChiKH').value = elementPage[index].DIA_CHI;
+                form_sua_KH.querySelector('#MAKH_sua').value = elementPage[index].MA_KH;
+
+                form_sua_KH.style.display = 'block';
+            });
         });
-        
-    }
     }
 
+    var form_sua_KH = document.getElementById('container_suaKH');
+    form_sua_KH.addEventListener('click', function(event){
+    if(event.target === form_sua_KH){
+        form_sua_KH.style.display = 'none';
 
-
+    }
+})
 
      //chức năng tìm kiếm
 document.getElementById('btn_timkiem_KH').addEventListener('click', function(event){

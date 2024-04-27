@@ -95,33 +95,37 @@ function DisplayElementPage(elementPage) {
         <td id="CHDT_CAMTRC">${elementPage[i].CAMERA_TRUOC}</td> 
         <td id="CHDT_CAMSAU">${elementPage[i].CAMERA_SAU}</td>
         <td id="CHDT_OS" >${elementPage[i].OS}</td>
-        <form action="" method="POST"><td><input type="submit" id="CHDT_sua_btn" class="thaotac" value="sửa"></td>
+        <form action="" method="POST"><td><input type="submit" class="CHDT_sua_btn" id="thaotac_CHDT" value="sửa" data-index="${i}"></td>
         </form></tr>
         `;
-    
+    }
     var tbody = document.getElementById("data");
     tbody.innerHTML = html;
-
-         // Gán sự kiện cho nút sửa mới tạo
-    tbody.querySelector('#CHDT_sua_btn').addEventListener('click', function(){   
-        var form_sua_CHDT = document.getElementById('container_suaCHDT')
-        var tr = this.parentElement.parentElement;
-        
-        form_sua_CHDT.querySelector('#RAM_CHDT_sua').value = tbody.querySelector('#CHDT_RAM').innerText.split("GB")[0];
-        form_sua_CHDT.querySelector('#BNT_CHDT_sua').value = tbody.querySelector('#CHDT_BNT').innerText.split("GB")[0];
-        form_sua_CHDT.querySelector('#MH_CHDT_sua').value = tbody.querySelector('#CHDT_MH').innerText;
-        form_sua_CHDT.querySelector('#MS_CHDT_sua').value = tbody.querySelector('#CHDT_MS').innerText;
-        form_sua_CHDT.querySelector('#OS_CHDT_sua').value = tbody.querySelector('#CHDT_OS').innerText;
-        form_sua_CHDT.querySelector('#PIN_CHDT_sua').value = tbody.querySelector('#CHDT_PIN').innerText.split("Mah")[0];
-        form_sua_CHDT.querySelector('#CAMTRC_CHDT_sua').value = tbody.querySelector('#CHDT_CAMTRC').innerText.split("px")[0];
-        form_sua_CHDT.querySelector('#CAMSAU_CHDT_sua').value = tbody.querySelector('#CHDT_CAMSAU').innerText.split("px")[0];
-        form_sua_CHDT.querySelector('#MACHDT_sua').value = tbody.querySelector('#CHDT_MACHDT').innerText;
-
-        form_sua_CHDT.style.display = 'block';
-    });
     
+
+    // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+    var editButtons = document.querySelectorAll('.CHDT_sua_btn');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var index = this.getAttribute('data-index');
+            var form_sua_CHDT = document.getElementById('container_suaCHDT');
+
+            form_sua_CHDT.querySelector('#RAM_CHDT_sua').value = elementPage[index].RAM.split("GB")[0];
+            form_sua_CHDT.querySelector('#BNT_CHDT_sua').value = elementPage[index].BO_NHO_TRONG.split("GB")[0];
+            form_sua_CHDT.querySelector('#MH_CHDT_sua').value = elementPage[index].MAN_HINH;
+            form_sua_CHDT.querySelector('#MS_CHDT_sua').value = elementPage[index].MAU_SAC;
+            form_sua_CHDT.querySelector('#PIN_CHDT_sua').value = elementPage[index].PIN.split("Mah")[0];
+            form_sua_CHDT.querySelector('#CAMSAU_CHDT_sua').value = elementPage[index].CAMERA_SAU.split("px")[0];
+            form_sua_CHDT.querySelector('#CAMTRC_CHDT_sua').value = elementPage[index].CAMERA_TRUOC.split("px")[0];
+            form_sua_CHDT.querySelector('#OS_CHDT_sua').value = elementPage[index].OS;
+            form_sua_CHDT.querySelector('#MACHDT_sua').value = elementPage[index].MA_CHĐT;
+
+            form_sua_CHDT.style.display = 'block';
+        });
+    });
 }
-}
+
+
 //chức năng ẩn hiện form sửa
 document.addEventListener('click', function(event){
     var form_sua_CHDT = document.getElementById('container_suaCHDT');
@@ -142,8 +146,8 @@ document.addEventListener('click', function(event){
      
          for(var i = 0; i < rows.length; i++){
              var MACHDT = rows[i].querySelector('#CHDT_MACHDT').innerText;
-             if(MACHDT.indexOf(txt) !== -1){
-                 rows[i].style.display = 'table-row';
+             if(chuyenDoiChuoi(MACHDT).includes(chuyenDoiChuoi(txt))){
+                rows[i].style.display = 'table-row';
              }
              else{ 
                  rows[i].style.display = 'none';
@@ -156,8 +160,8 @@ document.addEventListener('click', function(event){
      
      for(var i = 0; i < rows.length; i++){
          var MaCHDT = rows[i].querySelector('#CHDT_SP').innerText;
-         if(MaCHDT.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHDT).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -168,8 +172,8 @@ document.addEventListener('click', function(event){
      else if(opt === 'RAM') {
          for(var i = 0; i < rows.length; i++){
          var MaCHDT = rows[i].querySelector('#CHDT_RAM').innerText;
-         if(MaCHDT.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHDT).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -180,8 +184,8 @@ document.addEventListener('click', function(event){
      else if(opt === 'BNT') {
          for(var i = 0; i < rows.length; i++){
          var MaCHDT = rows[i].querySelector('#CHDT_BNT').innerText;
-         if(MaCHDT.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHDT).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -192,8 +196,8 @@ document.addEventListener('click', function(event){
      else if(opt === 'MH') {
          for(var i = 0; i < rows.length; i++){
          var MaCHDT = rows[i].querySelector('#CHDT_MH').innerText;
-         if(MaCHDT.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHDT).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -204,8 +208,8 @@ document.addEventListener('click', function(event){
      else if(opt === 'MS') {
          for(var i = 0; i < rows.length; i++){
          var MaCHDT = rows[i].querySelector('#CHDT_MS').innerText;
-         if(MaCHDT.includes(txt)){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MaCHDT).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -223,4 +227,9 @@ document.addEventListener('click', function(event){
      //chức năng tìm kiếm
 
 
-   
+  //Lê Ngọc Anh Huy -> lengocanhhuy
+function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+} 

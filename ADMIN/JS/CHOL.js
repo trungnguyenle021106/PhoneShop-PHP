@@ -74,7 +74,9 @@ function update()
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
    function DisplayElementPage(elementPage) {
+    var tbody = document.getElementById("data");
     var html = "";
+
     for (var i = 0; i < elementPage.length; i++) {
         html += `
         <tr>
@@ -82,32 +84,31 @@ function update()
         <td id="CHOL_MASP">${elementPage[i].MA_SP} </td>
         <td id="CHOL_CL">${elementPage[i].CHAT_LIEU} </td>
         <td id="CHOL_TN">${elementPage[i].TINH_NANG} </td>
-        <form action="" method="POST">
-        <td><input type="button" id="CHOL_sua_btn" class="thaotac" value="sửa"></td>
-        </form></tr>
-        `;
+        <td><input type="button" class="thaotac CHOL_sua_btn" value="sửa" data-index="${i}"></td>
+        </tr>`;
+    }
 
-        var tbody = document.getElementById("data");
-        tbody.innerHTML = html;
+    tbody.innerHTML = html;
 
-            
-                // Gán sự kiện cho nút sửa mới tạo
-    tbody.querySelector('#CHOL_sua_btn').addEventListener('click', function(){   
-        var form_sua_CHOL = document.getElementById('container_suaCHOL')
-        var tr = this.parentElement.parentElement;
-        
-        form_sua_CHOL.querySelector('#CL_CHOL_sua').value = tbody.querySelector('#CHOL_CL').innerText;
-        form_sua_CHOL.querySelector('#TN_CHOL_sua').value = tbody.querySelector('#CHOL_TN').innerText;
-        form_sua_CHOL.querySelector('#MACHOL_sua').value = tbody.querySelector('#CHOL_MACHOL').innerText;
+    // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+    var editButtons = document.querySelectorAll('.CHOL_sua_btn');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var index = this.getAttribute('data-index');
+            var form_sua_CHOL = document.getElementById('container_suaCHOL');
 
-        form_sua_CHOL.style.display = 'block';
+            form_sua_CHOL.querySelector('#CL_CHOL_sua').value = elementPage[index].CHAT_LIEU;
+            form_sua_CHOL.querySelector('#TN_CHOL_sua').value = elementPage[index].TINH_NANG;
+            form_sua_CHOL.querySelector('#MACHOL_sua').value = elementPage[index].MA_CHOL;
+
+            form_sua_CHOL.style.display = 'block';
+        });
     });
-    
 }
-}        
+    
 
 
-//chức năng ẩn hiện form sửa
+//chức năng ẩn form sửa
 document.addEventListener('click', function(event){
     var form_sua_CHOL = document.getElementById('container_suaCHOL');
     if(event.target === form_sua_CHOL){
@@ -115,7 +116,7 @@ document.addEventListener('click', function(event){
     }
 
 })
-    //chức năng ẩn hiện form sửa
+    //chức năng ẩn form sửa
 
 
     
@@ -130,8 +131,8 @@ document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(e
  
      for(var i = 0; i < rows.length; i++){
          var MACHOL = rows[i].querySelector('#CHOL_MACHOL').innerText;
-         if(MACHOL.indexOf(txt) !== -1){
-             rows[i].style.display = 'table-row';
+         if(chuyenDoiChuoi(MACHOL).includes(chuyenDoiChuoi(txt))){
+            rows[i].style.display = 'table-row';
          }
          else{ 
              rows[i].style.display = 'none';
@@ -144,8 +145,8 @@ document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(e
  
  for(var i = 0; i < rows.length; i++){
      var MaCHOL = rows[i].querySelector('#CHOL_MASP').innerText;
-     if(MaCHOL.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaCHOL).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -157,8 +158,8 @@ document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(e
  else if(opt === 'CL') {
      for(var i = 0; i < rows.length; i++){
      var MaCHOL = rows[i].querySelector('#CHOL_CL').innerText;
-     if(MaCHOL.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaCHOL).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -169,8 +170,8 @@ document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(e
  else if(opt === 'TN') {
      for(var i = 0; i < rows.length; i++){
      var MaCHOL = rows[i].querySelector('#CHOL_TN').innerText;
-     if(MaCHOL.includes(txt)){
-         rows[i].style.display = 'table-row';
+     if(chuyenDoiChuoi(MaCHOL).includes(chuyenDoiChuoi(txt))){
+        rows[i].style.display = 'table-row';
      }
      else{ 
          rows[i].style.display = 'none';
@@ -186,3 +187,11 @@ document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(e
  }
  })
 //chức năng tìm kiếm 
+
+
+//Lê Ngọc Anh Huy -> lengocanhhuy
+function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+}

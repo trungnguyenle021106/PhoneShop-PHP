@@ -92,12 +92,14 @@ $connect->connectDB();
         </div>
         <div style="display: flex;">
             <label for="">Đơn giá: </label>
-            <input type="text" id="DONGIA_sua_CTSP" name="DONGIA_sua_CTSP">
+            <input type="number" id="DONGIA_sua_CTSP" name="DONGIA_sua_CTSP">
         </div>
+            <input type="hidden" id="THANHTIEN_sua_CTSP" name="THANHTIEN_sua_CTSP">
+
         <input type="hidden" value="<?php echo $_POST['page']; ?>" name="page" >
         <input type="hidden" value="" name="MAPN" id="MAPN_sua_hidden">
         <input type="hidden" value="" name="MASP" id="MASP_sua_hidden">
-        <input type="submit" value="Xác nhận" name="btn_xacnhan_sua">
+        <input type="submit" value="Xác nhận" name="btn_xacnhan_sua" id="btn_xacnhan_sua">
     </form>
 </div>
 
@@ -106,5 +108,4 @@ $connect->connectDB();
 
 
 <script src="JS/CTPN.js"></script>
-
 
