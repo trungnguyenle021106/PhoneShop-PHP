@@ -14,7 +14,7 @@
         <div class="bannerWrapper">
             <div class="bannerWrapper__img">
                 <div class="bannerWrapper__btn"><a href="">View offers</a></div>
-                <img src="Img/TMS_MarchMadness_150K_iPhone14Pl.png" alt=""></div>
+                <img src="../Img/TMS_MarchMadness_150K_iPhone14Pl.png" alt=""></div>
             <div class="bannerWrapper__img">
                 <div class="bannerWrapper__btn"><a href="">View offers</a></div>
                 <img src="Img/TMS_Freedom_Only-Offer_Web_Homep.png" alt=""></div>

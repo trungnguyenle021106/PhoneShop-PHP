@@ -1,10 +1,14 @@
+<?php
+    session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/profileUser.css">
+    <link rel="stylesheet" href="../CSS/profileUser.css">
+    <link rel="stylesheet" href="">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -23,19 +27,23 @@
         $hoTen='';
         $diaChi='';
         $soDT='';
+        $gioiTinh='';
         $soCCCD ='';
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             $hoTen=$_POST['name'];
             $diaChi=$_POST['address'];
             $soDT=$_POST['phone'];
+            $gioiTinh=$_POST['sex'];
             $soCCCD =$_POST['numberId'];
             $data = array(
                 "HOTEN_KH" => "$hoTen",
                 "DIA_CHI" => "$diaChi",
                 "SO_DT" => "$soDT",
+                "G_TINH" => "$gioiTinh",
                 "SO_CCCD" => "$soCCCD"
             );
             $conn->update("khach_hang","MA_KH","1",$data);
+            $_SESSION['update_success'] = true;
             
         }
 
@@ -59,7 +67,7 @@
         
         $conn->closeConnection();
 ?>
-<body style="background-color: #ECECEC;">
+<body>
     <div class="profile_content_container">
         <div class="profile_left" >
             <img src="../Img/avtUser.png" alt="" >
@@ -102,6 +110,29 @@
             </form>
         </div>
     </div>
+        <div id="popup" class="popup">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <h2>Chi Tiết Hóa Đơn</h2>
+            <!-- Nội dung chi tiết hóa đơn -->
+            <table id="table_cthd" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Ảnh</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Thuế</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="popup-update" class="popup-update">
+        <div class="popup-content">
+            <p>Cập nhật thông tin thành công!</p>
+        </div>
+</div>
 </body>
 <script>
         const $ = document.querySelector.bind(document)
@@ -137,7 +168,7 @@
                 echo "<td>" . $row["NGAY_TAO"] . "</td>";
                 echo "<td>" . $row["TONG_TIEN"] . "</td>";
                 echo "<td>" . $row["TINH_TRANG"] . "</td>";
-                echo "<td><button type="."button"." class="."btn".">Xem</button></td>";
+                echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem</button></td>";
                 echo "</tr>";
               }
       ?>
@@ -173,6 +204,74 @@
                     <button type="submit" form="profile_form" class="btn btn-danger submit">Cập nhật thông tin</button>
                 </div>
             </form>`
+        }
+        async function openPopup(maHoaDon) {
+            const response = await fetch("XemChiTietHD.php?maHoaDon="+maHoaDon);
+            const cthd = await response.json();
+            console.log(cthd)
+            let htmlContent = ""
+            
+            cthd.invoiceDetails.forEach(detail  => {
+            const product = cthd.products.find(p => p.MA_SP === detail.MA_SP);
+            if (product) {
+                htmlContent += `<tr>
+                                <td>`+detail.MA_SP+`</td>
+                                <td>`+product.TEN_SP+`</td>
+                                <td><img src="../Img/`+product.HINH_ANH+`" alt="" width="100"></td>
+                                <td>`+detail.SL_BAN+`</td>
+                                <td>`+product.GIA_BAN+`</td>
+                                <td>`+detail.THUE_SUAT+`</td>
+                                <td>`+detail.THANH_TIEN+`</td>
+                                </tr>`
+            } else {
+                console.log("Không tìm thấy sản phẩm tương ứng.");
+            }
+            });
+            
+            let tableContent = `<table id="table_cthd" class="table table-bordered ">
+            <thead>
+            <tr>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Ảnh</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Thuế</th>
+                <th>Thành tiền</th>
+            </tr>
+            </thead>
+            <tbody>`
+            + htmlContent +
+            `</tbody>
+        </table>`
+
+            console.log(tableContent)
+            document.getElementById("table_cthd").innerHTML = tableContent;
+            document.getElementById('popup').style.display = 'block';
+        }
+        function closePopup() {
+            document.getElementById('popup-update').style.display = 'none';
+        }
+        function openPopup2() {
+        document.getElementById('popup-update').style.display = 'block';
+        }
+
+        function closePopup2() {
+            document.getElementById('popup-update').style.display = 'none';
+        }
+        <?php
+            if (isset($_SESSION['update_success']) && $_SESSION['update_success']) {
+                echo 'let showPopup = true;';
+                unset($_SESSION['update_success']);
+            } else {
+                echo 'let showPopup = false;';
+            }
+        ?>
+        if (showPopup) {
+            openPopup2();
+            setTimeout(() => {
+                closePopup2();
+            }, 3000); // Ví dụ: tự đóng popup sau 3 giây
         }
 </script>
 </html>

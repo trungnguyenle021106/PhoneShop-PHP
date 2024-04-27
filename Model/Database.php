@@ -18,7 +18,7 @@ class MyConnection
         if ($this->connection->connect_error) {
             die("Kết nối đến MySQL thất bại: " . $this->connection->connect_error);
         }
-        echo "Kết nối đến MySQL thành công!";
+        echo "";
     }
 
     public function query($sql)
