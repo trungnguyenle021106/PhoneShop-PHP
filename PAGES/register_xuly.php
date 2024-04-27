@@ -57,7 +57,7 @@ function saveTK($username, $password) {
   $existing_accounts = $connect->read("tai_khoan", "TEN_TK = '$username'");
   $errors = [];
   
-  if (!empty($existing_accounts)) {
+  if ($existing_accounts === $username) {
       $connect->closeConnection();
       $errors['usernameError'] = "Tài khoản đã tồn tại.";
       return  $errors;
@@ -70,10 +70,54 @@ function saveTK($username, $password) {
           "TINH_TRANG" => "True",
           "MA_Q" => "2"
       ];
-      // $connect->create("tai_khoan", $data);
+
+       $connect->create("tai_khoan", $data);
       $connect->closeConnection();
+      TaoKhachHang($username, $password);
       $errors['success'] = 'true';
       return  $errors;
+  }
+}
+
+//random ten khach hang
+function generateRandomString($length = 8) {
+  $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  $randomString = "";
+  for ($i = 0; $i < $length; $i++) {
+    $randomString .= $chars[rand(0, strlen($chars) - 1)];
+  }
+  return $randomString;
+}
+
+//tụ tạo bang khach hang
+function TaoKhachHang($username, $password){
+
+  $server = "localhost";
+  $username1 = "root";
+  $password1 = "";
+  $database = "qldienthoai";
+
+  $connect = new MyConnection($server, $username1, $password1, $database);
+  $connect->connectDB();
+
+  $lsTK = $connect->read("tai_khoan");
+  foreach ($lsTK as $TK) {
+    if ($username === $TK["TEN_TK"] && $password === $TK["MAT_KHAU"]) {
+        $id_tk = $TK["MA_TK"];
+        $hotenKH = generateRandomString();
+
+        $dataKH = [
+          "MA_TK" =>  $id_tk,
+          "HOTEN_KH" => $hotenKH,
+          "G_TINH" => "",
+          "DIA_CHI" => "",
+          "SO_DT" => "",
+          "SO_CCCD" => ""
+        ];
+      
+        $connect->create("khach_hang", $dataKH);
+        $connect->closeConnection();
+    }
   }
 }
 

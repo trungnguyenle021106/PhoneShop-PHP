@@ -6,7 +6,7 @@ function checkLogin() {
 
 
     $.ajax({
-        url: '/PhoneShop/PAGES/Login_xuly.php',
+        url: '/PAGES/Login_xuly.php',
         type: 'POST',
         data: {
             username: $('input[name="uname"]').val(), // Lấy giá trị từ input username
@@ -24,12 +24,12 @@ function checkLogin() {
                 $('#messenger').text('Đăng nhập thành công ...');
                 $('#user_name').text(kq.name);
                 if(kq.quyen === "1"){
-                    window.location.href = '/PhoneShop/PAGES/NhanVien.php';
+                    window.location.href = '/PAGES/NhanVien.php';
                     //chuyen hướng trang
                 }
                 setTimeout(function() {
                     // document.getElementById('id01').style.display = 'none';
-                    window.location.href = '/PhoneShop/Index.php';
+                    window.location.href = '/Index.php';
                 }, 1000);
             } else {
                 $('#messenger').text(kq.message);
