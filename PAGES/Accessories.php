@@ -16,10 +16,10 @@
                         <option value="GIA_TANG_DAN">GIÁ TĂNG DẦN</option>
                         <option value="GIA_GIAM_DAN">GIÁ GIẢM DẦN</option>
                 </select>
-                <div style="position: relative;" id="btn_Price_Multi_Slider" class="item-filter-accesories">
+                <div style="position: relative;" id="btn_Price_Multi_Slider" class="item-filter-accesories ">
                         <span>GIÁ KHOẢNG</span>
                         <!-- test -->
-                        <div class="container-search-price-accessories" id="Price_Multi_Slider">
+                        <div class="container-search-price-accessories dp-block-accessories" id="Price_Multi_Slider">
                                 <div class="content-price-accessories">
                                         <p class="price-left-accessories">0đ</p>
                                         <p class="price-right-accessories">100.000.000đ</p>
@@ -93,8 +93,4 @@
 <script src="../js/accessories.js"></script>
 <script src="../js/pageHandler.js"></script>
 <script src="../js/XuLyTienVND.js"></script>
-<script>
-        window.onload = function() {
-                setDataOnload();
-        }
-</script>
+

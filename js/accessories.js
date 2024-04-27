@@ -15,6 +15,7 @@ var selectLoaiElement = document.getElementById("loai");
 var selectNSXElement = document.getElementById("nsx");
 var selectSXElement = document.getElementById("sapxep");
 
+
 btn_ClearAll.addEventListener("click", function () {
     selectLoaiElement.value = "";
     selectNSXElement.value = "";
@@ -26,20 +27,42 @@ btn_ClearAll.addEventListener("click", function () {
     setDataForFilter();
 });
 
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Phần tử Price_Multi_Slider đã xuất hiện
+  
+        // Hàm xử lý sự kiện click
+        const handleClick = function(event) {
+          // Kiểm tra xem sự kiện click có xảy ra bên ngoài form hay không
+          if (!entry.target.contains(event.target)) {
+            Price_Multi_Slider.classList.add('dp-block-accessories');
+          }
+        };
+  
+        // Thêm trình nghe sự kiện click vào tài liệu
+        document.addEventListener('click', handleClick);
+  
+        // Ngừng theo dõi phần tử sau khi nó xuất hiện và đã thêm trình nghe sự kiện click
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+  observer.observe(Price_Multi_Slider);
 
-Price_Multi_Slider.style.display = "none";
-btn_Price_Multi_Slider.addEventListener("click", function () {
-    Price_Multi_Slider.classList.add("dp-block")
+btn_Price_Multi_Slider.addEventListener("click", function (e) {
+    e.stopPropagation()
+    Price_Multi_Slider.classList.remove("dp-block-accessories")
 });
 
 btn_close_price_slider.addEventListener("click", function (e) {
     e.stopPropagation()
-    Price_Multi_Slider.classList.remove("dp-block")
+    Price_Multi_Slider.classList.add("dp-block-accessories")
 });
 
 btn_result_price_slider.addEventListener("click", function (e) {
     e.stopPropagation()
-    Price_Multi_Slider.classList.remove("dp-block")
+    Price_Multi_Slider.classList.add("dp-block-accessories")
     setDataForFilter();
 });
 
@@ -180,7 +203,7 @@ function setConditionForFilterVER2(arrayConditionWhere, conditionOrderBy) {
 function getDataFilterFromClient() {
     var arrayConditionWhere = []
 
-    
+
     var selectedLoaiValue = selectLoaiElement.value;
     var dataLoai = {
         Name_ID: "MA_LOAI",
@@ -214,7 +237,7 @@ function getDataFilterFromClient() {
     }
     arrayConditionWhere.push(dataHighPrice);
 
-   
+
     var selectedSXValue = selectSXElement.value;
 
     console.log(setConditionForFilterVER2(arrayConditionWhere, selectedSXValue))
@@ -240,7 +263,7 @@ function setDataForFilter() {
         success: function (response) {
 
             dataArray = convert_JsonToArray(response);
-            loadData(1, 8, 3);
+            loadData(1, 10, 5);
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -264,7 +287,7 @@ function setDataOnload() {
         success: function (response) {
 
             dataArray = convert_JsonToArray(response);
-            loadData(1, 8, 3);
+            loadData(1, 10, 5);
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -275,7 +298,7 @@ function setDataOnload() {
 function loadData(pageNumber, itemsPerPage, maxPage) {
     var dataForPage = GetDataForPage(dataArray, pageNumber, itemsPerPage);
     loadDataForPage(dataForPage);
-    loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage);
+    loadPagesNumber(pageNumber, itemsPerPage, maxPage);
 }
 
 function loadDataForPage(dataForPage) {
@@ -292,21 +315,27 @@ function loadDataForPage(dataForPage) {
     accessories_page.innerHTML = html;
 }
 
-function loadPagesNumber(dataArray, pageNumber, itemsPerPage, maxPage) {
+function loadPagesNumber(pageNumber, itemsPerPage, maxPage) {
     var html = "";
     var numberPages_Array = GetNumberOfPages(dataArray, pageNumber, itemsPerPage, maxPage);
+
     var backPage = GetPageNumberForBack(numberPages_Array, maxPage);
     var nextPage = GetPageNumberForNext(numberPages_Array, dataArray, itemsPerPage, maxPage);
 
-    if (backPage !== 0) {
+    if (backPage != 0) {
         html += '<button id="backPage_Btn" onclick="loadData(' + backPage + ', ' + itemsPerPage + ', ' + maxPage + ')"><<</button>';
     }
 
     for (var i = 0; i < numberPages_Array.length; i++) {
-        html += '<button onclick="loadData(' + numberPages_Array[i] + ', ' + itemsPerPage + ', ' + maxPage + ')">' + numberPages_Array[i] + '</button>';
+        if (pageNumber == numberPages_Array[i]) {
+            html += '<button style=" background-color: black; color: white;" onclick="loadData(' + numberPages_Array[i] + ', ' + itemsPerPage + ', ' + maxPage + ')">' + numberPages_Array[i] + '</button>';
+        }
+        else {
+            html += '<button onclick="loadData(' + numberPages_Array[i] + ', ' + itemsPerPage + ', ' + maxPage + ')">' + numberPages_Array[i] + '</button>';
+        }
     }
 
-    if (nextPage !== 0) {
+    if (nextPage != 0) {
         html += '<button id="nextPage_Btn" onclick="loadData(' + nextPage + ', ' + itemsPerPage + ', ' + maxPage + ')">>></button>';
     }
 
@@ -339,8 +368,8 @@ function setArrayValueSelect(tableName, condition, idSelect) {
             condition: condition
         },
         success: function (response) {
-            dataArray = convert_JsonToArray(response);
-            loadValueForSelect(idSelect, dataArray)
+            var dataArrayValueSelect = convert_JsonToArray(response);
+            loadValueForSelect(idSelect, dataArrayValueSelect)
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -348,11 +377,10 @@ function setArrayValueSelect(tableName, condition, idSelect) {
     });
 }
 
-function loadValueForSelect(idSelect, arrayValueSelect)
-{
+function loadValueForSelect(idSelect, arrayValueSelect) {
 
     var element = document.getElementById(idSelect);
-    var html = element.innerHTML ;
+    var html = element.innerHTML;
     for (var i = 0; i < arrayValueSelect.length; i++) {
         switch (idSelect) {
             case "loai":
@@ -367,6 +395,6 @@ function loadValueForSelect(idSelect, arrayValueSelect)
     }
     element.innerHTML = html;
 }
-
+setDataOnload();
 setArrayValueSelect("nha_sx", "", "nsx");
 setArrayValueSelect("loai", "MA_LOAI <> 1", "loai");
