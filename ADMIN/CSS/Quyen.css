@@ -1,0 +1,468 @@
+
+/*form_Quyen_admin*/
+#form_Quyen_admin{
+    display: flex;
+    height: 100%;
+}
+#table_Quyen{
+    width: 70%;
+    border: 1px solid black;
+    height: 93%;
+}
+
+#chucnang_Quyen{
+    width: 30%;
+}
+#form_Quyen_admin table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+#form_Quyen_admin table tr td{
+    border: 1px solid black;
+}
+#scroll-container{
+    overflow-y: scroll;
+    height: 87%;
+    
+}
+
+
+#form_Quyen_admin table #thaotac_Quyen {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_Quyen_admin table #thaotac_Quyen:hover{
+    background-color: #746d6d11;
+}
+
+#form_timkiem_Quyen{
+    border: 1px solid black;
+    width: 80%;
+    margin-left: 50px;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+#form_timkiem_Quyen #title{
+    text-align: center;
+    margin-top: 10px;
+}
+#form_timkiem_Quyen #opt_timkiem_Quyen{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+}
+#form_timkiem_Quyen #btn_timkiem_Quyen{
+    width: 30%;
+    height: 20px;
+    margin-left: 120px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_timkiem_Quyen #btn_timkiem_Quyen:hover{
+    background-color: #746d6d11;
+}
+
+
+.change_page_Quyen{
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+.change_page_Quyen #btn2{
+    background-color: black;
+    color: white;
+    width: 140px; 
+    border-bottom: none;
+    height: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.change_page_Quyen #btn1{
+    width: 140px;
+    border-bottom: none;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#form_sapxep_Quyen{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+#opt_sapxep_Quyen{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
+}
+
+.btn_sortAZ, .btn_sortZA{
+    width: 30%;
+    margin-left: 10px;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+#form_them_Quyen {
+    border: 1px solid black;
+    width: 75%;
+    margin: 30px auto;
+    padding: 20px;
+    margin-left: 50px;
+    height: 140px;
+}
+
+#form_them_Quyen h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+#form_them_Quyen {
+    border: 1px solid black;
+    width: 75%;
+    margin: 30px auto;
+    padding: 20px;
+    margin-left: 50px;
+}
+
+#form_them_Quyen h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+#form_them_Quyen input[type="text"], input[type="number"],input[type="password"]{
+    width: calc(100% - 140px); /* Subtracting label width */
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    height: 10px;
+    border: 2px solid black ;
+
+}
+
+#togglePassword {
+    cursor: pointer;
+  }
+
+#form_them_Quyen .btn_themQuyen {
+    width: 40%;
+    height: 30px;
+    margin: 10px auto;
+    display: block;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#form_them_Quyen .btn_themQuyen:hover {
+    background-color: #45a049;
+}
+
+
+
+#container_capCN {
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0%;
+    background-color: rgba(240, 204, 204, 0.7);
+    display: none;
+    
+}
+
+#form_cap_CN {
+    background-color: #f9f9f9;
+    padding: 20px;
+    height: 80%;
+    border-radius: 5px;
+    position: relative;
+    top: 100px;
+    left: 350px;
+    width: 40%;
+}
+
+#form_cap_CN h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#form_cap_CN label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#form_cap_CN input[type="text"],
+#form_cap_CN input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#form_cap_CN input[type="button"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+#capCN_btn{
+    width: 20%;
+    height: 40px;
+    margin: 10px auto;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#container_capCN h3 {
+    text-align: center;
+
+}
+
+#form_cap_CN #left-form{
+    overflow-y: scroll;   
+    height: 95%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+
+#form_cap_CN #left-form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#form_cap_CN #left-form table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+}
+
+#form_cap_CN #left-form table tr:hover {
+    background-color: grey;
+}
+
+
+#form_cap_CN #right-form{
+    overflow-y: scroll;   
+    height: 95%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+
+#form_cap_CN #right-form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#form_cap_CN #right-form table td {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+
+.xoa_CN{
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+
+.xoa_CN_sua{
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+
+
+#container_suaCN {
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0%;
+    background-color: rgba(240, 204, 204, 0.7);
+    display: none;
+    
+}
+
+#form_sua_CN {
+    background-color: #f9f9f9;
+    padding: 20px;
+    height: 83%;
+    border-radius: 5px;
+    position: relative;
+    top: 50px;
+    left: 350px;
+    width: 40%;
+}
+
+#form_sua_CN h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#form_sua_CN label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#form_sua_CN input[type="text"],
+#form_sua_CN input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#form_sua_CN input[type="button"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+#suaCN_btn{
+    width: 20%;
+    height: 40px;
+    margin: 10px auto;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#container_suaCN h3 {
+    text-align: center;
+
+}
+
+#form_sua_CN #left-form{
+    overflow-y: scroll;   
+    height: 95%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+
+#form_sua_CN #left-form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#form_sua_CN #left-form table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+}
+
+#form_sua_CN #left-form table tr:hover {
+    background-color: grey;
+}
+
+
+#form_sua_CN #right-form{
+    overflow-y: scroll;   
+    height: 95%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+
+#form_sua_CN #right-form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#form_cap_CN #right-form table td {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+
+.xoa_CN{
+    background-color: red;
+    border: 1px solid red;
+    color: white;
+    width: 100%;
+    height: 30px;
+    cursor: pointer;
+}
+
+/*form_Quyen_admin*/

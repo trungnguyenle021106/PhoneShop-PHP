@@ -22,7 +22,7 @@
             else if($_POST['page'] == 'Nhân viên'){
                 echo "Quản lý nhân viên";
             }
-            else if($_POST['page'] == 'Tài khoản'){
+            else if($_POST['page'] == 'Tài khoản' || $_POST['page'] == 'Quyen'){
                 echo "Quản lý tài khoản";
             }
             else if($_POST['page'] == 'Nhà sản xuất'){
@@ -125,6 +125,9 @@
          }
          else if($_POST['page'] == 'CHTN'){
             require("CHTN_admin.php");
+         }
+         else if($_POST['page'] == 'Quyen'){
+            require("Quyen_admin.php");
          }
     }
     ?>

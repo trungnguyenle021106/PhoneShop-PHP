@@ -5,6 +5,18 @@ $connect->connectDB();
 ?>
 <link rel="stylesheet" href="CSS/TK_admin.css">
 <script src="https://kit.fontawesome.com/3918fe69ba.js" crossorigin="anonymous"></script>
+
+<div  class="change_page_TK">
+<form action="" method="POST">
+   <input type="hidden" name="page" value="Tài khoản">
+    <input type="submit" value="Tài khoản" id="btn1">
+    </form>
+    <form action="" method="POST">
+    <input type="hidden" name="page" value="Quyen">
+    <input type="submit" value="Quyền" id="btn2">
+    </form>
+</div>
+
 <div id="form_TK_admin">
 <div id="table_TK">
 <div style="display: flex;">
@@ -27,6 +39,7 @@ $connect->connectDB();
             </thead>
             <tbody id="data">
             </tbody>
+            <input type="hidden" id="MA_TK_btn_temp">
         </table>
     </div>
 </div>
@@ -93,4 +106,34 @@ $connect->connectDB();
 </div>
 </div>
 
+<div id="container_suaTK">
+    <form action="" method="POST" id="form_sua_TK">
+        <h2 style="text-align: center; ">Đổi mật khẩu</h2>
+        <div>
+            <label for="">Mật Khẩu mới: </label> 
+            <input type="text" name="MKTK" id="MKTK_sua"> 
+            </div>
+    <input type="hidden" id="MATK_sua">
+    <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+    <input type="submit" id="suaTK_btn" onclick="update()" value="Xác nhận">
+    </form>
+</div>
+
+
+<div id="LS_container">
+<form action="">
+    <h2>Danh sách tài khoản</h2>
+    <section>
+        <table>
+            <thead>
+                <td>Hoạt động</td>
+                <td>Thời Gian</td>
+            </thead>
+            <tbody id="data_LS">
+                
+            </tbody>
+            </table>
+            </section>
+</form>
+</div>
 <script src="JS/TK.js"></script>
