@@ -27,28 +27,32 @@ btn_ClearAll.addEventListener("click", function () {
     setDataForFilter();
 });
 
-const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Phần tử Price_Multi_Slider đã xuất hiện
+// const observer = new IntersectionObserver((entries, observer) => {
+//     entries.forEach(entry => {
+//       if (entry.isIntersecting) {
+//         // Phần tử Price_Multi_Slider đã xuất hiện
   
-        // Hàm xử lý sự kiện click
-        const handleClick = function(event) {
-          // Kiểm tra xem sự kiện click có xảy ra bên ngoài form hay không
-          if (!entry.target.contains(event.target)) {
-            Price_Multi_Slider.classList.add('dp-block-accessories');
-          }
-        };
+//         // Hàm xử lý sự kiện click
+//         const handleClick = function(event) {
+//           // Kiểm tra xem sự kiện click có xảy ra bên ngoài form hay không
+//           if (!entry.target.contains(event.target)) {
+//             Price_Multi_Slider.classList.add('dp-block-accessories');
+//           }
+//         };
   
-        // Thêm trình nghe sự kiện click vào tài liệu
-        document.addEventListener('click', handleClick);
+//         // Thêm trình nghe sự kiện click vào tài liệu
+//         document.addEventListener('click', handleClick);
   
-        // Ngừng theo dõi phần tử sau khi nó xuất hiện và đã thêm trình nghe sự kiện click
-        observer.unobserve(entry.target);
-      }
-    });
-  });
-  observer.observe(Price_Multi_Slider);
+//         // Ngừng theo dõi phần tử sau khi nó xuất hiện và đã thêm trình nghe sự kiện click
+//         observer.unobserve(entry.target);
+//       }
+//     });
+//   });
+//   observer.observe(Price_Multi_Slider);
+document.body.addEventListener('click', function(event) {
+    console.log('click body')
+    Price_Multi_Slider.classList.add("dp-block-accessories")
+});
 
 btn_Price_Multi_Slider.addEventListener("click", function (e) {
     e.stopPropagation()
