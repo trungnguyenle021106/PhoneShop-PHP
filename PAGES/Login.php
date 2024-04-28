@@ -1,7 +1,7 @@
 <!-- <h2>Modal Login Form</h2>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
-<link rel="stylesheet" href="/CSS/login.css">
+<!-- <link rel="stylesheet" href="/CSS/login.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/js/login.js"></script>
 <div id="id01" class="modal">

@@ -209,6 +209,13 @@
     background-color: #00FFFF;
 }
 
+.destroy-btn {
+    cursor: none;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+}
+
 /* test */
 .container-search-price {
     display: flex;

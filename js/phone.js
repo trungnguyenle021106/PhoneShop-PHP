@@ -92,18 +92,37 @@ const phone = {
         }).join("")
         phone.list.innerHTML = html
     },
-    loadNav: (arrayList,pageCurrent,pagePerNumber,cond) => {
+    loadNav: (arrayList,pageCurrent,pagePerNumber,cond,maxPage = 4) => {
         stringCond =  "'" + cond.join("','") + "'"
         var html1 = ''
-        for (i = 1; i <= Math.ceil(arrayList.length / pagePerNumber); i++) {
+        var maxLength = Math.ceil(arrayList.length / pagePerNumber)
+        var start = pageCurrent
+        var end
+        if (start > 3) {
+            if(start + 2 < maxLength) {
+                end = start + 2
+                start = start - 2
+            } else {
+                end = maxLength
+                start = start - 2
+            }
+        } else {
+            start = 1
+            end = start + 4
+        }
+        console.log(start)
+
+        for (i = start; i <= end; i++) {
             html1 += `<button class="${i == pageCurrent ? "cyan" : ''}" onclick="phone.loadAjax(${i},${pagePerNumber},${stringCond})">${i}</button>`
         }
         phone.nav.innerHTML = 
             `<div class="change_slide_content">
-                <div class="change_slide" id="Pagination">
+                <div class="change_slide" id="Pagination" style="width: 50%">
                         <button onclick="phone.prevPage(${pageCurrent},${pagePerNumber},${stringCond})"><<</button>
+                        ${start > 1 ? `<button class="destroy-btn">...</button>`: ''}
                         ${html1}
-                        <button onclick="phone.nextPage(${Math.ceil(arrayList.length / pagePerNumber)},${pageCurrent},${pagePerNumber},${stringCond})">>></button>
+                        ${end < maxLength ? `<button class="destroy-btn">...</button>`: ''}
+                        <button onclick="phone.nextPage(${maxLength},${pageCurrent},${pagePerNumber},${stringCond})">>></button>
                 </div>
             </div>`
     },
@@ -122,84 +141,6 @@ const phone = {
         }
     },
 }
-
-// test keo trai phai
-// var slider = document.getElementById("slider");
-// var left = document.querySelector('.left1')
-// var right = document.querySelector('.right1')
-// var priceLeft = document.querySelector('.price-left')
-// var priceRight = document.querySelector('.price-right')
-
-// function formatCurrency(number) {
-//     let strNumber = Math.abs(number).toString();
-//     let parts = strNumber.split(".");
-//     let integerPart = parts[0];
-//     let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-//     let formattedInteger = "";
-
-//     for (let i = integerPart.length - 1; i >= 0; i--) {
-//         formattedInteger = integerPart[i] + formattedInteger;
-//         if ((integerPart.length - i) % 3 === 0 && i !== 0) {
-//             formattedInteger = "." + formattedInteger;
-//         }
-//     }
-
-//     let formattedNumber = formattedInteger + decimalPart;
-
-//     if (number < 0) {
-//         formattedNumber = "-" + formattedNumber;
-//     }
-//     return formattedNumber;
-// }
-
-// function moveSliderLeft(event) {
-//     var rect = slider.getBoundingClientRect();
-//     var pos = (event.clientX - rect.left) / rect.width;
-//     pos = Math.min(1, Math.max(0, pos));
-//     perRight = parseFloat(right.style.left.substring(0, right.style.left.length - 1))
-
-//     if((pos * 100) - 3 < 97 && isNaN(perRight)) {
-//         left.style.left = (pos * 100) - 3 + "%"
-//         priceLeft.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
-//     } 
-//     else if((pos * 100) - 3 < perRight) {
-//         left.style.left = (pos * 100) - 3 + "%"
-//         priceLeft.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
-//     }
-// }
-
-// function moveSliderRight(event) {
-//     var rect = slider.getBoundingClientRect();
-//     var pos = (event.clientX - rect.left) / rect.width;
-//     pos = Math.min(1, Math.max(0, pos))
-//     perLeft = parseFloat(left.style.left.substring(0, left.style.left.length - 1))
-
-//     if((pos * 100) - 3 > -3 && isNaN(perLeft)) {
-//         right.style.left = (pos * 100) - 3 + "%"
-//         priceRight.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
-//     } 
-//     else if((pos * 100) - 3 > perLeft) {
-//         right.style.left = (pos * 100) - 3 + "%"
-//         priceRight.innerText = `${formatCurrency(Math.ceil((pos * 100) * 1000000))}đ`
-//     }
-// }
-
-// left.addEventListener("mousedown", function(event) {
-//     moveSliderLeft(event);
-//     window.addEventListener("mousemove", moveSliderLeft);
-//     window.addEventListener("mouseup", function() {
-//         window.removeEventListener("mousemove", moveSliderLeft);
-//     })
-// })
-
-// right.addEventListener("mousedown", function(event) {
-//     moveSliderRight(event);
-//     window.addEventListener("mousemove", moveSliderRight);
-//     window.addEventListener("mouseup", function() {
-//         window.removeEventListener("mousemove", moveSliderRight);
-//     })
-// })
-// het test
 
 btnChecks = [...document.querySelectorAll('.content-item-check')]
 btnTitles = [...document.querySelectorAll('.content-item-title')]

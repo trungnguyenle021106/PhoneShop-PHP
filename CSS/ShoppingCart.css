@@ -18,6 +18,7 @@
 .product_image{
     float: left;
     width: 20%;
+    margin-top: 12px;
 }
 .product_image img{
     width: 100px;
@@ -28,7 +29,7 @@
     width: 80%;
     height: auto;
     float: left;
-
+    margin-top: 12px;
 }
 .Ten_sp{
     margin-bottom: 15px;

@@ -1,119 +1,104 @@
-
-
 <div class="accessories_content">
 
         <div class="filter">
-                <div class="search">
-                        <i class="fa-solid fa-magnifying-glass" id="icon-search"></i>
-                        <input placeholder="Search for your phone"></input>
-                        <i class="fa-solid fa-chevron-down" id="arrow"></i>
+
+
+                <select class="item-filter-accesories" id="loai" onchange="setDataForFilter()">
+                        <option value="">LOẠI</option>
+                </select>
+
+                <select class="item-filter-accesories" id="nsx" onchange="setDataForFilter()">
+                        <option value="">THƯƠNG HIỆU</option>
+                       
+                </select>
+                <select class="item-filter-accesories" id="sapxep" onchange="setDataForFilter()">
+                        <option value="">SẮP XẾP</option>
+                        <option value="GIA_TANG_DAN">GIÁ TĂNG DẦN</option>
+                        <option value="GIA_GIAM_DAN">GIÁ GIẢM DẦN</option>
+                </select>
+                <div style="position: relative;" id="btn_Price_Multi_Slider" class="item-filter-accesories ">
+                        <span>GIÁ KHOẢNG</span>
+                        <!-- test -->
+                        <div class="container-search-price-accessories dp-block-accessories" id="Price_Multi_Slider">
+                                <div class="content-price-accessories">
+                                        <p class="price-left-accessories">0đ</p>
+                                        <p class="price-right-accessories">100.000.000đ</p>
+                                </div>
+                                <div id="slider-accessories">
+                                        <div class="left1-accessories"></div>
+                                        <div class="right1-accessories"></div>
+                                </div>
+                                <div class="group-btn-accessories">
+                                        <div class="btn-close-accessories" id="btn_close_price_slider">đóng</div>
+                                        <div class="btn-search-accessories" id="btn_result_price_slider">xem kết quả</div>
+                                </div>
+                        </div>
+                        <!-- test -->
                 </div>
-                <div id="type" class="item-filter">Type
-                        <i class="fa-solid fa-chevron-down" id="arrow"></i>
-                </div>
-                <div id="color" class="item-filter">Color
-                        <i class="fa-solid fa-chevron-down" id="arrow"></i>
-                </div>
-                <div id="brand" class="item-filter">Brand
-                        <i class="fa-solid fa-chevron-down" id="arrow"></i>
-                </div>
-                <div id="sort-option" class="item-filter">Sort Option
-                        <i class="fa-solid fa-chevron-down" id="arrow"></i>
-                </div>
-                <div id="all-filter" class="item-filter">All Filter
-                        <i class="fa-solid fa-filter" id="arrow"></i>
-                </div>
-                <button id="btn-clear"> Clear all </button>
+
+                <div class="item-filter-accesories" id="btn_ClearAll"> Clear ALL </div>
         </div>
-        <div class="accessories_section" id="accessories_page" >
-                <a href="" class="products">
+        <div class="accessories_section" id="accessories_page">
+                
+                <!-- <a href="" class="products">
                         <div class="name">Hypergear</div>
                         <div class="discrible">Hypergear 20W White USB-C PD Wall Charger Hub</div>
 
                         <div class="Img"><img src="Img/hypergear.png" alt="##"></div>
                         <div class="price">$19.99</div>
-                </a>
-
-
-
-
+                </a> -->
         </div>
         <div class="change_slide_content">
                 <div class="change_slide" id="Pagination">
-                        <button id="backPage_Btn"><<</button>
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button id="nextPage_Btn">>></button>
+                        <!-- <button id="backPage_Btn">
+                                << </button>
+                                        <button>1</button>
+                                        <button>2</button>
+                                        <button>3</button>
+                                        <button id="nextPage_Btn">>></button> -->
                 </div>
         </div>
         <div class="footer_content">
-                <h2 style="text-align: center; font-size: 20px;">Latest & Featured</h2>
-                <div class="accessories_section" >
-                        <a href="" class="products" style="border: 1px solid black;">
+                <h2 style="text-align: center; font-size: 20px; margin-top:20px; font-weight:bold">PHỤ KIỆN MỚI NHẤT</h2>
+                <div class="accessories_section">
+                        <?php
+                        require './Model/Database.php';
+                        require './PAGES/XuLyTienVND.php';
+                        $connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
+                        $connection->connectDB();
+                        $list_data = $connection->read('san_pham', "MA_LOAI <> 1 ORDER BY MA_SP DESC LIMIT 5");
+                        foreach ($list_data as $data) {
+                                echo '<a href="" class="products" style="border: 1px solid black;">';
+                                echo '<div class="name">' . $data['TEN_SP'] . '</div>';
+                                echo '<div class="Img"><img src="Img/' . $data['HINH_ANH'] . '" alt="##"></div>';
+                                echo '<div class="price">' . changePriceToString($data['GIA_BAN']) . '</div>';
+                                echo '</a>';
+                        }
+
+                
+
+                        $connection->closeConnection();
+                        ?>
+                        <!-- <a href="" class="products" style="border: 1px solid black;">
                                 <div class="name">Zagg</div>
                                 <div class="discrible">iPhone 15/14/13 ZAGG (GEAR4) Crystal Palace Case</div>
-                                <div class="color">
-                                        <div class="top-color" style="background-color: white;"></div>
-                                        <div class="bot-color" style="background-color: white;"></div>
-                                </div>
+
                                 <div class="Img"><img src="Img/zagg.jpg" alt="##"></div>
                                 <div class="price">$49.99</div>
-                        </a>
-                        <a href="" class="products" style="border: 1px solid black;">
-                                <div class="name">iDeal of Sweden</div>
-                                <div class="discrible">ideal of Sweden - Silicon Case iPhone 13/14</div>
-                                <div class="color">
-                                        <div class="top-color" style="background-color: black;"></div>
-                                        <div class="bot-color" style="background-color: black;"></div>
-                                </div>
-                                <div class="Img"><img src="Img/ideal.jpg" alt="##"></div>
-                                <div class="price">$29.99</div>
-                        </a>
-                        <a href="" class="products" style="border: 1px solid black;">
-                                <div class="name">Blu Element</div>
-                                <div class="discrible">Blu Element - 2 in 1 Folio Galaxy A54 5G</div>
-                                <div class="color">
-                                        <div class="top-color" style="background-color: white;"></div>
-                                        <div class="bot-color" style="background-color: black;"></div>
-                                </div>
-                                <div class="Img"><img src="Img/blu4.jpg" alt="##"></div>
-                                <div class="price">$34.99</div>
-                        </a>
-                        <a href="" class="products" style="border: 1px solid black;">
-                                <div class="name">JLab Audio</div>
-                                <div class="discrible">Jlab Audio - Go Air Pop True Wireless Headphones</div>
-                                <div class="color">
-                                        <div class="top-color" style="background-color: black;"></div>
-                                        <div class="bot-color" style="background-color: black;"></div>
-                                </div>
-                                <div class="Img"><img src="Img/jlab4.png" alt="##"></div>
-                                <div class="price">$34.99</div>
-                        </a>
-                        <a href="" class="products" style="border: 1px solid black;">
-                                <div class="name">Apple</div>
-                                <div class="discrible">Apple AirTag (1 Pack) White</div>
-                                <div class="color">
-                                        <div class="top-color" style="background-color: white;"></div>
-                                        <div class="bot-color" style="background-color: white;"></div>
-                                </div>
-                                <div class="Img"><img src="Img/apple6.png" alt="##"></div>
-                                <div class="price">$39.95</div>
-                        </a>
+                        </a> -->
                 </div>
-
-
         </div>
 </div>
 
-<script src="/js/accessories.js"></script>
-<script src="/js/pageHandler.js"></script>
+<script src="./js/accessories.js"></script>
+<script src="./js/pageHandler.js"></script>
 
 <script>
 
 window.onload = function() {
         loadData(1, 5, 4)
     }
+
 </script>
 <!-- <div class="scroll_down_btn">
                 <i class="fa-solid fa-arrow-down" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>

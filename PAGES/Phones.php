@@ -123,6 +123,6 @@
             </div>
         </div>
     </div>
-    <script src="/phoneShop/js/pageHandler.js"></script>
-    <script src="/phoneShop/js/phone.js"></script>
+    <script src="./js/pageHandler.js"></script>
+    <script src="./js/phone.js"></script>
 </div>
