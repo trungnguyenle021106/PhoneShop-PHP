@@ -1,6 +1,6 @@
-<form class="ShoppingCart_Page" >
+<form class="ShoppingCart_Page" method="POST" action="PAGES/handleInvoice.php" >
     <div class="left">
-        
+        <!-- innerHTML -->
     </div>
 
     <div class="right">
@@ -10,7 +10,12 @@
         <div class="open_close">Open at -  <div> 8:00 </div> - a.m.</div> <br>
         <div class="open_close">Closes at -  <div> 8:00 </div> - p.m.</div> <br><br>
         <a style="width: 100%; color: #593232;" href="#">Change Store</a> <br>
-        <input class="btn_DatHang" type="submit" name="btn_dat_hang" id="" value="Mua Hàng">
+        <input class="btn_DatHang" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
     </div>
 </form>
+<div class="ask">
+    <div class="ask-container">
+        
+    </div>
+</div>
 <script src="./js/shoppingCart.js"></script>

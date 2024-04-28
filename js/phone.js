@@ -86,7 +86,7 @@ const phone = {
                         <div class="phone-footer-wrap">
                     <span style="font-size: 20px; font-weight:bold ">Giá : ${item.GIA_BAN}đ</span>
                     </div>
-                        <a href="?page=Phones&&id=${item.MA_SP}" class="phone-detail">View details</a>
+                        <a href="?page=Phones&&MaSP=${item.MA_SP}" class="phone-detail">View details</a>
                     </div>
                   </div>`
         }).join("")
@@ -98,19 +98,23 @@ const phone = {
         var maxLength = Math.ceil(arrayList.length / pagePerNumber)
         var start = pageCurrent
         var end
-        if (start > 3) {
-            if(start + 2 < maxLength) {
-                end = start + 2
-                start = start - 2
+        if (maxLength > 4) {
+            if (start > 3) {
+                if(start + 2 < maxLength) {
+                    end = start + 2
+                    start = start - 2
+                } else {
+                    end = maxLength
+                    start = start - 2
+                }
             } else {
-                end = maxLength
-                start = start - 2
+                start = 1
+                end = start + 4
             }
         } else {
             start = 1
-            end = start + 4
+            end = maxLength
         }
-        console.log(start)
 
         for (i = start; i <= end; i++) {
             html1 += `<button class="${i == pageCurrent ? "cyan" : ''}" onclick="phone.loadAjax(${i},${pagePerNumber},${stringCond})">${i}</button>`

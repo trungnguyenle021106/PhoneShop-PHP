@@ -2,7 +2,7 @@
 class MyConnection
 {
     private $server, $username, $password, $database;
-    private $connection;
+    public $connection;
 
     public function __construct($server, $username, $password, $database)
     {

@@ -1,10 +1,9 @@
-<link rel="stylesheet" href="../CSS/detailPhone.css">
 <div class="main">
     <div class="content-detail-phone">
         <a href="?page=Phones" class="link_back">Back to Phones</a>
         <?php
-        require("../Model/Database.php");
-        require("../PAGES/XuLyTienVND.php");
+        require("./Model/Database.php");
+        require("./PAGES/XuLyTienVND.php");
         $server = "localhost";
         $username = "root";
         $password = "";
@@ -28,15 +27,12 @@
         reset($producers);
         $producer = current($producers);
 
-
-
-
-
         function setAttributeForOpLung($connect, $product)
         {
             $chols =  $connect->read("cau_hinh_oplung", "MA_SP= " . $product["MA_SP"]);
             reset($chols);
             $chol = current($chols);
+            
             echo '<p class="main-title">CHI TIẾT VÀ THÔNG SỐ KỸ THUẬT</p>
             <p class="spec-section-title">THÔNG SỐ CHUNG:</p>
             <div class="spec-round-edge-box">
@@ -253,7 +249,7 @@
                
                 <div class="img-primary">
                     <img class="img-content" src="<?php
-                                        echo "../Img/". $product["HINH_ANH"]
+                                        echo "./Img/". $product["HINH_ANH"]
                                         ?>" alt="">
                 </div>
             </div>
@@ -336,8 +332,8 @@
 
     </div>
 </div>
-<script src="../js/detailPhone.js"></script>
-
+<script src="./js/detailPhone.js"></script>
+<script src="./js/shoppingCart.js"></script>
 <?php
 $connect->closeConnection();
 ?>

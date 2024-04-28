@@ -54,14 +54,14 @@ const cart = {
         if(cart.ordersApi.get().length == 0) {
             cart.ordersApi.set({id: 0,order: [
                 {   
-                    MA_SP: 1,
+                    MA_SP: 2,
                     name: 'Hypergear 20W White USB-C PD Wall Charger Hub',
                     img: 'https://amsprod.blob.core.windows.net/assets/e8ddb3b8-f0e6-43eb-a9af-0ec02d34e353.png',
                     value: 1,
                     price: '$24.95',
                 },
                 {   
-                    MA_SP: 1,
+                    MA_SP: 3,
                     name: 'Hypergear 20W White USB-C PD Wall Charger Hub',
                     img: 'https://amsprod.blob.core.windows.net/assets/e8ddb3b8-f0e6-43eb-a9af-0ec02d34e353.png',
                     value: 1,
@@ -79,26 +79,22 @@ const cart = {
                             <img src="${item.img}" alt="loi anh">
                         </div>
                         <div class="product_detail">
-                            <input type="hidden" name="product_id" id="product_id" value="${item.MA_SP}">
+                            <input type="hidden" name="product_id[]" value="${item.MA_SP}">
                             <div class="Ten_sp">Accessories</div>
                             <div class="thongtinsp" >
                                 <div style="width: 50%;"><a class="thea"  href="#">${item.name}</a></div>
-                                <div style="font-weight: bold;">${item.price}</div>
+                                <div style="font-weight: bold; font-size:16px; margin-left:24px;">${item.price}</div>
                             </div>
 
-                            <div style="display: inline-flex; width: 100%; margin-top: 30px;">
+                            <div style="display: flex; width: 100%; margin-top: 30px; justify-content: space-between;;">
                                 <div class="soluong">
                                     <button type="button" onclick="cart.minusOrder(${idx})" id="" >-</button>
-                                    <input class="input-quantity" readonly type="text" name="soluong" id="" value="${item.value}">
+                                    <input class="input-quantity" readonly type="text" name="soluong[]" id="" value="${item.value}">
                                     <button type="button" onclick="cart.plusOrder(${idx})" id="" >+</button>
                                 </div>
                                 <div style="display: block;">
-                                    <div class="kiemtra">
-                                        <img src="https://www.themobileshop.ca/static/bccef72a0d7554f6b1b5c608d4b4d5c3/icon_notification_available.svg" alt="">
-                                        <div>Available to reserve in selected store</div>
-                                    </div  >
                                     <div style="width: 100%; margin-top: 20px;">
-                                        <button type="button" onclick="cart.deleteOrder(${idx})" class="btnXoa">Xoa</button>
+                                        <button type="button" onclick="cart.deleteOrder(${idx})" class="btnXoa">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -138,6 +134,37 @@ const cart = {
            localStorage.removeItem('orders');
         }
     },
+    addCart: (data = undefined) => {
+        if(data != undefined) {
+            cart.orders[0].order.push(data);
+            cart.ordersApi.edit(cart.orders[0])
+        }
+    }
 }
 cart.loadDataIsEmpty()
 cart.loadLayouts()
+
+btnSubmit = document.querySelector('.btn_DatHang')
+form = document.querySelector('.ShoppingCart_Page')
+
+btnSubmit.onclick = e => {
+    showAsk()
+}
+
+function showAsk() {
+    document.querySelector('.ask').classList.add('ask--active')
+    document.querySelector('.ask-container').innerHTML = `
+    <p class="ask-content">Có muốn mua hàng</p>
+    <div style="display: flex; width: 100%; justify-content: space-around; margin: 20px 0">
+        <button class="yes">Mua</button>
+        <button class="no">trở lại</button>
+    </div>
+    `
+    document.querySelector('.no').onclick = () => {
+        document.querySelector('.ask').classList.remove('ask--active')
+    }
+
+    document.querySelector('.yes').onclick = () => {
+        form.submit()
+    }
+}
