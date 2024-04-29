@@ -24,10 +24,10 @@ btn_ClearAll.addEventListener("click", function () {
     priceLeft.innerText = "0đ"
     right.style.left = "97%"
     priceRight.innerText = "100.000.000đ"
-    setDataOnload();
+    setDataForFilter()
 });
 
-document.body.addEventListener('click', function(event) {
+document.body.addEventListener('click', function (event) {
     Price_Multi_Slider.classList.add("dp-block-accessories")
 });
 
@@ -120,47 +120,13 @@ right.addEventListener("mousedown", function (event) {
 
 
 var dataArray = [];
-
-// function setConditionForFilter(selectedLoaiValue, loai, selectedNSXValue, nsx, selectedSXValue, sx) {
-//     var condition = "";
-//     if (selectedLoaiValue != "" && selectedNSXValue != "" && selectedSXValue != "") {
-//         condition = condition + loai + " AND " + nsx + " " + sx;
-//     }
-//     else if (selectedNSXValue != "" && selectedSXValue != "") {
-//         condition = condition + nsx + " " + sx;
-//     }
-//     else if (selectedLoaiValue != "" && selectedSXValue != "") {
-//         condition = condition + loai + " " + sx;
-//     }
-//     else if (selectedNSXValue != "") {
-//         condition = condition + nsx;
-//     }
-//     else if (selectedLoaiValue != "") {
-//         condition = condition + loai;
-//     }
-//     else if (selectedSXValue != "") {
-//         condition = condition + " 1=1 " + sx;
-//     }
-//     return condition;
-// }
+var searchType = "";
+var seachValue = ""
 
 function setConditionForFilterVER2(arrayConditionWhere, conditionOrderBy) {
     var s = "";
     var flag = false;
     for (var i = 0; i < arrayConditionWhere.length; i++) {
-        // if (arrayConditionWhere[i].Value_ID != "" && arrayConditionWhere[i + 1] && arrayConditionWhere[i + 1].Value_ID != "") {
-        //     s += arrayConditionWhere[i].Name_ID + " " + arrayConditionWhere[i].Operation + " " + arrayConditionWhere[i].Value_ID + " AND ";
-        // }
-        // else if (arrayConditionWhere[i].Value_ID != "" && (!arrayConditionWhere[i + 1] || arrayConditionWhere[i + 1].Value_ID == "")) {
-        //     s += arrayConditionWhere[i].Name_ID + " " + arrayConditionWhere[i].Operation + " " + arrayConditionWhere[i].Value_ID;
-        // }
-        // else if(i != 0 && s != "")
-        // {
-        //     if(arrayConditionWhere[i].Value_ID == "" && (!arrayConditionWhere[i + 1] || arrayConditionWhere[i + 1].Value_ID !=  ""))
-        //     {
-        //         s+=" AND "
-        //     }
-        // }
 
         if (flag == true) {
             s += " AND ";
@@ -228,10 +194,14 @@ function setDataForFilter() {
 
     var operation = "Read";
     var tableName = "san_pham";
+    var condition = "";
+    if (searchType == "TenSP") {
+        condition = setConditionForSeach() + " AND " + getDataFilterFromClient();
+    }
+    else {
+        condition = getDataFilterFromClient();
+    }
 
-    var condition = " MA_LOAI <> 1 AND " + getDataFilterFromClient();
-
-    console.log(condition)
     $.ajax({
         url: 'AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -252,10 +222,29 @@ function setDataForFilter() {
     });
 }
 
-function setDataOnload() {
+function setUI() {
+    if (searchType == "ThuongHieu") {
+        document.getElementById("MANSX_" + seachValue).selected = "true";
+    }
+}
+
+function setConditionForSeach() {
+    if (searchType == "TenSP") {
+        return "TEN_SP LIKE '%" + seachValue + "%'";
+    }
+    else if (searchType == "ThuongHieu") {
+        return "MA_NSX = " + seachValue;
+    }
+}
+
+function setDataOnload(Type, Value) {
+    searchType = Type;
+    seachValue = Value;
+    setUI();
     var operation = "Read";
     var tableName = "san_pham";
-    var condition = " MA_LOAI <> 1";
+    var condition = setConditionForSeach();
+
     $.ajax({
         url: 'AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -330,7 +319,7 @@ function loadPagesNumber(pageNumber, itemsPerPage, maxPage) {
 function convert_JsonToArray(dataJsonArray) {
     var Array = [];
     for (var key in dataJsonArray) {
-            Array.push(dataJsonArray[key]);
+        Array.push(dataJsonArray[key]);
     }
     return Array;
 }
@@ -366,7 +355,7 @@ function loadValueForSelect(idSelect, arrayValueSelect) {
                 html += '<option value="' + arrayValueSelect[i].MA_LOAI + '">' + arrayValueSelect[i].TEN_LOAI + '</option>';
                 break;
             case "nsx":
-                html += '<option value="' + arrayValueSelect[i].MA_NSX + '">' + arrayValueSelect[i].TEN_NSX + '</option>';
+                html += '<option id="select' + arrayValueSelect[i].MA_NSX + '" value="' + arrayValueSelect[i].MA_NSX + '">' + arrayValueSelect[i].TEN_NSX + '</option>';
                 break;
             default:
                 break;
@@ -374,6 +363,6 @@ function loadValueForSelect(idSelect, arrayValueSelect) {
     }
     element.innerHTML = html;
 }
-setDataOnload();
-setArrayValueSelect("nha_sx", "", "nsx");
-setArrayValueSelect("loai", "MA_LOAI <> 1", "loai");
+
+
+setArrayValueSelect("loai", "", "loai");

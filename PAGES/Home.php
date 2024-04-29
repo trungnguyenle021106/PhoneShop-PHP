@@ -35,7 +35,7 @@
                 <h1>Choose By Brand</h1>
                 <div class="listBrand">
                     <div class="itemListBrand itemListBrand__Apple">
-                        <a href="">
+                        <a href="index.php?page=Search&ThuongHieu=Apple">
                             <img src="Img/iphone-12-pro_gold_front.png" alt="">
                             <p>Apple</p>
                         </a>
@@ -43,7 +43,7 @@
                         
                     </div>
                     <div class="itemListBrand itemListBrand__Samsung">
-                        <a href="">
+                        <a href="index.php?page=Search&ThuongHieu=Samsung">
                             <img src="Img/sm-f926_zfold3_5g_front_phantomb.png" alt="">
                             <p>Samsung</p>
                         </a>

@@ -23,6 +23,10 @@
                 {
                     require("Home.php");
                 }
+                elseif($_GET['page']=='Search')
+                {
+                    require("Search.php");
+                }
             }
     ?>
 </div>
