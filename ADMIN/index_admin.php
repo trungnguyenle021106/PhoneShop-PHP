@@ -31,6 +31,9 @@
             else if($_POST['page'] == 'Bảo hành'){
                 echo "Quản lý phiếu bảo hành";
             }
+            else if($_POST['page'] == 'Serial'){
+                echo "Quản lý Serial";
+            }
             else if($_POST['page'] == 'Nhập hàng' || $_POST['page'] == 'CTPN'){
                 echo "Quản lý phiếu nhập";
             }
@@ -75,6 +78,9 @@
             </tr>
             <tr>
             <td><input type="submit" value="Tài khoản" name="page" class="items"></input></td>
+            </tr>
+            <tr>
+            <td><input type="submit" value="Serial" name="page" class="items"></input></td>
             </tr>
         </th>
 </table>
@@ -122,6 +128,9 @@
          }
          else if($_POST['page'] == 'CHS'){
             require("CHS_admin.php");
+         }
+         else if($_POST['page'] == 'Serial'){
+            require("Serial_admin.php");
          }
          else if($_POST['page'] == 'CHTN'){
             require("CHTN_admin.php");
