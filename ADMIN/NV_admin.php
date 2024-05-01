@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -89,17 +89,32 @@ $connect->connectDB();
 <div id="suaNV_container">
 <form action="" method="POST" id="form_sua_NV">
     <h2 style="text-align: center;">Sửa thông tin</h2>
-    <div style="diNVlay: flex;">
+    <div style="display: flex;">
         <label for="">Họ Tên: </label>
         <input type="text" id="TEN_sua_NV" name="SL_sua_NV">
     </div>
-    <div style="diNVlay: flex;">
+    <div style="display: flex;">
         <label for="">Địa Chỉ: </label>
         <input type="text" id="DIACHI_sua_NV" name="DONGIA_sua_NV">
     </div>
-    <div style="diNVlay: flex;">
+    <div style="display: flex;">
         <label for="">SDT: </label>
         <input type="number" id="SDT_sua_NV" name="DONGIA_sua_NV">
+    </div>
+    <div style="display: flex;">
+        <label for="">CCCD: </label>
+        <input type="number" id="CCCD_sua_NV" name="DONGIA_sua_NV">
+    </div>
+    <div style="display: flex;">
+        <label for="">Giới tính: </label>
+        <select name="" id="GT_sua_NV">
+            <option value="Nam" >Nam</option>
+            <option value="Nữ">Nữ</option>
+        </select> 
+    </div>
+    <div style="display: flex;">
+        <label for="">Ngày sinh: </label>
+        <input type="date" id="NS_sua_NV" name="DONGIA_sua_NV">
     </div>
 
     <input type="hidden" value="<?php echo $_POST['page']; ?>" name="page" >

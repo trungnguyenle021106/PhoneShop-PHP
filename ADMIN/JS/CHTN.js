@@ -20,17 +20,19 @@ read();
         },
         success: function(response) {
 
-            // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
-            DisplayElementPage(response);
+            // Sau khi nhận được dữ liệu, gọi hàm displayElementPage
+            displayElementPage(response);
+            display_sort_giam_dan();
+            display_sort_tang_dan();
 
             //cập nhật lại số lượng sản phẩm
-            var SLSP_HT = document.querySelector('#SLCHTN_HT span');
+            var SLTN_HT = document.querySelector('#SLCHTN_HT span');
 var rows = document.querySelectorAll('#table_CHTN table tbody tr ');
-SLSP_HT.innerText = rows.length;
+SLTN_HT.innerText = rows.length;
             //cập nhật lại số lượng sản phẩm
         },
         error: function(xhr, status, error) {
-            consTNe.log(error);
+            console.log(error);
         }
     });
 }
@@ -72,7 +74,7 @@ SLSP_HT.innerText = rows.length;
 
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
-   function DisplayElementPage(elementPage) {
+   function displayElementPage(elementPage) {
     var html = "";
     for (var i = 0; i < elementPage.length; i++) {
         html += `
@@ -187,11 +189,164 @@ document.addEventListener('click', function(event){
      
      //chức năng tìm kiếm
 
+
+
+ //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            if(checkType(x) == 1){ return x - y; }
+            else{ 
+                if (x > y) return -1;
+                if (x < y) return 1;
+                return 0;
+            }
+        });
+    }
+
+
+    function display_sort_tang_dan() {
+        var table_TN = document.querySelectorAll('#data tr');
+        var jsonArray = [];
+        for(var i = 0; i < table_TN.length; i++) {
+            var MATN = table_TN[i].querySelector('#CHTN_MACHTN').innerText;
+            var MASP = table_TN[i].querySelector('#CHTN_SP').innerText;
+            var KN = table_TN[i].querySelector('#CHTN_KN').innerText;
+            var TN = table_TN[i].querySelector('#CHTN_TN').innerText;
+    
+            var object = { MATN: MATN, MASP: MASP, KN: KN, TN: TN};
+            jsonArray.push(object);
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_CHTN tbody');
+            var key = document.querySelector('#opt_sapxep_TN').value;
+            var array_sapxep = sortByKey_tang(jsonArray, key); // sắp xếp mảng
+            tbody.innerHTML = '';
+            var html = '';
+            for (var i = 0; i < array_sapxep.length; i++) {
+                html += `
+                <tr>
+                <td id="CHTN_MACHTN" style="display: none";>${array_sapxep[i].MATN}</td>
+                <td id="CHTN_SP">${array_sapxep[i].MASP}</td>
+                <td id="CHTN_KN">${array_sapxep[i].KN}</td>
+                <td id="CHTN_TN">${array_sapxep[i].TN}</td>
+                <form action="" method="POST">
+                <td><input type="button" class="CHTN_sua_btn" id="thaotac_CHTN" value="sửa" data-index="${i}"></td>
+                </form></tr>
+                `;
+            }
+            tbody.innerHTML = html;
+
+
+        // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+        var editButtons = document.querySelectorAll('.CHTN_sua_btn');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var index = this.getAttribute('data-index');
+                var form_sua_CHTN = document.getElementById('container_suaCHTN');
+    
+                form_sua_CHTN.querySelector('#KN_CHTN_sua').value = array_sapxep[index].KN;
+                form_sua_CHTN.querySelector('#TN_CHTN_sua').value = array_sapxep[index].TN;
+                form_sua_CHTN.querySelector('#MACHTN_sua').value = array_sapxep[index].MATN;
+    
+                form_sua_CHTN.style.display = 'block';
+            });
+        });
+        });
+    }
+    
+
+    // Hàm so sánh giảm dần
+    function sortByKey_giam(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            if(checkType(x) == 1){ return y - x; }
+            else{ 
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+
+
+    function display_sort_giam_dan() {
+        var table_TN = document.querySelectorAll('#data tr');
+        var jsonArray = [];
+        for(var i = 0; i < table_TN.length; i++) {
+            var MATN = table_TN[i].querySelector('#CHTN_MACHTN').innerText;
+            var MASP = table_TN[i].querySelector('#CHTN_SP').innerText;
+            var KN = table_TN[i].querySelector('#CHTN_KN').innerText;
+            var TN = table_TN[i].querySelector('#CHTN_TN').innerText;
+    
+            var object = { MATN: MATN, MASP: MASP, KN: KN, TN: TN};
+            jsonArray.push(object);
+
+        }
+    
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_CHTN tbody');
+            var key = document.querySelector('#opt_sapxep_TN').value;
+            var array_sapxep = sortByKey_giam(jsonArray, key); // sắp xếp mảng
+            tbody.innerHTML = '';
+            var html = '';
+            for (var i = 0; i < array_sapxep.length; i++) {
+                html += `
+                <tr>
+                <td id="CHTN_MACHTN" style="display: none";>${array_sapxep[i].MATN}</td>
+                <td id="CHTN_SP">${array_sapxep[i].MASP}</td>
+                <td id="CHTN_KN">${array_sapxep[i].KN}</td>
+                <td id="CHTN_TN">${array_sapxep[i].TN}</td>
+                <form action="" method="POST">
+                <td><input type="button" class="CHTN_sua_btn" id="thaotac_CHTN" value="sửa" data-index="${i}"></td>
+                </form></tr>
+                `;
+            }
+            tbody.innerHTML = html;
+
+
+        // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+        var editButtons = document.querySelectorAll('.CHTN_sua_btn');
+        editButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var index = this.getAttribute('data-index');
+                var form_sua_CHTN = document.getElementById('container_suaCHTN');
+    
+                form_sua_CHTN.querySelector('#KN_CHTN_sua').value = array_sapxep[index].KN;
+                form_sua_CHTN.querySelector('#TN_CHTN_sua').value = array_sapxep[index].TN;
+                form_sua_CHTN.querySelector('#MACHTN_sua').value = array_sapxep[index].MATN;
+    
+                form_sua_CHTN.style.display = 'block';
+            });
+        });
+        });
+    }
+
+  //chức năng sắp xếp
+
+
 //Lê Ngọc Anh Huy -> lengocanhhuy
 function chuyenDoiChuoi(chuoi) {
     return chuoi.toLowerCase()
                 .normalize("NFD")
                 .replace(/[\u0300-\u036f\s]/g, "");
+}
+
+//hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+function checkType(input) {
+    if (!isNaN(input)) {
+       return 1;
+    } else {
+        return 0;
+    }
 }
 
 

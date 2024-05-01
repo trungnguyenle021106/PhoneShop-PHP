@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -45,14 +45,12 @@ $connect->connectDB();
 <form action="" method="POST" id="form_sapxep_Quyen">
         <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
         <select name="" id="opt_sapxep_Quyen">
-            <option value="MAQuyen">MAQuyen</option>
-            <option value="Quyền">Quyền</option>
-            <option value="Tình trạng">Tình trạng</option>
-            <option value="Ngày tạo">Ngày tạo</option>
+            <option value="MA_Q">Mã Quyền</option>
+            <option value="TEN_Q">Tên Quyền</option>
         </select>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
-        <input type="submit" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+        <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
     </form>
 
     <form action="" method="POST" id="form_timkiem_Quyen">
@@ -64,6 +62,8 @@ $connect->connectDB();
             <input type="text" id="txt_timkiem_Quyen" style="width: 50%; margin-left: 20px;" placeholder="Nhập tài khoản cần tìm">
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="button" value="Tìm" id="btn_timkiem_Quyen">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
     <form action="" method="POST" id="form_them_Quyen">

@@ -22,7 +22,7 @@ read();
 
             // Sau TKi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
-
+            display_sort();
             //cập nhật lại số lượng sản phẩm
             var SLTK_HT = document.querySelector('#SLTK_HT span');
 var rows = document.querySelectorAll('#table_TK table tbody tr ');
@@ -92,8 +92,8 @@ function read_LS(MATK){
     else if(!check_TEN_TK){
         alert("Tên tài khoản đã tồn tại !!")
     }
-    else if(!isValidString(MAT_KHAU)){
-        alert("Mật khẩu phải tối thiểu 6 kí tự và tối đa 11 kí tự không bao gồm kí tự đặc biệt");
+    else if(!isValidString(MAT_KHAU)  || !isValidString(TEN_TK)){
+        alert("Mật khẩu hoặc tên tài khoản phải tối thiểu 6 kí tự và tối đa 11 kí tự không bao gồm kí tự đặc biệt");
     }
     else{
         var data = {
@@ -119,6 +119,7 @@ function read_LS(MATK){
             }, 
             success: function(response){
                 console.log(response);
+                location.reload();
             },
             error: function(xhr, status, error) {
                 console.log(error);
@@ -131,34 +132,39 @@ function read_LS(MATK){
    
    function update()
 {
-
-        var data = {
-            MAT_KHAU: $('#MKTK_sua').val(),
-          };
-          var jsonData = JSON.stringify(data);
-
-    var operation = "Update";
-    var tableName = "tai_khoan";
-    var idName = "MA_TK";
-    var idValue = $('#MATK_sua').val();
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData : jsonData,
-            operation: operation,
-            tableName: tableName,
-            idName : idName,
-            idValue : idValue
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
+        if(!isValidString($('#MKTK_sua').val())){
+            alert("Mật khẩu cần tối thiểu 6 kí tự và tối đa 11 kí tự !!");
         }
-    });
+        else{
+            var data = {
+                MAT_KHAU: $('#MKTK_sua').val(),
+              };
+              var jsonData = JSON.stringify(data);
+    
+        var operation = "Update";
+        var tableName = "tai_khoan";
+        var idName = "MA_TK";
+        var idValue = $('#MATK_sua').val();
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName,
+                idName : idName,
+                idValue : idValue
+            },
+            success: function(response) {
+                console.log(response);
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
 }
 
 function vohieu(MATK)
@@ -239,7 +245,7 @@ function mo(MATK)
             <tr>
             <td id="TK_MATK">${elementPage[i].MA_TK}</td>
             <td id="TK_TenTK">${elementPage[i].TEN_TK}</td>
-            <td id="TK_MatTKau">${elementPage[i].MAT_KHAU}</td>
+            <td id="TK_MatKhau">${elementPage[i].MAT_KHAU}</td>
             <td id="TK_NgayTao">${elementPage[i].NGAY_TAO_TK}</td>
             <td id="TK_TinhTrang">${elementPage[i].TINH_TRANG}</td>
             <td id="TK_Quyen">${elementPage[i].MA_Q}</td>
@@ -263,7 +269,7 @@ function mo(MATK)
             <tr>
             <td id="TK_MATK">${elementPage[i].MA_TK}</td>
             <td id="TK_TenTK">${elementPage[i].TEN_TK}</td>
-            <td id="TK_MatTKau">${elementPage[i].MAT_KHAU}</td>
+            <td id="TK_MatKhau">${elementPage[i].MAT_KHAU}</td>
             <td id="TK_NgayTao">${elementPage[i].NGAY_TAO_TK}</td>
             <td id="TK_TinhTrang">${elementPage[i].TINH_TRANG}</td>
             <td id="TK_Quyen">${elementPage[i].MA_Q}</td>
@@ -333,6 +339,24 @@ if(event.target === form_sua_KH){
 })
     
     // chức năng tìm kiếm
+
+
+    document.addEventListener('DOMContentLoaded', function(){
+        var opt = document.getElementById('opt_timkiem_TK'); 
+        var txt = document.getElementById('txt_timkiem_TK'); 
+    
+        function toggleDateInput() {
+            if(opt.value === 'Ngày tạo'){
+               txt.type = 'date';
+            }
+            else {
+                txt.type = 'text';
+    
+            }
+        }
+        opt.addEventListener('change', toggleDateInput); // Lắng nghe sự kiện thay đổi của select
+    });
+
 document.getElementById('btn_timkiem_TK').addEventListener('click', function(event){
     event.preventDefault();
  var opt = document.getElementById('opt_timkiem_TK').value;
@@ -407,10 +431,142 @@ document.getElementById('btn_timkiem_TK').addEventListener('click', function(eve
        rows[i].style.display = 'table-row';
      }
  }
+
+ display_sort();
  })
  
  //chức năng tìm kiếm
 
+
+
+   //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            
+            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+            var xType = checkType(x);
+            var yType = checkType(y);
+            
+            if (xType === 1 && yType === 1) {
+                return x - y; // Sắp xếp theo số
+            } else if (xType === 2 && yType === 2) {
+                // Chuyển đổi x và y thành đối tượng Date để so sánh
+                var dateX = new Date(x);
+                var dateY = new Date(y);
+                return dateX - dateY; // Sắp xếp theo thời gian
+            } else {
+                // So sánh bình thường
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+    
+
+        // Hàm so sánh giảm dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                
+                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+                var xType = checkType(x);
+                var yType = checkType(y);
+                
+                if (xType === 1 && yType === 1) {
+                    return y - x; // Sắp xếp số giảm dần
+                } else if (xType === 2 && yType === 2) {
+                    // Chuyển đổi x và y thành đối tượng Date để so sánh
+                    var dateX = new Date(x);
+                    var dateY = new Date(y);
+                    return dateY - dateX; // Sắp xếp thời gian giảm dần
+                } else {
+                    // So sánh chuỗi giảm dần
+                    if (x > y) return -1;
+                    if (x < y) return 1;
+                    return 0;
+                }
+            });
+        }
+        
+
+
+    function display_sort() {
+        var table_TK = document.querySelectorAll('#table_TK tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_TK.length; i++) {
+            var MATK = table_TK[i].querySelector('#TK_MATK').innerText;
+            var TENTK = table_TK[i].querySelector('#TK_TenTK').innerText;
+            var MK = table_TK[i].querySelector('#TK_MatKhau').innerText;
+            var NGAY = table_TK[i].querySelector('#TK_NgayTao').innerText;
+            var TINHTRANG = table_TK[i].querySelector('#TK_TinhTrang').innerText;
+            var QUYEN = table_TK[i].querySelector('#TK_Quyen').innerText;
+
+
+            var object = { MA_TK: MATK, TEN_TK: TENTK, MAT_KHAU: MK, NGAY_TAO_TK: NGAY, TINH_TRANG: TINHTRANG, MA_Q: QUYEN };
+            jsonArray.push(object);
+
+            if(window.getComputedStyle(table_TK[i]).display !== 'none'){
+                var object2 = { MA_TK: MATK, TEN_TK: TENTK, MAT_KHAU: MK, NGAY_TAO_TK: NGAY, TINH_TRANG: TINHTRANG, MA_Q: QUYEN };
+                jsonArray2.push(object2);
+            }
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_TK tbody');
+            var key = document.querySelector('#opt_sapxep_TK').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_TK tbody');
+            var key = document.querySelector('#opt_sapxep_TK').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+         DisplayElementPage(array_sapxep);
+        });
+
+        
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_TK tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+
+        });
+
+    }
+
+  //chức năng sắp xếp
+
+  //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+  function checkType(input) {
+    // Kiểm tra xem input có phải là số không
+    if (!isNaN(input)) {
+        return 1;
+    }
+    // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+        return 2; // Trả về 2 để phân biệt với trường hợp là số
+    }
+    // Trường hợp còn lại
+    else {
+        return 0;
+    }
+}
  
  //chức năng hiện thị mật khẩu
  function togglePasswordVisibility() {

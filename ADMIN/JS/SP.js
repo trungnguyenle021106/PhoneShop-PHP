@@ -1,46 +1,10 @@
 // Gọi hàm read để lấy dữ liệu 
 read();
+
 // Gọi hàm read để lấy dữ liệu 
 
 
-function add(){
-    var loai = $("#opt_loai").val();
-    var MANSX = $("#opt_MANSX").val();
-    var Ten_SP = $("#TenSP_add").val();
-    var Gia = $("#GIA_SP_add").val();
 
-var filePath = $('#ANH_SP_add').val();
-var ANH = filePath.split('\\').pop();
-
-    var data = {
-        MA_LOAI: loai,
-        MA_NSX: MANSX,
-        TEN_SP: Ten_SP,
-        GIA_BAN: Gia,
-        HINH_ANH: ANH,
-        SO_LUONG: 1
-      };
-      var jsonData = JSON.stringify(data);
-      console.log(jsonData);
-var operation = "Create";
-var tableName = "san_pham";
-$.ajax({
-url: '../AJAX_PHP/CRUD.php',
-type: 'POST',
-dataType: 'json',
-data: {
-    jsonData : jsonData,
-    operation: operation,
-    tableName: tableName
-},
-success: function(response) {
-    console.log(response);
-},
-error: function(xhr, textStatus, errorThrown) {
-    console.log(xhr, textStatus, errorThrown);
-}
-})
-}
 
     function add_CHSP()
 { 
@@ -76,7 +40,7 @@ data: {
 },
 success: function(response) {
     var loai = $("#opt_loai").val();
-
+    console.log(loai);
     if(loai === "1"){
         if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== "" && $("#OS_them").val() !== ""){
         
@@ -119,7 +83,8 @@ success: function(response) {
       
     }
 
-    else if(loai === "2"){
+    else if(loai === "3"){
+        console.log($("#KNTN_them").val());
         if($("#KNTN_them").val() !== "" && $("#TNTN_them").val() !== ""){
 
             var data = {
@@ -155,7 +120,7 @@ success: function(response) {
     }
 
 
-    else if(loai === "3"){
+    else if(loai === "5"){
         if($("#CHSKN_them").val() !== "" && $("#CsS_them").val() !== "" && $("#CHSTN_them").val() !== ""){
           
 
@@ -383,6 +348,7 @@ function Delete(MASP) {
 
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
+            display_sort();
 
             //cập nhật lại số lượng sản phẩm
             var SLSP_HT = document.querySelector('#SLSP_HT span');
@@ -419,6 +385,9 @@ SLSP_HT.innerText = rows.length;
         }
         else if(elementPage[i].MA_LOAI == 5){
             ten_loai = "Sạc";
+        }
+        else{
+            ten_loai = elementPage[i].MA_LOAI;
         }
 
         html += `<tr>
@@ -489,14 +458,14 @@ opt.addEventListener('change',function(){
     section_CHS.style.display = 'none';
     section_CHOL.style.display = 'none';
 }
-else if(opt.value == '3'){
+else if(opt.value == '5'){
     section_CHDT.style.display = 'none';
     section_CHTN.style.display = 'none';
     form.style.height = '330px';
     section_CHS.style.display = 'block';
     section_CHOL.style.display = 'none';
 }
-else if(opt.value == '2'){
+else if(opt.value == '3'){
     section_CHDT.style.display = 'none';
     form.style.height = '260px';
     section_CHTN.style.display = 'block';
@@ -540,6 +509,7 @@ if(files.length === 0 || Ten_SP === "" || Gia === ""){
 }
 else{
     document.getElementById('container_themSP').style.display = "block";
+
 }
 })
 //hiện form thêm cấu hình
@@ -551,7 +521,6 @@ else{
  var opt = document.getElementById('opt_timkiem_SP').value;
  var txt = document.getElementById('txt_timkiem_SP').value;
   var rows = document.querySelectorAll('#table_SP table tbody tr');
- 
  if(opt === 'MASP'){
  
      for(var i = 0; i < rows.length; i++){
@@ -578,10 +547,10 @@ else{
  }
  }
  
- else if(opt === 'MA_SP'){
+ else if(opt === 'MA_NSX'){
  
  for(var i = 0; i < rows.length; i++){
-     var MaSP = rows[i].querySelector('#SP_MASP').innerText;
+     var MaSP = rows[i].querySelector('#SP_MANSX').innerText;
      if(chuyenDoiChuoi(MaSP).includes(chuyenDoiChuoi(txt))){
         rows[i].style.display = 'table-row';
      }
@@ -609,10 +578,107 @@ else{
        rows[i].style.display = 'table-row';
      }
  }
+ display_sort();
  })
  
  //chức năng tìm kiếm
 
+
+
+
+ //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            if(checkType(x) == 1){ return x - y; }
+            else{ 
+                if (x > y) return -1;
+                if (x < y) return 1;
+                return 0;
+            }
+        });
+    }
+
+        // Hàm so sánh tăng dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                if(checkType(x) == 1){ return y - x; }
+                else{ 
+                    if (x < y) return -1;
+                    if (x > y) return 1;
+                    return 0;
+                }
+            });
+        }
+
+
+    function display_sort() {
+        var table_SP = document.querySelectorAll('#table_SP tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_SP.length; i++) {
+            var MASP = table_SP[i].querySelector('#SP_MASP').innerText;
+            var loai = table_SP[i].querySelector('#SP_MALOAI').innerText;
+            var Ten = table_SP[i].querySelector('#SP_TEN').innerText;
+            var GIA = changePriceToNormal(table_SP[i].querySelector('#SP_GIA').innerText);
+            var SL = table_SP[i].querySelector('#SP_SL').innerText;
+            var ANH = table_SP[i].querySelector('#SP_ANH img').src.split('http://localhost/PhoneShop/Img/')[1];
+            var MANSX = table_SP[i].querySelector('#SP_MANSX').innerText;
+    
+            var object = { MA_SP: MASP, MA_LOAI: loai, TEN_SP: Ten, GIA_BAN: GIA, SO_LUONG: SL, HINH_ANH: ANH, MA_NSX: MANSX };
+            if(window.getComputedStyle(table_SP[i]).display !== 'none'){
+                var object2 = { MA_SP: MASP, MA_LOAI: loai, TEN_SP: Ten, GIA_BAN: GIA, SO_LUONG: SL, HINH_ANH: ANH, MA_NSX: MANSX };
+                jsonArray2.push(object2);
+            }
+            jsonArray.push(object);
+        }
+
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_SP tbody');
+            var key = document.querySelector('#opt_sapxep_SP').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_SP tbody');
+            var key = document.querySelector('#opt_sapxep_SP').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_SP tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+                });
+    }
+
+  //chức năng sắp xếp
+
+
+//hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+  function checkType(input) {
+    if (!isNaN(input)) {
+       return 1;
+    } else {
+        return 0;
+    }
+}
 
  //hàm xử lí tiền
  //1000000  -> 1.000.000 đ
@@ -651,5 +717,6 @@ function chuyenDoiChuoi(chuoi) {
                 .normalize("NFD")
                 .replace(/[\u0300-\u036f\s]/g, "");
 }
+
 
 

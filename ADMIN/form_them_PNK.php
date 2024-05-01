@@ -38,7 +38,19 @@
                     <td>Số lượng</td>
             </thead>
             <tbody id="data_SP">
-
+                <?php
+               foreach($connect->read("san_pham") as $row){
+                ?>
+    <tr>
+                <td id="MASP_them"><?php echo $row['MA_SP']; ?></td>
+                <td id="TENSP_them"><?php echo $row['TEN_SP']; ?></td>
+                <td id="GIA_them"><?php echo $row['GIA_BAN']; ?></td>
+                <td id="ANH_them"><img src="../Img/<?php echo $row['HINH_ANH']; ?>" alt="##" style="height: 50px; "></td>
+                <td><?php echo $row['SO_LUONG']; ?></td>
+    </tr>
+                <?php
+                }
+                ?>
             </tbody>
         </table>
     </div>

@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -49,14 +49,18 @@ $connect->connectDB();
 <form action="" method="POST" id="form_sapxep_TK">
         <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
         <select name="" id="opt_sapxep_TK">
-            <option value="MATK">MATK</option>
-            <option value="Quyền">Quyền</option>
-            <option value="Tình trạng">Tình trạng</option>
-            <option value="Ngày tạo">Ngày tạo</option>
+            <option value="MA_TK">MATK</option>
+            <option value="TEN_TK">Tài Khoản</option>
+            <option value="MAT_KHAU">Mật Khẩu</option>
+            <option value="NGAY_TAO_TK">Ngày tạo</option>
+            <option value="TINH_TRANG">Tình Trạng</option>
+            <option value="MA_Q">Mã Quyền</option>
+
+
         </select>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
-        <input type="submit" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+        <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
     </form>
 
     <form action="" method="POST" id="form_timkiem_TK">
@@ -71,6 +75,8 @@ $connect->connectDB();
             <input type="text" id="txt_timkiem_TK" style="width: 50%; margin-left: 20px;" placeholder="Nhập tài khoản cần tìm">
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="submit" value="Tìm" id="btn_timkiem_TK">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
     <form action="" method="POST" id="form_them_TK">
@@ -100,7 +106,7 @@ $connect->connectDB();
     </div>
 
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" class="btn_themTK" name="btn_themTK" value="Thêm" onclick="add()">
+        <input type="button" class="btn_themTK" name="btn_themTK" value="Thêm" onclick="add()">
     </form>
 
 </div>
@@ -115,7 +121,7 @@ $connect->connectDB();
             </div>
     <input type="hidden" id="MATK_sua">
     <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-    <input type="submit" id="suaTK_btn" onclick="update()" value="Xác nhận">
+    <input type="button" id="suaTK_btn" onclick="update()" value="Xác nhận">
     </form>
 </div>
 

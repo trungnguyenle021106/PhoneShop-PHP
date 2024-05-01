@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -43,11 +43,11 @@ $connect->connectDB();
 <form action="" method="POST" id="form_sapxep_CTHD">
         <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
         <select name="" id="opt_sapxep_CTHD">
-            <option value="MAHD">MAHD</option>
-            <option value="MASP">MASP</option>
-            <option value="Số lượng">Số lượng</option>
-            <option value="Thành tiền">Thành tiền</option>
-            <option value="Thuế suất">Thuế suất</option>
+            <option value="MA_HD">MAHD</option>
+            <option value="MA_SP">MASP</option>
+            <option value="SL_BAN">Số lượng</option>
+            <option value="THUE_SUAT">Thuế suất</option>
+            <option value="THANH_TIEN">Thành tiền</option>
         </select>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="submit" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
@@ -65,6 +65,8 @@ $connect->connectDB();
             <input type="text" id="txt_timkiem_CTHD" style="width: 54%; margin-left: 20px;" placeholder="Nhập CTHD cần tìm">
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="submit" value="Tìm" id="btn_timkiem_CTHD">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
 

@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -37,13 +37,17 @@ $connect->connectDB();
 <form action="" method="POST" id="form_sapxep_PBH">
         <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
         <select name="" id="opt_sapxep_PBH">
-            <option value="MAPBH">MAPBH</option>
-            <option value="MAKH">MAKH</option>
-            <option value="SERIAL">SERIAL</option>
+            <option value="MA_PBH">MAPBH</option>
+            <option value="MA_KH">MAKH</option>
+            <option value="MA_SERIAL">SERIAL</option>
+            <option value="NGAY_BAT_DAU">Ngày bắt đầu</option>
+            <option value="NGAY_HET_HAN">Ngày hết hạn</option>
+            <option value="THOI_GIAN_BAOHANH">thời gian bảo hành</option>
+
         </select>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
-        <input type="submit" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+        <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
     </form>
 
     <form action="" method="POST" id="form_timkiem_PBH">
@@ -57,12 +61,9 @@ $connect->connectDB();
             <option value="time_end">Ngày kết thúc</option>
             </select>
             <input type="text" id="txt_timkiem_PBH" style="width: 54%; margin-left: 20px;" placeholder="Nhập phiếu bảo hàng">
-
-            <!-- <div class="khoang" style="display: flex; margin-top: 10px; display: none;">
-            <input id="ngay_start_other" type="date" style="height: 20px; width: 100px;   margin-right: 10px; text-align: center; "> -> 
-            <input id="ngay_end_other" type="date" style="height: 20px; width: 100px;  margin-left: 10px; text-align: center; ">
-            </div> -->
             <input type="button" value="Tìm" id="btn_timkiem_PBH">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 </div>
 

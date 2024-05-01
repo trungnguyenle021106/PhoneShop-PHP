@@ -22,7 +22,7 @@ read();
 
             // Sau HDi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
-
+            display_sort();
             //cập nhật lại số lượng sản phẩm
             var SLPN_HT = document.querySelector('.SLPN_HT span');
             var rows = document.querySelectorAll('#table_PNK table tbody tr ');
@@ -41,71 +41,85 @@ read();
     var MA_NV = $("#opt_MANV_themPNK").val();
     var MA_NSX = $("#opt_MANSX_themPNK").val();
     var TRANG_THAI = "CHƯA XỬ LÝ";
-
-    var data = {
-        NGAY_NHAP: NGAY_NHAP,
-        MA_NSX: MA_NSX,
-        MA_NV: MA_NV,
-        TRANG_THAI: TRANG_THAI
-    };
-
-    var jsonData = JSON.stringify(data);
-
-    var operation = "Create";
-    var tableName = "phieu_nhap";
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData: jsonData,
-            operation: operation,
-            tableName: tableName
-        },
-        success: function(response) {
-            //đọc ra phiếu nhập vừa thêm
-            var newMAPN = response[response.length - 1].MA_PN;
-            var table_CTPN = document.querySelectorAll('#data_CTSP tr');
-
-            for (var i = 0; i < table_CTPN.length; i++) {
-                var MASP_CTPN = table_CTPN[i].querySelector('#MASP_CTPN').innerText;
-                var DONGIA_CTPN = table_CTPN[i].querySelector('#DONGIA_CTPN input').value;
-                var SL_CTPN = table_CTPN[i].querySelector('#SL_CTPN input').value;
-                var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
-
-                var data = {
-                    MA_PN: newMAPN,
-                    MA_SP: MASP_CTPN,
-                    DON_GIA: DONGIA_CTPN,
-                    SO_LUONG: SL_CTPN,
-                    THANH_TIEN: THANHTIEN_CTPN
-                };
-
-                var jsonData = JSON.stringify(data);
-
-                $.ajax({
-                    url: '../AJAX_PHP/CRUD.php',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        jsonData: jsonData,
-                        operation: "Create",
-                        tableName: 'chi_tiet_nhap'
-                    },
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(error);
-                    }
-                });
-            }
-               location.reload();
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
+    var table_CTPN = document.querySelectorAll('#data_CTSP tr');
+    var check = true;
+    for (var i = 0; i < table_CTPN.length; i++) {
+        var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
+        if(THANHTIEN_CTPN == '0'){
+            check = false; break;
         }
-    });
+    }
+
+    if(check){
+        var data = {
+            NGAY_NHAP: NGAY_NHAP,
+            MA_NSX: MA_NSX,
+            MA_NV: MA_NV,
+            TRANG_THAI: TRANG_THAI
+        };
+    
+        var jsonData = JSON.stringify(data);
+    
+        var operation = "Create";
+        var tableName = "phieu_nhap";
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData: jsonData,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function(response) {
+                //đọc ra phiếu nhập vừa thêm
+                var newMAPN = response[response.length - 1].MA_PN;
+                var table_CTPN = document.querySelectorAll('#data_CTSP tr');
+    
+                for (var i = 0; i < table_CTPN.length; i++) {
+                    var MASP_CTPN = table_CTPN[i].querySelector('#MASP_CTPN').innerText;
+                    var DONGIA_CTPN = table_CTPN[i].querySelector('#DONGIA_CTPN input').value;
+                    var SL_CTPN = table_CTPN[i].querySelector('#SL_CTPN input').value;
+                    var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
+                    var data = {
+                        MA_PN: newMAPN,
+                        MA_SP: MASP_CTPN,
+                        DON_GIA: DONGIA_CTPN,
+                        SO_LUONG: SL_CTPN,
+                        THANH_TIEN: THANHTIEN_CTPN
+                    };
+    
+                    var jsonData = JSON.stringify(data);
+    
+                    $.ajax({
+                        url: '../AJAX_PHP/CRUD.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            jsonData: jsonData,
+                            operation: "Create",
+                            tableName: 'chi_tiet_nhap'
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                }
+                   location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+
+    else{
+        alert("chi tiết phải có số lượng và đơn giá ít nhất 1 !!");
+    }
+    
 }
 
 
@@ -195,6 +209,13 @@ function update(MASP, SL, callback) {
     });
 }
 
+
+
+function PhanQuyen(){
+    $.ajax({
+        url: ''
+    })
+}
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
 
@@ -213,13 +234,11 @@ function update(MASP, SL, callback) {
             <td id="PNK_MaNSX">${elementPage[i].MA_NSX}</td>
             <td id="PNK_trang_thai">${elementPage[i].TRANG_THAI}</td>
            <form action="" method="POST">
-           <input type="hidden" name="MAPNK_xoa" value="${elementPage[i].MA_PN}">
-           <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-          <td><input type="submit" value="xóa" name="btn_xoa_PN" class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
+           <input type="hidden" name="MAPNK_xoa" value="${elementPage[i].MA_PN}">      
+          <td><input type="submit"  value="xóa" name="btn_xoa_PN" class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
            </form>
            <form action="" method="POST">
            <input type="hidden" name="MAPNK_nhap" value="${elementPage[i].MA_PN}">
-           <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
           <td><input type="submit" value="nhập" name="btn_nhap_PN" id="btn_nhap_PN" class="thaotac" onclick="nhap(${elementPage[i].MA_PN})"></td>
            </form>
            </tr>
@@ -234,9 +253,9 @@ function update(MASP, SL, callback) {
             <td id="PNK_MaNSX">${elementPage[i].MA_NSX}</td>
             <td id="PNK_trang_thai">${elementPage[i].TRANG_THAI}</td>
            <form action="" method="POST">
-           <input type="hidden" name="MAPNK_xoa" value="${elementPage[i].MA_PN}">
+           <input type="hidden" name="MAPNK_xoa"  value="${elementPage[i].MA_PN}">
            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-          <td colspan="2"><input type="submit" value="xóa" name="btn_xoa_PN" class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
+          <td colspan="2"><input type="submit"  value="xóa" name="btn_xoa_PN" class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
            </form>
            </tr>
             `;
@@ -250,6 +269,24 @@ function update(MASP, SL, callback) {
 
     
 //chức năng tìm kiếm
+
+document.addEventListener('DOMContentLoaded', function(){
+    var opt = document.getElementById('opt_timkiem_PNK'); // Lấy thẻ select
+    var txt = document.getElementById('txt_timkiem_PNK'); // Lấy thẻ select
+
+    function toggleDateInput() {
+        if(opt.value === 'Ngày nhập'){
+           txt.type = 'date';
+        }
+        else {
+            txt.type = 'number';
+
+        }
+    }
+    opt.addEventListener('change', toggleDateInput); // Lắng nghe sự kiện thay đổi của select
+});
+
+
 document.getElementById('btn_timkiem_PNK').addEventListener('click', function(event){
     event.preventDefault();
  var opt = document.getElementById('opt_timkiem_PNK').value;
@@ -314,6 +351,7 @@ document.getElementById('btn_timkiem_PNK').addEventListener('click', function(ev
        rows[i].style.display = 'table-row';
      }
  }
+ display_sort();
  })
  
  function convertDateFormat(inputDate) {
@@ -404,10 +442,144 @@ function nhap(MAPN) {
         error: function(xhr, status, error) {
             console.log(error);
         }
+        
     });
+    location.reload();
 }
 //hàm cho nút nhập
 
+
+
+  //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            
+            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+            var xType = checkType(x);
+            var yType = checkType(y);
+            
+            if (xType === 1 && yType === 1) {
+                return x - y; // Sắp xếp theo số
+            } else if (xType === 2 && yType === 2) {
+                // Chuyển đổi x và y thành đối tượng Date để so sánh
+                var dateX = new Date(x);
+                var dateY = new Date(y);
+                return dateX - dateY; // Sắp xếp theo thời gian
+            } else {
+                // So sánh bình thường
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+    
+
+        // Hàm so sánh giảm dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                
+                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+                var xType = checkType(x);
+                var yType = checkType(y);
+                
+                if (xType === 1 && yType === 1) {
+                    return y - x; // Sắp xếp số giảm dần
+                } else if (xType === 2 && yType === 2) {
+                    // Chuyển đổi x và y thành đối tượng Date để so sánh
+                    var dateX = new Date(x);
+                    var dateY = new Date(y);
+                    return dateY - dateX; // Sắp xếp thời gian giảm dần
+                } else {
+                    // So sánh chuỗi giảm dần
+                    if (x > y) return -1;
+                    if (x < y) return 1;
+                    return 0;
+                }
+            });
+        }
+        
+
+
+    function display_sort() {
+        var table_PNK = document.querySelectorAll('#table_PNK tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_PNK.length; i++) {
+            var MAPN = table_PNK[i].querySelector('#PNK_Ma').innerText;
+            var NGAYNHAP = table_PNK[i].querySelector('#PNK_NgayNhap').innerText;
+            var MANV = table_PNK[i].querySelector('#PNK_MaNV').innerText;
+            var MANSX = table_PNK[i].querySelector('#PNK_MaNSX').innerText;
+            var TRANG_THAI = table_PNK[i].querySelector('#PNK_trang_thai').innerText;
+
+            var object = { MA_PN: MAPN, NGAY_NHAP: NGAYNHAP, MA_NV: MANV, TRANG_THAI: TRANG_THAI, MA_NSX: MANSX };
+            jsonArray.push(object);
+
+            if(window.getComputedStyle(table_PNK[i]).display !== 'none'){
+                var object2 = { MA_PN: MAPN, NGAY_NHAP: NGAYNHAP, MA_NV: MANV, TRANG_THAI: TRANG_THAI, MA_NSX: MANSX };
+                jsonArray2.push(object2);
+            }
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_PNK tbody');
+            var key = document.querySelector('#opt_sapxep_PNK').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_PNK tbody');
+            var key = document.querySelector('#opt_sapxep_PNK').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_PNK tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+
+        });
+
+    }
+
+  //chức năng sắp xếp
+
+  //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+  function checkType(input) {
+    // Kiểm tra xem input có phải là số không
+    if (!isNaN(input)) {
+        return 1;
+    }
+    // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+        return 2; // Trả về 2 để phân biệt với trường hợp là số
+    }
+    // Trường hợp còn lại
+    else {
+        return 0;
+    }
+}
+
+  
 
  //Lê Ngọc Anh Huy -> lengocanhhuy
  function chuyenDoiChuoi(chuoi) {

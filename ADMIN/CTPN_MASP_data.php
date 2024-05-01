@@ -1,7 +1,8 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
+
 
 $key = $_POST['id'];
 $condition = "MA_NSX =" . $key;

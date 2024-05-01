@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -45,7 +45,24 @@ $connect->connectDB();
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="text" id="txt_timkiem_NSX" style="width: 54%; margin-left: 20px;" placeholder="Nhập NSX cần tìm">
             <input type="button" value="Tìm" id="btn_timkiem_NSX">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
+
+    <form action="" method="POST" id="form_sapxep_NSX">
+        <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
+        <select name="" id="opt_sapxep_NSX">
+            <option value="MA_NSX">MANSX</option>
+            <option value="TEN_NSX">Tên NSX</option>
+            <option value="DIA_CHI">Địa chỉ</option>
+            <option value="SO_DT">SDT</option>
+            <option value="EMAIL">EMAIL</option>
+        </select>
+        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+        <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+    </form>
+
 
     <form action="" method="POST" id="form_them_NSX">
         <h2 style="text-align: center; ">Thêm nhà sản xuất</h2>

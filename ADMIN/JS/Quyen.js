@@ -22,7 +22,7 @@ read();
 
             // Sau Quyeni nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
-
+            display_sort();
             //cập nhật lại số lượng sản phẩm
             var SLQuyen_HT = document.querySelector('#SLQuyen_HT span');
 var rows = document.querySelectorAll('#table_Quyen table tbody tr ');
@@ -297,6 +297,8 @@ document.getElementById('btn_timkiem_Quyen').addEventListener('click', function(
        rows[i].style.display = 'table-row';
      }
  }
+
+ display_sort();
  })
  
  //chức năng tìm kiếm
@@ -406,6 +408,133 @@ tr_left.forEach(function(tr) {
 
 //hiệu ứng của form sửa chức năng
 
+
+
+  //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            
+            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+            var xType = checkType(x);
+            var yType = checkType(y);
+            
+            if (xType === 1 && yType === 1) {
+                return x - y; // Sắp xếp theo số
+            } else if (xType === 2 && yType === 2) {
+                // Chuyển đổi x và y thành đối tượng Date để so sánh
+                var dateX = new Date(x);
+                var dateY = new Date(y);
+                return dateX - dateY; // Sắp xếp theo thời gian
+            } else {
+                // So sánh bình thường
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+    
+
+        // Hàm so sánh giảm dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                
+                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+                var xType = checkType(x);
+                var yType = checkType(y);
+                
+                if (xType === 1 && yType === 1) {
+                    return y - x; // Sắp xếp số giảm dần
+                } else if (xType === 2 && yType === 2) {
+                    // Chuyển đổi x và y thành đối tượng Date để so sánh
+                    var dateX = new Date(x);
+                    var dateY = new Date(y);
+                    return dateY - dateX; // Sắp xếp thời gian giảm dần
+                } else {
+                    // So sánh chuỗi giảm dần
+                    if (x > y) return -1;
+                    if (x < y) return 1;
+                    return 0;
+                }
+            });
+        }
+        
+
+
+    function display_sort() {
+        var table_Quyen = document.querySelectorAll('#table_Quyen tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_Quyen.length; i++) {
+            var MA_Q = table_Quyen[i].querySelector('#Quyen_MAQuyen').innerText;
+            var TEN_Q = table_Quyen[i].querySelector('#Quyen_TenQuyen').innerText;
+
+            var object = { MA_Q: MA_Q, TEN_Q: TEN_Q };
+            jsonArray.push(object);
+
+            if(window.getComputedStyle(table_Quyen[i]).display !== 'none'){
+                var object2 = { MA_Q: MA_Q, TEN_Q: TEN_Q };
+                jsonArray2.push(object2);
+            }
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_Quyen tbody');
+            var key = document.querySelector('#opt_sapxep_Quyen').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_Quyen tbody');
+            var key = document.querySelector('#opt_sapxep_Quyen').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_Quyen tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+
+        });
+
+    }
+
+  //chức năng sắp xếp
+
+  //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+  function checkType(input) {
+    // Kiểm tra xem input có phải là số không
+    if (!isNaN(input)) {
+        return 1;
+    }
+    // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+        return 2; // Trả về 2 để phân biệt với trường hợp là số
+    }
+    // Trường hợp còn lại
+    else {
+        return 0;
+    }
+}
 
 
 //Lê Ngọc Anh Huy -> lengocanhhuy

@@ -22,6 +22,7 @@ read();
 
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
+            display_sort();
 
             //cập nhật lại số lượng sản phẩm
             var SLCHS_HT = document.querySelector('#SLCHS_HT span');
@@ -105,7 +106,7 @@ read();
         
                     form_sua_CHS.querySelector('#KN_CHS_sua').value = elementPage[index].KET_NOI;
                     console.log(form_sua_CHS.querySelector('#KN_CHS_sua').value);
-                    form_sua_CHS.querySelector('#CS_CHS_sua').value = elementPage[index].CONG_SUAT.split("W")[0];
+                    form_sua_CHS.querySelector('#CS_CHS_sua').value = elementPage[index].CONG_SUAT.split(" W")[0];
                     form_sua_CHS.querySelector('#TN_CHS_sua').value = elementPage[index].TINH_NANG;
                     form_sua_CHS.querySelector('#MACHS_sua').value = elementPage[index].MA_CHS;
         
@@ -192,9 +193,107 @@ document.getElementById('btn_timkiem_CHS').addEventListener('click', function(ev
        rows[i].style.display = 'table-row';
      }
  }
+
+ display_sort();
  })
  
  //chức năng tìm kiếm
+
+
+  //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            if(checkType(x) == 1){ return x - y; }
+            else{ 
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+
+        // Hàm so sánh tăng dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                if(checkType(x) == 1){ return y - x; }
+                else{ 
+                    if (x > y) return -1;
+                    if (x < y) return 1;
+                    return 0;
+                }
+            });
+        }
+
+
+    function display_sort() {
+        var table_CHS = document.querySelectorAll('#table_CHS tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_CHS.length; i++) {
+            var MASP = table_CHS[i].querySelector('#CHS_MASP').innerText;
+            var KN = table_CHS[i].querySelector('#CHS_KN').innerText;
+            var TN = table_CHS[i].querySelector('#CHS_TN').innerText;
+            var CS = table_CHS[i].querySelector('#CHS_CS').innerText;
+
+            var object = { MA_SP: MASP, CONG_SUAT: CS, TINH_NANG: TN, KET_NOI: KN };
+            jsonArray.push(object);
+
+            if(window.getComputedStyle(table_CHS[i]).display !== 'none'){
+                var object2 = { MA_SP: MASP, CONG_SUAT: CS, TINH_NANG: TN, KET_NOI: KN };
+                jsonArray2.push(object2);
+            }
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_CHS tbody');
+            var key = document.querySelector('#opt_sapxep_CHS').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_CHS tbody');
+            var key = document.querySelector('#opt_sapxep_CHS').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_CHS tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+
+        });
+
+    }
+
+  //chức năng sắp xếp
+
+  //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+  function checkType(input) {
+      if (!isNaN(input)) {
+         return 1;
+      } else {
+          return 0;
+      }
+  }
 
 
  //Lê Ngọc Anh Huy -> lengocanhhuy

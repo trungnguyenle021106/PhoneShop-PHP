@@ -22,7 +22,7 @@ read();
 
             // Sau PBHi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
-
+            display_sort();
             //cập nhật lại số lượng sản phẩm
             var SLPBH_HT = document.querySelector('#SLPBH_HT span');
 var rows = document.querySelectorAll('#table_PBH table tbody tr ');
@@ -176,30 +176,137 @@ SLPBH_HT.innerText = rows.length;
         }
     }
     }
-    //             else if(opt === 'time'){
-    //                 var khoang = document.querySelector('.khoang');
-    //                 var daystart = new Date(document.querySelector('#PBH_start_day').innerText);
-    // var dayend = new Date(document.querySelector('#PBH_end_day').innerText);
-    
-    // var start = new Date(khoang.querySelector('#ngay_start_other').value);
-    // var end = new Date(khoang.querySelector('#ngay_end_other').value);
-    //                 console.log(start,end,daystart,dayend);
-    //                 if(txt === '' && start === '' && end === ''){
-    //                     for(var i = 0; i < rows.length; i++){
-    //             rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-    //         }   
-    //                 }
-    
-    //                 else{
-    //                     if( dayend <= end && daystart >= start){
-    //                         rows[i].style.display = 'table-row';
-    //                     }
-    //                     else{ 
-    //                         rows[i].style.display = 'none';
-    //                     }
-    //                 }
-    //             }
-            }
+}
+display_sort();
     });
     //chức năng tìm kiếm
+
     
+  //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            
+            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+            var xType = checkType(x);
+            var yType = checkType(y);
+            
+            if (xType === 1 && yType === 1) {
+                return x - y; // Sắp xếp theo số
+            } else if (xType === 2 && yType === 2) {
+                // Chuyển đổi x và y thành đối tượng Date để so sánh
+                var dateX = new Date(x);
+                var dateY = new Date(y);
+                return dateX - dateY; // Sắp xếp theo thời gian
+            } else {
+                // So sánh bình thường
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+    
+
+        // Hàm so sánh giảm dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                
+                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+                var xType = checkType(x);
+                var yType = checkType(y);
+                
+                if (xType === 1 && yType === 1) {
+                    return y - x; // Sắp xếp số giảm dần
+                } else if (xType === 2 && yType === 2) {
+                    // Chuyển đổi x và y thành đối tượng Date để so sánh
+                    var dateX = new Date(x);
+                    var dateY = new Date(y);
+                    return dateY - dateX; // Sắp xếp thời gian giảm dần
+                } else {
+                    // So sánh chuỗi giảm dần
+                    if (x > y) return -1;
+                    if (x < y) return 1;
+                    return 0;
+                }
+            });
+        }
+        
+
+
+    function display_sort() {
+        var table_PBH = document.querySelectorAll('#table_PBH tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_PBH.length; i++) {
+            var MAPBH = table_PBH[i].querySelector('#PBH_MAPBH').innerText;
+            var SERIAL = table_PBH[i].querySelector('#PBH_SERIAL').innerText;
+            var MAKH = table_PBH[i].querySelector('#PBH_MAKH').innerText;
+            var start_day = table_PBH[i].querySelector('#PBH_start_day').innerText;
+            var end_day = table_PBH[i].querySelector('#PBH_end_day').innerText;
+            var time = table_PBH[i].querySelector('#PBH_thoigian').innerText;
+
+            var object = { MA_PBH: MAPBH, MA_KH: MAKH, MA_SERIAL: SERIAL, NGAY_BAT_DAU: start_day, NGAY_HET_HAN: end_day, THOI_GIAN_BAOHANH: time };
+            jsonArray.push(object);
+
+            if(window.getComputedStyle(table_PBH[i]).display !== 'none'){
+                var object2 = { MA_PBH: MAPBH, MA_KH: MAKH, MA_SERIAL: SERIAL, NGAY_BAT_DAU: start_day, NGAY_HET_HAN: end_day, THOI_GIAN_BAOHANH: time };
+                jsonArray2.push(object2);
+            }
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_PBH tbody');
+            var key = document.querySelector('#opt_sapxep_PBH').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_PBH tbody');
+            var key = document.querySelector('#opt_sapxep_PBH').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+         DisplayElementPage(array_sapxep);
+        });
+
+        
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_PBH tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+
+        });
+
+    }
+
+  //chức năng sắp xếp
+    
+
+    //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+    function checkType(input) {
+        // Kiểm tra xem input có phải là số không
+        if (!isNaN(input)) {
+            return 1;
+        }
+        // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
+        else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+            return 2; // Trả về 2 để phân biệt với trường hợp là số
+        }
+        // Trường hợp còn lại
+        else {
+            return 0;
+        }
+    }

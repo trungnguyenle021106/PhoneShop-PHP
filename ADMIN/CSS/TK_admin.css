@@ -336,5 +336,12 @@
     background-color: #ddd;
 }
 
+.hoantac{
+    width: 30%;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
 
 /*form_TK_admin*/

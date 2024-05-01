@@ -1,4 +1,4 @@
-
+/* 
 /*form_PNK_admin*/
 #form_PNK_admin{
     display: flex;
@@ -138,6 +138,20 @@
     cursor: pointer;
     font-weight: bold;
 }
+.hoantac{
+    width: 30%;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#opt_sapxep_PNK{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
+}
 /*form_PNK_admin*/
 
 
@@ -241,7 +255,7 @@
     width: 100px;
 }
 
-#btn_sortAZ_PN, #btn_sortZA_PN{
+.btn_sortAZ, .btn_sortZA{
     width: 30%;
     margin-left: 10px;
     height: 20px;
@@ -340,4 +354,4 @@
 }
 
 /*form_CTPN_admin*/
-
+ */

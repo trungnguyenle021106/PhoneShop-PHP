@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -59,17 +59,35 @@ $connect->connectDB();
 <div id="chucnang_SP">
 
 
+<form action="" method="POST" id="form_sapxep_SP">
+        <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
+        <select name="" id="opt_sapxep_SP">
+            <option value="MA_SP">MASP</option>
+            <option value="MA_LOAI">loại</option>
+            <option value="MA_NSX">MANSX</option>
+            <option value="TEN_SP">Tên sản phẩm</option>
+            <option value="GIA_BAN">Giá tiền</option>
+            <option value="SO_LUONG">Số lượng</option>
+        </select>
+        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+        <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+    </form>
+
+
 <form action="" method="POST" id="form_timkiem_SP">
         <h2 id="title">Tìm kiếm</h2>
             <select name="" id="opt_timkiem_SP">
                 <option value="MASP">MASP</option>
                 <option value="Loại">loại</option>
-                <option value="MA_SP">Mã SP</option>
+                <option value="MA_NSX">Mã NSX</option>
                 <option value="Tên_SP">Tên sản phẩm</option>
             </select>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="text" id="txt_timkiem_SP" style="width: 54%; margin-left: 20px;" placeholder="Nhập SP cần tìm">
             <input type="button" value="Tìm" id="btn_timkiem_SP">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
 
@@ -125,9 +143,11 @@ $connect->connectDB();
         <div>
             <label for="">Tên SP: </label> 
             <input type="text" name="TenSP" id="TenSP_sua"> 
+        </div>
         <div>
             <label for="">Giá: </label> 
             <input type="number" name="Gia_SP" id="Gia_SP"> 
+        </div>
     <div>
         <label for="">Hình ảnh: </label>
         <input type="file" name="AnhSP" id="AnhSP"> 
@@ -137,14 +157,15 @@ $connect->connectDB();
         <input type="hidden" name="anh_su" value="" id="anh_su"> 
 
         <input type="submit" class="btn_suaSP" name="btn_suaSP" value="sửa" onclick="update()">
-
     </form>
     </div>
+
+
 </div>
 </div>
-</div>
+
 <?php
 require("form_themCHSP_admin.php");
 ?>
 <script src="JS/SP.js"></script>
-</div>
+

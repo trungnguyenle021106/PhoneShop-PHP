@@ -152,7 +152,11 @@
 #form_sua_NV input[type="submit"]:hover {
     background-color: #45a049;
 }
-
+#form_sua_NV select{
+    margin-bottom: 10px;
+    width: 70px;
+    margin-left: -15px;
+}
 
 
 #form_them_NV {

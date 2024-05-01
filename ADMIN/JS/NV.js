@@ -44,6 +44,9 @@ SLNV_HT.innerText = rows.length;
             DIA_CHI: $('#DIACHI_sua_NV').val(),
             HOTEN_NV: $('#TEN_sua_NV').val(),
             SO_DT: $('#SDT_sua_NV').val(),
+            SO_CCCD: $('#CCCD_sua_NV').val(),
+            G_TINH: $('#GT_sua_NV').val(),
+            N_SINH: $('#NS_sua_NV').val(),
   
           };
           var jsonData = JSON.stringify(data);
@@ -253,6 +256,11 @@ editButtons.forEach(function(button) {
         form_sua_NV.querySelector('#DIACHI_sua_NV').value = elementPage[index].DIA_CHI;
         form_sua_NV.querySelector('#SDT_sua_NV').value = elementPage[index].SO_DT;
         form_sua_NV.querySelector('#MANV_sua_hidden').value = elementPage[index].MA_NV;
+        form_sua_NV.querySelector('#CCCD_sua_NV').value = elementPage[index].SO_CCCD;
+        form_sua_NV.querySelector('#GT_sua_NV').value = elementPage[index].G_TINH;
+        form_sua_NV.querySelector('#NS_sua_NV').value = elementPage[index].N_SINH;
+
+
 
         form_sua_NV.style.display = 'block';
     });

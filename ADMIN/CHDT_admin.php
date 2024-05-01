@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -70,9 +70,10 @@ $connect->connectDB();
             </select>
             <input type="text" id="txt_timkiem_CHDT" style="width: 54%; margin-left: 20px;" placeholder="Nhập CHDT cần tìm">
             <input type="button" value="Tìm" id="btn_timkiem_CHDT">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form> 
-</div>
-</div>
+
 
 <div id="container_suaCHDT">
     <form action="" method="POST" id="form_sua_CHDT">
@@ -80,13 +81,17 @@ $connect->connectDB();
         <div>
             <label for="">RAM: </label> 
             <input type="number" name="RAM_CHDT_sua" id="RAM_CHDT_sua"> 
+        </div>
+
         <div>
             <label for="">Bộ nhớ trong: </label> 
             <input type="number" name="BNT_CHDT" id="BNT_CHDT_sua"> 
-    <div>
+        </div>
+
+        <div>
         <label for="">Màn hình: </label>
         <input type="text" name="MH_CHDT" id="MH_CHDT_sua"> 
-</div>
+        </div>
 <div>
         <label for="">Màu sắc: </label>
         <input type="text" name="MS_CHDT" id="MS_CHDT_sua"> 
@@ -112,11 +117,29 @@ $connect->connectDB();
         <input type="hidden" name="anh_su" value="" id="anh_su"> 
 
         <input type="submit" class="btn_suaCHDT" name="btn_suaCHDT" value="sửa" onclick="update()">
-
     </form>
+</div>
+
+    <form action="" method="POST" id="form_sapxep_DT">
+        <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
+        <select name="" id="opt_sapxep_DT">
+            <option value="MA_SP">Mã sản phẩm</option>
+            <option value="RAM">RAM</option>
+            <option value="BO_NHO_TRONG">Bộ nhớ trong</option>
+            <option value="MAN_HINH">Màn hình</option>
+            <option value="MAU_SAC">màu sắc</option>
+            <option value="PIN">PIN</option>
+            <option value="CAMERA_TRUOC">camera trước</option>
+            <option value="CAMERA_SAU">camera sau</option>
+            <option value="OS">OS</option>
+
+        </select>
+        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+        <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+    </form>
+
+
     </div>
 </div>
-</div>
-
-
 <script src="JS/CHDT.js"></script>

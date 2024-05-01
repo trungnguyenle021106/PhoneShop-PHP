@@ -22,6 +22,7 @@ read();
 
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
+            display_sort();
 
             //cập nhật lại số lượng sản phẩm
             var SLKH_HT = document.querySelector('#SLKH_HT span');
@@ -43,7 +44,9 @@ SLKH_HT.innerText = rows.length;
         var data = {
             HOTEN_KH: $('#TenKH_sua').val(),
             SO_DT: $('#SDT_KH').val(),
-            DIA_CHI: $('#DiaChiKH').val()
+            DIA_CHI: $('#DiaChiKH').val(),
+            SO_CCCD: $('#CCCD_KH').val(),
+            G_TINH: $('#GT_KH').val()
           };
           var jsonData = JSON.stringify(data);
 
@@ -167,6 +170,8 @@ function Delete(MAKH) {
                 form_sua_KH.querySelector('#SDT_KH').value = elementPage[index].SO_DT;
                 form_sua_KH.querySelector('#DiaChiKH').value = elementPage[index].DIA_CHI;
                 form_sua_KH.querySelector('#MAKH_sua').value = elementPage[index].MA_KH;
+                form_sua_KH.querySelector('#GT_KH').value = elementPage[index].G_TINH;
+                form_sua_KH.querySelector('#CCCD_KH').value = elementPage[index].SO_CCCD;
 
                 form_sua_KH.style.display = 'block';
             });
@@ -302,5 +307,138 @@ else{
 }
 
 }
+display_sort();
 });
 //chức năng tìm kiếm
+
+
+  //chức năng sắp xếp
+
+    // Hàm so sánh tăng dần
+    function sortByKey_tang(array, key) {
+        return array.sort(function(a, b) {
+            var x = a[key];
+            var y = b[key];
+            
+            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+            var xType = checkType(x);
+            var yType = checkType(y);
+            
+            if (xType === 1 && yType === 1) {
+                return x - y; // Sắp xếp theo số
+            } else if (xType === 2 && yType === 2) {
+                // Chuyển đổi x và y thành đối tượng Date để so sánh
+                var dateX = new Date(x);
+                var dateY = new Date(y);
+                return dateX - dateY; // Sắp xếp theo thời gian
+            } else {
+                // So sánh bình thường
+                if (x < y) return -1;
+                if (x > y) return 1;
+                return 0;
+            }
+        });
+    }
+    
+
+        // Hàm so sánh giảm dần
+        function sortByKey_giam(array, key) {
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+                
+                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
+                var xType = checkType(x);
+                var yType = checkType(y);
+                
+                if (xType === 1 && yType === 1) {
+                    return y - x; // Sắp xếp số giảm dần
+                } else if (xType === 2 && yType === 2) {
+                    // Chuyển đổi x và y thành đối tượng Date để so sánh
+                    var dateX = new Date(x);
+                    var dateY = new Date(y);
+                    return dateY - dateX; // Sắp xếp thời gian giảm dần
+                } else {
+                    // So sánh chuỗi giảm dần
+                    if (x > y) return -1;
+                    if (x < y) return 1;
+                    return 0;
+                }
+            });
+        }
+        
+
+
+    function display_sort() {
+        var table_KH = document.querySelectorAll('#table_KH tbody tr');
+        var jsonArray = [];
+        var jsonArray2 = [];
+
+        for (var i = 0; i < table_KH.length; i++) {
+            var MAKH = table_KH[i].querySelector('#KH_MAKH').innerText;
+            var MATK = table_KH[i].querySelector('#KH_TK').innerText;
+            var TEN = table_KH[i].querySelector('#KH_ten').innerText;
+            var GT = table_KH[i].querySelector('#KH_gioitinh').innerText;
+            var DC = table_KH[i].querySelector('#KH_diachi').innerText;
+            var SDT = table_KH[i].querySelector('#KH_SDT').innerText;
+            var CCCD = table_KH[i].querySelector('#KH_CCCD').innerText;
+
+            var object = { MA_KH: MAKH, MA_TK: MATK, HOTEN_KH: TEN, G_TINH: GT, SO_DT: SDT, DIA_CHI: DC, SO_CCCD: CCCD  };
+            jsonArray.push(object);
+
+            if(window.getComputedStyle(table_KH[i]).display !== 'none'){
+                var object2 = { MA_KH: MAKH, MA_TK: MATK, HOTEN_KH: TEN, G_TINH: GT, SO_DT: SDT, DIA_CHI: DC, SO_CCCD: CCCD  };
+                jsonArray2.push(object2);
+            }
+
+        }
+    
+        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_KH tbody');
+            var key = document.querySelector('#opt_sapxep_KH').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_KH tbody');
+            var key = document.querySelector('#opt_sapxep_KH').value;
+            tbody.innerHTML = '';
+            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
+            console.log(array_sapxep);
+         DisplayElementPage(array_sapxep);
+        });
+
+        
+        document.querySelector('.hoantac').addEventListener('click', function(event) {
+            event.preventDefault();
+            var tbody = document.querySelector('#table_KH tbody');
+            tbody.innerHTML = '';
+         DisplayElementPage(jsonArray);
+         jsonArray2 = [...jsonArray];
+
+        });
+
+    }
+
+  //chức năng sắp xếp
+
+  //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
+  function checkType(input) {
+    // Kiểm tra xem input có phải là số không
+    if (!isNaN(input)) {
+        return 1;
+    }
+    // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
+        return 2; // Trả về 2 để phân biệt với trường hợp là số
+    }
+    // Trường hợp còn lại
+    else {
+        return 0;
+    }
+}

@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -50,10 +50,11 @@ $connect->connectDB();
             <input type="text" id="txt_timkiem_KH" style="width: 54%; margin-left: 20px;" placeholder="Nhập khách hàng cần tìm">
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="submit" value="Tìm" id="btn_timkiem_KH">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
     
-</div>
 
 <div id="container_suaKH">
     <form action="" method="POST" id="form_sua_KH">
@@ -70,11 +71,36 @@ $connect->connectDB();
         <label for="">Địa chỉ: </label>
         <input type="text" name="DiaChiKH" id="DiaChiKH"> 
     </div>
+    <div style="display: flex">
+        <label for="">Giới Tính: </label>
+        <select name="" id="GT_KH">
+            <option value="Nam">Nam</option>
+            <option value="Nữ">Nữ</option>
+        </select>
+    </div>
+    <div>
+        <label for="">CCCD: </label>
+        <input type="number" name="DiaChiKH" id="CCCD_KH"> 
+    </div>
     <input type="hidden" id="MAKH_sua">
     <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
     <input type="submit" id="suaKH_btn" onclick="update()" value="Sửa">
     </form>
-</div>
+    </div>
+
+    <form action="" method="POST" id="form_sapxep_KH">
+        <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
+        <select name="" id="opt_sapxep_KH">
+            <option value="MA_KH">MAKH</option>
+            <option value="MA_TK">MATK</option>
+        </select>
+        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+        <input type="button" value="tăng dần" name="btn_sortAZ_KH" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA_KH" class="btn_sortZA"></input>
+    </form>
+    </div>
+    </div>
+
 
 <script src="JS/KH.js"></script>
 

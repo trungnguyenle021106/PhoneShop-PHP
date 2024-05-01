@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -48,14 +48,16 @@ $connect->connectDB();
 <form action="" method="POST" id="form_sapxep_CTPN">
         <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
         <select name="" id="opt_sapxep_CTPN">
-            <option value="MACTPN">MAPN</option>
-            <option value="MASP">MASP</option>
+            <option value="MA_PN">MAPN</option>
+            <option value="MA_SP">MASP</option>
             <option value="DON_GIA">Đơn Giá</option>
-            <option value="Số lượng">Số lượng</option>
+            <option value="SO_LUONG">Số lượng</option>
+            <option value="THANH_TIEN">Thành tiền</option>
+
         </select>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" value="tăng dần" name="btn_sortAZ_CTPN" class="btn_sortAZ_CTPN"></input>
-        <input type="submit" value="giảm dần" name="btn_sortZA_CTPN" class="btn_sortZA_CTPN"></input>
+        <input type="submit" value="tăng dần" name="btn_sortAZ_CTPN" class="btn_sortAZ"></input>
+        <input type="submit" value="giảm dần" name="btn_sortZA_CTPN" class="btn_sortZA"></input>
     </form>
 
     <form action="" method="POST" id="form_timkiem_CTPN">
@@ -81,6 +83,8 @@ $connect->connectDB();
             <input id="THANHTIEN_end_other" type="number" style="height: 20px; width: 50px;  margin-left: 10px; text-align: center;" placeholder="End">
             </div>
             <input type="button" value="Tìm" id="btn_timkiem_CTPN">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
 <div id="suaCTPN_container">

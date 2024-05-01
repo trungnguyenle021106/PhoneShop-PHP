@@ -12,6 +12,7 @@
 
 #chucnang_SP{
     width: 30%;
+
 }
 #scroll-container{
     overflow-y: scroll;
@@ -94,6 +95,7 @@
     margin-left: 50px;
     margin-top: 30px;
     padding: 10px;
+    height: 120px;
 }
 
 #form_timkiem_SP #title{
@@ -182,8 +184,9 @@
     border: 1px solid black;
     width: 75%;
     margin: 30px auto;
-    padding: 20px;
     margin-left: 50px;
+    margin-top: -10px;
+    height: 243px;
 }
 
 #form_them_SP h2 {
@@ -241,6 +244,39 @@
     background-color: #45a049;
 }
 
+
+
+#form_sapxep_SP{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: -30px;
+    padding: 5px;
+}
+
+#opt_sapxep_SP{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
+}
+
+.btn_sortAZ, .btn_sortZA{
+    width: 30%;
+    margin-left: 10px;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+.hoantac{
+    width: 30%;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
 /*form_SP_admin*/
 
 
@@ -337,6 +373,7 @@
     margin-left: 50px;
     margin-top: 30px;
     padding: 10px;
+    height: 120px;
 }
 
 #form_timkiem_CHOL #title{
@@ -422,6 +459,23 @@
 
 #form_sua_CHOL input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+
+#form_sapxep_CHOL{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: 50px;
+    padding: 5px;
+}
+
+#opt_sapxep_CHOL{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
 }
 /*form_CHOL_admin*/
 
@@ -599,6 +653,24 @@
 #form_sua_CHDT input[type="submit"]:hover {
     background-color: #45a049;
 }
+
+
+
+#form_sapxep_DT{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: 50px;
+    padding: 5px;
+}
+
+#opt_sapxep_DT{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
+}
 /*form_CHDT_admin*/
 
 
@@ -775,6 +847,22 @@
 #form_sua_CHS input[type="submit"]:hover {
     background-color: #45a049;
 }
+
+#form_sapxep_CHS{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: 50px;
+    padding: 5px;
+}
+
+#opt_sapxep_CHS{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
+}
 /*form_CHS_admin*/
 
 
@@ -948,6 +1036,23 @@
 
 #form_sua_CHTN input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+
+#form_sapxep_TN{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: 70px;
+    padding: 5px;
+}
+
+#opt_sapxep_TN{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
 }
 /*form_CHTN_admin*/
 

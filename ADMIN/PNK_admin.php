@@ -1,8 +1,11 @@
 <?php
-require('../Model/Database.php');
+require('../AJAX_PHP/Current_Account.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
+
+    $MATK = $data['tai_khoan']['MA_TK'];
 ?>
+
 <link rel="stylesheet" href="CSS/PNK_admin.css">
 <script src="https://kit.fontawesome.com/3918fe69ba.js" crossorigin="anonymous"></script>
 <div  class="change_page_PN">
@@ -15,7 +18,6 @@ $connect->connectDB();
     <input type="submit" value="chi tiết" id="btn2">
     </form>
 </div>
-
 <div id="form_PNK_admin">
 <div id="table_PNK">
     <div style="display: flex;">
@@ -55,25 +57,28 @@ $connect->connectDB();
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="text" id="txt_timkiem_PNK" style="width: 54%; margin-left: 20px; " placeholder="Nhập phiếu cần tìm">
             <input type="button" value="Tìm" id="btn_timkiem_PNK">
+            <input type="button" value="hoàn tác" name="btn_sortZA" class="hoantac"></input>
+
     </form>
 
     
-    <form action="" method="POST" id="form_them_PNK">
+    <form <?php display_check($array_TenChucNang, "Thêm Phiếu Nhập"); ?> action="" method="POST" id="form_them_PNK">
         <h2 style="text-align: center; ">Nhập Phiếu</h2>
         <input type="button" class="btn_themCTPN" value="Thêm chi tiết">
     </form>
 
     <form action="" method="POST" id="form_sapxep_PN">
         <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
-        <select name="" id="opt_sapxep_PN">
+        <select name="" id="opt_sapxep_PNK">
             <option value="MA_PN">MAPN</option>
             <option value="NGAY_NHAP">Ngày Nhập</option>
             <option value="MA_NV">MANV</option>
+            <option value="MA_NSX">MANSX</option>
             <option value="TRANG_THAI">Trạng Thái</option>
         </select>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="button" value="tăng dần" name="btn_sortAZ_PN" id="btn_sortAZ_PN"></input>
-        <input type="button" value="giảm dần" name="btn_sortZA_PN" id="btn_sortZA_PN"></input>
+        <input type="button" value="tăng dần" name="btn_sortAZ_PN" class="btn_sortAZ"></input>
+        <input type="button" value="giảm dần" name="btn_sortZA_PN" class="btn_sortZA"></input>
     </form>
 </div>
 </div>
