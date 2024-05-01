@@ -198,6 +198,11 @@ function XoaChiTietDonHangForXoaHoaDon(maHD, callback) {
     });
 }
 
+function Search(typeSearch, valueSearch)
+{
+    
+}
+
 //chức năng tìm kiếm
 document.getElementById('btn_timkiem_HD').addEventListener('click', function (event) {
     event.preventDefault();
