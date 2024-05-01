@@ -1,3 +1,19 @@
+function getSS()
+{
+ 
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+getSS();
 function add()
 {
     var data = {

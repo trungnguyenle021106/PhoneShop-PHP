@@ -7,7 +7,7 @@ $connect = new MyConnection('localhost', 'root', '', 'qldienthoai');
 $connect->connectDB();
 
 $userID  = $_SESSION['$userID'];
-echo $userID ;
+
 
 $users = $connect->read("tai_khoan", "MA_TK = ".  $userID );
 reset($users);
