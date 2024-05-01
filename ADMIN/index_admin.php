@@ -40,6 +40,9 @@
              else if($_POST['page'] == 'Sản phẩm' || $_POST['page'] == 'CHTN' || $_POST['page'] == 'CHDT' || $_POST['page'] == 'CHS' || $_POST['page'] == 'CHOL'){
                 echo "Quản lý sản phẩm";
              }
+             else if($_POST['page'] == 'Khuyến mãi' ){
+                echo "Quản lý khuyến mãi";
+             }
         }
         ?>
     </div>
@@ -75,6 +78,9 @@
             </tr>
             <tr>
             <td><input type="submit" value="Tài khoản" name="page" class="items"></input></td>
+            </tr>
+            <tr>
+            <td><input type="submit" value="Khuyến mãi" name="page" class="items"></input></td>
             </tr>
         </th>
 </table>
@@ -128,6 +134,9 @@
          }
          else if($_POST['page'] == 'Quyen'){
             require("Quyen_admin.php");
+         }
+         else if($_POST['page'] == 'Khuyến mãi'){
+            require("Khuyen_mai_admin.php");
          }
     }
     ?>
