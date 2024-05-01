@@ -21,16 +21,16 @@ function checkLogin() {
 
             // Xử lý dựa trên kết quả trả về
             if (kq.status === "success") {
-                $('#messenger').text(kq.message + ' Đang chuyển hướng...');
+                $('#messenger').text('Đăng nhập thành công ...');
                 $('#user_name').text(kq.name);
                 if(kq.quyen === "1"){
                     window.location.href = '/PAGES/NhanVien.php';
                     //chuyen hướng trang
                 }
                 setTimeout(function() {
-                    document.getElementById('id01').style.display = 'none';
-                    // window.location.href = '/homepage';
-                }, 2000);
+                    // document.getElementById('id01').style.display = 'none';
+                    window.location.href = '/Index.php';
+                }, 1000);
             } else {
                 $('#messenger').text(kq.message);
             }

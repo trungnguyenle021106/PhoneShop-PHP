@@ -31,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($lsTK as $TK) {
         if ($form_username === $TK["TEN_TK"] && $form_password === $TK["MAT_KHAU"]) {
             $id_tk = $TK["MA_TK"];
+            $_SESSION['$userID'] = $TK["MA_TK"];
+
             $quyen = $TK["MA_Q"];
             if($quyen === '1'){
                 foreach ($lsNV as $NV){

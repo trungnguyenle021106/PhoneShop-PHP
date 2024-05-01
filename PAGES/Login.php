@@ -9,26 +9,26 @@
   <form style="font-size: 18px;" class="modal-content animate" action="" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="Img/ic_user.png" alt="Avatar" class="avatar">
+      <img src="/Img/ic_user.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input id="input" type="text" placeholder="Nhập tài khoản" name="uname" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
+      <input id="input" type="password" placeholder="Nhập mật khẩu" name="psw" required>
         
-      <button type="button" onclick="checkLogin()" >Login</button>
+      <button type="button" class="btnLogin" onclick="checkLogin()" >Login</button>
       <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
+        <input type="checkbox" checked="checked" name="remember"> Nhớ mật khẩu
       </label>
     </div>
     <p id="messenger"> thanh cong </p>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="Register">Bạn chưa có tài khoản <a href="/PhoneShop/PAGES/Register.php" >Đăng ký ngay</a></span>
+      <button type="button"  onclick="window.location.href = '/Index.php'" class="cancelbtn">Cancel</button>
+      <span class="Register">Bạn chưa có tài khoản <a href="/PAGES/Register.php" >Đăng ký ngay</a></span>
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>
@@ -43,6 +43,15 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+window.onload = function() {
+  // Lấy tham số từ URL
+  var urlParams = new URLSearchParams(window.location.search);
+  // Kiểm tra nếu tham số "show_div" có tồn tại và có giá trị là "true"
+  if (urlParams.has('show') && urlParams.get('show') === 'true') {
+    // Lấy phần tử div bằng id và thay đổi thuộc tính display từ "none" thành "block" để hiển thị nó
+    document.getElementById('id01').style.display = 'block';
+  }
 }
 
 </script>

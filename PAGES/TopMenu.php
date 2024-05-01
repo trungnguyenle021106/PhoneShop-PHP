@@ -80,7 +80,7 @@ $(document).ready(function() {
                         <li style="display: flex; align-items: center;" class="element_TopMenu">
                             <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
                             <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >
-                                <img class="Img_user" src="Img/ic_user.png" alt="Login" style="cursor: pointer;">
+                                <img class="Img_user" src="/Img/ic_user.png" alt="Login" style="cursor: pointer;">
                             </a>
                         </li>
                     <?php endif; ?>

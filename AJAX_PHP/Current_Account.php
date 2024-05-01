@@ -1,13 +1,15 @@
 <?php
 session_start();
 // $userID = $_SESSION['ID_ACCOUNT'];
-$userID = 1;
+
 require '../Model/Database.php';
 $connect = new MyConnection('localhost', 'root', '', 'qldienthoai');
 $connect->connectDB();
 
+$userID  = $_SESSION['$userID'];
+echo $userID ;
 
-$users = $connect->read("tai_khoan", "MA_TK = ". $userID);
+$users = $connect->read("tai_khoan", "MA_TK = ".  $userID );
 reset($users);
 $user = current($users);
 
