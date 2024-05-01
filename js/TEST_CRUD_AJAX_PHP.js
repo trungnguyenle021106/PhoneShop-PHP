@@ -1,9 +1,17 @@
 function add()
 {
     var data = {
-        TEN_LOAI: "John"
+        MA_SP: "1",
+        SERIAL_NUMBER:"CHƯA CÓ"
       };
-    var jsonData = JSON.stringify(data);
+      var ar =[];
+      ar.push(data);
+      var data1 = {
+        MA_SP: "1",
+        SERIAL_NUMBER:"CHƯA CÓ"
+      };
+      ar.push(data1);
+    var jsonData = JSON.stringify(ar);
     var operation = "Create";
     var tableName = "loai";
     $.ajax({
