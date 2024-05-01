@@ -48,6 +48,7 @@ require('../Model/Database.php');
             <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
             <select name="" id="opt_sapxep_Serial">
                 <option value="SERIAL_NUMBER">Số Serial</option>
+                <option value="MA_SERIAL">Mã Serial</option>
             </select>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="button" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ" onclick="readSapXep('ASC')"></input>

@@ -32,14 +32,17 @@ read();
 }
 function readSapXep(t) {
     var thuTuSapXep = t;
+    var cotSapXep = document.getElementById("opt_sapxep_Serial").value;
     var tbody = document.getElementById("data");
     tbody.innerHTML=''
     $.ajax({
-        url: '../AJAX_PHP/xuLiSapXepSerial.php',
+        url: '../AJAX_PHP/xuLiSapXep.php',
         type: 'POST',
         dataType: 'json',
         data: {
-            thuTuSapXep: thuTuSapXep
+            thuTuSapXep: thuTuSapXep,
+            cotSapXep: cotSapXep,
+            bangSapXep: "serial"
         },
         success: function(responseSerial) {
             
@@ -86,13 +89,18 @@ function readSapXep(t) {
 
    function update()
 {   
+    var divWarning = document.getElementById('warning');
     if(check()){
-        var divWarning = document.getElementById('warning');
+        
         divWarning.innerText = "Số serial đã tồn tại!"
     }
+    else if($('#SO_SERIAL_sua_SERIAL').val().trim().length === 0){
+        divWarning.innerText = "Vui lòng nhập đầy đủ thông tin!"
+    }
     else if(confirm("Bạn chắc chắn muốn sửa không?") == true) {
+        var serialNumber = loaiBoKhoangTrang($('#SO_SERIAL_sua_SERIAL').val())
         var data = {
-            SERIAL_NUMBER: $('#SO_SERIAL_sua_SERIAL').val(),
+            SERIAL_NUMBER: serialNumber,
             };
         var jsonData = JSON.stringify(data);
         console.log(jsonData)
@@ -311,7 +319,9 @@ document.getElementById('btn_timkiem_Serial').addEventListener('click', function
  
  })
 //chức năng tìm kiếm
-
+function loaiBoKhoangTrang(chuoi) {
+    return chuoi.replace(/\s/g, '');
+}
 
 
 function chuyenDoiChuoi(chuoi) {

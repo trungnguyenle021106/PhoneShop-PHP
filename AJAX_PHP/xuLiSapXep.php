@@ -9,7 +9,9 @@ $connect = new MyConnection($server, $username, $password, $database);
 $connect->connectDB();
         if (isset($_POST['thuTuSapXep'])) {
             $thuTuSapXep = $_POST['thuTuSapXep'];
-            $sql = "select * from serial order by SERIAL_NUMBER $thuTuSapXep";
+            $cotSapXep = $_POST['cotSapXep'];
+            $bangSapXep = $_POST['bangSapXep'];
+            $sql = "select * from $bangSapXep order by $cotSapXep $thuTuSapXep";
             $result = $connect->query($sql);
             $data = array();
 
