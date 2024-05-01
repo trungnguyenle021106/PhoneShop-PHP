@@ -22,6 +22,7 @@ read();
         success: function(response){
             DisplayElementPage(response);
             display_sort();
+            PhanQuyen();
 
             //cập nhật lại số lượng sản phẩm
             var SLCTPN_HT = document.querySelector('#SLHT_CTPN span');
@@ -69,6 +70,7 @@ read();
 
     var MAPN = MAPN;
     var MASP = MASP;
+    console.log(MAPN,MASP);
         $.ajax({
             url: 'CTPN_MASP_data.php',
             type: 'POST',
@@ -109,6 +111,54 @@ function update(MAPN,MASP,DONGIA,SL)
         }
     });
 }
+
+
+function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Xóa Phiếu Nhập") && !check_cn(arr_cn, "Sửa Phiếu Nhập")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+            document.querySelectorAll('.CTPN_XOA_btn').forEach(function(xoa){
+                if(!check_cn(arr_cn, "Xóa Phiếu Nhập")){
+                    xoa.remove();
+                }
+            })
+
+            document.querySelectorAll('.CTPN_SUA_btn').forEach(function(nhap){
+                if(!check_cn(arr_cn, "Sửa Phiếu Nhập")){
+                    nhap.remove();
+                }
+            })
+
+            document.querySelectorAll('.ko_the_thao_tac').forEach(function(nhap){
+                if(!check_cn(arr_cn, "Sửa Phiếu Nhập") && !check_cn(arr_cn, "Xóa Phiếu Nhập")){
+                    nhap.remove();
+                }
+            })
+            
+            
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
    function DisplayElementPage(elementPage) {
     var html = "";
@@ -127,8 +177,8 @@ function update(MAPN,MASP,DONGIA,SL)
                             <td><input type="text" readonly value="${elementPage[i].SO_LUONG}" name="SL_CTPN" id="SL_CTPN"></td>
                             <td><input type="text" readonly value="${changePriceToString(elementPage[i].THANH_TIEN)}" name="ThanhTien_CTPN" id="ThanhTien_CTPN"></td>
                             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-                            <td><input type="submit" id="CTPN_xoa_btn" name="CTPN_xoa_btn" value="xóa" onclick="Delete(${elementPage[i].MA_PN},${elementPage[i].MA_SP})"></td>
-                            <td><input type="button" class="CTPN_sửa_btn" id="thaotac1" value="sửa" data-index="${i}"></td>
+                            <td class="CTPN_XOA_btn"><input type="submit" id="CTPN_xoa_btn"  name="CTPN_xoa_btn" value="xóa" onclick="Delete(${elementPage[i].MA_PN},${elementPage[i].MA_SP})"></td>
+                            <td class="CTPN_SUA_btn"><input type="button" class="CTPN_sửa_btn" id="thaotac1" value="sửa" data-index="${i}"></td>
                         </tr>
                     </form>`;
                 found = true; // Đánh dấu là đã tìm thấy
@@ -144,7 +194,7 @@ function update(MAPN,MASP,DONGIA,SL)
                         <td><input type="text" readonly value="${changePriceToString(elementPage[i].DON_GIA)}" name="DON_GIA_CTPN"  id="DON_GIA_CTPN"></td>
                         <td><input type="text" readonly value="${elementPage[i].SO_LUONG}" name="SL_CTPN" id="SL_CTPN"></td>
                         <td><input type="text" readonly value="${changePriceToString(elementPage[i].THANH_TIEN)}" name="ThanhTien_CTPN" id="ThanhTien_CTPN"></td>
-                        <td colspan="2">Không thể thao tác </td>
+                        <td colspan="2" class="ko_the_thao_tac">Không thể thao tác </td>
                     </tr>
                 </form>`;
         }

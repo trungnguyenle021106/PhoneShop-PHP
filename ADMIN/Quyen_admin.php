@@ -1,5 +1,5 @@
 <?php
-require('../AJAX_PHP/Current_Account.php');
+require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -30,7 +30,7 @@ $connect->connectDB();
                 <tr>
                     <td>Mã Quyền</td>
                     <td>Tên Quyền</td>
-                    <td>Thao tác</td>
+                    <td id="ThaoTac">Thao tác</td>
                 </tr>
             </thead>
             <tbody id="data">
@@ -91,6 +91,8 @@ $connect->connectDB();
 
         <div id="left-form">
            <h3>Danh sách chức năng</h3> 
+           <input type="text" id="txt_chucnang_cap" placeholder="Tên chức năng cần tìm">
+
            <table>
             <?php
             foreach($connect->read('chuc_nang') as $row){
@@ -122,11 +124,13 @@ $connect->connectDB();
 <div id="container_suaCN">
     <form action="" method="POST" id="form_sua_CN">
         <h2 style="text-align: center; ">Sửa chức năng</h2>
-      
+
         <section style="display: flex; height: 82%;">
 
-        <div id="left-form">
+        <div id="left-form">    
            <h3>Danh sách chức năng</h3> 
+           <input type="text" id="txt_chucnang" placeholder="Tên chức năng cần tìm">
+
            <table>
             <?php
             foreach($connect->read('chuc_nang') as $row){
@@ -138,7 +142,6 @@ $connect->connectDB();
             <?php } ?>
            </table>
         </div>
-
         <div id="right-form">
             <h3>Chức năng hiện có</h3>
              <table id="data_chucnang_sua">

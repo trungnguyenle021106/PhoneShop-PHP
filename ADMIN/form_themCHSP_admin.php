@@ -76,7 +76,7 @@
         </section>
 
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-        <input type="submit" onclick="add_CHSP()" class="btn_themSP" name="btn_themSP" value="Thêm" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; float: right; ">
+        <input type="button" onclick="add_CHSP()" class="btn_themSP" name="btn_themSP" value="Thêm" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; float: right; ">
     </form>
 </div>
 

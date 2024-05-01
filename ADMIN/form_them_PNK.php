@@ -3,14 +3,9 @@
     <div id="content_thmPNK">
         <button id="btn_an_formthemCTPN">X</button>
     <h2>Thêm phiếu nhập</h2>
-<label for="">Mã nhân viên nhập phiếu: </label>
-<select name="" id="opt_MANV_themPNK">
-    <?php
-            foreach( $connect->read("nhan_vien") as $row){
-    ?>
-    <option value="<?php echo $row["MA_NV"]; ?>"><?php echo $row["MA_NV"]; ?></option>
-    <?php } ?>
-</select>
+<label for="" style="margin-left: 20px;">Mã nhân viên nhập phiếu: </label>
+<input type="text" readonly id="opt_MANV_themPNK" style="width: 10px; margin-right: 40px; border-radius: 10%; text-align: center; ">
+</input>
 <label for="">Nhà sản xuất phiếu nhập: </label>
 <select name="" id="opt_MANSX_themPNK">
 <?php
@@ -386,4 +381,38 @@ function chuyenDoiChuoi(chuoi) {
                 .replace(/[\u0300-\u036f\s]/g, "");
 }
 
+
+function set_TENNV(){
+    $.ajax({
+            url: '../AJAX_PHP/Current_Account.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(response){
+
+    var operation = "Read";
+    var tableName = "nhan_vien";
+    var condition = "MA_TK=" + response.tai_khoan.MA_TK;
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function(response) {
+                $('#opt_MANV_themPNK').val(response[0].MA_NV);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        })
+}
+set_TENNV();
 </script>

@@ -23,7 +23,7 @@ read();
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
-
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLCHS_HT = document.querySelector('#SLCHS_HT span');
             var rows = document.querySelectorAll('#table_CHS table tbody tr ');
@@ -87,7 +87,7 @@ read();
         <td id="CHS_CS">${elementPage[i].CONG_SUAT}</td>
         <td id="CHS_TN">${elementPage[i].TINH_NANG}</td>
         <form action="" method="POST">
-        <td><input type="button" class="CHS_sua_btn" id="thaotac_CHS" value="sửa" data-index="${i}"></td>
+        <td class="CHS_SUA_btn"><input type="button" class="CHS_sua_btn" id="thaotac_CHS" value="sửa" data-index="${i}"></td>
         </form></tr>
         `;
     }
@@ -295,6 +295,40 @@ document.getElementById('btn_timkiem_CHS').addEventListener('click', function(ev
       }
   }
 
+
+  function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+
+            document.querySelectorAll('.CHS_SUA_btn').forEach(function(sua){
+                if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                    sua.remove();
+                }
+            })
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
 
  //Lê Ngọc Anh Huy -> lengocanhhuy
 function chuyenDoiChuoi(chuoi) {

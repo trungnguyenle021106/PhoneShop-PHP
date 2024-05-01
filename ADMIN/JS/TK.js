@@ -23,6 +23,7 @@ read();
             // Sau TKi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLTK_HT = document.querySelector('#SLTK_HT span');
 var rows = document.querySelectorAll('#table_TK table tbody tr ');
@@ -251,11 +252,11 @@ function mo(MATK)
             <td id="TK_Quyen">${elementPage[i].MA_Q}</td>
            <form action="" method="POST">
            <input type="hidden" name="MATK">
-          <td><input type="submit" value="vô hiệu" onclick="vohieu(${elementPage[i].MA_TK})" class="thaotac"></td>
+          <td class="TK_kichhoat_btn" ><input type="submit" value="vô hiệu" onclick="vohieu(${elementPage[i].MA_TK})" class="thaotac"></td>
            </form>
                <form action="" method="POST">
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-               <td><input type="submit" class="TK_sua_btn" id="thaotac_TK" value="Đổi mật khẩu" data-index="${i}"></td>
+               <td class="TK_SUA_btn"><input type="submit" class="TK_sua_btn" id="thaotac_TK" value="Đổi mật khẩu" data-index="${i}"></td>
                </form>
                <form action="" method="POST">
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
@@ -275,11 +276,11 @@ function mo(MATK)
             <td id="TK_Quyen">${elementPage[i].MA_Q}</td>
            <form action="" method="POST">
            <input type="hidden" name="MATK">
-          <td><input  type="submit" value="mở" onclick="mo(${elementPage[i].MA_TK})" class="thaotac"></td>
+          <td class="TK_kichhoat_btn"><input  type="submit" value="mở" onclick="mo(${elementPage[i].MA_TK})" class="thaotac"></td>
            </form>
                <form action="" method="POST">
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-               <td><input type="submit" class="TK_sua_btn" id="thaotac_TK" value="Đổi mật khẩu" data-index="${i}"></td>
+               <td class="TK_SUA_btn"><input type="submit" class="TK_sua_btn" id="thaotac_TK" value="Đổi mật khẩu" data-index="${i}"></td>
                </form>
                <form action="" method="POST">
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
@@ -583,6 +584,49 @@ document.getElementById('btn_timkiem_TK').addEventListener('click', function(eve
       eyeIcon.classList.add("fa-eye");
     }
 }
+
+
+function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Thêm Tài Khoản")){
+                document.querySelector("#form_them_TK").remove();
+            }
+
+
+            document.querySelectorAll('.TK_SUA_btn').forEach(function(sua){
+                if(!check_cn(arr_cn, "Sửa Tài Khoản")){
+                    sua.remove();
+                }
+            })
+
+            
+            document.querySelectorAll('.TK_kichhoat_btn').forEach(function(xoa){
+                if(!check_cn(arr_cn, "Kích Hoạt Tài Khoản")){
+                    xoa.remove();
+                }
+            })
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
+
 
 function isValidString(input) {
     // Kiểm tra độ dài chuỗi

@@ -23,6 +23,7 @@ read();
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLCHOL_HT = document.querySelector('#SLCHOL_HT span');
             var rows = document.querySelectorAll('#table_CHOL table tbody tr ');
@@ -84,7 +85,7 @@ function update()
         <td id="CHOL_MASP">${elementPage[i].MA_SP} </td>
         <td id="CHOL_CL">${elementPage[i].CHAT_LIEU} </td>
         <td id="CHOL_TN">${elementPage[i].TINH_NANG} </td>
-        <td><input type="button" class="thaotac CHOL_sua_btn" value="sửa" data-index="${i}"></td>
+        <td class="CHOL_SUA_btn"><input type="button" class="thaotac CHOL_sua_btn" value="sửa" data-index="${i}"></td>
         </tr>`;
     }
 
@@ -274,6 +275,41 @@ document.getElementById('btn_timkiem_CHOL').addEventListener('click', function(e
 
     }
 
+
+    function PhanQuyen(){
+
+        function check_cn(arr_cn, chuc_nang) {
+            return arr_cn.includes(chuc_nang);
+        }
+        
+    
+        $.ajax({
+            url: '../AJAX_PHP/Current_Account.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(response){
+    
+                
+                var arr_cn = response.array_TenChucNang;
+                
+                if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                    document.querySelector("#ThaoTac").remove();
+                }
+    
+    
+                document.querySelectorAll('.CHOL_SUA_btn').forEach(function(sua){
+                    if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                        sua.remove();
+                    }
+                })
+                
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        })
+    }
+    
   //chức năng sắp xếp
 
   //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự

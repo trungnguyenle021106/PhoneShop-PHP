@@ -4,6 +4,7 @@ read();
 
 
 
+
  //loadData
  function read() {
     var operation = "Read";
@@ -23,6 +24,7 @@ read();
             // Sau HDi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLPN_HT = document.querySelector('.SLPN_HT span');
             var rows = document.querySelectorAll('#table_PNK table tbody tr ');
@@ -182,6 +184,7 @@ function update(MASP, SL, callback) {
                 SO_LUONG: parseFloat(response[0].SO_LUONG) + parseFloat(SL)
             };
             var jsonData = JSON.stringify(data);
+            console.log(data);
             $.ajax({
                 url: '../AJAX_PHP/CRUD.php',
                 type: 'POST',
@@ -212,8 +215,47 @@ function update(MASP, SL, callback) {
 
 
 function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
     $.ajax({
-        url: ''
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Xóa Phiếu Nhập") && !check_cn(arr_cn, "Nhập Phiếu Nhập")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+            if(!check_cn(arr_cn, "Thêm Phiếu Nhập")){
+                document.querySelector("#form_them_PNK").remove();
+            }
+
+            document.querySelectorAll('.btn_xoa_PN').forEach(function(xoa){
+                if(!check_cn(arr_cn, "Xóa Phiếu Nhập")){
+                    xoa.remove();
+                }
+            })
+
+            document.querySelectorAll('.btn_nhap_PN').forEach(function(nhap){
+                if(!check_cn(arr_cn, "Nhập Phiếu Nhập")){
+                    nhap.remove();
+                }
+            })
+
+            
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
     })
 }
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
@@ -235,11 +277,11 @@ function PhanQuyen(){
             <td id="PNK_trang_thai">${elementPage[i].TRANG_THAI}</td>
            <form action="" method="POST">
            <input type="hidden" name="MAPNK_xoa" value="${elementPage[i].MA_PN}">      
-          <td><input type="submit"  value="xóa" name="btn_xoa_PN" class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
+          <td class="btn_xoa_PN"><input type="submit"  value="xóa"  class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
            </form>
            <form action="" method="POST">
            <input type="hidden" name="MAPNK_nhap" value="${elementPage[i].MA_PN}">
-          <td><input type="submit" value="nhập" name="btn_nhap_PN" id="btn_nhap_PN" class="thaotac" onclick="nhap(${elementPage[i].MA_PN})"></td>
+          <td class="btn_nhap_PN"><input type="button" value="nhập" id="btn_nhap_PN" class="thaotac" onclick="nhap(${elementPage[i].MA_PN})"></td>
            </form>
            </tr>
             `;
@@ -255,7 +297,10 @@ function PhanQuyen(){
            <form action="" method="POST">
            <input type="hidden" name="MAPNK_xoa"  value="${elementPage[i].MA_PN}">
            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-          <td colspan="2"><input type="submit"  value="xóa" name="btn_xoa_PN" class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
+          <td class="btn_xoa_PN"><input type="submit"  value="xóa"  class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
+           </form>
+           <form action="" method="POST">
+          <td class="btn_nhap_PN"><input style="opacity: 0.5;" type="button" value="nhập" name="btn_nhap_PN"  class="thaotac"></td>
            </form>
            </tr>
             `;
@@ -429,6 +474,7 @@ function nhap(MAPN) {
                         update(response[i].MA_SP, response[i].SO_LUONG, function() {
                             updateCounter++;
                             if (updateCounter === totalUpdates) {
+                                console.log(updateCounter);
                                 location.reload();
                             }
                         });
@@ -444,7 +490,6 @@ function nhap(MAPN) {
         }
         
     });
-    location.reload();
 }
 //hàm cho nút nhập
 

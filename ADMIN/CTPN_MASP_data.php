@@ -1,11 +1,9 @@
 <?php
-require('../AJAX_PHP/Current_Account.php');
+require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 
-
-$key = $_POST['id'];
-$condition = "MA_NSX =" . $key;
+$condition = "MA_NSX=" . $_POST['id'];
 foreach($connect->read("san_pham",$condition) as $row){
 ?>
     <tr>

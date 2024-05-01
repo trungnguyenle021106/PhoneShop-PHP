@@ -24,6 +24,7 @@ read();
             displayElementPage(response);
             display_sort_giam_dan();
             display_sort_tang_dan();
+            PhanQuyen();
 
             //cập nhật lại số lượng sản phẩm
             var SLTN_HT = document.querySelector('#SLCHTN_HT span');
@@ -84,7 +85,7 @@ SLTN_HT.innerText = rows.length;
         <td id="CHTN_KN">${elementPage[i].KET_NOI}</td>
         <td id="CHTN_TN">${elementPage[i].TINH_NANG}</td>
         <form action="" method="POST">
-        <td><input type="button" class="CHTN_sua_btn" id="thaotac_CHTN" value="sửa" data-index="${i}"></td>
+        <td class="CHTN_SUA_btn"><input type="button" class="CHTN_sua_btn" id="thaotac_CHTN" value="sửa" data-index="${i}"></td>
         </form></tr>
         `;
     }
@@ -331,6 +332,41 @@ document.addEventListener('click', function(event){
     }
 
   //chức năng sắp xếp
+
+
+  function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+
+            document.querySelectorAll('.CHTN_SUA_btn').forEach(function(sua){
+                if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                    sua.remove();
+                }
+            })
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
 
 
 //Lê Ngọc Anh Huy -> lengocanhhuy

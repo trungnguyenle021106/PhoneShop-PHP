@@ -1,5 +1,5 @@
 <?php
-require('../AJAX_PHP/Current_Account.php');
+require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>

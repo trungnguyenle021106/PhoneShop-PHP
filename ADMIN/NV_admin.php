@@ -1,5 +1,5 @@
 <?php
-require('../AJAX_PHP/Current_Account.php');
+require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -22,7 +22,7 @@ $connect->connectDB();
                     <td>Giới tính</td>
                     <td>Ngày sinh</td>
                     <td>MATK</td>
-                    <td colspan="3">Thao tác</td>
+                    <td colspan="3" id="ThaoTac">Thao tác</td>
                 </tr>
             </thead>
             <tbody id="data">

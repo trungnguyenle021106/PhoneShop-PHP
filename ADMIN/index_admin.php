@@ -44,7 +44,7 @@
         ?>
     </div>
     <div id="user">
-    <div id="username">Username</div>
+    <div id="username" style="font-size: 20px; font-weight: bold;"></div>
     <image src="../Img/avatar.png" id="avatar"></image>
 </div>
     </header>
@@ -133,5 +133,6 @@
     ?>
 </div>
 </section>
+<script src="JS/index_admin.js"></script>
 </body>
 </html>

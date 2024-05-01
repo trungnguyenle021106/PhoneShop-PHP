@@ -22,7 +22,7 @@ read();
 
             // Sau NVi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
-
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLNV_HT = document.querySelector('#SLNV_HT span');
 var rows = document.querySelectorAll('#table_NV table tbody tr ');
@@ -235,8 +235,8 @@ function Delete(MANV) {
             <td id="NV_tuoi">${elementPage[i].N_SINH}</td>
             <td id="NV_MATK">${elementPage[i].MA_TK}</td>
             <form action="" method="POST"><input type="hidden" name="MANV">
-            <td><input type="button" value="xóa" class="thaotac" onclick="Delete(${elementPage[i].MA_NV})"></td></form>
-            <form action="" method="POST"><input type="hidden" name="page" value="<?php echo $_POST["page"]; ?><td><input type="submit" class="NV_sua_btn" id="thaotac_NV" value="sửa" data-index="${i}"></td>
+            <td class="NV_XOA_btn"><input type="button" value="xóa" class="thaotac" onclick="Delete(${elementPage[i].MA_NV})"></td></form>
+            <form action="" method="POST"><input type="hidden" name="page" value="<?php echo $_POST["page"]; ?><td class="NV_SUA_btn"><input type="submit" class="NV_sua_btn" id="thaotac_NV" value="sửa" data-index="${i}"></td>
             </form></tr>
             `;
         }
@@ -415,6 +415,51 @@ function calculateAge(birthDate) {
     }
     });
     //chức năng tìm kiếm
+
+    function PhanQuyen(){
+
+        function check_cn(arr_cn, chuc_nang) {
+            return arr_cn.includes(chuc_nang);
+        }
+        
+    
+        $.ajax({
+            url: '../AJAX_PHP/Current_Account.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(response){
+    
+                
+                var arr_cn = response.array_TenChucNang;
+                
+                if(!check_cn(arr_cn, "Sửa Nhân Viên") && !check_cn(arr_cn, "Xóa Nhân Viên")){
+                    document.querySelector("#ThaoTac").remove();
+                }
+
+                if(!check_cn(arr_cn, "Thêm Nhân Viên")){
+                    document.querySelector("#form_them_NV").remove();
+                }
+    
+    
+                document.querySelectorAll('.NV_SUA_btn').forEach(function(sua){
+                    if(!check_cn(arr_cn, "Sửa Nhân Viên")){
+                        sua.remove();
+                    }
+                })
+    
+                
+                document.querySelectorAll('.NV_XOA_btn').forEach(function(xoa){
+                    if(!check_cn(arr_cn, "Xóa Nhân Viên")){
+                        xoa.remove();
+                    }
+                })
+                
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        })
+    }
 
 
     //chức năng ẩn hiện form cấp tài khoản

@@ -1,5 +1,5 @@
 <?php
-require('../AJAX_PHP/Current_Account.php');
+require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -34,7 +34,7 @@ $connect->connectDB();
                     <td>Ngày tạo</td>
                     <td>Tình trạng</td>
                     <td>Mã Quyền</td>
-                    <td colspan="3">Thao tác</td>
+                    <td colspan="3" id="ThaoTac">Thao tác</td>
                 </tr>
             </thead>
             <tbody id="data">
@@ -128,7 +128,7 @@ $connect->connectDB();
 
 <div id="LS_container">
 <form action="">
-    <h2>Danh sách tài khoản</h2>
+    <h2>Lịch sử hoạt động</h2>
     <section>
         <table>
             <thead>

@@ -40,7 +40,6 @@ data: {
 },
 success: function(response) {
     var loai = $("#opt_loai").val();
-    console.log(loai);
     if(loai === "1"){
         if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== "" && $("#OS_them").val() !== ""){
         
@@ -76,6 +75,8 @@ success: function(response) {
                     console.log(error);
                 }
             });
+            location.reload();   
+
         }
                 else{
             alert("Hãy nhập đầy đủ thông tin !!");
@@ -84,7 +85,6 @@ success: function(response) {
     }
 
     else if(loai === "3"){
-        console.log($("#KNTN_them").val());
         if($("#KNTN_them").val() !== "" && $("#TNTN_them").val() !== ""){
 
             var data = {
@@ -113,6 +113,8 @@ success: function(response) {
                     console.log(error);
                 }
             });
+            location.reload();   
+
         }
         else{
             alert("Hãy nhập đầy đủ thông tin !!");
@@ -151,6 +153,8 @@ success: function(response) {
                     console.log(error);
                 }
             });
+            location.reload();   
+
         }
         else{
             alert("Hãy nhập đầy đủ thông tin !!");
@@ -186,6 +190,7 @@ success: function(response) {
                     console.log(error);
                 }
             });
+         location.reload();   
         }
         else{
             alert("Hãy nhập đầy đủ thông tin !!");
@@ -349,7 +354,7 @@ function Delete(MASP) {
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
-
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLSP_HT = document.querySelector('#SLSP_HT span');
 var rows = document.querySelectorAll('#table_SP table tbody tr ');
@@ -365,7 +370,49 @@ SLSP_HT.innerText = rows.length;
 
 
 
-   
+   function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Xóa Sản Phẩm") && !check_cn(arr_cn, "Sửa Sản Phẩm")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+            if(!check_cn(arr_cn, "Thêm Sản Phẩm")){
+                document.querySelector("#form_them_SP").remove();
+            }
+
+            document.querySelectorAll('.SP_XOA_btn').forEach(function(xoa){
+                if(!check_cn(arr_cn, "Xóa Sản Phẩm")){
+                    xoa.remove();
+                }
+            })
+
+            document.querySelectorAll('.SP_SUA_btn').forEach(function(nhap){
+                if(!check_cn(arr_cn, "Sửa Sản Phẩm")){
+                    nhap.remove();
+                }
+            })
+            
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
    
   //hàm hiển thị dữ liệu
@@ -401,8 +448,8 @@ SLSP_HT.innerText = rows.length;
         <form action="" method="POST" id="dieukien_xoa">
         <input type="hidden" name="page" value="page">
         <input type="hidden" name="MASP_xoa" value="${elementPage[i].MA_SP}">
-        <td id="xxx"><input type="submit" name="SP_xoa_btn" class="thaotac" value="xóa" onclick="Delete(${elementPage[i].MA_SP})"></td></form>
-        <form action="" method="POST" id="dieukien_sua"><td><input type="button" class="SP_sua_btn" id="thaotac_SP" value="sửa" data-index="${i}"></td></form></form>
+        <td id="xxx" class="SP_XOA_btn"><input type="submit" class="thaotac" value="xóa" onclick="Delete(${elementPage[i].MA_SP})"></td></form>
+        <form action="" method="POST" id="dieukien_sua"><td class="SP_SUA_btn"><input type="button" class="SP_sua_btn" id="thaotac_SP" value="sửa" data-index="${i}"></td></form></form>
         </tr>
         `;
     }

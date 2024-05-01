@@ -23,6 +23,7 @@ read();
             // Sau Quyeni nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLQuyen_HT = document.querySelector('#SLQuyen_HT span');
 var rows = document.querySelectorAll('#table_Quyen table tbody tr ');
@@ -164,7 +165,7 @@ function DisplayElementPage(elementPage) {
             <td id="Quyen_TenQuyen">${elementPage[i].TEN_Q}</td>
                <form action="" method="POST">
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-               <td><input type="submit" class="sua_Quyen_btn" id="thaotac_Quyen" value="sửa" data-index1="${i}"></td>
+               <td class="SUA_Quyen_btn"><input type="submit" class="sua_Quyen_btn" id="thaotac_Quyen" value="sửa" data-index1="${i}"></td>
                </form>
            </tr>
             `;
@@ -229,7 +230,7 @@ editButtons.forEach(function(button) {
                             // Thêm sự kiện cho nút xóa vừa thêm
                             var xoa_btn = newRow.querySelector('.xoa_CN_sua');
                             xoa_btn.addEventListener('click', function(event) {
-                                event.preventDefault();
+                                event.preventDefault();                           
                                 newRow.remove();
                             });
                         },
@@ -248,9 +249,11 @@ editButtons.forEach(function(button) {
         document.querySelector('#container_suaCN').style.display = 'block';
     });
 });
-
 //ẩn hiện form sửa chức năng
-    }
+}
+
+
+
 
     document.addEventListener('click', function(event){
         if(event.target === document.querySelector('#container_suaCN')){
@@ -366,7 +369,45 @@ tr_left.forEach(function(tr) {
 
 
 
- 
+function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+
+            if(!check_cn(arr_cn, "Sửa Quyền")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+            if(!check_cn(arr_cn, "Thêm Quyền")){
+                document.querySelector("#form_them_Quyen").remove();
+            }
+
+
+            document.querySelectorAll('.SUA_Quyen_btn').forEach(function(sua){
+                if(!check_cn(arr_cn, "Sửa Quyền")){
+                    sua.remove();
+                }
+            })
+
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
+
 
 //hiệu ứng của form sửa chức năng
 
@@ -535,6 +576,69 @@ tr_left.forEach(function(tr) {
         return 0;
     }
 }
+
+
+// tìm khiếm chức năng trong form sửa
+document.querySelector('#txt_chucnang').addEventListener('keypress', function(event) {
+    // Kiểm tra nếu phím nhấn là "Enter"
+    if (event.key === "Enter") {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
+        searchCN_sua(); // Gọi hàm tìm kiếm
+    }
+});
+
+// Hàm tìm kiếm chức năng
+function searchCN_sua() {
+    var txt = document.querySelector('#container_suaCN #left-form #txt_chucnang').value.trim();
+    var tr = document.querySelectorAll('#container_suaCN #left-form table tr');
+
+    if (txt === '') {
+        for (var i = 0; i < tr.length; i++) {
+            tr[i].style.display = 'table-row';
+        }
+    } else {
+        for (var i = 0; i < tr.length; i++) {
+            var tenCN = tr[i].querySelector('#Ten_CN_sua_left').textContent.trim();
+            if (chuyenDoiChuoi(tenCN).includes(chuyenDoiChuoi(txt))) {
+                tr[i].style.display = 'table-row';
+            } else {
+                tr[i].style.display = 'none';
+            }
+        }
+    }
+}
+
+
+// tìm khiếm chức năng trong form cấp
+document.querySelector('#txt_chucnang_cap').addEventListener('keypress', function(event) {
+    // Kiểm tra nếu phím nhấn là "Enter"
+    if (event.key === "Enter") {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
+        searchCN_cap(); // Gọi hàm tìm kiếm
+    }
+});
+
+// Hàm tìm kiếm chức năng
+function searchCN_cap() {
+    var txt = document.querySelector('#container_capCN #left-form #txt_chucnang_cap').value.trim();
+    var tr = document.querySelectorAll('#container_capCN #left-form table tr');
+
+    if (txt === '') {
+        for (var i = 0; i < tr.length; i++) {
+            tr[i].style.display = 'table-row';
+        }
+    } else {
+        for (var i = 0; i < tr.length; i++) {
+            var tenCN = tr[i].querySelector('#Ten_CN').textContent.trim();
+            if (chuyenDoiChuoi(tenCN).includes(chuyenDoiChuoi(txt))) {
+                tr[i].style.display = 'table-row';
+            } else {
+                tr[i].style.display = 'none';
+            }
+        }
+    }
+}
+
 
 
 //Lê Ngọc Anh Huy -> lengocanhhuy

@@ -23,7 +23,7 @@ read();
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
             display_sort();
-
+            PhanQuyen();
             //cập nhật lại số lượng sản phẩm
             var SLKH_HT = document.querySelector('#SLKH_HT span');
 var rows = document.querySelectorAll('#table_KH table tbody tr ');
@@ -150,8 +150,8 @@ function Delete(MAKH) {
             <form action="" method="POST">
             <input type="hidden" name="MAKH_xoa" value = <?php echo $row["MA_KH"]; ?>
             <input type="hidden" name="page" value="<?php echo $_POST["page"]; ?>
-            <td><input type="submit" value="xóa" class="thaotac_xoa" onclick="Delete(${elementPage[i].MA_KH})"></td></form>
-            <form action="" method="POST"><td><input type="button" class="KH_sua_btn" id="thaotac_KH" value="sửa" data-index="${i}"></td>
+            <td class="KH_XOA_btn"><input type="submit" value="xóa" class="thaotac_xoa" onclick="Delete(${elementPage[i].MA_KH})"></td></form>
+            <form action="" method="POST"><td class="KH_SUA_btn"><input type="button" class="KH_sua_btn" id="thaotac_KH" value="sửa" data-index="${i}"></td>
             </form></tr>
             `;
         }
@@ -426,6 +426,48 @@ display_sort();
     }
 
   //chức năng sắp xếp
+
+
+  function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Sửa Khách Hàng") && !check_cn(arr_cn, "Xóa Khách Hàng")){
+                document.querySelector("#ThaoTac").remove();
+            }
+
+
+            document.querySelectorAll('.KH_SUA_btn').forEach(function(sua){
+                if(!check_cn(arr_cn, "Sửa Khách Hàng")){
+                    sua.remove();
+                }
+            })
+
+            
+            document.querySelectorAll('.KH_XOA_btn').forEach(function(xoa){
+                if(!check_cn(arr_cn, "Xóa Khách Hàng")){
+                    xoa.remove();
+                }
+            })
+            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+}
 
   //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
   function checkType(input) {

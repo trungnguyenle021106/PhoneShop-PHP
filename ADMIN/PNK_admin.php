@@ -1,9 +1,7 @@
 <?php
-require('../AJAX_PHP/Current_Account.php');
+require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
-
-    $MATK = $data['tai_khoan']['MA_TK'];
 ?>
 
 <link rel="stylesheet" href="CSS/PNK_admin.css">
@@ -33,7 +31,7 @@ $connect->connectDB();
                 <td>Mã nhân viên</td>
                 <td>Mã nhà sản xuất</td>
                 <td>Trạng thái</td>
-                <td colspan="2">Thao tác</td>
+                <td colspan="2" id="ThaoTac">Thao tác</td>
             </tr>
         </thead>
 
@@ -62,7 +60,7 @@ $connect->connectDB();
     </form>
 
     
-    <form <?php display_check($array_TenChucNang, "Thêm Phiếu Nhập"); ?> action="" method="POST" id="form_them_PNK">
+    <form action="" method="POST" id="form_them_PNK">
         <h2 style="text-align: center; ">Nhập Phiếu</h2>
         <input type="button" class="btn_themCTPN" value="Thêm chi tiết">
     </form>

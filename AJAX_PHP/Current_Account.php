@@ -1,7 +1,7 @@
 <?php
 session_start();
 // $userID = $_SESSION['ID_ACCOUNT'];
-$userID = 7;
+$userID = 9;
 require '../Model/Database.php';
 $connect = new MyConnection('localhost', 'root', '', 'qldienthoai');
 $connect->connectDB();
@@ -25,23 +25,10 @@ foreach ($list_ctq_cn as $ctq_cn) {
     }
 }
 
+
 $data = array(
     'tai_khoan' => $user ,
     'array_TenChucNang' => $array_TenChucNang
 );
 
-function check_CN($arr_CN, $CN){
-    foreach ($arr_CN as $value) {
-        if ($value == $CN) {
-            return true; 
-        }
-    }
-    return false;
-}
-
-function display_check($arr_CN, $chuc_nang){
-    global $array_TenChucNang;
-    if(!check_CN($array_TenChucNang, $chuc_nang)){
-        echo ' style="display: none;" ';
-    }
-}
+echo json_encode($data);
