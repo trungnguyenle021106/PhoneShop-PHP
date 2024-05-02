@@ -20,9 +20,8 @@ function read() {
             condition: condition
         },
         success: function (response) {
-            listHoaDonJson = response;
             // Sau HDi nhận được dữ liệu, gọi hàm DisplayElementPage
-            DisplayElementPage();
+            DisplayElementPage(response);
 
             //cập nhật lại số lượng sản phẩm
             var SLHD_HT = document.querySelector('#SLHD_HT span');
@@ -40,15 +39,15 @@ function read() {
 // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
 
-function DisplayElementPage() {
-    var elementPage = listHoaDonJson;
+function DisplayElementPage(elementPage) {
+
     var html = "";
     for (var i = 0; i < elementPage.length; i++) {
         html += `
         <tr><td id="HD_Ma">${elementPage[i].MA_HD}</td>
         <td id="HD_MaKM">${elementPage[i].MA_KM}</td>
         <td id="HD_MaKH">${elementPage[i].MA_KH}</td>
-        <td id="HD_MaHD">${elementPage[i].MA_HD}</td>
+        <td id="HD_MaHD">${elementPage[i].MA_NV}</td>
         <td id="HD_TinhTrang">${elementPage[i].TINH_TRANG}</td>
         <td id="HD_NgayTao">${elementPage[i].NGAY_TAO}</td>
         <td id="HD_TongTien"><span>${elementPage[i].TONG_TIEN}</span>$</td>`
@@ -88,7 +87,7 @@ function AddSerial(maHD) {
                     tableName: tableName
                 },
                 success: function (response) {
-                   console.log(response)
+                    console.log(response)
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
@@ -198,110 +197,88 @@ function XoaChiTietDonHangForXoaHoaDon(maHD, callback) {
     });
 }
 
-function Search(typeSearch, valueSearch)
-{
-    
+function getConditionSort(typeSort, valueSort) {
+    var condition = ""
+    if(typeSort.includes("STR_"))
+    {
+        typeSort = typeSort.split("STR_")[1];
+        typeSort = "LENGTH(" + typeSort + ")";
+    }
+
+    if (valueSort == "tăng dần") {
+        condition += "ORDER BY " + typeSort + " ASC"
+    }
+    else {
+        condition += "ORDER BY " + typeSort + " DESC"
+    }
+    return condition;
+}
+
+function getCondition(typeSearch, valueSearch, typeSort, valueSort) {
+    var condition = ""
+    if (valueSearch == "") {
+        condition += "1 = 1 ";
+        condition += getConditionSort(typeSort, valueSort);
+    }
+    else {
+        condition += typeSearch + " LIKE '%" + valueSearch + "%'";
+        condition += getConditionSort(typeSort, valueSort);
+    }
+
+    return condition;
+}
+
+function Filter(typeSearch, valueSearch, typeSort, valueSort) {
+    var operation = "Read";
+    var tableName = "hoa_don";
+    var condition = getCondition(typeSearch, valueSearch, typeSort, valueSort);
+    console.log(condition);
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+            DisplayElementPage(response);
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
 }
 
 //chức năng tìm kiếm
 document.getElementById('btn_timkiem_HD').addEventListener('click', function (event) {
     event.preventDefault();
-    var opt = document.getElementById('opt_timkiem_HD').value;
-    var txt = document.getElementById('txt_timkiem_HD').value;
-    var rows = document.querySelectorAll('#table_HD table tbody tr');
+    var opt_search = document.getElementById('opt_timkiem_HD').value;
+    var txt_search = document.getElementById('txt_timkiem_HD').value;
+    var opt = document.getElementById('opt_sapxep_HD').value;
 
-    for (var i = 0; i < rows.length; i++) {
-        if (opt === 'MAHD') {
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MAHD = rows[i].querySelector('#HD_Ma').innerText;
-
-                if (MAHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-        else if (opt === 'Ngày tạo') {
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaHD = rows[i].querySelector('#HD_NgayTao').innerText;
-                if (MaHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-        else if (opt === 'MaNV') {
-
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaHD = rows[i].querySelector('#HD_MaNV').innerText;
-                if (MaHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-        else if (opt === 'MaKH') {
-
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaHD = rows[i].querySelector('#HD_MaKH').innerText;
-                if (MaHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-        else if (opt === 'Tình trạng') {
-
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaHD = rows[i].querySelector('#HD_TinhTrang').innerText;
-                if (MAHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-
-
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-
-    }
+    Filter(opt_search, txt_search, opt, "tăng dần");
 });
 //chức năng tìm kiếm
+
+//chức năng sắp xếp 
+document.getElementById('btn_tang').addEventListener('click', function (event) {
+    event.preventDefault();
+    var opt_search = document.getElementById('opt_timkiem_HD').value;
+    var txt_search = document.getElementById('txt_timkiem_HD').value;
+    var opt = document.getElementById('opt_sapxep_HD').value;
+
+    Filter(opt_search, txt_search, opt, "tăng dần");
+});
+
+
+document.getElementById('btn_giam').addEventListener('click', function (event) {
+    event.preventDefault();
+    var opt_search = document.getElementById('opt_timkiem_HD').value;
+    var txt_search = document.getElementById('txt_timkiem_HD').value;
+    var opt = document.getElementById('opt_sapxep_HD').value;
+
+    Filter(opt_search, txt_search, opt, "giảm dần");
+});
+//chức năng sắp xếp
