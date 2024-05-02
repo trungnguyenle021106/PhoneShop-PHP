@@ -66,6 +66,16 @@
     cursor: pointer;
     font-weight: bold;
 }
+
+#form_timkiem_HD #btn_timTheoKhoangTG{
+    width: 30%;
+    height: 20px;
+    margin-left: 120px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
 #form_timkiem_HD #btn_timkiem_HD:hover{
     background-color: #746d6d11;
 }

@@ -3,7 +3,7 @@ read();
 // Gọi hàm read để lấy dữ liệu 
 
 
-listHoaDonJson = [];
+
 
 //loadData
 function read() {
@@ -20,14 +20,10 @@ function read() {
             condition: condition
         },
         success: function (response) {
-            // Sau HDi nhận được dữ liệu, gọi hàm DisplayElementPage
-            DisplayElementPage(response);
 
-            //cập nhật lại số lượng sản phẩm
-            var SLHD_HT = document.querySelector('#SLHD_HT span');
-            var rows = document.querySelectorAll('#table_HD table tbody tr ');
-            SLHD_HT.innerText = rows.length;
-            //cập nhật lại số lượng sản phẩm
+            DisplayHDElement(response);
+
+            setAmountHD();
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -38,8 +34,96 @@ function read() {
 
 // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
+function setAmountHD()
+{
+    var SLHD_HT = document.querySelector('#SLHD_HT span');
+    var rows = document.querySelectorAll('#table_HD table tbody tr ');
+    SLHD_HT.innerText = rows.length;
+}
 
-function DisplayElementPage(elementPage) {
+function DisplayBackButton()
+{
+    document.getElementById("btn_back").style.display  = "block";
+    document.getElementById("top_contentHD").style.display  = "none";
+    document.getElementById("btn_back").addEventListener('click', function (event) {
+        event.preventDefault();
+        document.getElementById("btn_back").style.display  = "none";
+        document.getElementById("top_contentHD").style.display  = "flex";
+        Filter("tăng dần");
+    });
+}
+
+function DisplayHeadTableCTHD() {
+    var html = "<tr>\
+    <td>Mã hóa đơn</td>\
+    <td>Mã sản phẩm</td>\
+    <td>Số lượng</td>\
+    <td>Thành tiền</td>\
+    <td>Thuế suất</td>\
+</tr>";
+
+    var headTable = document.getElementById("head_table");
+    headTable.innerHTML = html;
+}
+
+
+function DisplayCTHDElement(maHD) {
+    var operation = "Read";
+    var tableName = "chi_tiet_hoadon";
+    var condition = "MA_HD = " + maHD;
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+            DisplayBackButton()
+            DisplayHeadTableCTHD()
+            elementPage = response;
+            var html = "";
+            for (var i = 0; i < elementPage.length; i++) {
+                html += `
+        <tr>
+        <td id="MAHD">${elementPage[i].MA_HD}</td>
+        <td id="MASP">${elementPage[i].MA_SP}</td>
+        <td id="SL">${elementPage[i].SL_BAN}</td>
+        <td id="ThanhTien"><span>${ changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
+        <td id="ThueSuat"><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
+       </tr>
+        `;
+            }
+
+            var tbody = document.getElementById("data");
+            tbody.innerHTML = html;
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function DisplayHeadTableHD() {
+    var html = "<tr>\
+    <td>Mã hóa đơn</td>\
+    <td>Mã khuyến mãi</td>\
+    <td>Mã khách hàng</td>\
+    <td>Mã nhân viên</td>\
+    <td>Tình trạng</td>\
+    <td>Ngày tạo</td>\
+    <td>Tổng tiền</td>\
+    <td colspan=\"3\">Thao tác</td>\
+    </tr>";
+
+    var headTable = document.getElementById("head_table");
+    headTable.innerHTML = html;
+}
+
+function DisplayHDElement(elementPage) {
+    DisplayHeadTableHD();
 
     var html = "";
     for (var i = 0; i < elementPage.length; i++) {
@@ -50,7 +134,7 @@ function DisplayElementPage(elementPage) {
         <td id="HD_MaHD">${elementPage[i].MA_NV}</td>
         <td id="HD_TinhTrang">${elementPage[i].TINH_TRANG}</td>
         <td id="HD_NgayTao">${elementPage[i].NGAY_TAO}</td>
-        <td id="HD_TongTien"><span>${elementPage[i].TONG_TIEN}</span>$</td>`
+        <td id="HD_TongTien"><span> ${changePriceToString(elementPage[i].TONG_TIEN)}</span></td>`
         if (1 < 2) {
             html += ` <td><button  onclick="XoaHoaDon(${elementPage[i].MA_HD})" class="thaotac">Xóa hóa đơn</button></td>`
         }
@@ -60,10 +144,12 @@ function DisplayElementPage(elementPage) {
         else {
             html += `<td><button disabled style="cursor: initial; background-color: initial;"  onclick="XuLyDonHang(${elementPage[i].MA_HD})" class="thaotac">Xử lý hóa đơn</button></td>`
         }
+        html += `<td><button onclick=" DisplayCTHDElement(${elementPage[i].MA_HD})" class="thaotac">Xem chi tiết hóa đơn</button></td>`
         html += `</tr>`;
     }
     var tbody = document.getElementById("data");
     tbody.innerHTML = html;
+    setAmountHD();
 }
 
 function AddSerial(maHD) {
@@ -197,10 +283,11 @@ function XoaChiTietDonHangForXoaHoaDon(maHD, callback) {
     });
 }
 
+
+
 function getConditionSort(typeSort, valueSort) {
     var condition = ""
-    if(typeSort.includes("STR_"))
-    {
+    if (typeSort.includes("STR_")) {
         typeSort = typeSort.split("STR_")[1];
         typeSort = "LENGTH(" + typeSort + ")";
     }
@@ -214,25 +301,48 @@ function getConditionSort(typeSort, valueSort) {
     return condition;
 }
 
-function getCondition(typeSearch, valueSearch, typeSort, valueSort) {
+function getConditionInTime(startDay, endDay) {
+    var condition = "AND NGAY_TAO >= '" + startDay + "' ";
+    condition += " AND NGAY_TAO <= '" + endDay + "' ";
+    return condition;
+}
+
+function getCondition(typeSearch, valueSearch, typeSort, valueSort, startDay, endDay) {
     var condition = ""
     if (valueSearch == "") {
         condition += "1 = 1 ";
-        condition += getConditionSort(typeSort, valueSort);
+        condition += getConditionInTime(startDay, endDay) + getConditionSort(typeSort, valueSort);
     }
     else {
         condition += typeSearch + " LIKE '%" + valueSearch + "%'";
-        condition += getConditionSort(typeSort, valueSort);
+        condition += getConditionInTime(startDay, endDay) + getConditionSort(typeSort, valueSort);
     }
 
     return condition;
 }
 
-function Filter(typeSearch, valueSearch, typeSort, valueSort) {
+function Filter(valueSort) {
+
+    var opt_search = document.getElementById('opt_timkiem_HD').value;
+    var txt_search = document.getElementById('txt_timkiem_HD').value;
+    var optsx = document.getElementById('opt_sapxep_HD').value;
+    var start = document.getElementById("start").value
+    var end = document.getElementById("end").value
+
+    if(document.getElementById("btn_back").style.display  != "none");
+    {
+        document.getElementById("btn_back").style.display  = "none";
+        document.getElementById("top_contentHD").style.display  = "flex";
+    }
+    
+
+    if (compareDay(start, end) == false) {
+        return;
+    }
     var operation = "Read";
     var tableName = "hoa_don";
-    var condition = getCondition(typeSearch, valueSearch, typeSort, valueSort);
-    console.log(condition);
+    var condition = getCondition(opt_search, txt_search, optsx, valueSort, start, end);
+    console.log(condition)
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -243,7 +353,7 @@ function Filter(typeSearch, valueSearch, typeSort, valueSort) {
             condition: condition
         },
         success: function (response) {
-            DisplayElementPage(response);
+            DisplayHDElement(response);
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -254,31 +364,78 @@ function Filter(typeSearch, valueSearch, typeSort, valueSort) {
 //chức năng tìm kiếm
 document.getElementById('btn_timkiem_HD').addEventListener('click', function (event) {
     event.preventDefault();
-    var opt_search = document.getElementById('opt_timkiem_HD').value;
-    var txt_search = document.getElementById('txt_timkiem_HD').value;
-    var opt = document.getElementById('opt_sapxep_HD').value;
 
-    Filter(opt_search, txt_search, opt, "tăng dần");
+    Filter("tăng dần")
 });
 //chức năng tìm kiếm
 
 //chức năng sắp xếp 
 document.getElementById('btn_tang').addEventListener('click', function (event) {
     event.preventDefault();
-    var opt_search = document.getElementById('opt_timkiem_HD').value;
-    var txt_search = document.getElementById('txt_timkiem_HD').value;
-    var opt = document.getElementById('opt_sapxep_HD').value;
 
-    Filter(opt_search, txt_search, opt, "tăng dần");
+    Filter("tăng dần")
 });
 
 
 document.getElementById('btn_giam').addEventListener('click', function (event) {
     event.preventDefault();
-    var opt_search = document.getElementById('opt_timkiem_HD').value;
-    var txt_search = document.getElementById('txt_timkiem_HD').value;
-    var opt = document.getElementById('opt_sapxep_HD').value;
-
-    Filter(opt_search, txt_search, opt, "giảm dần");
+    Filter("giảm dần")
 });
 //chức năng sắp xếp
+
+function compareDay(startDay, endDay) {
+    var start = new Date(startDay);
+    var end = new Date(endDay);
+
+    if (start == "Invalid Date" || end == "Invalid Date") {
+        alert("Không bỏ trống ngày bắt đầu hoặc kết thúc")
+        return false;
+    }
+
+    if (start > end) {
+
+        alert("Ngày bắt đầu không lớn hơn ngày kết thúc")
+        return false;
+    }
+    return true;
+}
+
+document.getElementById('btn_timTheoKhoangTG').addEventListener('click', function (event) {
+    event.preventDefault();
+    Filter("tăng dần")
+});
+
+document.getElementById('RESET').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    var operation = "Read";
+    var tableName = "hoa_don";
+    var condition = "1=1 ORDER BY NGAY_TAO ASC";
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+            var list_opts_search = document.getElementById('opt_timkiem_HD').options;
+            list_opts_search[0].selected = true;
+            var list_optsx = document.getElementById('opt_sapxep_HD').options;
+            list_optsx[0].selected = true;
+        
+            document.getElementById('txt_timkiem_HD').value = "";
+        
+            var start = document.getElementById("start")
+            var end = document.getElementById("end")
+            end.value = response[response.length - 1].NGAY_TAO
+            start.value = response[0].NGAY_TAO
+
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+});

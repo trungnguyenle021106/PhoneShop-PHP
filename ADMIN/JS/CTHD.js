@@ -21,12 +21,10 @@ function read() {
         success: function (response) {
 
             // Sau CTHDi nhận được dữ liệu, gọi hàm DisplayElementPage
-            DisplayElementPage(response);
+            DisplayHDElement(response);
 
             //cập nhật lại số lượng sản phẩm
-            var SLCTHD_HT = document.querySelector('#SLCTHD_HT span');
-            var rows = document.querySelectorAll('#table_CTHD table tbody tr ');
-            SLCTHD_HT.innerText = rows.length;
+            setAmountCTHD()
             //cập nhật lại số lượng sản phẩm
         },
         error: function (xhr, status, error) {
@@ -38,8 +36,14 @@ function read() {
 
 // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
+function setAmountCTHD()
+{
+    var SLCTHD_HT = document.querySelector('#SLCTHD_HT span');
+    var rows = document.querySelectorAll('#table_CTHD table tbody tr ');
+    SLCTHD_HT.innerText = rows.length;
+}
 
-function DisplayElementPage(elementPage) {
+function DisplayHDElement(elementPage) {
     var html = "";
     for (var i = 0; i < elementPage.length; i++) {
         html += `
@@ -47,98 +51,101 @@ function DisplayElementPage(elementPage) {
         <td id="MAHD">${elementPage[i].MA_HD}</td>
         <td id="MASP">${elementPage[i].MA_SP}</td>
         <td id="SL">${elementPage[i].SL_BAN}</td>
-        <td id="ThanhTien"><span>${elementPage[i].THANH_TIEN}</span>$</td>
-        <td id="ThueSuat"><span>${elementPage[i].THUE_SUAT}</span>%</td>
+        <td id="ThanhTien"><span>${changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
+        <td id="ThueSuat"><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
        </tr>
         `;
     }
     var tbody = document.getElementById("data");
     tbody.innerHTML = html;
+    setAmountCTHD();
 }
 
 
+function getConditionSort(typeSort, valueSort) {
+    var condition = ""
+    if(typeSort.includes("STR_"))
+    {
+        typeSort = typeSort.split("STR_")[1];
+        typeSort = "LENGTH(" + typeSort + ")";
+    }
+
+    if (valueSort == "tăng dần") {
+        condition += "ORDER BY " + typeSort + " ASC"
+    }
+    else {
+        condition += "ORDER BY " + typeSort + " DESC"
+    }
+    return condition;
+}
+
+function getCondition(typeSearch, valueSearch, typeSort, valueSort) {
+    var condition = ""
+    if (valueSearch == "") {
+        condition += "1 = 1 ";
+        condition += getConditionSort(typeSort, valueSort);
+    }
+    else {
+        condition += typeSearch + " LIKE '%" + valueSearch + "%'";
+        condition += getConditionSort(typeSort, valueSort);
+    }
+
+    return condition;
+}
+
+function Filter(typeSearch, valueSearch, typeSort, valueSort) {
+    var operation = "Read";
+    var tableName = "chi_tiet_hoadon";
+    var condition = getCondition(typeSearch, valueSearch, typeSort, valueSort);
+    console.log(condition);
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+            DisplayHDElement(response);
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
 
 
 //chức năng tìm kiếm
 document.getElementById('btn_timkiem_CTHD').addEventListener('click', function (event) {
     event.preventDefault();
-    var opt = document.getElementById('opt_timkiem_CTHD').value;
-    var txt = document.getElementById('txt_timkiem_CTHD').value;
-    var rows = document.querySelectorAll('#table_CTHD table tbody tr');
-
-    for (var i = 0; i < rows.length; i++) {
-        if (opt === 'MACTHD') {
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MACTHD = rows[i].querySelector('#MAHD').innerText;
-
-                if (MACTHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-        else if (opt === 'MASP') {
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaCTHD = rows[i].querySelector('#MASP').innerText;
-                if (MaCTHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-        else if (opt === 'Số lượng') {
-
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaCTHD = rows[i].querySelector('#SL').innerText;
-                if (MaCTHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-        else if (opt === 'Thành tiền') {
-
-            if (txt === '') {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-                }
-            }
-            else {
-                var MaCTHD = rows[i].querySelector('#ThanhTien span').innerText;
-                if (MaCTHD.includes(txt)) {
-                    rows[i].style.display = 'table-row';
-                }
-                else {
-                    rows[i].style.display = 'none';
-                }
-            }
-        }
-
-
-
-    }
+    var opt_search = document.getElementById('opt_timkiem_CTHD').value;
+    var txt_search = document.getElementById('txt_timkiem_CTHD').value;
+    var opt = document.getElementById('opt_sapxep_CTHD').value;
+    Filter(opt_search, txt_search, opt, "tăng dần");
+    
 });
 //chức năng tìm kiếm
+
+//chức năng sắp xếp 
+document.getElementById('btn_tang').addEventListener('click', function (event) {
+    event.preventDefault();
+    var opt_search = document.getElementById('opt_timkiem_CTHD').value;
+    var txt_search = document.getElementById('txt_timkiem_CTHD').value;
+    var opt = document.getElementById('opt_sapxep_CTHD').value;
+        
+    Filter(opt_search, txt_search, opt, "tăng dần");
+    
+});
+
+document.getElementById('btn_giam').addEventListener('click', function (event) {
+    event.preventDefault();
+    var opt_search = document.getElementById('opt_timkiem_CTHD').value;
+    var txt_search = document.getElementById('txt_timkiem_CTHD').value;
+    var opt = document.getElementById('opt_sapxep_CTHD').value;
+        
+    Filter(opt_search, txt_search, opt, "giảm dần");
+    
+});
+//chức năng sắp xếp 
