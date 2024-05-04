@@ -35,6 +35,169 @@ SLNSX_HT.innerText = rows.length;
     });
 }
    //loadData
+   function add() {
+        var divWarning = document.getElementById('warning_FormThem');
+        var tenNSX = $('#TenNSX_add').val().trim()
+        var diaChiNSX = $('#DiaChiNSX_add').val().trim()
+        var SDTNSX = $('#SDT_NSX_add').val().trim()
+        var emailNSX = $('#EmailNSX_add').val().trim()
+        if (tenNSX.length === 0 || diaChiNSX.length === 0 ||SDTNSX.length === 0 ||emailNSX.length === 0 ){
+            divWarning.innerText = "Vui lòng nhập đầy đủ thông tin!"
+        }
+        else if(validateEmail(emailNSX) == false){
+            divWarning.innerText = "Vui lòng nhập đúng email!"
+        }
+        else if(validatePhoneNumber(SDTNSX) == false){
+            divWarning.innerText = "Vui lòng nhập đúng số điện thoại có 10 số!"
+        }
+        else if(confirm("Bạn chắc chắn muốn thêm không?") == true) {
+            var data = {
+                TEN_NSX : tenNSX,
+                DIA_CHI: diaChiNSX,
+                SO_DT: SDTNSX,
+                EMAIL:  emailNSX
+            };
+            var jsonData = JSON.stringify(data);
+            var operation = "Create";
+            var tableName = "nha_sx";
+            var condition ="";
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData : jsonData,
+                    operation: operation,
+                    tableName: tableName,
+                    condition: condition
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        location.reload();
+        }
+
+        
+    }
+    function Delete(maNSX) {
+        if (confirm("Bạn chắc chắn muốn xóa không?") == true) {
+            var operation = "Delete";
+            var tableName = "nha_sx";
+            var idName = "MA_NSX";
+            var idValue = maNSX;
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    operation: operation,
+                    tableName: tableName,
+                    idName : idName,
+                    idValue : idValue
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+            location.reload();
+          } 
+       
+    
+    
+    }
+    function update(){
+        var divWarning = document.getElementById('warning');
+
+        var maNSX = $('#MANSX_sua').val().trim()
+        var tenNSX = $('#TenNSX_sua').val().trim()
+        var diaChiNSX = $('#DiaChiNSX').val().trim()
+        var SDTNSX = $('#SDT_NSX').val().trim()
+        var emailNSX = $('#EmailNSX').val().trim()
+        if (tenNSX.length === 0 || diaChiNSX.length === 0 ||SDTNSX.length === 0 ||emailNSX.length === 0 ){
+            divWarning.innerText = "Vui lòng nhập đầy đủ thông tin!"
+        }
+        else if(validateEmail(emailNSX) == false){
+            divWarning.innerText = "Vui lòng nhập đúng email!"
+        }
+        else if(validatePhoneNumber(SDTNSX) == false){
+            divWarning.innerText = "Vui lòng nhập đúng số điện thoại có 10 số!"
+        }
+        else if(confirm("Bạn chắc chắn muốn sửa không?") == true) {
+            var data = {
+                TEN_NSX: tenNSX,
+                DIA_CHI: diaChiNSX,
+                SO_DT: SDTNSX,
+                EMAIL: emailNSX
+                };
+            var jsonData = JSON.stringify(data);
+            var operation = "Update";
+            var tableName = "nha_sx";
+            var idName = "MA_NSX";
+            var idValue = maNSX;
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData : jsonData,
+                    operation: operation,
+                    tableName: tableName,
+                    idName : idName,
+                    idValue : idValue
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+            location.reload();
+        }
+    }
+    function validateEmail(email) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+    
+    function validatePhoneNumber(phoneNumber) {
+        // Sử dụng biểu thức chính quy để kiểm tra định dạng số điện thoại
+        const phonePattern = /^\d{10}$/;
+        return phonePattern.test(phoneNumber);
+    }
+    function readSapXep(t) {
+        var thuTuSapXep = t;
+        var cotSapXep = document.getElementById("opt_sapxep_NSX").value;
+        var tbody = document.getElementById("data");
+        tbody.innerHTML=''
+        $.ajax({
+            url: '../AJAX_PHP/xuLiSapXep.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                thuTuSapXep: thuTuSapXep,
+                cotSapXep: cotSapXep,
+                bangSapXep: "nha_sx"
+            },
+            success: function(responseSerial) {
+                
+                DisplayElementPage(responseSerial);
+    
+                
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
 
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
@@ -52,8 +215,8 @@ SLNSX_HT.innerText = rows.length;
        <form action="" method="POST">
        <input type="hidden" name="MANSX" value="${elementPage[i].MA_NSX}">
        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-      <td><input type="submit" value="xóa" class="thaotac" name="btn_xoa_NSX"></td>
-      <td><input type="button" value="sửa" class="thaotac" id="NSX_sửa_btn" name="NSX_sửa_btn"></td>
+      <td><input type="button" value="xóa" class="thaotac" name="btn_xoa_NSX" onclick="Delete(${elementPage[i].MA_NSX})"></td>
+      <td><input type="button" value="sửa" class="thaotac thaotac_Sua" id="NSX_sua_btn" name="NSX_sua_btn" data-index="${i}"></td>
 
        </form>
        </tr>
@@ -61,10 +224,33 @@ SLNSX_HT.innerText = rows.length;
     }
     var tbody = document.getElementById("data");
     tbody.innerHTML = html;
+    // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+var editButtons = document.querySelectorAll('.thaotac_Sua');
+editButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        var index = this.getAttribute('data-index');
+        var form_sua_NSX = document.getElementById('container_suaNSX');
+        form_sua_NSX.querySelector('#TenNSX_sua').value = elementPage[index].TEN_NSX;
+        form_sua_NSX.querySelector('#DiaChiNSX').value = elementPage[index].DIA_CHI;
+        form_sua_NSX.querySelector('#SDT_NSX').value = elementPage[index].SO_DT;
+        form_sua_NSX.querySelector('#EmailNSX').value = elementPage[index].EMAIL;
+        form_sua_NSX.querySelector('#MANSX_sua').value = elementPage[index].MA_NSX;
+
+        form_sua_NSX.style.display = 'block';
+    });
+});
     }
 
 
-    
+        //chức năng ẩn form sửa
+document.addEventListener('click', function(event){
+    var form_sua_NSX = document.getElementById('container_suaNSX');
+    if(event.target === form_sua_NSX){
+        form_sua_NSX.style.display = 'none';
+    }
+
+})
+//chức năng ẩn form sửa
     // chức năng tìm kiếm
 
 
@@ -90,8 +276,8 @@ document.getElementById('btn_timkiem_NSX').addEventListener('click', function(ev
  else if(opt === 'Tên NSX'){
  
  for(var i = 0; i < rows.length; i++){
-     var MaNV = rows[i].querySelector('#Ten_NSX').innerText;
-     if(MaNV.includes(txt)){
+     var tenNSX = rows[i].querySelector('#Ten_NSX').innerText;
+     if(chuyenDoiChuoi(tenNSX).includes(chuyenDoiChuoi(txt))){
          rows[i].style.display = 'table-row';
      }
      else{ 
@@ -103,8 +289,8 @@ document.getElementById('btn_timkiem_NSX').addEventListener('click', function(ev
  else if(opt === 'SDT'){
  
  for(var i = 0; i < rows.length; i++){
-     var MaNSX = rows[i].querySelector('#NSX_SDT').innerText;
-     if(MaNSX.includes(txt)){
+     var SDT = rows[i].querySelector('#NSX_SDT').innerText;
+     if(chuyenDoiChuoi(SDT).includes(chuyenDoiChuoi(txt))){
          rows[i].style.display = 'table-row';
      }
      else{ 
@@ -115,8 +301,8 @@ document.getElementById('btn_timkiem_NSX').addEventListener('click', function(ev
  
  else if(opt === 'Địa chỉ') {
      for(var i = 0; i < rows.length; i++){
-     var MaNSX = rows[i].querySelector('#NSX_Diachi').innerText;
-     if(MaNSX.includes(txt)){
+     var diaChi = rows[i].querySelector('#NSX_Diachi').innerText;
+     if(chuyenDoiChuoi(diaChi).includes(chuyenDoiChuoi(txt))){
          rows[i].style.display = 'table-row';
      }
      else{ 
@@ -127,8 +313,8 @@ document.getElementById('btn_timkiem_NSX').addEventListener('click', function(ev
  
  else if(opt === 'Email') {
      for(var i = 0; i < rows.length; i++){
-     var MaNSX = rows[i].querySelector('#NSX_Email').innerText;
-     if(MaNSX.includes(txt)){
+     var email = rows[i].querySelector('#NSX_Email').innerText;
+     if(chuyenDoiChuoi(email).includes(chuyenDoiChuoi(txt))){
          rows[i].style.display = 'table-row';
      }
      else{ 
@@ -147,132 +333,8 @@ document.getElementById('btn_timkiem_NSX').addEventListener('click', function(ev
  })
  
  //chức năng tìm kiếm
-
-
-   //chức năng sắp xếp
-
-    // Hàm so sánh tăng dần
-    function sortByKey_tang(array, key) {
-        return array.sort(function(a, b) {
-            var x = a[key];
-            var y = b[key];
-            
-            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
-            var xType = checkType(x);
-            var yType = checkType(y);
-            
-            if (xType === 1 && yType === 1) {
-                return x - y; // Sắp xếp theo số
-            } else if (xType === 2 && yType === 2) {
-                // Chuyển đổi x và y thành đối tượng Date để so sánh
-                var dateX = new Date(x);
-                var dateY = new Date(y);
-                return dateX - dateY; // Sắp xếp theo thời gian
-            } else {
-                // So sánh bình thường
-                if (x < y) return -1;
-                if (x > y) return 1;
-                return 0;
-            }
-        });
-    }
-    
-
-        // Hàm so sánh giảm dần
-        function sortByKey_giam(array, key) {
-            return array.sort(function(a, b) {
-                var x = a[key];
-                var y = b[key];
-                
-                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
-                var xType = checkType(x);
-                var yType = checkType(y);
-                
-                if (xType === 1 && yType === 1) {
-                    return y - x; // Sắp xếp số giảm dần
-                } else if (xType === 2 && yType === 2) {
-                    // Chuyển đổi x và y thành đối tượng Date để so sánh
-                    var dateX = new Date(x);
-                    var dateY = new Date(y);
-                    return dateY - dateX; // Sắp xếp thời gian giảm dần
-                } else {
-                    // So sánh chuỗi giảm dần
-                    if (x > y) return -1;
-                    if (x < y) return 1;
-                    return 0;
-                }
-            });
-        }
-        
-
-
-    function display_sort() {
-        var table_NSX = document.querySelectorAll('#table_NSX tbody tr');
-        var jsonArray = [];
-        var jsonArray2 = [];
-
-        for (var i = 0; i < table_NSX.length; i++) {
-            var MANSX = table_NSX[i].querySelector('#NSX_Ma').innerText;
-            var TEN = table_NSX[i].querySelector('#Ten_NSX').innerText;
-            var SDT = table_NSX[i].querySelector('#NSX_SDT').innerText;
-            var DIACHI = table_NSX[i].querySelector('#NSX_Diachi').innerText;
-            var EMAIL = table_NSX[i].querySelector('#NSX_Email').innerText;
-
-            var object = { MA_NSX: MANSX, TEN_NSX: TEN, DIA_CHI: DIACHI, SO_DT: SDT, EMAIL: EMAIL };
-            jsonArray.push(object);
-
-            if(window.getComputedStyle(table_NSX[i]).display !== 'none'){
-                var object2 = { MA_NSX: MANSX, TEN_NSX: TEN, DIA_CHI: DIACHI, SO_DT: SDT, EMAIL: EMAIL };
-                jsonArray2.push(object2);
-            }
-
-        }
-    
-        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
-            event.preventDefault();
-            var tbody = document.querySelector('#table_NSX tbody');
-            var key = document.querySelector('#opt_sapxep_NSX').value;
-            tbody.innerHTML = '';
-            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
-         DisplayElementPage(array_sapxep);
-        });
-
-        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
-            event.preventDefault();
-            var tbody = document.querySelector('#table_NSX tbody');
-            var key = document.querySelector('#opt_sapxep_NSX').value;
-            tbody.innerHTML = '';
-            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
-         DisplayElementPage(array_sapxep);
-        });
-
-        
-        document.querySelector('.hoantac').addEventListener('click', function(event) {
-            event.preventDefault();
-            var tbody = document.querySelector('#table_NSX tbody');
-            tbody.innerHTML = '';
-         DisplayElementPage(jsonArray);
-         jsonArray2 = [...jsonArray];
-
-        });
-
-    }
-
-  //chức năng sắp xếp
-    
-
-    //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
-    function checkType(input) {
-        // Kiểm tra xem input có phải là số không
-        if (!isNaN(input)) {
-            return 1;
-        }
-        // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
-        else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
-            return 2; // Trả về 2 để phân biệt với trường hợp là số
-        }
-        // Trường hợp còn lại
-        else {
-            return 0;
-        }
-    }
+ function chuyenDoiChuoi(chuoi) {
+    return chuoi.toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f\s]/g, "");
+}

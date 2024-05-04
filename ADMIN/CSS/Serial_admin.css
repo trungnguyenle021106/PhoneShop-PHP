@@ -1,31 +1,32 @@
 
-/*form_NSX_admin*/
-#form_NSX_admin{
+/*form_Serial_admin*/
+#form_Serial_admin{
     display: flex;
     height: 100%;
 }
-#table_NSX{
+#table_Serial{
     width: 70%;
     border: 1px solid black;
 }
 
-#chucnang_NSX{
+#chucnang_Serial{
     width: 30%;
 }
-#form_NSX_admin table{
+#form_Serial_admin table{
     width: 100%;
     text-align: center;
     border-collapse: collapse;
-}
-#form_NSX_admin table tr td{
-    border: 1px solid black;
 }
 #scroll-container{
     overflow-y: scroll;
     height: 88%;
     
+    
 }
-#form_NSX_admin table .thaotac {
+#form_Serial_admin table tr td{
+    border: 1px solid black;
+}
+#form_Serial_admin table #thaotac_Serial, .thaotac {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -35,29 +36,32 @@
     cursor: pointer;
     font-weight: bold;
 }
-#form_NSX_admin table .thaotac:hover{
+#form_Serial_admin table #thaotac_Serial:hover{
+    background-color: #746d6d11;
+}
+#form_Serial_admin table .thaotac:hover{
     background-color: #746d6d11;
 }
 
-#form_timkiem_NSX{
+#form_timkiem_Serial{
     border: 1px solid black;
     width: 80%;
     margin-left: 50px;
-    margin-top: 15px;
+    margin-top: 30px;
     padding: 10px;
 }
 
-#form_timkiem_NSX #title{
+#form_timkiem_Serial #title{
     text-align: center;
     margin-top: 10px;
 }
-#form_timkiem_NSX #opt_timkiem_NSX{
+#form_timkiem_Serial #opt_timkiem_Serial{
     text-align: center;
     border: none;
     background-color: #21020211;
     border-radius: 50px;
 }
-#form_timkiem_NSX #btn_timkiem_NSX{
+#form_timkiem_Serial #btn_timkiem_Serial{
     width: 30%;
     height: 20px;
     margin-left: 120px;
@@ -66,69 +70,25 @@
     cursor: pointer;
     font-weight: bold;
 }
-#form_timkiem_NSX #btn_timkiem_NSX:hover{
+#form_timkiem_Serial #btn_timkiem_Serial:hover{
     background-color: #746d6d11;
 }
 
 
-#form_them_NSX {
-    border: 1px solid black;
-    width: 75%;
-    margin: 15px auto;
-    padding: 20px;
-    margin-left: 50px;
-    margin-top: 15px;
-}
 
-#form_them_NSX h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-
-
-#form_them_NSX input[type="text"],
-#form_them_NSX input[type="number"] {
-    width: calc(100% - 140px); /* Subtracting label width */
-    padding: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    height: 10px;
-    border: 2px solid black ;
-
-}
-
-#form_them_NSX .btn_themNSX {
-    width: 40%;
-    height: 30px;
-    margin: 10px auto;
-    display: block;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#form_them_NSX .btn_themNSX:hover {
-    background-color: #45a049;
-}
-
-
-#container_suaNSX {
+#suaSerial_container {
     margin: 0 auto;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0px;
-    left: 0%;
+    left: 0px;
     background-color: rgba(240, 204, 204, 0.7);
     display: none;
     
 }
 
-#form_sua_NSX {
+#form_sua_Serial {
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 5px;
@@ -138,18 +98,16 @@
     width: 400px;
 }
 
-#form_sua_NSX h2 {
+#form_sua_Serial h2 {
     text-align: center;
     margin-bottom: 20px;
 }
 
-#form_sua_NSX label {
-    display: block;
-    margin-bottom: 5px;
+#form_sua_Serial label {
+    width: 100px;
 }
 
-#form_sua_NSX input[type="text"],
-#form_sua_NSX input[type="number"] {
+#form_sua_Serial input[type="date"],#form_sua_Serial input[type="number"], input[type="text"]{
     width: calc(100% - 20px);
     padding: 8px;
     margin-bottom: 10px;
@@ -157,7 +115,7 @@
     border-radius: 4px;
 }
 
-#form_sua_NSX input[type="button"] {
+#form_sua_Serial input[type="button"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -167,10 +125,11 @@
     cursor: pointer;
 }
 
-#form_sua_NSX input[type="submit"]:hover {
+#form_sua_Serial input[type="button"]:hover {
     background-color: #45a049;
 }
-#opt_sapxep_NSX{
+
+#opt_sapxep_Serial{
     text-align: center;
     border: none;
     background-color: #21020211;
@@ -186,13 +145,10 @@
     cursor: pointer;
     font-weight: bold;
 }
-#form_sapxep_NSX{
+#form_sapxep_Serial{
     border: 1px solid black;
     width: 82%;
-    margin-left: 50px;
-    margin-top: 15px;
+    margin-left: 53px;
+    margin-top: 20px;
     padding: 5px;
 }
-/*form_NSX_admin*/
-
-
