@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="../CSS/profileUser.css">
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Document</title>
     
@@ -67,7 +68,7 @@
         
         $conn->closeConnection();
 ?>
-<body>
+<body style="background-color: #ECECEC;">
     <div class="profile_content_container">
         <div class="profile_left" >
             <img src="../Img/avtUser.png" alt="" >
@@ -135,6 +136,9 @@
 </div>
 </body>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Place your JavaScript code here
+    });
         const $ = document.querySelector.bind(document)
         const $$ = document.querySelectorAll.bind(document);
         const ttkh = $(".btn_infor")
@@ -157,7 +161,7 @@
         <th>Ngày ghi nhận</th>
         <th>Tổng tiền</th>
         <th>Trạng thái</th>
-        <th>Xem chi tiết</th>
+        <th>Thao tác</th>
       </tr>
     </thead>
     <tbody>
@@ -167,8 +171,14 @@
                 echo "<td>" . $row["MA_HD"] . "</td>";
                 echo "<td>" . $row["NGAY_TAO"] . "</td>";
                 echo "<td>" . $row["TONG_TIEN"] . "</td>";
-                echo "<td>" . $row["TINH_TRANG"] . "</td>";
-                echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem</button></td>";
+                echo "<td id=\"tinhTrangDonHang_" . $row["MA_HD"] . "\">" . $row["TINH_TRANG"] . "</td>";
+                if ($row["TINH_TRANG"] == "Đã hủy") {
+                    echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>";
+                }else{
+                    echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>
+                    <button id=\"btnHuyDonHang_" . $row["MA_HD"] . "\" onclick="."huyDonHang(".$row["MA_HD"].")"." type="."button"."  class="."btn".">Hủy đơn hàng</button></td>";
+                }
+                
                 echo "</tr>";
               }
       ?>
@@ -217,7 +227,7 @@
                 htmlContent += `<tr>
                                 <td>`+detail.MA_SP+`</td>
                                 <td>`+product.TEN_SP+`</td>
-                                <td><img src="../Img/`+product.HINH_ANH+`" alt="" width="100"></td>
+                                <td><img src="../Img/`+product.HINH_ANH+`" alt="" width="50"></td>
                                 <td>`+detail.SL_BAN+`</td>
                                 <td>`+product.GIA_BAN+`</td>
                                 <td>`+detail.THUE_SUAT+`</td>
@@ -250,7 +260,7 @@
             document.getElementById('popup').style.display = 'block';
         }
         function closePopup() {
-            document.getElementById('popup-update').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
         }
         function openPopup2() {
         document.getElementById('popup-update').style.display = 'block';
@@ -272,6 +282,42 @@
             setTimeout(() => {
                 closePopup2();
             }, 3000); // Ví dụ: tự đóng popup sau 3 giây
+        }
+        function huyDonHang(maDonHang) {
+            if(confirm("Bạn chắc chắn muốn hủy không?") == true) {
+                var data = {
+                    TINH_TRANG: "Đã hủy",
+                    };
+                var jsonData = JSON.stringify(data);
+                console.log(jsonData)
+                var operation = "Update";
+                var tableName = "hoa_don";
+                var idName = "MA_HD";
+                var idValue = maDonHang;
+                jQuery.ajax({
+                    url: '../AJAX_PHP/CRUD.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        jsonData : jsonData,
+                        operation: operation,
+                        tableName: tableName,
+                        idName : idName,
+                        idValue : idValue
+                    },
+                    success: function(response) {
+                        let tdTinhTrang = document.getElementById('tinhTrangDonHang_'+maDonHang)
+                        let btnHuyDonHang = document.getElementById('btnHuyDonHang_'+maDonHang)
+                        tdTinhTrang.innerHTML = "Đã hủy";
+                        btnHuyDonHang.style.display = 'none'
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+                
+    }
         }
 </script>
 </html>
