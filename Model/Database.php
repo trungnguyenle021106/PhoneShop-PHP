@@ -67,6 +67,27 @@ class MyConnection
         }
     }
 
+    
+    public function readCustom($selectCondition ,$tableName, $condition = "")
+    {
+        $sql = "SELECT ". $selectCondition . " FROM $tableName";
+        if (!empty($condition)) {
+            $sql .= " WHERE $condition";
+        }
+
+        $result = $this->connection->query($sql);
+
+        if ($result->num_rows > 0) {
+            $data = [];
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+            return $data;
+        } else {
+            return [];
+        }
+    }
+
     public function update($tableName, $id_name, $id, $data)
     {
         $set = [];

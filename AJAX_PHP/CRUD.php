@@ -12,6 +12,8 @@ $connect->connectDB();
 $operation = $_POST['operation'];
 $tableName = $_POST['tableName'];
 
+
+
 $jsonResponse;
 
 switch ($operation) {
@@ -35,7 +37,7 @@ switch ($operation) {
         $idName = $_POST['idName'];
         $idValue = $_POST['idValue'];
 
-        $connect->delete($tableName, $idName , $idValue);
+        $connect->delete($tableName, $idName, $idValue);
         $jsonResponse = $connect->read($tableName);
         break;
     case "Read":
@@ -43,10 +45,14 @@ switch ($operation) {
 
         $jsonResponse = $connect->read($tableName, $condition);
         break;
+    case "Custom Read":
+        $selectCondition = $_POST['selectCondition'];
+        $condition = $_POST['condition'];
+
+        $jsonResponse = $connect->readCustom($selectCondition,$tableName,$condition);
+        break;
     default:
         break;
 }
 echo json_encode($jsonResponse);
 $connect->closeConnection();
-
-?>
