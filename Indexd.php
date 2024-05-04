@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/Template.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/promotion.css">
-    <link rel="stylesheet" href="css/phone.css">
+    <link rel="stylesheet" href="css/phone.scss">
     <link rel="stylesheet" href="css/accessories.css">
     <link rel="stylesheet" href="css/Shoppingcart.css">
     <link rel="stylesheet" href="css/Home.css">
@@ -16,8 +16,8 @@
 </head>
 
 <body>
-    <?php 
-        require("PAGES/TopMenu.php");
+    <?php
+    require("PAGES/TopMenu.php");
     ?>
     <div class="page">
         <?php
@@ -26,8 +26,11 @@
     </div>
     <?php
     require("PAGES/Footer.php");
+
     ?>
 </body>
-    <script src="./js/event.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./js/event.js"></script>
+<script src="./js/page.js"></script>
 
 </html>

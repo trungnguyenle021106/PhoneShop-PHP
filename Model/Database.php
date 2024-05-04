@@ -1,4 +1,4 @@
-<?php
+ <?php
 class MyConnection
 {
     private $server, $username, $password, $database;
@@ -18,7 +18,7 @@ class MyConnection
         if ($this->connection->connect_error) {
             die("Kết nối đến MySQL thất bại: " . $this->connection->connect_error);
         }
-        echo "";
+
     }
 
     public function query($sql)
@@ -30,7 +30,6 @@ class MyConnection
     {
         if ($this->connection) {
             $this->connection->close();
-            echo "Kết nối đã đóng!";
         }
     }
 
@@ -76,7 +75,7 @@ class MyConnection
         }
         $set = implode(", ", $set);
         $sql = "UPDATE $tableName SET $set WHERE $id_name = $id";
-        
+
         if ($this->connection->query($sql) === TRUE) {
             return true;
         } else {

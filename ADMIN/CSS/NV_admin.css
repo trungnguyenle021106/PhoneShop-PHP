@@ -1,0 +1,286 @@
+
+/*form_NV_admin*/
+#form_NV_admin{
+    display: flex;
+    height: 100%;
+}
+#table_NV{
+    width: 70%;
+    border: 1px solid black;
+}
+
+#chucnang_NV{
+    width: 30%;
+}
+#form_NV_admin table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+#scroll-container{
+    overflow-y: scroll;
+    height: 88%;
+    
+    
+}
+#form_NV_admin table tr td{
+    border: 1px solid black;
+}
+#form_NV_admin table #thaotac_NV, .thaotac {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_NV_admin table #thaotac_NV:hover{
+    background-color: #746d6d11;
+}
+#form_NV_admin table .thaotac:hover{
+    background-color: #746d6d11;
+}
+
+#form_timkiem_NV{
+    border: 1px solid black;
+    width: 80%;
+    margin-left: 50px;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+#form_timkiem_NV #title{
+    text-align: center;
+    margin-top: 10px;
+}
+#form_timkiem_NV #opt_timkiem_NV{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+}
+#form_timkiem_NV #btn_timkiem_NV{
+    width: 30%;
+    height: 20px;
+    margin-left: 120px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_timkiem_NV #btn_timkiem_NV:hover{
+    background-color: #746d6d11;
+}
+
+
+#form_them_NV{
+    border: 1px solid black;
+    width: 80%;;
+    margin-left: 50px;
+    margin-top: 30px;
+    padding: 10px;
+}
+#form_them_NV #hoten{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#form_them_NV .btn_capTK{
+    width: 40%;
+    height: 20px;
+    margin-left: 90px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+#suaNV_container {
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(240, 204, 204, 0.7);
+    display: none;
+    
+}
+
+#form_sua_NV {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+    top: 100px;
+    left: 550px;
+    width: 400px;
+}
+
+#form_sua_NV h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#form_sua_NV label {
+    width: 100px;
+}
+
+#form_sua_NV input[type="date"],#form_sua_NV input[type="number"], input[type="text"]{
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#form_sua_NV input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#form_sua_NV input[type="submit"]:hover {
+    background-color: #45a049;
+}
+#form_sua_NV select{
+    margin-bottom: 10px;
+    width: 70px;
+    margin-left: -15px;
+}
+
+
+#form_them_NV {
+    border: 1px solid black;
+    width: 75%;
+    margin: 30px auto;
+    padding: 20px;
+    margin-left: 50px;
+}
+
+#form_them_NV h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+#form_them_NV {
+    border: 1px solid black;
+    width: 75%;
+    margin: 30px auto;
+    padding: 20px;
+    margin-left: 50px;
+}
+
+#form_them_NV h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+#form_them_NV input[type="text"], input[type="number"]{
+    width: calc(100% - 140px); /* Subtracting label width */
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    height: 10px;
+    border: 2px solid black ;
+
+}
+
+
+#form_them_NV .btn_themNV {
+    width: 40%;
+    height: 30px;
+    margin: 10px auto;
+    display: block;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#form_them_NV .btn_themNV:hover {
+    background-color: #45a049;
+}
+
+
+#capTK_container{
+    margin: 0 auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(240, 204, 204, 0.7);
+    display: none;
+}
+
+#capTK_container form {
+    margin: 50px auto;
+    width: 500px;
+    background-color: #f9f9f9;
+    position: relative;
+    top: 100px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 60%;
+}
+#capTK_container h2 {
+    color: #333;
+    text-align: center;
+}
+#capTK_container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    
+}
+#capTK_container section {
+    overflow-y: scroll;
+    height: 75%;
+}
+#capTK_container th, #capTK_container td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    cursor: pointer;
+}
+#capTK_container th {
+    background-color: #f2f2f2;
+}
+#capTK_container tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+#capTK_container tbody tr:hover {
+    background-color: #ddd;
+}
+
+#capTK_container form #capTK_btn {
+    width: 20%;
+    height: 30px;
+    margin: 10px auto;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    float: right;
+    margin-top: 20px;
+}
+/*form_NV_admin*/
