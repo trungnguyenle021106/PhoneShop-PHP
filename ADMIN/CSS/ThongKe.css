@@ -6,14 +6,15 @@
 }
 #table_TK{
     width: 70%;
-    border: 1px solid black;
-    height: 93%;
+    height: 92%;
     margin-left: 2px;
 }
 
 #chucnang_TK{
     width: 30%;
 }
+
+
 #form_TK_admin table{
     width: 100%;
     text-align: center;
@@ -22,8 +23,12 @@
 #scroll-container{
     overflow-y: scroll;
     height: 88%;
-    
+    border: solid 1px black;
+    border-left: none;
+    border-right: none;
 }
+
+
 #form_TK_admin table tr td{
     border: 1px solid black;
 }

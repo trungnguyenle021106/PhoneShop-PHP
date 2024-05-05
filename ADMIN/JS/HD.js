@@ -1,15 +1,141 @@
 // Gọi hàm read để lấy dữ liệu 
-read();
+readVer2("tăng dần")
 // Gọi hàm read để lấy dữ liệu 
 
 
+var MAHD = "";
+
+//loadData
+function getSearchNormalCondition() {
+    var condition = "";
+    var seacrhType = document.getElementById("opt_timkiem_HD").value;
+    var searchValue = document.getElementById("txt_timkiem_HD").value;
+
+    if (searchValue != "") {
+        condition = seacrhType + " LIKE '%" + searchValue + "%' AND ";
+    }
+    else {
+        condition = "1=1 AND "
+    }
+    return condition;
+}
+
+function getDateCondition() {
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+
+    var condition = "";
+
+    if (start == "" || end == "") {
+        alert("Không bỏ trống ngày bắt đầu hoặc kết thúc")
+        return false;
+    }
+    else if (start > end) {
+        alert("Ngày bắt đầu không lớn hơn ngày kết thúc");
+        return false;
+    }
+    condition = "hoa_don.NGAY_TAO >= '" + start + "' AND hoa_don.NGAY_TAO <= '" + end + "' ";
+    return condition;
+
+}
+
+function getSortCondition(sortValue) {
+    var typeSort = document.getElementById("opt_sapxep_HD").value;
+
+    var condition = ""
+    if (typeSort.includes("STR_")) {
+        typeSort = typeSort.split("STR_")[1];
+        typeSort = "LENGTH(" + typeSort + ")";
+    }
+
+    if (sortValue == "tăng dần") {
+        condition += "ORDER BY " + typeSort + " ASC"
+    }
+    else {
+        condition += " ORDER BY " + typeSort + " DESC"
+    }
+    return condition;
+
+}
+
+function readVer2(sortValue) {
+    var operation = "Read";
+    var tableName = "hoa_don";
+
+    var searchCondition = getSearchNormalCondition();
+    var dateCondition = getDateCondition();
+    var sortCondition = getSortCondition(sortValue);
+
+    if (dateCondition !== false) {
+        var condition = searchCondition + dateCondition + sortCondition;
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                operation: operation,
+                tableName: tableName,
+                condition: condition
+            },
+            success: function (response) {
+
+                DisplayHDElement(response);
+                setAmountHD();
+                setUIElementHD()
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+}
 
 
 //loadData
-function read() {
-    var operation = "Read";
-    var tableName = "hoa_don";
-    var condition = "";
+
+// -------------------------------------------formation-chức năng phụ------------------------------------------------ //
+
+function setAmountHD() {
+    var SLHD_HT = document.querySelector('#SLHD_HT span');
+    var rows = document.querySelectorAll('#table_HD table tbody tr ');
+    SLHD_HT.innerText = rows.length;
+}
+
+function DisplayBackButton() {
+    document.getElementById("btn_back").style.display = "block";
+    document.getElementById("top_contentHD").style.display = "none";
+    document.getElementById("btn_back").addEventListener('click', function (event) {
+        ResetDate();
+        readVer2("tăng dần");
+    });
+}
+
+function setUIElementHD() {
+    document.getElementById("btn_back").style.display = "none";
+    document.getElementById("top_contentHD").style.display = "flex";
+    document.getElementById("KH_XULYHD").style.display = "none"
+    document.getElementById("scroll-container").classList.remove("scroll-container-CTHD")
+}
+
+function setUIElementCTHD(flag) {
+    if (flag == true) {
+        document.getElementById("KH_XULYHD").style.display = "block"
+        document.getElementById("XuLyDonHang").style.display = "block"
+        document.getElementById("scroll-container").classList.add("scroll-container-CTHD")
+    }
+    else if (flag == false) {
+        document.getElementById("KH_XULYHD").style.display = "block"
+        document.getElementById("XuLyDonHang").style.display = "none"
+        document.getElementById("scroll-container").classList.add("scroll-container-CTHD")
+    }
+}
+
+function setTTHD_KH(maHD) {
+    var operation = "Custom Read";
+    var tableName = " hoa_don JOIN khach_hang ON hoa_don.MA_KH = khach_hang.MA_KH ";
+    var condition = " hoa_don.MA_HD =" + maHD;
+    var selectCondition = " khach_hang.HOTEN_KH, khach_hang.SO_DT, hoa_don.TINH_TRANG "
+
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -17,39 +143,25 @@ function read() {
         data: {
             operation: operation,
             tableName: tableName,
-            condition: condition
+            condition: condition,
+            selectCondition: selectCondition
         },
         success: function (response) {
 
-            DisplayHDElement(response);
+            document.getElementById("tenKH").innerText = response[0].HOTEN_KH;
+            document.getElementById("sdtKH").innerText = response[0].SO_DT;
+            document.getElementById("TTDH").innerText = response[0].TINH_TRANG;
 
-            setAmountHD();
+            if (response[0].TINH_TRANG == "Đã giao hàng" || response[0].TINH_TRANG == "Hủy đơn hàng") {
+                setUIElementCTHD(false);
+            }
+            else {
+                setUIElementCTHD(true);
+            }
         },
         error: function (xhr, status, error) {
             console.log(error);
         }
-    });
-}
-//loadData
-
-// -------------------------------------------formation-chức năng phụ------------------------------------------------ //
-
-function setAmountHD()
-{
-    var SLHD_HT = document.querySelector('#SLHD_HT span');
-    var rows = document.querySelectorAll('#table_HD table tbody tr ');
-    SLHD_HT.innerText = rows.length;
-}
-
-function DisplayBackButton()
-{
-    document.getElementById("btn_back").style.display  = "block";
-    document.getElementById("top_contentHD").style.display  = "none";
-    document.getElementById("btn_back").addEventListener('click', function (event) {
-        event.preventDefault();
-        document.getElementById("btn_back").style.display  = "none";
-        document.getElementById("top_contentHD").style.display  = "flex";
-        Filter("tăng dần");
     });
 }
 
@@ -57,6 +169,7 @@ function DisplayHeadTableCTHD() {
     var html = "<tr>\
     <td>Mã hóa đơn</td>\
     <td>Mã sản phẩm</td>\
+    <td>Tên sản phẩm</td>\
     <td>Số lượng</td>\
     <td>Thành tiền</td>\
     <td>Thuế suất</td>\
@@ -66,11 +179,15 @@ function DisplayHeadTableCTHD() {
     headTable.innerHTML = html;
 }
 
-
 function DisplayCTHDElement(maHD) {
-    var operation = "Read";
-    var tableName = "chi_tiet_hoadon";
+
+    setTTHD_KH(maHD)
+    MAHD = maHD;
+    var operation = "Custom Read";
+    var tableName = "san_pham JOIN chi_tiet_hoadon ON san_pham.MA_SP = chi_tiet_hoadon.MA_SP";
     var condition = "MA_HD = " + maHD;
+
+    var selectCondition = "chi_tiet_hoadon.*, san_pham.TEN_SP "
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -78,11 +195,13 @@ function DisplayCTHDElement(maHD) {
         data: {
             operation: operation,
             tableName: tableName,
-            condition: condition
+            condition: condition,
+            selectCondition: selectCondition
         },
         success: function (response) {
             DisplayBackButton()
             DisplayHeadTableCTHD()
+
             elementPage = response;
             var html = "";
             for (var i = 0; i < elementPage.length; i++) {
@@ -90,8 +209,9 @@ function DisplayCTHDElement(maHD) {
         <tr>
         <td id="MAHD">${elementPage[i].MA_HD}</td>
         <td id="MASP">${elementPage[i].MA_SP}</td>
+        <td id="MASP">${elementPage[i].TEN_SP}</td>
         <td id="SL">${elementPage[i].SL_BAN}</td>
-        <td id="ThanhTien"><span>${ changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
+        <td id="ThanhTien"><span>${changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
         <td id="ThueSuat"><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
        </tr>
         `;
@@ -112,9 +232,9 @@ function DisplayHeadTableHD() {
     <td>Mã khuyến mãi</td>\
     <td>Mã khách hàng</td>\
     <td>Mã nhân viên</td>\
-    <td>Tình trạng</td>\
     <td>Ngày tạo</td>\
     <td>Tổng tiền</td>\
+    <td>Tình trạng</td>\
     <td colspan=\"3\">Thao tác</td>\
     </tr>";
 
@@ -132,18 +252,9 @@ function DisplayHDElement(elementPage) {
         <td id="HD_MaKM">${elementPage[i].MA_KM}</td>
         <td id="HD_MaKH">${elementPage[i].MA_KH}</td>
         <td id="HD_MaHD">${elementPage[i].MA_NV}</td>
-        <td id="HD_TinhTrang">${elementPage[i].TINH_TRANG}</td>
         <td id="HD_NgayTao">${elementPage[i].NGAY_TAO}</td>
-        <td id="HD_TongTien"><span> ${changePriceToString(elementPage[i].TONG_TIEN)}</span></td>`
-        if (1 < 2) {
-            html += ` <td><button  onclick="XoaHoaDon(${elementPage[i].MA_HD})" class="thaotac">Xóa hóa đơn</button></td>`
-        }
-        if (elementPage[i].TINH_TRANG != "Đã xử lý") {
-            html += `<td><button onclick="XuLyDonHang(${elementPage[i].MA_HD})" class="thaotac">Xử lý hóa đơn</button></td>`
-        }
-        else {
-            html += `<td><button disabled style="cursor: initial; background-color: initial;"  onclick="XuLyDonHang(${elementPage[i].MA_HD})" class="thaotac">Xử lý hóa đơn</button></td>`
-        }
+        <td id="HD_TongTien"><span> ${changePriceToString(elementPage[i].TONG_TIEN)}</span></td>
+        <td id="HD_TinhTrang">${elementPage[i].TINH_TRANG}</td>`
         html += `<td><button onclick=" DisplayCTHDElement(${elementPage[i].MA_HD})" class="thaotac">Xem chi tiết hóa đơn</button></td>`
         html += `</tr>`;
     }
@@ -153,37 +264,42 @@ function DisplayHDElement(elementPage) {
 }
 
 function AddSerial(maHD) {
-    GetChiTietHoaDonForAddSerial(maHD, function (list_cthd) {
+    GetChiTietHoaDon(maHD, function (list_cthd) {
+        var data = {};
+        var column = {
+            "column1": "MA_SP",
+            "column2": "SERIAL_NUMBER"
+        };
         for (var i = 0; i < list_cthd.length; i++) {
-            var data = {
-                MA_SP: list_cthd[i].MA_SP,
-                SERIAL_NUMBER: "CHƯA CÓ SERIAL"
-            };
-
-            var jsonData = JSON.stringify(data);
-            var operation = "Create";
-            var tableName = "serial";
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData: jsonData,
-                    operation: operation,
-                    tableName: tableName
-                },
-                success: function (response) {
-                    console.log(response)
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
-            });
+            data[i] = [list_cthd[i].MA_SP, "CHƯA CÓ SERIAL"]
         }
+
+        var jsonData = JSON.stringify(data);
+        var jsonColumn = JSON.stringify(column);
+        var operation = "Create Custom";
+        var tableName = "serial";
+
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData: jsonData,
+                jsonColumn: jsonColumn,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
     });
 }
 
-function GetChiTietHoaDonForAddSerial(maHD, callback) {
+function GetChiTietHoaDon(maHD, callback) {
     var operation = "Read";
     var tableName = "chi_tiet_hoadon";
     var condition = "MA_HD =" + maHD;
@@ -205,10 +321,17 @@ function GetChiTietHoaDonForAddSerial(maHD, callback) {
     });
 }
 
-function XuLyDonHang(maHD) {
+function XuLyDonHang() {
+    var maHD = MAHD;
+    var tinhtrang = document.getElementById("opt_TT_HD").value;
     var data = {
-        TINH_TRANG: "Đã xử lý"
+        TINH_TRANG: tinhtrang
     };
+
+    if (tinhtrang == "Đã giao hàng") {
+        AddSerial(maHD);
+    }
+
     var jsonData = JSON.stringify(data);
     var operation = "Update";
     var tableName = "hoa_don";
@@ -226,56 +349,7 @@ function XuLyDonHang(maHD) {
             idValue: maHD
         },
         success: function (response) {
-            AddSerial(maHD);
-            read();
-        },
-        error: function (xhr, status, error) {
-            console.log(error);
-        }
-    });
-}
-
-function XoaHoaDon(maHD) {
-    XoaChiTietDonHangForXoaHoaDon(maHD, function () {
-        var operation = "Delete";
-        var tableName = "hoa_don";
-        var idName = "MA_HD";
-        $.ajax({
-            url: '../AJAX_PHP/CRUD.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                operation: operation,
-                tableName: tableName,
-                idName: idName,
-                idValue: maHD
-            },
-            success: function (response) {
-                read();
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-            }
-        });
-    });
-}
-
-function XoaChiTietDonHangForXoaHoaDon(maHD, callback) {
-    var operation = "Delete";
-    var tableName = "chi_tiet_hoadon";
-    var idName = "MA_HD";
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: operation,
-            tableName: tableName,
-            idName: idName,
-            idValue: maHD
-        },
-        success: function (response) {
-            callback()
+            setTTHD_KH(maHD)
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -284,88 +358,12 @@ function XoaChiTietDonHangForXoaHoaDon(maHD, callback) {
 }
 
 
-
-function getConditionSort(typeSort, valueSort) {
-    var condition = ""
-    if (typeSort.includes("STR_")) {
-        typeSort = typeSort.split("STR_")[1];
-        typeSort = "LENGTH(" + typeSort + ")";
-    }
-
-    if (valueSort == "tăng dần") {
-        condition += "ORDER BY " + typeSort + " ASC"
-    }
-    else {
-        condition += "ORDER BY " + typeSort + " DESC"
-    }
-    return condition;
-}
-
-function getConditionInTime(startDay, endDay) {
-    var condition = "AND NGAY_TAO >= '" + startDay + "' ";
-    condition += " AND NGAY_TAO <= '" + endDay + "' ";
-    return condition;
-}
-
-function getCondition(typeSearch, valueSearch, typeSort, valueSort, startDay, endDay) {
-    var condition = ""
-    if (valueSearch == "") {
-        condition += "1 = 1 ";
-        condition += getConditionInTime(startDay, endDay) + getConditionSort(typeSort, valueSort);
-    }
-    else {
-        condition += typeSearch + " LIKE '%" + valueSearch + "%'";
-        condition += getConditionInTime(startDay, endDay) + getConditionSort(typeSort, valueSort);
-    }
-
-    return condition;
-}
-
-function Filter(valueSort) {
-
-    var opt_search = document.getElementById('opt_timkiem_HD').value;
-    var txt_search = document.getElementById('txt_timkiem_HD').value;
-    var optsx = document.getElementById('opt_sapxep_HD').value;
-    var start = document.getElementById("start").value
-    var end = document.getElementById("end").value
-
-    if(document.getElementById("btn_back").style.display  != "none");
-    {
-        document.getElementById("btn_back").style.display  = "none";
-        document.getElementById("top_contentHD").style.display  = "flex";
-    }
-    
-
-    if (compareDay(start, end) == false) {
-        return;
-    }
-    var operation = "Read";
-    var tableName = "hoa_don";
-    var condition = getCondition(opt_search, txt_search, optsx, valueSort, start, end);
-    console.log(condition)
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: operation,
-            tableName: tableName,
-            condition: condition
-        },
-        success: function (response) {
-            DisplayHDElement(response);
-        },
-        error: function (xhr, status, error) {
-            console.log(error);
-        }
-    });
-}
 
 //chức năng tìm kiếm
 document.getElementById('btn_timkiem_HD').addEventListener('click', function (event) {
     event.preventDefault();
 
-    Filter("tăng dần")
+    readVer2("tăng dần")
 });
 //chức năng tìm kiếm
 
@@ -373,41 +371,45 @@ document.getElementById('btn_timkiem_HD').addEventListener('click', function (ev
 document.getElementById('btn_tang').addEventListener('click', function (event) {
     event.preventDefault();
 
-    Filter("tăng dần")
+    readVer2("tăng dần")
 });
 
 
 document.getElementById('btn_giam').addEventListener('click', function (event) {
     event.preventDefault();
-    Filter("giảm dần")
+    readVer2("giảm dần")
 });
 //chức năng sắp xếp
 
-function compareDay(startDay, endDay) {
-    var start = new Date(startDay);
-    var end = new Date(endDay);
-
-    if (start == "Invalid Date" || end == "Invalid Date") {
-        alert("Không bỏ trống ngày bắt đầu hoặc kết thúc")
-        return false;
-    }
-
-    if (start > end) {
-
-        alert("Ngày bắt đầu không lớn hơn ngày kết thúc")
-        return false;
-    }
-    return true;
-}
 
 document.getElementById('btn_timTheoKhoangTG').addEventListener('click', function (event) {
     event.preventDefault();
-    Filter("tăng dần")
+    readVer2("tăng dần")
+});
+
+document.getElementById("UpdateDH").addEventListener('click', function (event) {
+    var result = confirm("Bạn có chắc chắn muốn thay đổi tình trạng đơn hàng?");
+    if (result === true) {
+        XuLyDonHang();
+    }
 });
 
 document.getElementById('RESET').addEventListener('click', function (event) {
-    event.preventDefault();
+    ResetDate(function () {
+        var list_opts_search = document.getElementById('opt_timkiem_HD').options;
+        list_opts_search[0].selected = true;
+        var list_optsx = document.getElementById('opt_sapxep_HD').options;
+        list_optsx[0].selected = true;
+        document.getElementById('txt_timkiem_HD').value = "";
 
+        readVer2("tăng dần");
+    })
+});
+
+
+
+
+function ResetDate(callback) {
     var operation = "Read";
     var tableName = "hoa_don";
     var condition = "1=1 ORDER BY NGAY_TAO ASC";
@@ -421,21 +423,14 @@ document.getElementById('RESET').addEventListener('click', function (event) {
             condition: condition
         },
         success: function (response) {
-            var list_opts_search = document.getElementById('opt_timkiem_HD').options;
-            list_opts_search[0].selected = true;
-            var list_optsx = document.getElementById('opt_sapxep_HD').options;
-            list_optsx[0].selected = true;
-        
-            document.getElementById('txt_timkiem_HD').value = "";
-        
             var start = document.getElementById("start")
             var end = document.getElementById("end")
             end.value = response[response.length - 1].NGAY_TAO
             start.value = response[0].NGAY_TAO
-
+            callback();
         },
         error: function (xhr, status, error) {
             console.log(error);
         }
     });
-});
+}

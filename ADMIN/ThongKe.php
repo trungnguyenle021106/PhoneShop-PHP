@@ -3,15 +3,13 @@ require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 
-$list_hoadon = $connect->read("hoa_don", " TINH_TRANG = 'Đã xử lý' ORDER BY NGAY_TAO ASC");
+$list_hoadon = $connect->read("hoa_don", " TINH_TRANG = 'Đã giao hàng' ORDER BY NGAY_TAO ASC");
 reset($list_hoadon);
 $start = current($list_hoadon)["NGAY_TAO"];
 end($list_hoadon);
 $end = current($list_hoadon)["NGAY_TAO"];
 
 
-$startFormart = DateTime::createFromFormat('Y-m-d', $start);
-$endFormart = DateTime::createFromFormat('Y-m-d', $end);
 ?>
 <link rel="stylesheet" href="CSS/ThongKe.css">
 
@@ -19,13 +17,10 @@ $endFormart = DateTime::createFromFormat('Y-m-d', $end);
 <div id="form_TK_admin">
     <div id="table_TK">
         <div id="top_contentTK" style="display: flex;">
-            <div style="width: 60%; margin-top: 20px;  font-size: 25px;" id="SLTK_HT">Tổng doanh thu: <span style="font-weight: bold; "></span></div>
-            <h2 id="startH2" style="width: 20%; ">Từ ngày : <?php echo $startFormart->format('d-m-Y'); ?></h2>
-            <h2 id="endH2" style="width: 20%; ">Đến ngày : <?php echo $endFormart->format('d-m-Y'); ?></h2>
+            <div style="width: 60%; margin-top: 20px; margin-bottom:10px; font-size: 25px;" id="SLTK_HT">Tổng doanh thu: <span style="font-weight: bold; "></span></div>
         </div>
         
-        <button id="btn_back" style="display: none; cursor:pointer; font-size:20px ; margin:5px 0px; margin-left:10px; background-color:white">Trở về hóa đơn</button>
-        <div id="scroll-container">
+        <div id="scroll-container"  >
             <table>
                 <thead id="head_table" style=" background-color: #746d6d11; font-weight: bold; ">
                     <tr>
@@ -46,7 +41,7 @@ $endFormart = DateTime::createFromFormat('Y-m-d', $end);
     </div>
 
     <div id="chucnang_TK">
-        <button id="RESET" style="margin-left:50px; margin-bottom: 20px; font-size:20px; background-color:white; cursor:pointer">Reset tìm kiếm và sắp xếp</button>
+        <button id="RESET" style="margin-left:50px; margin-bottom: 20px; margin-top:10px ;font-size:20px; background-color:white; cursor:pointer">Reset tìm kiếm và sắp xếp</button>
         <form action="" method="POST" id="form_timkiem_TK">
             <h2 id="title">Sản phẩm bán chạy theo top</h2>
             
@@ -80,21 +75,11 @@ $endFormart = DateTime::createFromFormat('Y-m-d', $end);
                 <input type="date" value="<?php echo $end; ?>" id="end" style="width: 60%;">
             </div>
 
-            <input type="submit" value="Tìm" id="btn_timTheoKhoangTG">
+            <input type="button" value="Tìm" id="btn_timTheoKhoangTG">
         </form>
 
 
-        <form action="" method="POST" id="form_sapxep_TK">
-            <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
-            <select name="" id="opt_sapxep_TK">
-                <option value="MA_SP">Mã sản phẩm</option>
-                <option value="SL_DA_BAN">Số lượng đã bán</option>
-                <option value="DOANH_THU">Doanh thu</option>
-               </select>
-            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="submit" id="btn_tang" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
-            <input type="submit" id="btn_giam" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
-        </form>
+       
 
     </div>
 </div>

@@ -24,6 +24,15 @@ switch ($operation) {
         $connect->create($tableName, $data);
         $jsonResponse = $connect->read($tableName);
         break;
+    case "Create Custom":
+        $jsonData = $_POST['jsonData'];
+        $jsonColumn = $_POST['jsonColumn'];
+        $data = json_decode($jsonData, true);
+        $columns = json_decode($jsonColumn, true);
+
+        $connect->createCustom($tableName, $data, $columns);
+        $jsonResponse = $connect->read($tableName);
+        break;
     case "Update":
         $jsonData = $_POST['jsonData'];
         $data = json_decode($jsonData, true);
@@ -49,7 +58,7 @@ switch ($operation) {
         $selectCondition = $_POST['selectCondition'];
         $condition = $_POST['condition'];
 
-        $jsonResponse = $connect->readCustom($selectCondition,$tableName,$condition);
+        $jsonResponse = $connect->readCustom($selectCondition, $tableName, $condition);
         break;
     default:
         break;

@@ -1,25 +1,30 @@
 function add()
 {
     var data = {
-        MA_SP: "1",
-        SERIAL_NUMBER:"CHƯA CÓ"
-      };
-      var ar =[];
-      ar.push(data);
-      var data1 = {
-        MA_SP: "1",
-        SERIAL_NUMBER:"CHƯA CÓ"
-      };
-      ar.push(data1);
-    var jsonData = JSON.stringify(ar);
-    var operation = "Create";
-    var tableName = "loai";
+        "row1": ["1", "CHƯA CÓ"],
+        "row2": ["1", "CHƯA CÓ"]
+    };
+    
+    var column = {
+        "column1": "MA_SP",
+        "column2": "SERIAL_NUMBER"
+    };
+
+
+
+    var jsonData = JSON.stringify(data);
+    var jsonColumn = JSON.stringify(column);
+    console.log(jsonData)
+    console.log(jsonColumn)
+    var operation = "Create Custom";
+    var tableName = "serial";
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {
             jsonData : jsonData,
+            jsonColumn : jsonColumn,
             operation: operation,
             tableName: tableName
         },
@@ -27,7 +32,7 @@ function add()
             console.log(response);
         },
         error: function(xhr, status, error) {
-            console.log(error);
+            console.log(xhr+status+error);
         }
     });
 }

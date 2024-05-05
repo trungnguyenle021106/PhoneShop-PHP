@@ -18,7 +18,7 @@ $end = current($list_hoadon)["NGAY_TAO"];
     </form>
     <form action="" method="POST">
         <input type="hidden" name="page" value="CTHD">
-        <input type="submit" value="chi tiết" id="btn2">
+        <input type="submit" value="Chi tiết" id="btn2">
     </form>
 </div>
 
@@ -28,11 +28,39 @@ $end = current($list_hoadon)["NGAY_TAO"];
             <div style="margin-top: 20px; margin-left: 20px; font-size: 25px;" id="SLHD_HT">Số lượng hiện có: <span style="font-weight: bold; "></span></div>
             <h2 style="margin-left: 230px; ">Danh sách hóa đơn</h2>
         </div>
-        <button id ="btn_back" style="display: none; cursor:pointer; font-size:20px ; margin:5px 0px; margin-left:10px; background-color:white">Trở về hóa đơn</button>
+        <button id="btn_back" style="display: none; cursor:pointer; font-size:20px ; margin:5px 0px; margin-left:10px; background-color:white">Trở về hóa đơn</button>
+        <div id="KH_XULYHD" style="width: 98%;margin:10px auto; border:solid 1px black; display:none">
+            <div style="width: 100%;margin:10px; display:flex">
+                <div style="width: 50%;">
+                    <span style="font-size:20px">Tên khách hàng :</span>
+                    <span id="tenKH" style="font-size:20px">Tên khách hàng</span>
+                </div>
+                <div style="width: 50%;">
+                    <span style="font-size:20px;">Số điện thoại :</span>
+                    <span id="sdtKH" style="font-size:20px;">Số điện thoại</span>
+                </div>
+            </div>
+            <hr>
+            <div style="width: 100%;margin:10px; display:flex">
+                <div style="width: 50%;">
+                    <span style="font-size:20px">Tình trạng đơn hàng :</span>
+                    <span id="TTDH" style="font-size:20px">Chưa liên lạc</span>
+                </div>
+                <div id="XuLyDonHang" style="width: 50%;">
+                    <select style="font-size:20px; width:200px;" name="" id="opt_TT_HD">
+                        <option value="Đã liên lạc">Đã liên lạc</option>
+                        <option value="Đã giao hàng">Đã giao hàng</option>
+                        <option value="Hủy đơn hàng">Hủy đơn hàng</option>
+                    </select>
+                    <button id="UpdateDH" style="font-size:20px; cursor:pointer; background-color:white; margin-left:10px">Cập nhật đơn hàng</button>
+                </div>
+            </div>
+        </div>
         <div id="scroll-container">
             <table>
+
                 <thead id="head_table" style=" background-color: #746d6d11; font-weight: bold; ">
-                    
+
                 </thead>
                 <tbody id="data">
 
@@ -42,7 +70,7 @@ $end = current($list_hoadon)["NGAY_TAO"];
     </div>
 
     <div id="chucnang_HD">
-    <button id="RESET" style="margin-left:50px; margin-bottom: 20px; font-size:20px; background-color:white; cursor:pointer">Reset tìm kiếm và sắp xếp</button>
+        <button id="RESET" style="margin-left:50px; margin-bottom: 20px; font-size:20px; background-color:white; cursor:pointer">Reset tìm kiếm và sắp xếp</button>
         <form action="" method="POST" id="form_timkiem_HD">
             <h2 id="title">Tìm kiếm</h2>
             <select name="" id="opt_timkiem_HD">
@@ -55,7 +83,7 @@ $end = current($list_hoadon)["NGAY_TAO"];
                 <option value="TONG_TIEN">Tổng tiền</option>
             </select>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="text" id="txt_timkiem_HD" style="width: 54%; margin-left: 20px;" placeholder="Nhập hóa đơn cần tìm">
+            <input type="text" id="txt_timkiem_HD" style="width: 54%; margin-left: 20px;" placeholder="Nhập từ khóa">
             <input type="submit" value="Tìm" id="btn_timkiem_HD">
         </form>
 
@@ -63,15 +91,15 @@ $end = current($list_hoadon)["NGAY_TAO"];
             <h2 id="title">Tìm kiếm trong khoảng thời gian</h2>
             <div style="display: flex;">
                 <div style="width: 30%">Ngày bắt đầu</div>
-                <input type="date" value="<?php echo $start;?>" id="start" style="width: 60%; ">
+                <input type="date" value="2024-05-02" id="start" style="width: 60%; ">
             </div>
 
             <div style="display: flex;">
                 <div style="width: 30%">Ngày kết thúc</div>
-                <input type="date" value="<?php echo $end;?>" id="end" style="width: 60%;">
+                <input type="date" value="<?php echo $end; ?>" id="end" style="width: 60%;">
             </div>
 
-            <input type="submit" value="Tìm"  id="btn_timTheoKhoangTG">
+            <input type="submit" value="Tìm" id="btn_timTheoKhoangTG">
         </form>
 
 

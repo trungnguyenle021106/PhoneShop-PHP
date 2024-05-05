@@ -50,8 +50,8 @@ $connect->connectDB();
                 <option value="THUE_SUAT">Thuế suất</option>
             </select>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="submit" id="btn_tang" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
-            <input type="submit" id="btn_giam" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+            <input type="button" id="btn_tang" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+            <input type="button" id="btn_giam" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
         </form>
 
         <form action="" method="POST" id="form_timkiem_CTHD">
@@ -66,7 +66,7 @@ $connect->connectDB();
             <input type="text" id="txt_timkiem_CTHD" style="width: 54%; margin-left: 20px;" placeholder="Nhập CTHD cần tìm">
             
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="submit" value="Tìm" id="btn_timkiem_CTHD">
+            <input type="button" value="Tìm" id="btn_timkiem_CTHD">
         </form>
 
         

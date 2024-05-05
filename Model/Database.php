@@ -18,7 +18,6 @@ class MyConnection
         if ($this->connection->connect_error) {
             die("Kết nối đến MySQL thất bại: " . $this->connection->connect_error);
         }
-
     }
 
     public function query($sql)
@@ -38,6 +37,30 @@ class MyConnection
         $columns = implode(", ", array_keys($data));
         $values = "'" . implode("', '", array_values($data)) . "'";
         $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
+
+        if ($this->connection->query($sql) === TRUE) {
+            return true;
+        } else {
+            echo "Lỗi khi tạo dữ liệu: " . $this->connection->error;
+            return false;
+        }
+    }
+
+
+
+    public function createCustom($tableName, $data, $columns)
+    {
+        $columnValues = array_values($columns);
+        $columnNames = implode(", ", $columnValues);
+
+        $valueSets = [];
+        foreach ($data as $row) {
+            $rowValues = array_values($row);
+            $valueSets[] = "('" . implode("', '", $rowValues) . "')";
+        }
+        $values = implode(", ", $valueSets);
+
+        $sql = "INSERT INTO $tableName ($columnNames) VALUES $values ;";
 
         if ($this->connection->query($sql) === TRUE) {
             return true;
@@ -67,10 +90,10 @@ class MyConnection
         }
     }
 
-    
-    public function readCustom($selectCondition ,$tableName, $condition = "")
+
+    public function readCustom($selectCondition, $tableName, $condition = "")
     {
-        $sql = "SELECT ". $selectCondition . " FROM $tableName";
+        $sql = "SELECT " . $selectCondition . " FROM $tableName";
         if (!empty($condition)) {
             $sql .= " WHERE $condition";
         }
@@ -105,7 +128,7 @@ class MyConnection
         }
     }
 
-    public function delete($tableName, $id_name ,$id)
+    public function delete($tableName, $id_name, $id)
     {
         $sql = "DELETE FROM $tableName WHERE $id_name = $id";
 

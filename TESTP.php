@@ -13,13 +13,16 @@
     <input type="button" onclick="Delete()" value="delete">
     <input type="button" onclick="read()" value="read">
     <div id="container">
-    <ul id="elementPage">
+        <ul id="elementPage">
 
-    </ul>
-    <div id="pageContainer"></div>
+        </ul>
+
+     
+        <div id="pageContainer"></div>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="./js/TEST_CRUD_AJAX_PHP.js"></script>
+
 </html>
