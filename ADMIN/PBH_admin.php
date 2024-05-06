@@ -15,7 +15,7 @@ $connect->connectDB();
     </div>
 
     <div id="chucnang_PBH">
-        <form action="" method="POST" id="form_timkiem_PBH">
+        <div  id="form_timkiem_PBH">
             <h2 id="title">Tìm kiếm</h2>
             <select  id="opt_timkiem_PBH">
                 <option value="phieu_bao_hanh.MA_PBH">Mã phiếu bảo hành</option>
@@ -28,7 +28,7 @@ $connect->connectDB();
             </select>
             <input type="text" id="txt_timkiem_PBH" style="width: 54%; margin-left: 20px;" placeholder="Nhập phiếu bảo hàng">
             <input type="button" value="Tìm" id="btn_timkiem_PBH">
-        </form>
+        </div>
 
 
     </div>

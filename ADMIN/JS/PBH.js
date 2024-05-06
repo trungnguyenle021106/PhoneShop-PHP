@@ -4,6 +4,8 @@ readVer2()
 
 var NGAY_BAT_DAU = ""
 var MA_PBH = "";
+var MA_KH = "";
+var MA_SERIAL = "";
 //loadData
 function readVer2() {
     var operation = "Custom Read";
@@ -68,7 +70,7 @@ function DisplayPBHElementPage(elementPage) {
         <td id="PBH_end_day">${elementPage[i].NGAY_HET_HAN}</td>
         <td id="PBH_thoigian">${elementPage[i].THOI_GIAN_BAOHANH} tháng</td>
         <td id="PBH_thoigian">${elementPage[i].TINH_TRANG}</td>
-           <td><input type="button" onclick="readCTBH(${elementPage[i].MA_KH},${elementPage[i].MA_SERIAL})" class="thaotac" value="xem chi tiết"></td>
+        <td><input type="button" onclick="readCTBH(${elementPage[i].MA_KH},${elementPage[i].MA_SERIAL}, '${elementPage[i].NGAY_BAT_DAU}')" class="thaotac" value="xem chi tiết"></td>
        </tr>
         `;
     }
@@ -97,12 +99,19 @@ function setUICTPBH(data) {
     var tenSP = data[0].TEN_SP
     var TGBH = data[0].THOI_GIAN_BAOHANH;
     var TINH_TRANG = data[0].TINH_TRANG;
-
+    var flag = checkCTPBH(TGBH, TINH_TRANG);
 
 
     var table = document.getElementById("table_PBH");
     table.innerHTML = getUIHeadCTPBH() + getUIContentCTPBH(tenKH, soDT, soSerial, tenSP, TGBH, TINH_TRANG);
     BackButton();
+    if (flag == "btn_TL") {
+        setBTN_TL();
+    }
+    else if (flag == "btn_GH") {
+        setBTNGiaHanBaoHanh();
+        setBTNHuyHieuLucBaoHanh();
+    }
 }
 
 function getUIHeadPBH() {
@@ -140,6 +149,8 @@ function getUIContentPBH() {
 }
 
 function getUIContentCTPBH(tenKH, SdtKH, soSerial, tenSP, TGBH, TT) {
+    var flag = checkCTPBH(TGBH, TT);
+
     var html = '<div id="form_sapxep_PBH" style="margin:0px auto">' +
         '<h2 style="margin-top: 10px; text-align: center;">Chi tiết phiếu bảo hành</h2>' +
         '<div style="width: 100%; display:flex; font-size:20px">' +
@@ -183,16 +194,16 @@ function getUIContentCTPBH(tenKH, SdtKH, soSerial, tenSP, TGBH, TT) {
         '<span>Thời gian bảo hành</span>' +
         '</div>' +
         '<div style="width: 45%;">'
-    if (checkCTPBH(TGBH, TT) !== "btn_TL") {
+    if (flag === "") {
         html += '<span>' + TGBH + ' tháng</span>';
     }
-    else {
+    else if (flag == "btn_GH" || flag == "btn_TL") {
         html += '<select style="font-size:20px"  id="opt_thang">' +
             '<option value="1">1 tháng</option>' +
             '<option value="3">3 tháng</option>' +
             '<option value="6">6 tháng</option>' +
             '<option value="12">12 tháng</option>' +
-            ' <option value="18">18 tháng</option>' +
+            '<option value="18">18 tháng</option>' +
             '<option value="24">24 tháng</option>' +
             '<option value="36">36 tháng</option>' +
             ' </select>'
@@ -209,24 +220,23 @@ function getUIContentCTPBH(tenKH, SdtKH, soSerial, tenSP, TGBH, TT) {
         '<span>' + TT + '</span>' +
         '</div>' +
         '</div>'
-    if (checkCTPBH(TGBH, TT) == "btn_TL") {
+    if (flag == "btn_TL") {
         html += '<hr>' +
             '<div style="width: 100%; height:40px; display:flex;margin-top:20px; ">' +
             '<div style="width: 50%; margin:0px auto">' +
-            '<button id="btn_TL" style="width: 100%; height:100%; font-size:20px; cursor:pointer">Thiết lập bảo hành</button>' +
+            '<button id="btn_TL" style="width: 100%; height:100%; font-size:20px; cursor:pointer; ;background-color:green; color:white">Thiết lập bảo hành</button>' +
             '</div>' +
             '</div>' +
             '</div>';
-            setBTN_TL();
     }
-    else if (checkCTPBH(TGBH, TT) == "") {
+    else if (flag == "btn_GH") {
         html += '<hr>' +
             '<div style="width: 100%; height:40px; display:flex;margin-top:20px; ">' +
-            '<div style="width: 50%; margin:0px auto">' +
-            '<button id="btn_GHBH" style="width: 100%; height:100%; font-size:20px; cursor:pointer">Gia hạn bảo hành</button>' +
+            '<div style="width: 49%; margin:0px auto">' +
+            '<button id="btn_GHBH" style="width: 100%; height:100%; font-size:20px; cursor:pointer;background-color:blue; color:white">Gia hạn bảo hành</button>' +
             '</div>' +
-            '<div style="width: 50%; margin:0px auto">' +
-            '<button id="btn_KTBH" style="width: 100%; height:100%; font-size:20px; cursor:pointer">Kết thúc bảo hành</button>' +
+            '<div style="width: 49%; margin:0px auto">' +
+            '<button id="btn_KTBH" style="width: 100%; height:100%; font-size:20px; cursor:pointer;;background-color:red; color:white">Kết thúc bảo hành</button>' +
             '</div>' +
             '</div>' +
             '</div>';
@@ -248,11 +258,11 @@ function checkCTPBH(TGBH, TT) {
     return "";
 }
 
-function readCTBH(maKH, maSerial) {
+function readCTBH(maKH, maSerial, ngaybd) {
     var operation = "Custom Read";
     var tableName = "phieu_bao_hanh JOIN khach_hang ON phieu_bao_hanh.MA_KH = khach_hang.MA_KH JOIN serial ON phieu_bao_hanh.MA_SERIAL = serial.MA_SERIAL JOIN san_pham ON serial.MA_SP = san_pham.MA_SP ";
-    var condition = "phieu_bao_hanh.MA_KH = " + maKH + " AND phieu_bao_hanh.MA_SERIAL = " + maSerial + " ";
-    var selectCondition = " phieu_bao_hanh.NGAY_BAT_DAU,phieu_bao_hanh.THOI_GIAN_BAOHANH, phieu_bao_hanh.TINH_TRANG, san_pham.TEN_SP, khach_hang.HOTEN_KH, khach_hang.SO_DT, serial.SERIAL_NUMBER "
+    var condition = "phieu_bao_hanh.MA_KH = " + maKH + " AND phieu_bao_hanh.MA_SERIAL = " + maSerial + " AND phieu_bao_hanh.NGAY_BAT_DAU = '" + ngaybd + "' ";
+    var selectCondition = " phieu_bao_hanh.MA_PBH,phieu_bao_hanh.NGAY_BAT_DAU,phieu_bao_hanh.THOI_GIAN_BAOHANH, phieu_bao_hanh.TINH_TRANG, san_pham.TEN_SP, khach_hang.HOTEN_KH, khach_hang.SO_DT, serial.SERIAL_NUMBER "
 
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
@@ -266,8 +276,10 @@ function readCTBH(maKH, maSerial) {
         },
         success: function (response) {
             setUICTPBH(response)
-            NGAY_BAT_DAU = response[i].NGAY_BAT_DAU;
-            MA_PBH = response[i].MA_PBH;
+            NGAY_BAT_DAU = response[0].NGAY_BAT_DAU;
+            MA_PBH = response[0].MA_PBH;
+            MA_KH = maKH;
+            MA_SERIAL = maSerial;
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -278,24 +290,30 @@ function readCTBH(maKH, maSerial) {
 
 //chức năng tìm kiếm
 // var khoang = document.querySelector('.khoang');
-function setBTN_TL()
-{
+function setBTN_TL() {
     document.getElementById('btn_TL').addEventListener('click', function (event) {
         var result = confirm("Bạn có chắc chắn muốn lập phiếu bảo hành");
         if (result) {
             var TGBH = document.getElementById("opt_thang").value;
+            var TGBH_CV = parseInt(TGBH, 10);
             var date = NGAY_BAT_DAU.split("-");
-            var NGAY_HET_HAN = new Date(date[0], date[1] + TGBH, date[2]).toISOString().slice(0, 10);
-    
+            var nam = parseInt(date[0], 10);
+            var thang = parseInt(date[1], 10);
+            var ngay = parseInt(date[2], 10);
+            var NGAY_HET_HAN = new Date(nam, thang - 1 + TGBH_CV, ngay).toISOString().slice(0, 10);
+
             var data = {
                 THOI_GIAN_BAOHANH: TGBH,
-                NGAY_HET_HAN: NGAY_HET_HAN
+                NGAY_HET_HAN: NGAY_HET_HAN,
+                TINH_TRANG: "Còn hạn bảo hành"
             };
+
             var jsonData = JSON.stringify(data);
             var operation = "Update";
             var tableName = "phieu_bao_hanh";
             var idName = "MA_PBH";
             var idValue = MA_PBH;
+
             $.ajax({
                 url: '../AJAX_PHP/CRUD.php',
                 type: 'POST',
@@ -308,6 +326,7 @@ function setBTN_TL()
                     idValue: idValue
                 },
                 success: function (response) {
+                    readCTBH(MA_KH, MA_SERIAL ,NGAY_BAT_DAU)
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
@@ -315,37 +334,73 @@ function setBTN_TL()
             });
         }
     });
-    
+
 }
 
+function setBTNGiaHanBaoHanh() {
+    document.getElementById('btn_GHBH').addEventListener('click', function (event) {
+        var result = confirm("Bạn có chắc chắn muốn gia hạn phiếu bảo hành");
+        if (result) {
+            var TGBH = document.getElementById("opt_thang").value;
+            var TGBH_CV = parseInt(TGBH, 10);
+            var currentDate = new Date();
+            var NGAY_HET_HAN = new Date(currentDate.getFullYear(), currentDate.getMonth() + TGBH_CV, currentDate.getDate()).toISOString().slice(0, 10);
+            NGAY_BAT_DAU =  new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).toISOString().slice(0, 10);
+            var data = {
+                MA_SERIAL : MA_SERIAL,
+                MA_KH: MA_KH,
+                THOI_GIAN_BAOHANH: TGBH,
+                NGAY_HET_HAN: NGAY_HET_HAN,
+                TINH_TRANG: "Còn hạn bảo hành"
+            };
 
-document.getElementById('btn_GHBH').addEventListener('click', function (event) {
+            var jsonData = JSON.stringify(data);
+            var operation = "Create";
+            var tableName = "phieu_bao_hanh";
 
-});
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData: jsonData,
+                    operation: operation,
+                    tableName: tableName
+                },
+                success: function (response) {
+                    HuyBaoHanh_HetHieuLuc();
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
 
-document.getElementById('btn_KTBH').addEventListener('click', function (event) {
+}
 
-});
+function setBTNHuyHieuLucBaoHanh() {
+    document.getElementById('btn_KTBH').addEventListener('click', function (event) {
+        var result = confirm("Bạn có chắc chắn muốn hủy hiệu lực phiếu bảo hành");
+        if (result) {
+            HuyBaoHanh_HetHieuLuc();
+        }
+    });
 
-CapNhatTinhTrangBaoHanh();
-function CapNhatTinhTrangBaoHanh() {
-    var months = 3;
-    var currentDate = new Date();
-    var curday = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).toISOString().slice(0, 10);
-    var futureDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + months, currentDate.getDate()).toISOString().slice(0, 10);
+}
+
+function HuyBaoHanh_HetHieuLuc() {
 
     var data = {
-        THOI_GIAN_BAOHANH: months,
-        NGAY_BAT_DAU: curday,
-        NGAY_HET_HAN: futureDate
+        TINH_TRANG: "Hết hiệu lực bảo hành"
     };
-
 
     var jsonData = JSON.stringify(data);
     var operation = "Update";
     var tableName = "phieu_bao_hanh";
     var idName = "MA_PBH";
-    var idValue = 1;
+    var idValue = MA_PBH;
+
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -358,12 +413,20 @@ function CapNhatTinhTrangBaoHanh() {
             idValue: idValue
         },
         success: function (response) {
+            readCTBH(MA_KH, MA_SERIAL, NGAY_BAT_DAU)
         },
         error: function (xhr, status, error) {
             console.log(error);
         }
     });
+
 }
+
+
+document.getElementById('btn_timkiem_PBH').addEventListener('click', function (event) {
+    readVer2("tăng dần")
+});
+
 
 
 //chức năng tìm kiếm
