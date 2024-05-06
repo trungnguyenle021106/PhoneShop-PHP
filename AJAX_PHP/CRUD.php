@@ -60,7 +60,7 @@ switch ($operation) {
         $idName = $_POST['idName'];
         $tinhtrang = $_POST['tinhtrang'];
 
-        $connect->updateTINH_TRANG($jsonData, $tableName, $tinhtrang, $idName);
+        $connect->updateTINH_TRANG($data, $tableName, $tinhtrang, $idName);
         $jsonResponse = $connect->read($tableName);
         break;
     case "Delete":

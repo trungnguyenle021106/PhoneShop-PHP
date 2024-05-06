@@ -147,14 +147,15 @@ class MyConnection
 
     public function updateTINH_TRANG($data, $tableName, $tinhtrang, $idName)
     {
+        $valueSets = [];
         foreach ($data as $row) {
             $rowValues = array_values($row);
-            $valueSets[] = "('" . implode("', '", $rowValues) . "')";
+            $valueSets[] =  implode("', '", $rowValues) ;
         }
+
         $values = implode(", ", $valueSets);
 
-
-        $sql = "UPDATE $tableName SET TINH_TRANG = $tinhtrang WHERE $idName IN " . $values ;
+        $sql = "UPDATE $tableName SET TINH_TRANG = $tinhtrang WHERE $idName IN (" . $values .")";
 
         if ($this->connection->query($sql) === TRUE) {
             return true;

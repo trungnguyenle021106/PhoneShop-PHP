@@ -21,15 +21,11 @@
         require('Model/Database.php');
         $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
         $connect->connectDB();
-        $data = [
-            "1" => "5",   // MA_SP = 1, cộng 5 vào SO_LUONG
-        ];
-        $data1 = json_encode($data);
-        echo $data1;
-        var_dump(json_decode($data1));
-        
-        $operator = "+";
-        $connect->updateSoLuong($data, $operator);
+        $data = '[{"collumn1": "68"}, {"collumn1": "67"}]';  // Chuỗi JSON đại diện cho một mảng liên kết
+
+        $dataArray = json_decode($data, true);  // Chuyển đổi chuỗi JSON thành mảng liên kết
+        $connect->updateTINH_TRANG($dataArray, "phieu_bao_hanh", "'Hết hạn bảo hành'", "MA_PBH");
+        $connect->closeConnection();
         ?>
         <div id="pageContainer"></div>
     </div>
