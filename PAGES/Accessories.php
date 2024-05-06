@@ -1,17 +1,42 @@
+<?php
+require './Model/Database.php';
+require './PAGES/XuLyTienVND.php';
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "qldienthoai";
+
+$connect = new MyConnection($server, $username, $password, $database);
+$connect->connectDB();
+
+
+?>
+
 <div class="accessories_content">
 
         <div class="filter">
 
 
-                <select class="item-filter-accesories" id="loai" onchange="setDataForFilter()">
+                <select class="item-filter-accesories" id="loai">
                         <option value="">LOẠI</option>
+                        <?php
+                        $list_loai = $connect->read("loai", "MA_LOAI <> 1");
+                        foreach ($list_loai as $loai) {
+                                echo '<option value = "' . $loai["MA_LOAI"] . '">' . $loai["TEN_LOAI"] . '</option>';
+                        }
+                        ?>
                 </select>
 
-                <select class="item-filter-accesories" id="nsx" onchange="setDataForFilter()">
+                <select class="item-filter-accesories" id="nsx">
                         <option value="">THƯƠNG HIỆU</option>
-                       
+                        <?php
+                        $list_nsx = $connect->read("nha_sx", "");
+                        foreach ($list_nsx as $nsx) {
+                                echo '<option value = "' . $nsx["MA_NSX"] . '">' . $nsx["TEN_NSX"] . '</option>';
+                        }
+                        ?>
                 </select>
-                <select class="item-filter-accesories" id="sapxep" onchange="setDataForFilter()">
+                <select class="item-filter-accesories" id="sapxep" >
                         <option value="">SẮP XẾP</option>
                         <option value="GIA_TANG_DAN">GIÁ TĂNG DẦN</option>
                         <option value="GIA_GIAM_DAN">GIÁ GIẢM DẦN</option>
@@ -39,7 +64,7 @@
                 <div class="item-filter-accesories" id="btn_ClearAll"> Clear ALL </div>
         </div>
         <div class="accessories_section" id="accessories_page">
-                
+
                 <!-- <a href="" class="products">
                         <div class="name">Hypergear</div>
                         <div class="discrible">Hypergear 20W White USB-C PD Wall Charger Hub</div>
@@ -62,11 +87,8 @@
                 <h2 style="text-align: center; font-size: 20px; margin-top:20px; font-weight:bold">PHỤ KIỆN MỚI NHẤT</h2>
                 <div class="accessories_section">
                         <?php
-                        require './Model/Database.php';
-                        require './PAGES/XuLyTienVND.php';
-                        $connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
-                        $connection->connectDB();
-                        $list_data = $connection->read('san_pham', "MA_LOAI <> 1 ORDER BY MA_SP DESC LIMIT 5");
+
+                        $list_data = $connect->read('san_pham', "MA_LOAI <> 1 ORDER BY MA_SP DESC LIMIT 5");
                         foreach ($list_data as $data) {
                                 echo '<a href="" class="products" style="border: 1px solid black;">';
                                 echo '<div class="name">' . $data['TEN_SP'] . '</div>';
@@ -75,9 +97,9 @@
                                 echo '</a>';
                         }
 
-                
 
-                        $connection->closeConnection();
+
+                        $connect->closeConnection();
                         ?>
                         <!-- <a href="" class="products" style="border: 1px solid black;">
                                 <div class="name">Zagg</div>
@@ -89,8 +111,7 @@
                 </div>
         </div>
 </div>
-
-<script src="../js/accessories.js"></script>
 <script src="../js/pageHandler.js"></script>
 <script src="../js/XuLyTienVND.js"></script>
+<script src="../js/accessoriesV2.js"></script>
 

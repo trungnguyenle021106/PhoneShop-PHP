@@ -1,26 +1,40 @@
+<?php
+require './Model/Database.php';
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "qldienthoai";
+
+$connect = new MyConnection($server, $username, $password, $database);
+$connect->connectDB();
+
+?>
 <div class="accessories_content">
 
     <div class="filter">
 
 
-        <select class="item-filter-accesories" id="loai" onchange="setDataForFilter()">
+        <select class="item-filter-accesories" id="loai">
             <option value="">LOẠI</option>
+            <?php
+            $list_loai = $connect->read("loai", "");
+            foreach ($list_loai as $loai) {
+                echo '<option value = "' . $loai["MA_LOAI"] . '">' . $loai["TEN_LOAI"] . '</option>';
+            }
+            ?>
         </select>
 
-        <select class="item-filter-accesories" id="nsx" onchange="setDataForFilter()">
-            <option value="">THƯƠNG HIỆU
-            </option>
+        <select class="item-filter-accesories" id="nsx" >
+            <option value="">THƯƠNG HIỆU</option>
             <?php
-            require './Model/Database.php';
-            $connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
-            $connection->connectDB();
-            $producers =  $connection->read("nha_sx");
+
+            $producers =  $connect->read("nha_sx");
             foreach ($producers as $producer) {
                 echo '<option id="MANSX_' . $producer["MA_NSX"] . '" value="' . $producer["MA_NSX"] . '">' . $producer["TEN_NSX"] . '</option>';
             }
             ?>
         </select>
-        <select class="item-filter-accesories" id="sapxep" onchange="setDataForFilter()">
+        <select class="item-filter-accesories" id="sapxep" >
             <option value="">SẮP XẾP</option>
             <option value="GIA_TANG_DAN">GIÁ TĂNG DẦN</option>
             <option value="GIA_GIAM_DAN">GIÁ GIẢM DẦN</option>
@@ -69,7 +83,10 @@
     </div>
 
 </div>
-<script src="../js/search.js"></script>
+
+<script src="../js/pageHandler.js"></script>
+<script src="../js/XuLyTienVND.js"></script>
+<script src="../js/searchV2.js"></script>
 <script>
     <?php
     $searchType = "";
@@ -81,19 +98,17 @@
         $searchValue = "'" . $_GET['TenSP'] . "'";
     } else if (isset($_GET['ThuongHieu'])) {
 
-        $list_data = $connection->read('nha_sx', "TEN_NSX = " . "'" . $_GET['ThuongHieu'] . "'");
+        $list_data = $connect->read('nha_sx', "TEN_NSX = " . "'" . $_GET['ThuongHieu'] . "'");
         reset($list_data);
         $nsx = current($list_data);
 
         $searchType = "'ThuongHieu'";
         $searchValue = "'" . $nsx["MA_NSX"] . "'";
 
-        $connection->closeConnection();
+        $connect->closeConnection();
     }
     ?>
 
-    setDataOnload(<?php echo $searchType; ?>, <?php echo $searchValue; ?>);
-</script>
 
-<script src="../js/pageHandler.js"></script>
-<script src="../js/XuLyTienVND.js"></script>
+    setSearchValue(<?php echo $searchType; ?>, <?php echo $searchValue; ?>)
+</script>
