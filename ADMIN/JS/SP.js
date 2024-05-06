@@ -9,8 +9,8 @@ function add(){
     var Ten_SP = $("#TenSP_add").val();
     var Gia = $("#GIA_SP_add").val();
 
-var filePath = $('#ANH_SP_add').val();
-var ANH = filePath.split('\\').pop();
+    var filePath = $('#ANH_SP_add').val();
+    var ANH = filePath.split('\\').pop();
 
     var data = {
         MA_LOAI: loai,
@@ -19,31 +19,30 @@ var ANH = filePath.split('\\').pop();
         GIA_BAN: Gia,
         HINH_ANH: ANH,
         SO_LUONG: 1
-      };
-      var jsonData = JSON.stringify(data);
-      console.log(jsonData);
-var operation = "Create";
-var tableName = "san_pham";
-$.ajax({
-url: '../AJAX_PHP/CRUD.php',
-type: 'POST',
-dataType: 'json',
-data: {
-    jsonData : jsonData,
-    operation: operation,
-    tableName: tableName
-},
-success: function(response) {
-    console.log(response);
-},
-error: function(xhr, textStatus, errorThrown) {
-    console.log(xhr, textStatus, errorThrown);
-}
-})
+    };
+    var jsonData = JSON.stringify(data);
+    console.log(jsonData);
+    var operation = "Create";
+    var tableName = "san_pham";
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData : jsonData,
+            operation: operation,
+            tableName: tableName
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            console.log(xhr, textStatus, errorThrown);
+        }
+    })
 }
 
-    function add_CHSP()
-{ 
+function add_CHSP(){ 
 //thêm sản phẩm trước
     var loai = $("#opt_loai").val();
     var MANSX = $("#opt_MANSX").val();

@@ -25,8 +25,8 @@ read();
 
             //cập nhật lại số lượng sản phẩm
             var SLNV_HT = document.querySelector('#SLNV_HT span');
-var rows = document.querySelectorAll('#table_NV table tbody tr ');
-SLNV_HT.innerText = rows.length;
+            var rows = document.querySelectorAll('#table_NV table tbody tr ');
+            SLNV_HT.innerText = rows.length;
             //cập nhật lại số lượng sản phẩm
         },
         error: function(xhr, status, error) {
@@ -242,10 +242,10 @@ function Delete(MANV) {
         
 
         
-// Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
-var editButtons = document.querySelectorAll('.NV_sua_btn');
-editButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
+        // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
+        var editButtons = document.querySelectorAll('.NV_sua_btn');
+        editButtons.forEach(function(button) {
+         button.addEventListener('click', function() {
         var index = this.getAttribute('data-index');
         var form_sua_NV = document.getElementById('suaNV_container');
 

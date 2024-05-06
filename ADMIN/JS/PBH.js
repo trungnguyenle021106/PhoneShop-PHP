@@ -82,6 +82,8 @@ SLPBH_HT.innerText = rows.length;
         }
         opt.addEventListener('change', toggleDateInput); // Lắng nghe sự kiện thay đổi của select
     });
+
+    
     document.getElementById('btn_timkiem_PBH').addEventListener('click', function(event){
         event.preventDefault();
         var opt = document.getElementById('opt_timkiem_PBH').value;
