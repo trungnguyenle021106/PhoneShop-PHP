@@ -90,7 +90,6 @@ class MyConnection
         }
     }
 
-
     public function readCustom($selectCondition, $tableName, $condition = "")
     {
         $sql = "SELECT " . $selectCondition . " FROM $tableName";
@@ -127,6 +126,43 @@ class MyConnection
             return false;
         }
     }
+
+    public function updateSoLuong($data, $operator)
+    {
+        $set = "SO_LUONG = CASE ";
+        foreach ($data as $maSp => $soLuong) {
+            $set .= "WHEN MA_SP = $maSp THEN SO_LUONG $operator $soLuong ";
+        }
+        $set .= "ELSE SO_LUONG END";
+
+        $sql = "UPDATE san_pham SET $set WHERE MA_SP IN (" . implode(", ", array_keys($data)) . ")";
+
+        if ($this->connection->query($sql) === TRUE) {
+            return true;
+        } else {
+            echo "Lỗi khi cập nhật dữ liệu: " . $this->connection->error;
+            return false;
+        }
+    }
+
+    public function updateTINH_TRANG($data, $tableName, $tinhtrang, $idName)
+    {
+        foreach ($data as $row) {
+            $rowValues = array_values($row);
+            $valueSets[] = "('" . implode("', '", $rowValues) . "')";
+        }
+        $values = implode(", ", $valueSets);
+
+
+        $sql = "UPDATE $tableName SET TINH_TRANG = $tinhtrang WHERE $idName IN " . $values ;
+
+        if ($this->connection->query($sql) === TRUE) {
+            return true;
+        } else {
+            echo "Lỗi khi cập nhật dữ liệu: " . $this->connection->error;
+            return false;
+        }
+    } 
 
     public function delete($tableName, $id_name, $id)
     {

@@ -2,8 +2,8 @@
 readVer2()
 // Gọi hàm read để lấy dữ liệu 
 
-
-
+var NGAY_BAT_DAU = ""
+var MA_PBH = "";
 //loadData
 function readVer2() {
     var operation = "Custom Read";
@@ -182,9 +182,22 @@ function getUIContentCTPBH(tenKH, SdtKH, soSerial, tenSP, TGBH, TT) {
         '<div style="width: 55%;">' +
         '<span>Thời gian bảo hành</span>' +
         '</div>' +
-        '<div style="width: 45%;">' +
-        '<input type="text" style="width:20px;border:none; font-size:19px; margin-right:5px" maxlength="2" value ="' + TGBH + '"/>' +
-        '<span>tháng</span>' +
+        '<div style="width: 45%;">'
+    if (checkCTPBH(TGBH, TT) !== "btn_TL") {
+        html += '<span>' + TGBH + ' tháng</span>';
+    }
+    else {
+        html += '<select style="font-size:20px"  id="opt_thang">' +
+            '<option value="1">1 tháng</option>' +
+            '<option value="3">3 tháng</option>' +
+            '<option value="6">6 tháng</option>' +
+            '<option value="12">12 tháng</option>' +
+            ' <option value="18">18 tháng</option>' +
+            '<option value="24">24 tháng</option>' +
+            '<option value="36">36 tháng</option>' +
+            ' </select>'
+    }
+    html +=
         '</div>' +
         '</div>' +
         '<hr>' +
@@ -200,19 +213,20 @@ function getUIContentCTPBH(tenKH, SdtKH, soSerial, tenSP, TGBH, TT) {
         html += '<hr>' +
             '<div style="width: 100%; height:40px; display:flex;margin-top:20px; ">' +
             '<div style="width: 50%; margin:0px auto">' +
-            '<button style="width: 100%; height:100%; font-size:20px; cursor:pointer">Thiết lập bảo hành</button>' +
+            '<button id="btn_TL" style="width: 100%; height:100%; font-size:20px; cursor:pointer">Thiết lập bảo hành</button>' +
             '</div>' +
             '</div>' +
             '</div>';
+            setBTN_TL();
     }
     else if (checkCTPBH(TGBH, TT) == "") {
         html += '<hr>' +
             '<div style="width: 100%; height:40px; display:flex;margin-top:20px; ">' +
             '<div style="width: 50%; margin:0px auto">' +
-            '<button style="width: 100%; height:100%; font-size:20px; cursor:pointer">Gia hạn bảo hành</button>' +
+            '<button id="btn_GHBH" style="width: 100%; height:100%; font-size:20px; cursor:pointer">Gia hạn bảo hành</button>' +
             '</div>' +
             '<div style="width: 50%; margin:0px auto">' +
-            '<button style="width: 100%; height:100%; font-size:20px; cursor:pointer">Kết thúc bảo hành</button>' +
+            '<button id="btn_KTBH" style="width: 100%; height:100%; font-size:20px; cursor:pointer">Kết thúc bảo hành</button>' +
             '</div>' +
             '</div>' +
             '</div>';
@@ -221,47 +235,9 @@ function getUIContentCTPBH(tenKH, SdtKH, soSerial, tenSP, TGBH, TT) {
     return html;
     // Thực hiện các thao tác tiếp theo với chuỗi HTML đã được tạo ra
 }
-CapNhatTinhTrangBaoHanh();
-function CapNhatTinhTrangBaoHanh()
-{
-    var months = 3;
-    var currentDate = new Date();
-    var curday = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).toISOString().slice(0, 10);
-    var futureDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + months, currentDate.getDate()).toISOString().slice(0, 10);
-
-    console.log(curday + " " +futureDate)
-    var data = {
-        THOI_GIAN_BAOHANH: months,
-        NGAY_BAT_DAU : curday,
-        NGAY_HET_HAN:futureDate
-      };
-    var jsonData = JSON.stringify(data);
-    var operation = "Update";
-    var tableName = "phieu_bao_hanh";
-    var idName = "MA_PBH";
-    var idValue = 1;
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData : jsonData,
-            operation: operation,
-            tableName: tableName,
-            idName : idName,
-            idValue : idValue
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
-}
 
 
-  
+
 function checkCTPBH(TGBH, TT) {
     if (TGBH == 0) {
         return "btn_TL";
@@ -276,7 +252,7 @@ function readCTBH(maKH, maSerial) {
     var operation = "Custom Read";
     var tableName = "phieu_bao_hanh JOIN khach_hang ON phieu_bao_hanh.MA_KH = khach_hang.MA_KH JOIN serial ON phieu_bao_hanh.MA_SERIAL = serial.MA_SERIAL JOIN san_pham ON serial.MA_SP = san_pham.MA_SP ";
     var condition = "phieu_bao_hanh.MA_KH = " + maKH + " AND phieu_bao_hanh.MA_SERIAL = " + maSerial + " ";
-    var selectCondition = " phieu_bao_hanh.THOI_GIAN_BAOHANH, phieu_bao_hanh.TINH_TRANG, san_pham.TEN_SP, khach_hang.HOTEN_KH, khach_hang.SO_DT, serial.SERIAL_NUMBER "
+    var selectCondition = " phieu_bao_hanh.NGAY_BAT_DAU,phieu_bao_hanh.THOI_GIAN_BAOHANH, phieu_bao_hanh.TINH_TRANG, san_pham.TEN_SP, khach_hang.HOTEN_KH, khach_hang.SO_DT, serial.SERIAL_NUMBER "
 
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
@@ -290,6 +266,8 @@ function readCTBH(maKH, maSerial) {
         },
         success: function (response) {
             setUICTPBH(response)
+            NGAY_BAT_DAU = response[i].NGAY_BAT_DAU;
+            MA_PBH = response[i].MA_PBH;
         },
         error: function (xhr, status, error) {
             console.log(error);
@@ -300,8 +278,92 @@ function readCTBH(maKH, maSerial) {
 
 //chức năng tìm kiếm
 // var khoang = document.querySelector('.khoang');
+function setBTN_TL()
+{
+    document.getElementById('btn_TL').addEventListener('click', function (event) {
+        var result = confirm("Bạn có chắc chắn muốn lập phiếu bảo hành");
+        if (result) {
+            var TGBH = document.getElementById("opt_thang").value;
+            var date = NGAY_BAT_DAU.split("-");
+            var NGAY_HET_HAN = new Date(date[0], date[1] + TGBH, date[2]).toISOString().slice(0, 10);
+    
+            var data = {
+                THOI_GIAN_BAOHANH: TGBH,
+                NGAY_HET_HAN: NGAY_HET_HAN
+            };
+            var jsonData = JSON.stringify(data);
+            var operation = "Update";
+            var tableName = "phieu_bao_hanh";
+            var idName = "MA_PBH";
+            var idValue = MA_PBH;
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData: jsonData,
+                    operation: operation,
+                    tableName: tableName,
+                    idName: idName,
+                    idValue: idValue
+                },
+                success: function (response) {
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    });
+    
+}
 
-document.getElementById('btn_timkiem_PBH').addEventListener('click', function (event) {
-    readVer2();
+
+document.getElementById('btn_GHBH').addEventListener('click', function (event) {
+
 });
+
+document.getElementById('btn_KTBH').addEventListener('click', function (event) {
+
+});
+
+CapNhatTinhTrangBaoHanh();
+function CapNhatTinhTrangBaoHanh() {
+    var months = 3;
+    var currentDate = new Date();
+    var curday = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).toISOString().slice(0, 10);
+    var futureDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + months, currentDate.getDate()).toISOString().slice(0, 10);
+
+    var data = {
+        THOI_GIAN_BAOHANH: months,
+        NGAY_BAT_DAU: curday,
+        NGAY_HET_HAN: futureDate
+    };
+
+
+    var jsonData = JSON.stringify(data);
+    var operation = "Update";
+    var tableName = "phieu_bao_hanh";
+    var idName = "MA_PBH";
+    var idValue = 1;
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData: jsonData,
+            operation: operation,
+            tableName: tableName,
+            idName: idName,
+            idValue: idValue
+        },
+        success: function (response) {
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+
 //chức năng tìm kiếm

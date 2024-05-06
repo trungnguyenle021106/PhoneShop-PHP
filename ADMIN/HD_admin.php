@@ -3,11 +3,7 @@ require('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 
-$list_hoadon = $connect->read("hoa_don", " 1=1 ORDER BY NGAY_TAO ASC");
-reset($list_hoadon);
-$start = current($list_hoadon)["NGAY_TAO"];
-end($list_hoadon);
-$end = current($list_hoadon)["NGAY_TAO"];
+$currentYear = date('Y');
 
 ?>
 <link rel="stylesheet" href="CSS/HD_admin.css">
@@ -91,12 +87,12 @@ $end = current($list_hoadon)["NGAY_TAO"];
             <h2 id="title">Tìm kiếm trong khoảng thời gian</h2>
             <div style="display: flex;">
                 <div style="width: 30%">Ngày bắt đầu</div>
-                <input type="date" value="2024-05-02" id="start" style="width: 60%; ">
+                <input type="date" value="<?php echo $currentYear."-01-01"; ?>" id="start" style="width: 60%; ">
             </div>
 
             <div style="display: flex;">
                 <div style="width: 30%">Ngày kết thúc</div>
-                <input type="date" value="<?php echo $end; ?>" id="end" style="width: 60%;">
+                <input type="date" value="<?php echo $currentYear."-12-31"; ?>" id="end" style="width: 60%;">
             </div>
 
             <input type="submit" value="Tìm" id="btn_timTheoKhoangTG">

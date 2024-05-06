@@ -17,7 +17,20 @@
 
         </ul>
 
-     
+        <?php
+        require('Model/Database.php');
+        $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
+        $connect->connectDB();
+        $data = [
+            "1" => "5",   // MA_SP = 1, cộng 5 vào SO_LUONG
+        ];
+        $data1 = json_encode($data);
+        echo $data1;
+        var_dump(json_decode($data1));
+        
+        $operator = "+";
+        $connect->updateSoLuong($data, $operator);
+        ?>
         <div id="pageContainer"></div>
     </div>
 </body>

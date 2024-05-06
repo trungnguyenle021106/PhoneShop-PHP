@@ -27,6 +27,7 @@ $connect->connectDB();
                     <tr>
                         <td>Mã hóa đơn</td>
                         <td>Mã sản phẩm</td>
+                        <td>Tên sản phẩm</td>
                         <td>Số lượng</td>
                         <td>Thành tiền</td>
                         <td>Thuế suất</td>
@@ -57,11 +58,12 @@ $connect->connectDB();
         <form action="" method="POST" id="form_timkiem_CTHD">
             <h2 id="title">Tìm kiếm</h2>
             <select name="" id="opt_timkiem_CTHD">
-                <option value="MA_HD">Mã hóa đơn</option>
-                <option value="MA_SP">Mã sản phẩm</option>
-                <option value="SL_BAN">Số lượng</option>
-                <option value="THANH_TIEN">Thành tiền</option>
-                <option value="THUE_SUAT">Thuế suất</option>
+                <option value="chi_tiet_hoadon.MA_HD">Mã hóa đơn</option>
+                <option value="chi_tiet_hoadon.MA_SP">Mã sản phẩm</option>
+                <option value="san_pham.TEN_SP">Tên sản phẩm</option>
+                <option value="chi_tiet_hoadon.SL_BAN">Số lượng</option>
+                <option value="chi_tiet_hoadon.THANH_TIEN">Thành tiền</option>
+                <option value="chi_tiet_hoadon.THUE_SUAT">Thuế suất</option>
             </select>
             <input type="text" id="txt_timkiem_CTHD" style="width: 54%; margin-left: 20px;" placeholder="Nhập CTHD cần tìm">
             

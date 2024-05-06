@@ -4,7 +4,7 @@ readVer2("tăng dần")
 
 
 var MAHD = "";
-
+var MAKH = "";
 //loadData
 function getSearchNormalCondition() {
     var condition = "";
@@ -130,11 +130,25 @@ function setUIElementCTHD(flag) {
     }
 }
 
+function setOptionXLDH(flag) {
+    var selectElement = document.getElementById("opt_TT_HD");
+    var options = selectElement.options;
+
+    if (flag == true) {
+        options[0].style.display = "none";
+        options[1].selected = true;
+    }
+    else {
+        options[0].style.display = "block";
+        options[0].selected = true;
+    }
+}
+
 function setTTHD_KH(maHD) {
     var operation = "Custom Read";
     var tableName = " hoa_don JOIN khach_hang ON hoa_don.MA_KH = khach_hang.MA_KH ";
     var condition = " hoa_don.MA_HD =" + maHD;
-    var selectCondition = " khach_hang.HOTEN_KH, khach_hang.SO_DT, hoa_don.TINH_TRANG "
+    var selectCondition = "khach_hang.MA_KH, khach_hang.HOTEN_KH, khach_hang.SO_DT, hoa_don.TINH_TRANG "
 
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
@@ -147,7 +161,7 @@ function setTTHD_KH(maHD) {
             selectCondition: selectCondition
         },
         success: function (response) {
-
+            MAKH = response[0].MA_KH
             document.getElementById("tenKH").innerText = response[0].HOTEN_KH;
             document.getElementById("sdtKH").innerText = response[0].SO_DT;
             document.getElementById("TTDH").innerText = response[0].TINH_TRANG;
@@ -155,8 +169,13 @@ function setTTHD_KH(maHD) {
             if (response[0].TINH_TRANG == "Đã giao hàng" || response[0].TINH_TRANG == "Hủy đơn hàng") {
                 setUIElementCTHD(false);
             }
+            else if (response[0].TINH_TRANG == "Đã liên lạc") {
+                setUIElementCTHD(true);
+                setOptionXLDH(true);
+            }
             else {
                 setUIElementCTHD(true);
+                setOptionXLDH(false);
             }
         },
         error: function (xhr, status, error) {
@@ -207,12 +226,12 @@ function DisplayCTHDElement(maHD) {
             for (var i = 0; i < elementPage.length; i++) {
                 html += `
         <tr>
-        <td id="MAHD">${elementPage[i].MA_HD}</td>
-        <td id="MASP">${elementPage[i].MA_SP}</td>
-        <td id="MASP">${elementPage[i].TEN_SP}</td>
-        <td id="SL">${elementPage[i].SL_BAN}</td>
-        <td id="ThanhTien"><span>${changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
-        <td id="ThueSuat"><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
+        <td >${elementPage[i].MA_HD}</td>
+        <td >${elementPage[i].MA_SP}</td>
+        <td style="width: 250px; word-wrap: break-word;" >${elementPage[i].TEN_SP}</td>
+        <td >${elementPage[i].SL_BAN}</td>
+        <td ><span>${changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
+        <td ><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
        </tr>
         `;
             }
@@ -249,12 +268,12 @@ function DisplayHDElement(elementPage) {
     for (var i = 0; i < elementPage.length; i++) {
         html += `
         <tr><td id="HD_Ma">${elementPage[i].MA_HD}</td>
-        <td id="HD_MaKM">${elementPage[i].MA_KM}</td>
-        <td id="HD_MaKH">${elementPage[i].MA_KH}</td>
-        <td id="HD_MaHD">${elementPage[i].MA_NV}</td>
-        <td id="HD_NgayTao">${elementPage[i].NGAY_TAO}</td>
-        <td id="HD_TongTien"><span> ${changePriceToString(elementPage[i].TONG_TIEN)}</span></td>
-        <td id="HD_TinhTrang">${elementPage[i].TINH_TRANG}</td>`
+        <td >${elementPage[i].MA_KM}</td>
+        <td >${elementPage[i].MA_KH}</td>
+        <td >${elementPage[i].MA_NV}</td>
+        <td >${elementPage[i].NGAY_TAO}</td>
+        <td ><span> ${changePriceToString(elementPage[i].TONG_TIEN)}</span></td>
+        <td >${elementPage[i].TINH_TRANG}</td>`
         html += `<td><button onclick=" DisplayCTHDElement(${elementPage[i].MA_HD})" class="thaotac">Xem chi tiết hóa đơn</button></td>`
         html += `</tr>`;
     }
@@ -267,8 +286,8 @@ function AddSerial(maHD) {
     GetChiTietHoaDon(maHD, function (list_cthd) {
         var data = {};
         var column = {
-            "column1": "MA_SP",
-            "column2": "SERIAL_NUMBER"
+            column1: "MA_SP",
+            column2: "SERIAL_NUMBER"
         };
         for (var i = 0; i < list_cthd.length; i++) {
             data[i] = [list_cthd[i].MA_SP, "CHƯA CÓ SERIAL"]
@@ -290,12 +309,81 @@ function AddSerial(maHD) {
                 tableName: tableName
             },
             success: function (response) {
-                console.log(response);
+                AddPBH(response);
             },
             error: function (xhr, status, error) {
                 console.log(error);
             }
         });
+    });
+}
+
+function AddPBH(response) {
+    var data = {};
+    var column = {
+        column1: "MA_SERIAL",
+        column2: "MA_KH",
+        column3: "THOI_GIAN_BAOHANH",
+        column4: "TINH_TRANG"
+    };
+    for (var i = 0; i < response.length; i++) {
+        data[i] = [response[i].MA_SERIAL, MAKH, "0", "Chưa có hiệu lực"]
+    }
+
+
+    var jsonData = JSON.stringify(data);
+    var jsonColumn = JSON.stringify(column);
+    var operation = "Create Custom";
+    var tableName = "phieu_bao_hanh";
+
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData: jsonData,
+            jsonColumn: jsonColumn,
+            operation: operation,
+            tableName: tableName
+        },
+        success: function (response) {
+            // console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+
+}
+
+function HuyDonHang(maHD) {
+    GetChiTietHoaDon(maHD, function (list_cthd) {
+        var operation = "Update SL";
+
+            var data = {};
+            for (var i = 0; i < list_cthd.length; i++) {
+                data[list_cthd[i].MA_SP] = list_cthd[i].SL_BAN;
+            }
+            var jsonData = JSON.stringify(data);
+          
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData: jsonData,
+                    operation: operation,
+                    operator: "+"
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        
+
     });
 }
 
@@ -331,7 +419,9 @@ function XuLyDonHang() {
     if (tinhtrang == "Đã giao hàng") {
         AddSerial(maHD);
     }
-
+    else if (tinhtrang == "Hủy đơn hàng") {
+        HuyDonHang(maHD);
+    }
     var jsonData = JSON.stringify(data);
     var operation = "Update";
     var tableName = "hoa_don";
@@ -395,42 +485,24 @@ document.getElementById("UpdateDH").addEventListener('click', function (event) {
 });
 
 document.getElementById('RESET').addEventListener('click', function (event) {
-    ResetDate(function () {
-        var list_opts_search = document.getElementById('opt_timkiem_HD').options;
-        list_opts_search[0].selected = true;
-        var list_optsx = document.getElementById('opt_sapxep_HD').options;
-        list_optsx[0].selected = true;
-        document.getElementById('txt_timkiem_HD').value = "";
+    ResetDate()
+    var list_opts_search = document.getElementById('opt_timkiem_HD').options;
+    list_opts_search[0].selected = true;
+    var list_optsx = document.getElementById('opt_sapxep_HD').options;
+    list_optsx[0].selected = true;
+    document.getElementById('txt_timkiem_HD').value = "";
 
-        readVer2("tăng dần");
-    })
+    readVer2("tăng dần");
+
 });
 
 
 
 
-function ResetDate(callback) {
-    var operation = "Read";
-    var tableName = "hoa_don";
-    var condition = "1=1 ORDER BY NGAY_TAO ASC";
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: operation,
-            tableName: tableName,
-            condition: condition
-        },
-        success: function (response) {
-            var start = document.getElementById("start")
-            var end = document.getElementById("end")
-            end.value = response[response.length - 1].NGAY_TAO
-            start.value = response[0].NGAY_TAO
-            callback();
-        },
-        error: function (xhr, status, error) {
-            console.log(error);
-        }
-    });
+function ResetDate() {
+    var currentYear = new Date().getFullYear();
+    var start = document.getElementById("start")
+    var end = document.getElementById("end")
+    end.value = currentYear + "-12-31"
+    start.value = currentYear + "-01-01"
 }

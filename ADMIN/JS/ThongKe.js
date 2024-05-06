@@ -1,7 +1,7 @@
 
 read();
 
-var listDataArray = [];
+
 
 function setDoanhThu(doanhthu) {
     var SLHD_HT = document.querySelector('#SLTK_HT span');
@@ -11,21 +11,24 @@ function setDoanhThu(doanhthu) {
 function getTopConition() {
     var valueLimit = document.getElementById("txt_timkiem_TK").value;
     if (valueLimit == "") {
-        return "";
+      return "";
+    } else if (isNaN(valueLimit)) {
+      alert("Top chỉ bao gồm số");
+      return false;
+    } else if (valueLimit == 0) {
+      alert("Hãy nhập top khác 0");
+      return false;
+    } else if (valueLimit < 0) {
+      alert("Hãy nhập top lớn hơn 0");
+      return false;
+    } else {
+      condition = "LIMIT " + valueLimit;
+      return condition;
     }
-    else if (!isNaN(valueLimit) && valueLimit != 0) {
-        condition = "LIMIT " + document.getElementById("txt_timkiem_TK").value;
-        return condition;
-    }
-    else if (isNaN(valueLimit)) {
-        alert("Top chỉ bao gồm số")
-        return false;
-    }
-    else if (valueLimit == 0) {
-        alert("Hãy nhập top khác 0")
-        return false;
-    }
-}
+  }
+
+
+
 
 function getDateCondition() {
     var start = document.getElementById("start").value;
@@ -62,7 +65,7 @@ function read() {
     var limitCondition = getTopConition();
     var dateCondition = getDateCondition();
     var loaiCondition = getLoaiSPCondition();
-    
+
     if (limitCondition !== false && dateCondition !== false) {
         var operation = "Custom Read";
         var tableName = "san_pham JOIN chi_tiet_hoadon ON san_pham.MA_SP = chi_tiet_hoadon.MA_SP JOIN hoa_don ON chi_tiet_hoadon.MA_HD = hoa_don.MA_HD JOIN loai ON san_pham.MA_LOAI = loai.MA_LOAI ";
@@ -80,8 +83,10 @@ function read() {
                 condition: condition
             },
             success: function (response) {
-                listDataArray = response;
-                DisplayHDElement(listDataArray);
+                if (response !== 0) {
+                    var listDataArray = response;
+                    DisplayHDElement(listDataArray);
+                }
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -102,7 +107,7 @@ function DisplayHDElement(elementPage) {
             <td>${elementPage[i].MA_SP}</td>
             <td style="height:80px; width:80px"><img style="object-fit: contain;   width: 100%; height: 90%;" src="../Img/${elementPage[i].HINH_ANH}" ></td>
             <td>${elementPage[i].TEN_LOAI}</td>
-            <td>${elementPage[i].TEN_SP}</td>
+            <td style="width: 250px; word-wrap: break-word;">${elementPage[i].TEN_SP}</td>
             <td>${elementPage[i].SL_DA_BAN}</td>
             <td id="${elementPage[i].MA_SP}">${changePriceToString(elementPage[i].DOANH_THU)}</td>
         </tr>
@@ -126,10 +131,9 @@ document.getElementById("btn_timTheoKhoangTG").addEventListener('click', functio
 
 document.getElementById("opt_timkiem_TK").addEventListener('change', (event) => {
     read()
-  });
+});
 
-  document.getElementById('RESET').addEventListener('click', function (event) {
-    event.preventDefault();
+document.getElementById('RESET').addEventListener('click', function (event) {
 
     var operation = "Read";
     var tableName = "hoa_don";
@@ -144,16 +148,19 @@ document.getElementById("opt_timkiem_TK").addEventListener('change', (event) => 
             condition: condition
         },
         success: function (response) {
-            var list_opts_search = document.getElementById('opt_timkiem_TK').options;
-            list_opts_search[0].selected = true;
+           
+                var list_opts_search = document.getElementById('opt_timkiem_TK').options;
+                list_opts_search[0].selected = true;
 
-            document.getElementById('txt_timkiem_TK').value = "";
-        
-            var start = document.getElementById("start")
-            var end = document.getElementById("end")
-            end.value = response[response.length - 1].NGAY_TAO
-            start.value = response[0].NGAY_TAO
-            read()
+                document.getElementById('txt_timkiem_TK').value = "";
+
+                var currentYear = new Date().getFullYear();
+                var start = document.getElementById("start")
+                var end = document.getElementById("end")
+                end.value = currentYear+"-12-31"
+                start.value = currentYear+"-01-01"
+                read()
+            
         },
         error: function (xhr, status, error) {
             console.log(error);

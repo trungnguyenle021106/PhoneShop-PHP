@@ -40,13 +40,13 @@ function add()
 function update()
 {
     var data = {
-        TEN_LOAI: "Zed"
+        "SO_LUONG = SO_LUONG + 1": ""
       };
     var jsonData = JSON.stringify(data);
     var operation = "Update";
-    var tableName = "loai";
-    var idName = "MA_LOAI";
-    var idValue = 15;
+    var tableName = "san_pham";
+    var idName = "MA_SP";
+    var idValue = 1;
     $.ajax({
         url: 'AJAX_PHP/CRUD.php',
         type: 'POST',

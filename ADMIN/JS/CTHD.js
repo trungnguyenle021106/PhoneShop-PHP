@@ -1,18 +1,19 @@
 // Gọi hàm read để lấy dữ liệu 
-readVer2("tăng dần");
+readVer3("tăng dần");
 // Gọi hàm read để lấy dữ liệu 
 
 
 
 //loadData
-function readVer2(sortValue) {
-    var operation = "Read";
-    var tableName = "chi_tiet_hoadon";
+function readVer3(sortValue) {
+    var operation = "Custom Read";
+    var tableName = " chi_tiet_hoadon JOIN san_pham ON chi_tiet_hoadon.MA_SP = san_pham.MA_SP ";
 
     var searchCondition = getSearchNormalCondition();
     var sortCondition = getSortCondition(sortValue);
-    var condition = searchCondition + sortCondition;
+    var condition = " " + searchCondition + sortCondition + " ";
 
+    var selectCondition = " chi_tiet_hoadon.*, san_pham.TEN_SP "
 
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
@@ -21,10 +22,10 @@ function readVer2(sortValue) {
         data: {
             operation: operation,
             tableName: tableName,
-            condition: condition
+            condition: condition,
+            selectCondition: selectCondition
         },
         success: function (response) {
-
             DisplayCTHDElement(response);
             setAmountCTHD();
         },
@@ -32,8 +33,10 @@ function readVer2(sortValue) {
             console.log(error);
         }
     });
-
 }
+
+
+
 //loadData
 
 // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
@@ -49,6 +52,7 @@ function getSearchNormalCondition() {
     var condition = "";
     var seacrhType = document.getElementById("opt_timkiem_CTHD").value;
     var searchValue = document.getElementById("txt_timkiem_CTHD").value;
+
 
     if (searchValue != "") {
         condition = seacrhType + " LIKE '%" + searchValue + "%'";
@@ -85,6 +89,7 @@ function DisplayCTHDElement(elementPage) {
         <tr>
         <td id="MAHD">${elementPage[i].MA_HD}</td>
         <td id="MASP">${elementPage[i].MA_SP}</td>
+        <td style="width: 250px; word-wrap: break-word;">${elementPage[i].TEN_SP}</td>
         <td id="SL">${elementPage[i].SL_BAN}</td>
         <td id="ThanhTien"><span>${changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
         <td id="ThueSuat"><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
@@ -100,19 +105,19 @@ function DisplayCTHDElement(elementPage) {
 //chức năng tìm kiếm
 document.getElementById('btn_timkiem_CTHD').addEventListener('click', function (event) {
 
-    readVer2("tăng dần")
+    readVer3("tăng dần")
 
 });
 //chức năng tìm kiếm
 
 //chức năng sắp xếp 
 document.getElementById('btn_tang').addEventListener('click', function (event) {
-    readVer2("tăng dần")
+    readVer3("tăng dần")
 
 });
 
 document.getElementById('btn_giam').addEventListener('click', function (event) {
 
-    readVer2("giảm dần")
+    readVer3("giảm dần")
 });
 //chức năng sắp xếp 
