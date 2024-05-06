@@ -18,8 +18,10 @@
 }
 #scroll-container{
     overflow-y: scroll;
-    height: 88%;
-    
+    height: 87%;
+    margin-left: 10px;
+    border: solid 1px black;
+    border-right: none;
 }
 #form_PBH_admin table tr td{
     border: 1px solid black;

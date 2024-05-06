@@ -1,17 +1,30 @@
 function add()
 {
     var data = {
-        TEN_LOAI: "John"
-      };
+        "row1": ["1", "CHƯA CÓ"],
+        "row2": ["1", "CHƯA CÓ"]
+    };
+    
+    var column = {
+        "column1": "MA_SP",
+        "column2": "SERIAL_NUMBER"
+    };
+
+
+
     var jsonData = JSON.stringify(data);
-    var operation = "Create";
-    var tableName = "loai";
+    var jsonColumn = JSON.stringify(column);
+    console.log(jsonData)
+    console.log(jsonColumn)
+    var operation = "Create Custom";
+    var tableName = "serial";
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {
             jsonData : jsonData,
+            jsonColumn : jsonColumn,
             operation: operation,
             tableName: tableName
         },
@@ -19,7 +32,7 @@ function add()
             console.log(response);
         },
         error: function(xhr, status, error) {
-            console.log(error);
+            console.log(xhr+status+error);
         }
     });
 }
@@ -27,13 +40,13 @@ function add()
 function update()
 {
     var data = {
-        TEN_LOAI: "Zed"
+        "SO_LUONG = SO_LUONG + 1": ""
       };
     var jsonData = JSON.stringify(data);
     var operation = "Update";
-    var tableName = "loai";
-    var idName = "MA_LOAI";
-    var idValue = 15;
+    var tableName = "san_pham";
+    var idName = "MA_SP";
+    var idValue = 1;
     $.ajax({
         url: 'AJAX_PHP/CRUD.php',
         type: 'POST',

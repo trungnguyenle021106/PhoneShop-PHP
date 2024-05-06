@@ -1,0 +1,126 @@
+
+/*form_TK_admin*/
+#form_TK_admin{
+    display: flex;
+    height: 100%;
+}
+#table_TK{
+    width: 70%;
+    height: 92%;
+    margin-left: 2px;
+}
+
+#chucnang_TK{
+    width: 30%;
+}
+
+
+#form_TK_admin table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+#scroll-container{
+    overflow-y: scroll;
+    height: 88%;
+    border: solid 1px black;
+    border-left: none;
+    border-right: none;
+}
+
+
+#form_TK_admin table tr td{
+    border: 1px solid black;
+}
+#form_TK_admin table .thaotac {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_TK_admin table .thaotac:hover{
+    background-color: #746d6d11;
+}
+
+#form_timkiem_TK{
+    border: 1px solid black;
+    width: 80%;
+    margin-left: 50px;
+    padding: 10px;
+}
+
+#form_timkiem_TK #title{
+    text-align: center;
+    margin-top: 10px;
+}
+#form_timkiem_TK #opt_timkiem_TK{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+#form_timkiem_TK #btn_timkiem_TK{
+    width: 30%;
+    height: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#form_timkiem_TK #btn_timTheoKhoangTG{
+    width: 30%;
+    height: 20px;
+    margin-left: 120px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+#form_timkiem_TK #btn_timkiem_TK:hover{
+    background-color: #746d6d11;
+}
+
+
+
+#form_sapxep_TK{
+    border: 1px solid black;
+    width: 82%;
+    margin-left: 53px;
+    margin-top: 20px;
+    padding: 5px;
+}
+
+#opt_sapxep_TK{
+    text-align: center;
+    border: none;
+    background-color: #21020211;
+    border-radius: 50px;
+    width: 100px;
+}
+
+.btn_sortAZ, .btn_sortZA{
+    width: 30%;
+    margin-left: 10px;
+    height: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+/*form_TK_admin*/
+
+
+
+
+
+
+
+
+

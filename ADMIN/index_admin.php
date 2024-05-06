@@ -43,6 +43,10 @@
              else if($_POST['page'] == 'Sản phẩm' || $_POST['page'] == 'CHTN' || $_POST['page'] == 'CHDT' || $_POST['page'] == 'CHS' || $_POST['page'] == 'CHOL'){
                 echo "Quản lý sản phẩm";
              }
+             elseif($_POST['page'] == 'Thống kê')
+             {
+                echo "Thống kê";
+             }
         }
         ?>
     </div>
@@ -80,7 +84,7 @@
             <td><input type="submit" value="Tài khoản" name="page" class="items"></input></td>
             </tr>
             <tr>
-            <td><input type="submit" value="Serial" name="page" class="items"></input></td>
+            <td><input type="submit" value="Thống kê" name="page" class="items"></input></td>
             </tr>
         </th>
 </table>
@@ -135,8 +139,8 @@
          else if($_POST['page'] == 'CHTN'){
             require("CHTN_admin.php");
          }
-         else if($_POST['page'] == 'Quyen'){
-            require("Quyen_admin.php");
+         else if($_POST['page'] == 'Thống kê'){
+            require("ThongKe.php");
          }
     }
     ?>

@@ -11,13 +11,9 @@ $connect->connectDB();
 
 // THÊM VÀO DATABASE
 $data = array(
-    "MA_SP" => "2",
-    "MA_HD" => "1",
-    "SL_BAN" => "1",
-    "THUE_SUAT" => "100",
-    "THANH_TIEN" => "35234"
+    "TEN_LOAI" => "2DAS"
 );
-$connect->create("chi_tiet_hoadon", $data);
+$connect->create("loai", $data);
 // THÊM VÀO DATABASE
 
 // ĐỌC DỮ LIỆU TỪ DATABASE
