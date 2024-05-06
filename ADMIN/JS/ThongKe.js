@@ -96,7 +96,6 @@ function read() {
 }
 
 
-
 function DisplayHDElement(elementPage) {
     var html = "";
     var doanhthu = 0;

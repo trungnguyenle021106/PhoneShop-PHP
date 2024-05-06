@@ -1,8 +1,4 @@
-<?php
-require('../Model/Database.php');
-$connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
-$connect->connectDB();
-?>
+
 
 <link rel="stylesheet" href="CSS/PBH_admin.CSS">
 <div id="form_PBH_admin">

@@ -2,6 +2,8 @@
 readVer2()
 // Gọi hàm read để lấy dữ liệu 
 
+
+
 var NGAY_BAT_DAU = ""
 var MA_PBH = "";
 var MA_KH = "";
@@ -76,6 +78,7 @@ function DisplayPBHElementPage(elementPage) {
     }
     var tbody = document.getElementById("data");
     tbody.innerHTML = html;
+    setAmountPBH();
 }
 
 function BackButton() {
@@ -112,6 +115,12 @@ function setUICTPBH(data) {
         setBTNGiaHanBaoHanh();
         setBTNHuyHieuLucBaoHanh();
     }
+}
+
+function setAmountPBH() {
+    var SLPBH_HT = document.querySelector('#SLPBH_HT span');
+    var rows = document.querySelectorAll('#table_PBH table tbody tr ');
+    SLPBH_HT.innerText = rows.length;
 }
 
 function getUIHeadPBH() {

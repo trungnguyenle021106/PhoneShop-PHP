@@ -67,7 +67,7 @@ $currentYear = date('Y');
 
     <div id="chucnang_HD">
         <button id="RESET" style="margin-left:50px; margin-bottom: 20px; font-size:20px; background-color:white; cursor:pointer">Reset tìm kiếm và sắp xếp</button>
-        <form action="" method="POST" id="form_timkiem_HD">
+        <div id="form_timkiem_HD">
             <h2 id="title">Tìm kiếm</h2>
             <select name="" id="opt_timkiem_HD">
                 <option value="MA_HD">Mã hóa đơn</option>
@@ -78,28 +78,27 @@ $currentYear = date('Y');
                 <option value="NGAY_TAO">Ngày tạo</option>
                 <option value="TONG_TIEN">Tổng tiền</option>
             </select>
-            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="text" id="txt_timkiem_HD" style="width: 54%; margin-left: 20px;" placeholder="Nhập từ khóa">
-            <input type="submit" value="Tìm" id="btn_timkiem_HD">
-        </form>
+            <input type="button" value="Tìm" id="btn_timkiem_HD">
+        </div>
 
-        <form action="" method="POST" id="form_timkiem_HD" style="border-top: none;">
+        <div id="form_timkiem_HD" style="border-top: none;">
             <h2 id="title">Tìm kiếm trong khoảng thời gian</h2>
             <div style="display: flex;">
                 <div style="width: 30%">Ngày bắt đầu</div>
-                <input type="date" value="<?php echo $currentYear."-01-01"; ?>" id="start" style="width: 60%; ">
+                <input type="date" value="<?php echo $currentYear . "-01-01"; ?>" id="start" style="width: 60%; ">
             </div>
 
             <div style="display: flex;">
                 <div style="width: 30%">Ngày kết thúc</div>
-                <input type="date" value="<?php echo $currentYear."-12-31"; ?>" id="end" style="width: 60%;">
+                <input type="date" value="<?php echo $currentYear . "-12-31"; ?>" id="end" style="width: 60%;">
             </div>
 
-            <input type="submit" value="Tìm" id="btn_timTheoKhoangTG">
-        </form>
+            <input type="button" value="Tìm" id="btn_timTheoKhoangTG">
+        </div>
 
 
-        <form action="" method="POST" id="form_sapxep_HD">
+        <div  id="form_sapxep_HD">
             <h2 style="margin-top: 10px; text-align: center; ">Sắp xếp</h2>
             <select name="" id="opt_sapxep_HD">
                 <option value="MA_HD">Mã hóa đơn</option>
@@ -110,10 +109,9 @@ $currentYear = date('Y');
                 <option value="NGAY_TAO">Ngày tạo</option>
                 <option value="TONG_TIEN">Tổng tiền</option>
             </select>
-            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="submit" id="btn_tang" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
-            <input type="submit" id="btn_giam" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
-        </form>
+            <input type="button" id="btn_tang" value="tăng dần" name="btn_sortAZ" class="btn_sortAZ"></input>
+            <input type="button" id="btn_giam" value="giảm dần" name="btn_sortZA" class="btn_sortZA"></input>
+        </div>
 
     </div>
 </div>

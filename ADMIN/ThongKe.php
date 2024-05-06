@@ -38,10 +38,9 @@ $currentYear = date('Y');
 
     <div id="chucnang_TK">
         <button id="RESET" style="margin-left:50px; margin-bottom: 20px; margin-top:10px ;font-size:20px; background-color:white; cursor:pointer">Reset tìm kiếm</button>
-        <form action="" method="POST" id="form_timkiem_TK">
+        <div id="form_timkiem_TK">
             <h2 id="title">Sản phẩm bán chạy theo top</h2>
             
-            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
             <input type="text" id="txt_timkiem_TK" style="width: 50%; margin-left: 10px;" placeholder="Nhập top">
             <input type="button" value="Tìm" id="btn_timkiem_TK">
             
@@ -57,9 +56,9 @@ $currentYear = date('Y');
                 
             </select>
             </div>
-        </form>
+        </div>
 
-        <form action="" method="POST" id="form_timkiem_TK" style="border-top: none;">
+        <div id="form_timkiem_TK" style="border-top: none;">
             <h2 id="title">Tìm kiếm trong khoảng thời gian</h2>
             <div style="display: flex;">
                 <div style="width: 30%">Ngày bắt đầu</div>
@@ -72,7 +71,7 @@ $currentYear = date('Y');
             </div>
 
             <input type="button" value="Tìm" id="btn_timTheoKhoangTG">
-        </form>
+        </div>
 
 
        
