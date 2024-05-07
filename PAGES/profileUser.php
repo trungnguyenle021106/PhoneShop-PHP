@@ -285,6 +285,34 @@
         }
         function huyDonHang(maDonHang) {
             if(confirm("Bạn chắc chắn muốn hủy không?") == true) {
+                GetChiTietHoaDon(maDonHang, function (list_cthd) {
+        var operation = "Update SL";
+
+            var data = {};
+            for (var i = 0; i < list_cthd.length; i++) {
+                data[list_cthd[i].MA_SP] = list_cthd[i].SL_BAN;
+            }
+            var jsonData = JSON.stringify(data);
+          
+            jQuery.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData: jsonData,
+                    operation: operation,
+                    operator: "+"
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        
+
+    });
                 var data = {
                     TINH_TRANG: "Đã hủy",
                     };
@@ -319,5 +347,27 @@
                 
     }
         }
+        function GetChiTietHoaDon(maDonHang, callback) {
+            var operation = "Read";
+            var tableName = "chi_tiet_hoadon";
+            var condition = "MA_HD =" + maDonHang;
+            jQuery.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    operation: operation,
+                    tableName: tableName,
+                    condition: condition
+                },
+                success: function (response) {
+                    callback(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+}
+
 </script>
 </html>
