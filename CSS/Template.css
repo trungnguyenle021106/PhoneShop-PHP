@@ -83,7 +83,7 @@
 .element_TopMenu div{
     margin: auto 10px;
     width: auto;
-    height: 25px;
+    /* height: 25px; */
     text-align: center;
     color: black;
     font-size: 20px;

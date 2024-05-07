@@ -24,7 +24,7 @@
         <input type="checkbox" checked="checked" name="remember"> Nhớ mật khẩu
       </label>
     </div>
-    <p id="messenger"> thanh cong </p>
+    <p id="messenger"></p>
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button"  onclick="window.location.href = '/Index.php'" class="cancelbtn">Cancel</button>

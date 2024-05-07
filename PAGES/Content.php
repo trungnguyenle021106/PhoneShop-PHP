@@ -27,6 +27,11 @@
                 {
                     require("Search.php");
                 }
+                elseif($_GET['page']=='profileUser')
+                {
+                    require("profileUser.php");
+                }
+
             }
     ?>
 </div>
