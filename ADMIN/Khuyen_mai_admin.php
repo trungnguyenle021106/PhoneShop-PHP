@@ -106,7 +106,7 @@ $connect->connectDB();
 
             </div>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="button" class="btn_them_KM" name="btn_them_KM" value="Thêm">
+            <input type="button" class="btn_them_KM" name="btn_them_KM" value="Thêm" onclick="add()">
         </form>
 
 

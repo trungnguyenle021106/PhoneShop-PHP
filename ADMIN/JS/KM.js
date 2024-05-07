@@ -75,10 +75,10 @@ function timkiem(){
   const searchDateCriterion = document.getElementById('opt_timkiem_date').value;
   const searchDateValue = document.getElementById('date_timkiem_KM').value;
 
-  console.log( searchTxtCriterion);
-  console.log( searchTxtValue);
-  console.log( searchDateCriterion);
-  console.log( searchDateValue);
+//   console.log( searchTxtCriterion);
+//   console.log( searchTxtValue);
+//   console.log( searchDateCriterion);
+//   console.log( searchDateValue);
 
     //lưu table km 
     var tbkhuyenmai = null ;
@@ -113,7 +113,6 @@ function timkiem(){
                     if (tbkhuyenmai[i].TEN_KM.toLowerCase().includes(searchTextLower)) {
                         // Tìm thấy khuyến mãi với phần của tên khuyến mãi khớp
                         foundKhuyenMai.push(tbkhuyenmai[i]);
-                        DisplayElementPage(foundKhuyenMai);
                     }
                 }
                 
@@ -126,23 +125,45 @@ function timkiem(){
                     // Các hành động khác
             }
         }
-      } else if(date_timkiem_KM != null){
-        if(searchDateCriterion === "NBD"){
+      } 
+
+      if (date_timkiem_KM != null && searchDateCriterion === "NBD") {
+            //console.log("da vao 001");
             var foundKhuyenMai = [];
-            var searchDate = new Date(searchTxtValue);
+
             for (var i = 0; i < tbkhuyenmai.length; i++) {
-                var khuyenmaiDate = new Date(tbkhuyenmai[i].NGAY_BĐ);
-                if (khuyenmaiDate.getTime() === searchDate.getTime()) {
+                // console.log(tbkhuyenmai[i].NGAY_BĐ);
+                // console.log(searchDateValue);
+
+                if(tbkhuyenmai[i].NGAY_BĐ === searchDateValue) {
+                    // console.log("da vao 003");
                     foundKhuyenMai.push(tbkhuyenmai[i]);
-                    DisplayElementPage(foundKhuyenMai);
                 }
             }
+        
             DisplayElementPage(foundKhuyenMai);
             var SLSP_HT = document.querySelector('#SLKM span');
-            var rows = document.querySelectorAll('#table_KM table tbody tr ');
-            SLSP_HT.innerText = rows.length;
+            SLSP_HT.innerText = foundKhuyenMai.length;
         }
-      }
+
+        if (date_timkiem_KM != null && searchDateCriterion === "NKT") {
+            //console.log("da vao 001");
+            var foundKhuyenMai = [];
+    
+            for (var i = 0; i < tbkhuyenmai.length; i++) {
+                // console.log(tbkhuyenmai[i].NGAY_BĐ);
+                // console.log(searchDateValue);
+    
+                if(tbkhuyenmai[i].NGAY_KT === searchDateValue) {
+                    // console.log("da vao 003");
+                    foundKhuyenMai.push(tbkhuyenmai[i]);
+                }
+            }
+        
+            DisplayElementPage(foundKhuyenMai);
+            var SLSP_HT = document.querySelector('#SLKM span');
+            SLSP_HT.innerText = foundKhuyenMai.length;
+        }
 
     })
     .catch(error => {
@@ -150,6 +171,42 @@ function timkiem(){
     });
     
 }
+
+function add(){
+
+    var data = {
+        TEN_KM: $('#TenKM_add').val(),
+        DIEU_KIEN: $('#Dieu_kien_KM').val(),
+        SO_TIEN_GIAM: $('#Tien_giam_KM').val(),
+        NGAY_BĐ: $('startDate').val(),
+        NGAY_KT: $('#endDate').val(),
+        TINH_TRANG: $('#TrangThaiKM').val()
+      };
+
+    var jsonData = JSON.stringify(data);
+    var operation = "Create";
+    var tableName = "khuyen_mai";
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData : jsonData,
+            operation: operation,
+            tableName: tableName,
+        },
+        success: function(response) {
+            console.log(response);
+            location.reload();
+
+        },
+        error: function( error) {
+            console.log(error);
+        }
+    });  
+}
+
+
 // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
 
 function getKhuyenMaiData() {
