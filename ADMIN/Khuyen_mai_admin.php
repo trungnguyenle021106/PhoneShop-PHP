@@ -76,7 +76,7 @@ $connect->connectDB();
 
             <div>
                 <label for="">Tên khuyến mãi: </label> 
-                <input type="text" name="TenKM_add" id="TenKM_add"> <span style="color: red; ">(*)</span>
+                <input type="text" name="TenKM_add" id="TenKM_add"> 
             </div>
 
             <div>
@@ -99,10 +99,6 @@ $connect->connectDB();
                 <input type="date" id="endDate" name="endDate"> <span style="color: red; ">(*)</span>
             </div>
 
-            <div>
-                <label for="">Trạng thái: </label> 
-                <input type="text" name="TrangThaiKM" id="TrangThaiKM"> <span style="color: red; ">(*)</span>
-            </div>
 
             </div>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
@@ -141,7 +137,11 @@ $connect->connectDB();
 
                 <div>
                     <label for="">Trạng thái: </label> 
-                    <input type="text" value="" name="TrangThaiKM_sua" id="TrangThaiKM_sua">
+                    <!-- <input type="text" value="" name="TrangThaiKM_sua" id="TrangThaiKM_sua"> -->
+                    <select name="TrangThaiKM_sua" id="TrangThaiKM_sua" style="height: 35px; width: 400px; margin-bottom: 15px; ">
+                        <option value="Có hiệu lực">Có hiệu lực</option>
+                        <option value="Hết hiệu lực">Hết hiệu lực</option>
+                    </select>
                 </div>
 
                 <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">

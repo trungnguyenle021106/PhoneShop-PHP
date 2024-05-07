@@ -180,7 +180,7 @@ function add(){
         SO_TIEN_GIAM: $('#Tien_giam_KM').val(),
         NGAY_BĐ: $('startDate').val(),
         NGAY_KT: $('#endDate').val(),
-        TINH_TRANG: $('#TrangThaiKM').val()
+        TINH_TRANG: "Có hiệu lực"
       };
 
     var jsonData = JSON.stringify(data);
