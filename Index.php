@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="CSS/Shoppingcart.css">
     <link rel="stylesheet" href="CSS/register.css">
     <link rel="stylesheet" href="./CSS/login.css">
+    <link rel="stylesheet" href="./CSS/phone.css">
      <title>Document</title>
 </head>
 
