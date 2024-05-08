@@ -1,5 +1,6 @@
 .page {    
     max-width: 100%;
+    width: 100%;
 }
 
 /* TOP MENU */
@@ -102,8 +103,7 @@
     
     width: 100%;
     min-height: 1000px;
-    max-height: none;
-    background-color: rgb(243, 243, 243);
+    height: auto;
 }
 
 /* SUA O DAY NUA */

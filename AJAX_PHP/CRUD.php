@@ -74,6 +74,7 @@ switch ($operation) {
         $condition = $_POST['condition'];
 
         $jsonResponse = $connect->read($tableName, $condition);
+        $jsonResponse = json_encode($jsonResponse);
         break;
     case "Custom Read":
         $tableName = $_POST['tableName'];

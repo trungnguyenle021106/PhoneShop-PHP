@@ -115,3 +115,19 @@ $connect->connectDB();
 <script src="../js/XuLyTienVND.js"></script>
 <script src="../js/accessoriesV2.js"></script>
 
+
+
+window.onload = function() {
+        loadData(1, 5, 4)
+    }
+
+</scr>
+<!-- <div class="scroll_down_btn">
+                <i class="fa-solid fa-arrow-down" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>
+                <span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: red">Back down</span>
+        </div>
+        <div class="scroll_up_btn">
+                <i class="fa-solid fa-arrow-up" style="color:white; margin-left: 20px; margin-top: 5px; border-radius: 50%; background-color: red; padding: 10px;"></i>
+                <span style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: red; margin-left: 10px;">Back up</span>
+        </div>
+        </div> -->

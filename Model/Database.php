@@ -2,7 +2,7 @@
 class MyConnection
 {
     private $server, $username, $password, $database;
-    private $connection;
+    public $connection;
 
     public function __construct($server, $username, $password, $database)
     {
@@ -18,6 +18,7 @@ class MyConnection
         if ($this->connection->connect_error) {
             die("Kết nối đến MySQL thất bại: " . $this->connection->connect_error);
         }
+        // echo "Kết nối đến MySQL thành công!";
     }
 
     public function query($sql)
@@ -25,10 +26,15 @@ class MyConnection
         return $this->connection->query($sql);
     }
 
+    public function error() {
+        return $this->connection->error;
+    }
+
     public function closeConnection()
     {
         if ($this->connection) {
             $this->connection->close();
+            // echo "Kết nối đã đóng!";
         }
     }
 

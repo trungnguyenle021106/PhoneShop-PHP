@@ -377,3 +377,4 @@ function loadValueForSelect(idSelect, arrayValueSelect) {
 setDataOnload();
 setArrayValueSelect("nha_sx", "", "nsx");
 setArrayValueSelect("loai", "MA_LOAI <> 1", "loai");
+console.log(dataArray)
