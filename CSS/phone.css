@@ -184,6 +184,8 @@
 }
 .container .container-right .right-content .content-container .phone-list .phone-item .phone-footer {
     flex: 1;
+    height: 40px;
+    align-self: end;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
     display: flex;

@@ -83,7 +83,7 @@ const cart = {
                             <input type="hidden" name="price[]" value="${item.price.replace(/[.đĐ]/g, '')}">
                             <div class="Ten_sp">Accessories</div>
                             <div class="thongtinsp" >
-                                <div style="width: 50%;"><a class="thea"  href="#">${item.name}</a></div>
+                                <div style="width: 50   %;"><a class="thea"  href="#">${item.name}</a></div>
                                 <div style="font-weight: bold; font-size:16px; margin-left:24px;">${item.price}</div>
                             </div>
 
