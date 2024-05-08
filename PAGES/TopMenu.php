@@ -13,21 +13,6 @@ if (isset($_SESSION['Ma_KhachHang'])) {
 ?>
 
 
-<script>
-    $(document).ready(function() {
-        $(".Img_user").click(function(event) {
-            //event.stopPropagation(); // Ngăn ngừa sự kiện nổi bọt
-            $(".dropdown-content").toggle(); // Toggle hiển thị dropdown content
-        });
-
-        $(document).click(function(event) {
-            if (!$(event.target).closest('.dropdown').length) {
-                $('.dropdown-content').hide(); // Ẩn dropdown khi click ra ngoài
-            }
-        });
-    });
-</script>
-
 <div class="topMenu-wrap">
     <div class="topMenu">
         <div class="wraper">
@@ -96,3 +81,18 @@ if (isset($_SESSION['Ma_KhachHang'])) {
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".Img_user").click(function(event) {
+            //event.stopPropagation(); // Ngăn ngừa sự kiện nổi bọt
+            $(".dropdown-content").toggle(); // Toggle hiển thị dropdown content
+        });
+
+        $(document).click(function(event) {
+            if (!$(event.target).closest('.dropdown').length) {
+                $('.dropdown-content').hide(); // Ẩn dropdown khi click ra ngoài
+            }
+        });
+    });
+</script>
