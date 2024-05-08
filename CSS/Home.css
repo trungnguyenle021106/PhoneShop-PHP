@@ -9,9 +9,10 @@ a {
     color: inherit;
 }
 
-/* * {
+* {
     box-sizing: border-box;
-} */
+}
+
 .bannerWrapper{
     
     display: flex;

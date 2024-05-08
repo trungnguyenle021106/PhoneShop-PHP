@@ -27,7 +27,7 @@
     <p id="messenger"></p>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button"  onclick="window.location.href = '/PhoneShop/Index.php'" class="cancelbtn">Cancel</button>
+      <button type="button"  onclick="window.location.href = '/PhoneShop/index.php?page=Home'" class="cancelbtn">Cancel</button>
       <span class="Register">Bạn chưa có tài khoản <a href="/PhoneShop/PAGES/Register.php" >Đăng ký ngay</a></span>
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
