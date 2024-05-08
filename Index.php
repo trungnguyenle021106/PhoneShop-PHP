@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Template.css">
     <link rel="stylesheet" href="CSS/base.css">
-    <link rel="stylesheet" href="CSS/promotion.css">
+    <!-- <link rel="stylesheet" href="CSS/promotion.css"> -->
     <link rel="stylesheet" href="CSS/accessories.css">
     <link rel="stylesheet" href="CSS/Shoppingcart.css">
     <link rel="stylesheet" href="CSS/Home.css">
-    <link rel="stylesheet" href="CSS/login.css">
     <link rel="stylesheet" href="CSS/register.css">
+    <link rel="stylesheet" href="./CSS/login.css">
      <title>Document</title>
 </head>
 
