@@ -9,7 +9,6 @@
     <!-- <link rel="stylesheet" href="CSS/promotion.css"> -->
     <link rel="stylesheet" href="CSS/accessories.css">
     <link rel="stylesheet" href="CSS/Shoppingcart.css">
-    <link rel="stylesheet" href="CSS/Home.css">
     <link rel="stylesheet" href="CSS/register.css">
     <link rel="stylesheet" href="./CSS/login.css">
      <title>Document</title>

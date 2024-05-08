@@ -73,7 +73,7 @@ $(document).ready(function() {
   </div>
 
   <div class="container1 signin">
-    <p>Bạn đã có tài khoản? <a href="../PAGES/Login.php?show=true">Đăng nhập</a>.</p>
+    <p>Bạn đã có tài khoản? <a href="/PhoneShop/index.php?page=Home">Đăng nhập</a>.</p>
   </div>
 
 </form>

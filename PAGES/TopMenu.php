@@ -58,7 +58,7 @@ if (isset($_SESSION['Ma_KhachHang'])) {
                             <div class="dropdown-content">
                                 <a  href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
                                 <hr style="margin-bottom:10px">
-                               <a href="index.php?page=profileUser">Thông tin tài khoản</a>
+                               <a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>
                             </div>
                         </div>
                     </li>
