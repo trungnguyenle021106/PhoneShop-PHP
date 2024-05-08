@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../Model/Database.php';
+require '../Model/Database.php';
 session_start(); // Khởi động phiên
 
 $server = "localhost";

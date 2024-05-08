@@ -4,16 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Template.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/promotion.css">
-    <link rel="stylesheet" href="css/phone.css">
-    <link rel="stylesheet" href="css/accessories.css">
-    <link rel="stylesheet" href="css/Shoppingcart.css">
-    <!-- <link rel="stylesheet" href="css/Home.css"> -->
-    <link rel="stylesheet" href="css/detailPhone.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="CSS/Template.css">
+    <link rel="stylesheet" href="CSS/base.css">
+    <!-- <link rel="stylesheet" href="CSS/promotion.css"> -->
+    <link rel="stylesheet" href="CSS/accessories.css">
+    <link rel="stylesheet" href="CSS/Shoppingcart.css">
+    <link rel="stylesheet" href="CSS/register.css">
+    <link rel="stylesheet" href="./CSS/login.css">
      <title>Document</title>
 </head>
 
@@ -32,6 +29,7 @@
 
     ?>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="./js/event.js"></script>
+<script src="js/event.js"></script>
 </html>

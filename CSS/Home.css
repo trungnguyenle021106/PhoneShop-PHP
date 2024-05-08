@@ -12,6 +12,7 @@ a {
 * {
     box-sizing: border-box;
 }
+
 .bannerWrapper{
     
     display: flex;

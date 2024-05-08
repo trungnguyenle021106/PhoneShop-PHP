@@ -1,5 +1,5 @@
 <?php
-require './Model/Database.php';
+require_once './Model/Database.php';
 $server = "localhost";
 $username = "root";
 $password = "";
@@ -84,9 +84,9 @@ $connect->connectDB();
 
 </div>
 
-<script src="../js/pageHandler.js"></script>
-<script src="../js/XuLyTienVND.js"></script>
-<script src="../js/searchV2.js"></script>
+<script src="./js/pageHandler.js"></script>
+<script src="./js/XuLyTienVND.js"></script>
+<script src="./js/searchV2.js"></script>
 <script>
     <?php
     $searchType = "";

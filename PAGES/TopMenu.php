@@ -12,22 +12,6 @@ if (isset($_SESSION['Ma_KhachHang'])) {
 }
 ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $(".Img_user").click(function(event) {
-            //event.stopPropagation(); // Ngăn ngừa sự kiện nổi bọt
-            $(".dropdown-content").toggle(); // Toggle hiển thị dropdown content
-        });
-
-        $(document).click(function(event) {
-            if (!$(event.target).closest('.dropdown').length) {
-                $('.dropdown-content').hide(); // Ẩn dropdown khi click ra ngoài
-            }
-        });
-    });
-</script>
 
 <div class="topMenu-wrap">
     <div class="topMenu">
@@ -72,9 +56,9 @@ if (isset($_SESSION['Ma_KhachHang'])) {
                         <div class="dropdown">
                             <img class="Img_user" src="Img/ic_user.png" alt="User" style="cursor: pointer;">
                             <div class="dropdown-content">
-                                <a  href="/PAGES/logout.php">Đăng xuất</a>
+                                <a  href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
                                 <hr style="margin-bottom:10px">
-                               <a href="index.php?page=profileUser">Thông tin tài khoản</a>
+                               <a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>
                             </div>
                         </div>
                     </li>
@@ -82,7 +66,7 @@ if (isset($_SESSION['Ma_KhachHang'])) {
                     <li style="display: flex; align-items: center;" class="element_TopMenu">
                         <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
                         <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
-                            <img class="Img_user" src="/Img/ic_user.png" alt="Login" style="cursor: pointer;">
+                            <img class="Img_user" src="Img/ic_user.png" alt="Login" style="cursor: pointer;">
                         </a>
                     </li>
                 <?php endif; ?>
@@ -97,3 +81,18 @@ if (isset($_SESSION['Ma_KhachHang'])) {
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".Img_user").click(function(event) {
+            //event.stopPropagation(); // Ngăn ngừa sự kiện nổi bọt
+            $(".dropdown-content").toggle(); // Toggle hiển thị dropdown content
+        });
+
+        $(document).click(function(event) {
+            if (!$(event.target).closest('.dropdown').length) {
+                $('.dropdown-content').hide(); // Ẩn dropdown khi click ra ngoài
+            }
+        });
+    });
+</script>
