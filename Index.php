@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="CSS/register.css">
     <link rel="stylesheet" href="./CSS/login.css">
     <link rel="stylesheet" href="./CSS/phone.css">
+    <link rel="stylesheet" href="./CSS/DetailPhone.css">
      <title>Document</title>
 </head>
 

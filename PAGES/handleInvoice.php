@@ -2,10 +2,12 @@
     require '../Model/Database.php';
     $conn = new MyConnection('localhost', 'root', '', 'qldienthoai');
     $conn->connectDB();
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['product_id']) && isset($_POST['soluong']) && isset($_POST['price'])) {
             $sql1 = "hoa_don ORDER BY MA_HD DESC";
             $order = $conn->read($sql1);
+            $listKm = $conn->read('khuyen_mai');
             if (empty($order)) {
                 $mahd = 1;
             } else {
@@ -38,7 +40,14 @@
                             echo "Error: " . $sqlQuantity . "<br>" . $conn->error();
                         }
 
-                        $sqlQuantity1 = "UPDATE hoa_don SET TONG_TIEN = $tongTien WHERE MA_HD = '$mahd'";
+                        foreach ($listKm as $km) {
+                            if((int)$km['DIEU_KIEN'] < (int)$tongTien) {
+                                $makm = $km['MA_KM'];
+                                $tongTien -= $km['SO_TIEN_GIAM'];
+                            }
+                        }
+                        $total = (int)$tongTien + (int)$thue;
+                        $sqlQuantity1 = "UPDATE hoa_don SET TONG_TIEN = $total, MA_KM = '$makm'  WHERE MA_HD = '$mahd'";
                         if ($conn->query($sqlQuantity1) === TRUE) {
                             
                         } else {
