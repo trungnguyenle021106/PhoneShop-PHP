@@ -72,7 +72,7 @@ if (isset($_SESSION['Ma_KhachHang'])) {
                         <div class="dropdown">
                             <img class="Img_user" src="Img/ic_user.png" alt="User" style="cursor: pointer;">
                             <div class="dropdown-content">
-                                <a  href="/PAGES/logout.php">Đăng xuất</a>
+                                <a  href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
                                 <hr style="margin-bottom:10px">
                                <a href="index.php?page=profileUser">Thông tin tài khoản</a>
                             </div>
@@ -82,7 +82,7 @@ if (isset($_SESSION['Ma_KhachHang'])) {
                     <li style="display: flex; align-items: center;" class="element_TopMenu">
                         <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
                         <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
-                            <img class="Img_user" src="/Img/ic_user.png" alt="Login" style="cursor: pointer;">
+                            <img class="Img_user" src="Img/ic_user.png" alt="Login" style="cursor: pointer;">
                         </a>
                     </li>
                 <?php endif; ?>

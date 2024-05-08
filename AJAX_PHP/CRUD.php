@@ -1,5 +1,5 @@
 <?php
-require '../Model/Database.php';
+require_once '../Model/Database.php';
 $server = "localhost";
 $username = "root";
 $password = "";

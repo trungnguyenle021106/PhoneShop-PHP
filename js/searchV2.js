@@ -158,7 +158,7 @@ function getConditionInPrice() {
 function getConditionSearchType() {
     var condition = ""
     if (searchType == "TEN_SP") {
-        condition = "TEN_SP LIKE '%" + seachValue + "%' AND";
+        condition = "TEN_SP LIKE '%" + seachValue + "%' AND ";
     }
     return condition;
 }
@@ -169,7 +169,7 @@ function read() {
     var condition = getConditionSearchType() + getConditionLoai() + getConditionBrand() + getConditionInPrice() + getConditionSort();
     console.log(condition)
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {

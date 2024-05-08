@@ -146,7 +146,7 @@ function read() {
     var condition = " MA_LOAI <> 1 " + getConditionLoai() + getConditionBrand() + getConditionInPrice() + getConditionSort();
 
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {

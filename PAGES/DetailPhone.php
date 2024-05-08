@@ -3,8 +3,8 @@
     <div class="content-detail-phone">
         <a href="?page=Phones" class="link_back">Back to Phones</a>
         <?php
-        require("../Model/Database.php");
-        require("../PAGES/XuLyTienVND.php");
+        require("./Model/Database.php");
+        require("/PAGES/XuLyTienVND.php");
         $server = "localhost";
         $username = "root";
         $password = "";

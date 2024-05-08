@@ -6,7 +6,7 @@ function checkLogin() {
 
 
     $.ajax({
-        url: '/PAGES/Login_xuly.php',
+        url: '/PhoneShop/PAGES/Login_xuly.php',
         type: 'POST',
         data: {
             username: $('input[name="uname"]').val(), // Lấy giá trị từ input username
@@ -15,7 +15,7 @@ function checkLogin() {
         success: function(response) {
 
         
-            console.log(response);
+            // console.log(response);
             // Parse JSON response thành object
             var kq = JSON.parse(response);
 
@@ -29,7 +29,7 @@ function checkLogin() {
                 }
                 setTimeout(function() {
                     // document.getElementById('id01').style.display = 'none';
-                    window.location.href = '/Index.php';
+                    window.location.href = '/PhoneShop/index.php?page=Home';
                 }, 1000);
             } else {
                 $('#messenger').text(kq.message);
