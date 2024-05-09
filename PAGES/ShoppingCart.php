@@ -4,7 +4,9 @@
     </div>
 
     <div class="right">
-        <input class="btn_DatHang" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
+
+        <input class="btn_DatHang" onclick="showAsk(<?php echo $_SESSION['$isKH'];?>
+        )" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
     </div>
 </form>
 <div class="ask">
@@ -13,4 +15,5 @@
     </div>
 </div>
 
+<script src="./js/XuLyTienVND.js"></script>
 <script src="./js/shoppingCart.js"></script>

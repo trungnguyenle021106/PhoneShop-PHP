@@ -13,23 +13,24 @@
             } else {
                 $mahd = $order[0]["MA_HD"] + 1;
             }
-            $makm = 1;
+            $makm = $_POST['km'];
             $ngayTao = date("Y-m-d");
             $tinhTrang = "Chưa liên lạc";
             $manv = 1;
             $makh = 1;
-            $tongTien = 0;
+            $tongTien = $_POST['total'];
+            $thue = $_POST['vat'];
 
             $ids = $_POST['product_id'];
             $quantities = $_POST['soluong'];
             $prices = $_POST['price'];
 
+            $conn->error();
+
             $sql2 = "INSERT INTO hoa_don (MA_HD,MA_KM,NGAY_TAO,TINH_TRANG,MA_NV,MA_KH,TONG_TIEN) VALUES ('$mahd','$makm','$ngayTao','$tinhTrang','$manv','$makh','$tongTien')";
             if ($conn->query($sql2) === TRUE) {
                 for($i = 0; $i < count($ids); $i++) {
                     $thanhtien = (int)$quantities[$i] * (int)$prices[$i];   
-                    $thue = $thanhtien / 100 * 10;
-                    $tongTien += $thanhtien;
                     $sql = "INSERT INTO chi_tiet_hoadon (MA_SP,MA_HD,SL_BAN,THUE_SUAT,THANH_TIEN) VALUES ('$ids[$i]','$mahd','$quantities[$i]','$thue','$thanhtien')";
 
                     if ($conn->query($sql) === TRUE) {
@@ -38,20 +39,6 @@
                             
                         } else {
                             echo "Error: " . $sqlQuantity . "<br>" . $conn->error();
-                        }
-
-                        foreach ($listKm as $km) {
-                            if((int)$km['DIEU_KIEN'] < (int)$tongTien) {
-                                $makm = $km['MA_KM'];
-                                $tongTien -= $km['SO_TIEN_GIAM'];
-                            }
-                        }
-                        $total = (int)$tongTien + (int)$thue;
-                        $sqlQuantity1 = "UPDATE hoa_don SET TONG_TIEN = $total, MA_KM = '$makm'  WHERE MA_HD = '$mahd'";
-                        if ($conn->query($sqlQuantity1) === TRUE) {
-                            
-                        } else {
-                            echo "Error: " . $sqlQuantity1 . "<br>" . $conn->error();
                         }
                     } else {
                         if (isset($_SERVER['HTTP_REFERER'])) {

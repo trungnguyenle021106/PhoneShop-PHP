@@ -44,6 +44,39 @@ function createStorage(key) {
     }
     return storage
 }
+function loadAjax(callback) {
+    var operation = "Read";
+    var tableName = "khuyen_mai";
+    var condition = "";
+    $.ajax({
+        url: 'AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function (response) {
+            var dataArray = JSON.parse(response);
+            if (typeof callback === 'function') {
+                callback(dataArray);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function formatCurrency(amount) {
+    amount = parseFloat(amount);
+    if (isNaN(amount)) {
+        return "Số tiền không hợp lệ";
+    }
+    const formattedAmount = amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    return formattedAmount;
+}
 
 const cart = {
     list: document.querySelector('.left'),
@@ -81,7 +114,6 @@ const cart = {
                         <div class="product_detail">
                             <input type="hidden" name="product_id[]" value="${item.MA_SP}">
                             <input type="hidden" name="price[]" value="${item.price.replace(/[.đĐ]/g, '')}">
-                            <div class="Ten_sp">Accessories</div>
                             <div class="thongtinsp" >
                                 <div style="width: 50   %;"><a class="thea"  href="#">${item.name}</a></div>
                                 <div style="font-weight: bold; font-size:16px; margin-left:24px;">${item.price}</div>
@@ -104,8 +136,11 @@ const cart = {
         }).join("")
 
         cart.list.innerHTML = `
-        <h1>Your reservation basket:</h1>
-        ${html}
+            <input class="vat" type="hidden" name="vat"  value="">
+            <input class="MaKm" type="hidden" name="km"  value="">
+            <input class="total" type="hidden" name="total"  value="">
+            <h1>Your reservation basket:</h1>
+            ${html}
         `
     },
     plusOrder: (idx) => {
@@ -142,23 +177,101 @@ const cart = {
         }
     }
 }
+
 cart.loadDataIsEmpty()
 cart.loadLayouts()
 
-btnSubmit = document.querySelector('.btn_DatHang')
 form = document.querySelector('.ShoppingCart_Page')
 
-btnSubmit.onclick = e => {
-    showAsk()
-}
+function showAsk(dk) {
+    loadAjax(list => {
+        listOrder = cart.orders[0].order
+        const total = listOrder.reduce((acc, product) => {
+            const totalPrice = product.price.replace(/[.đĐ]/g, '') * product.value;
 
-function showAsk() {
-    document.querySelector('.ask').classList.add('ask--active')
+            acc.totalPrice += totalPrice;
+            
+            return acc;
+        }, { totalPrice: 0});
+        var km = 0;
+        var sotg = 0;
+        for(var i = 0; i < list.length; i++) {
+            console.log(Number(list[i].DIEU_KIEN))
+            console.log(total.totalPrice)
+            if(total.totalPrice > Number(list[i].DIEU_KIEN)) {
+                if(sotg < Number(list[i].SO_TIEN_GIAM)) {
+                    sotg = list[i].SO_TIEN_GIAM
+                    km = list[i].MA_KM
+                }
+            }
+        } 
+        console.log('Tổng giá tiền:', formatCurrency(total.totalPrice));
+        document.querySelector('.vat').value = total.totalPrice/100*10
+        document.querySelector('.MaKm').value = km
+        document.querySelector('.total').value = total.totalPrice + total.totalPrice/100*10 - sotg
+        document.querySelector('.total_price').innerText = formatCurrency(total.totalPrice)
+        document.querySelector('.vat_price').innerText = formatCurrency(total.totalPrice/100*10)
+        document.querySelector('.km_price').innerText = sotg == 0 ? 'không có' : formatCurrency(sotg)
+        document.querySelector('.total_price_all').innerText = formatCurrency(total.totalPrice + total.totalPrice/100*10 - sotg)
+    });
+
+    // if(dk == true) {
+        document.querySelector('.ask').classList.add('ask--active')
+    // }
+    listOrder = cart.orders[0].order
+        html = listOrder.map((item,idx) => {
+            return `
+                    <div class="CartItem" style="display:flex; width:40%">
+                        <div class="product_image" style="width: 40%">
+                            <img src="${item.img}" alt="loi anh">
+                        </div>
+                        <div class="product_detail">
+                            <input type="hidden" name="product_id[]" value="${item.MA_SP}">
+                            <input type="hidden" name="price[]" value="${item.price.replace(/[.đĐ]/g, '')}">
+                            <div class="thongtinsp" >
+                                <div style="width: 50   %;"><a class="thea"  href="#">${item.name}</a></div>
+                                <div style="font-weight: bold; font-size:16px; margin-left:24px;">${item.price}</div>
+                            </div>
+
+                            <div style="display: flex; width: 100%; margin-top: 30px; justify-content: space-between;;">
+                                <div class="soluong">
+                                    <span style="font-size:16px;">số lượng</span>
+                                    <input class="input-quantity" readonly type="text" name="soluong[]" id="" value="${item.value}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+        }).join("")
+
     document.querySelector('.ask-container').innerHTML = `
-    <p class="ask-content">Có muốn mua hàng</p>
-    <div style="display: flex; width: 100%; justify-content: space-around; margin: 20px 0">
-        <button class="yes">Mua</button>
-        <button class="no">trở lại</button>
+    <p class="ask-content">Bạn có muốn mua hàng</p>
+    <div style="max-width: 60vw; display: flex; flex-wrap: wrap; width: 100%; justify-content: space-around; margin: 20px 0">
+        <div style="display:flex; justify-content: space-between; flex-wrap:wrap; width: 100%; max-height: 50vh; overflow-y: scroll;box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);">
+            ${html}
+        </div>
+        <div style="margin-top: 16px; width: 100%;">
+            <p style="font-size:16px; text-align:center;">
+                Tổng tiền chưa bao gồm VAT và khuyến mãi:
+                <span class="total_price" style="color:#cb0707; font-size:18px"></span>
+            </p>
+            <p style="font-size:16px ;text-align:center;margin-top: 12px;">
+                Phí VAT 10%:
+                <span class="vat_price" style="color:#cb0707; font-size:18px"></span>
+            </p>
+            <p style="font-size:16px ;text-align:center;margin-top: 12px;">
+                Khuyến mãi:
+                <span class="km_price" style="color:#cb0707; font-size:18px"></span>
+                xem trong phần khuyến mãi để biết thêm
+            </p>
+            <p style="font-size:16px ;text-align:center;margin-top: 12px;">
+                Tổng tiền đã bao gồm VAT và khuyến mãi:
+                <span class="total_price_all" style="color:#cb0707; font-size:18px"></span>
+            </p>
+        </div>
+        <div style="margin-top: 8px">
+            <button class="yes" style="margin-right:30px">Mua</button>
+            <button class="no">trở lại</button>
+        </div>
     </div>
     `
     document.querySelector('.no').onclick = () => {
@@ -166,7 +279,6 @@ function showAsk() {
     }
 
     document.querySelector('.yes').onclick = () => {
-        
         form.submit()
     }
 }

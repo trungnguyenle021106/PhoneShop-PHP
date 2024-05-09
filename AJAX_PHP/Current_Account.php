@@ -31,8 +31,4 @@ $data = array(
     'array_TenChucNang' => $array_TenChucNang
 );
 
-function getUser() {
-    return "hello";
-}
-
 echo json_encode($data);
