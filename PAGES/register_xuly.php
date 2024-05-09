@@ -59,7 +59,7 @@ function saveTK($username, $password) {
   $user = current($existing_accounts);
   $errors = [];
 
-  if ($user["TEN_TK"] === $username) {
+  if (isset($user) && isset($user["TEN_TK"]) && $user["TEN_TK"] === $username) {
       $connect->closeConnection();
       $errors['usernameError'] = "Tài khoản đã tồn tại.";
       return  $errors;
