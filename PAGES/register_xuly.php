@@ -55,9 +55,11 @@ function saveTK($username, $password) {
 
   // Kiểm tra tài khoản đã tồn tại hay chưa
   $existing_accounts = $connect->read("tai_khoan", "TEN_TK = '$username'");
+  reset($existing_accounts);
+  $user = current($existing_accounts);
   $errors = [];
-  
-  if ($existing_accounts === $username) {
+
+  if ($user["TEN_TK"] === $username) {
       $connect->closeConnection();
       $errors['usernameError'] = "Tài khoản đã tồn tại.";
       return  $errors;

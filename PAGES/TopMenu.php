@@ -10,8 +10,12 @@ if (isset($_SESSION['user_name'])) {
 if (isset($_SESSION['Ma_KhachHang'])) {
     $Ma_KhachHang = $_SESSION['Ma_KhachHang'];
 }
+$isKH ;
+if(isset($_SESSION['$isKH']))
+{
+    $isKH = $_SESSION['$isKH'];
+}
 
-$isKH = $_SESSION['$isKH'];
 ?>
 
 
