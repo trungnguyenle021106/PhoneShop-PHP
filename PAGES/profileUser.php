@@ -1,5 +1,6 @@
 <?php
     session_start(); 
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="../CSS/profileUser.css">
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
+    <script src="../js/XuLyTienVND.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Document</title>
@@ -172,7 +173,7 @@
                 echo "<td>" . $row["NGAY_TAO"] . "</td>";
                 echo "<td>" . $row["TONG_TIEN"] . "</td>";
                 echo "<td id=\"tinhTrangDonHang_" . $row["MA_HD"] . "\">" . $row["TINH_TRANG"] . "</td>";
-                if ($row["TINH_TRANG"] == "Đã hủy") {
+                if ($row["TINH_TRANG"] == "Đã hủy" || $row["TINH_TRANG"] == "Đã giao hàng") {
                     echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>";
                 }else{
                     echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>
@@ -229,9 +230,9 @@
                                 <td>`+product.TEN_SP+`</td>
                                 <td><img src="../Img/`+product.HINH_ANH+`" alt="" width="50"></td>
                                 <td>`+detail.SL_BAN+`</td>
-                                <td>`+product.GIA_BAN+`</td>
-                                <td>`+detail.THUE_SUAT+`</td>
-                                <td>`+detail.THANH_TIEN+`</td>
+                                <td>`+changePriceToString(product.GIA_BAN)+`</td>
+                                <td>`+changePriceToString(detail.THUE_SUAT)+`</td>
+                                <td>`+changePriceToString(detail.THANH_TIEN)+`</td>
                                 </tr>`
             } else {
                 console.log("Không tìm thấy sản phẩm tương ứng.");
