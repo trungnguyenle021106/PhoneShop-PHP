@@ -1,5 +1,5 @@
 <?php
-require_once '/Model/Database.php';
+require_once '../Model/Database.php';
 session_start(); // Khởi động phiên
 
 
