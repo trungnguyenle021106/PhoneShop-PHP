@@ -38,7 +38,7 @@ $(document).ready(function() {
                     // Nếu không có lỗi, hiển thị thông báo thành công và làm điều gì đó khác
                     console.log(errors.success);
                     // Ví dụ: chuyển hướng người dùng đến trang khác sau khi đăng ký thành công
-                    window.location.href = "Login.php?show=true";
+                    window.location.href = "/PhoneShop/index.php?page=Home";
                   }
               } else {
                 console.log("có lỗi xảy ra ");
