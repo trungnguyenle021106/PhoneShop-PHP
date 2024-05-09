@@ -13,6 +13,7 @@ $list_CN_UI = array(
     'Bán Hàng' => 1,
     'Sản Phẩm' => 1,
     'Serial' => 1,
+    'Khuyến Mãi' => 1,
     'Thống Kê' => 1
 );
 
@@ -44,7 +45,7 @@ $connect->closeConnection();
 <body id="body_admin">
     <header id="header_admin">
         <div id="logo">
-            <a href="">
+            <a href="/PhoneShop/index.php">
                 <image src="../Img/logo.png" style="width: 350px;"></image>
             </a>
         </div>
@@ -64,6 +65,8 @@ $connect->closeConnection();
                     echo "Quản lý Serial";
                 } else if ($_POST['page'] == 'Bảo Hành') {
                     echo "Quản lý phiếu bảo hành";
+                } else if ($_POST['page'] == 'Khuyến Mãi') {
+                    echo "Quản lý khuyến mãi";
                 } else if ($_POST['page'] == 'Nhập Hàng' || $_POST['page'] == 'CTPN') {
                     echo "Quản lý phiếu nhập";
                 } else if ($_POST['page'] == 'Bán Hàng' || $_POST['page'] == 'CTHD') {
@@ -156,6 +159,8 @@ $connect->closeConnection();
                     require("Quyen_admin.php");
                 } else if ($_POST['page'] == 'Serial') {
                     require("Serial_admin.php");
+                } else if ($_POST['page'] == 'Khuyến Mãi') {
+                    require("Khuyen_mai_admin.php");
                 } else if ($_POST['page'] == 'Thống Kê') {
                     require("ThongKe.php");
                 }

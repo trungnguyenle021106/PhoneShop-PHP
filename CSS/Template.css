@@ -151,3 +151,18 @@
     text-decoration: underline;
 }
 /* FOOTER */
+
+
+
+.custom-link-button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.custom-link-button:hover {
+    text-decoration: underline;
+}

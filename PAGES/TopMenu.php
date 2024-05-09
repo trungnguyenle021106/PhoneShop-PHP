@@ -20,9 +20,8 @@ if (isset($_SESSION['user_name'])) {
 if (isset($_SESSION['Ma_KhachHang'])) {
     $Ma_KhachHang = $_SESSION['Ma_KhachHang'];
 }
-$isKH ;
-if(isset($_SESSION['$isKH']))
-{
+$isKH;
+if (isset($_SESSION['$isKH'])) {
     $isKH = $_SESSION['$isKH'];
 }
 
@@ -33,16 +32,43 @@ if(isset($_SESSION['$isKH']))
 // JOIN chuc_nang ON ctq_chuc_nang.MA_CN = chuc_nang.MA_CN
 // WHERE tai_khoan.MA_TK = '2' LIMIT 1
 
-$chucNangADMIN ;
-if(isset($_SESSION['$userID']))
-{
-    $list_CN = $connect->readCustom("chuc_nang.TEN_CN","chuc_nang JOIN quyen ON tai_khoan.MA_Q = quyen.MA_Q 
+$chucNangADMIN;
+if (isset($_SESSION['$userID'])) {
+
+
+
+    $list_CN = $connect->readCustom("chuc_nang.TEN_CN", "tai_khoan JOIN quyen ON tai_khoan.MA_Q = quyen.MA_Q 
     JOIN ctq_chuc_nang ON quyen.MA_Q = ctq_chuc_nang.MA_Q
-    JOIN chuc_nang ON ctq_chuc_nang.MA_CN = chuc_nang.MA_CN","tai_khoan.MA_TK = '".$_SESSION['$userID']."' LIMIT 1");
+    JOIN chuc_nang ON ctq_chuc_nang.MA_CN = chuc_nang.MA_CN", "tai_khoan.MA_TK = '" . $_SESSION['$userID'] . "' LIMIT 1");
 
     reset($list_CN);
 
-    $chucNangADMIN = current($list_CN);
+
+    $result =  current($list_CN)["TEN_CN"];
+
+    if (strpos($result, "Xóa ") !== false) {
+        $result = str_replace("Xóa ", "", $result);
+    } elseif (strpos($result, "Thêm ") !== false) {
+        $result = str_replace("Thêm ", "", $result);
+    } elseif (strpos($result, "Sửa ") !== false) {
+        $result = str_replace("Sửa ", "", $result);
+    }
+
+    if (strpos($result, "Nhập") !== false) {
+        $result = "Nhập Hàng";
+    } else if (strpos($result, "Hóa Đơn") !== false) {
+        $result = "Bán Hàng";
+    } else if (strpos($result, "Chức Năng") !== false || strpos($result, "Quyền") !== false) {
+        $result = "Tài Khoản";
+    } else if (strpos($result, "Bảo Hành") !== false) {
+        $result = "Bảo Hành";
+    }
+
+
+
+
+    $chucNangADMIN = $result;
+    $connect->closeConnection();
 }
 ?>
 
@@ -86,29 +112,30 @@ if(isset($_SESSION['$userID']))
                 <?php if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])) : ?>
                     <li style="display: flex; align-items: center;" class="element_TopMenu">
                         <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
-                        
+
                         <!-- Dropdown để đăng xuất -->
                         <div class="dropdown">
                             <img class="Img_user" src="Img/ic_user.png" alt="User" style="cursor: pointer;">
                             <div class="dropdown-content">
-                                <a  href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
-                               <?php
-                                if($isKH == false)
-                                {
+                                <a href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
+                                <?php
+                                if ($isKH == false) {
                                     echo '<hr style="margin-bottom:10px">';
-                                    echo '<form href="/PhoneShop/ADMIN/index_admin.php">Chuyển sang ADMIN</form>';
-                                }
-                                else{
+                                    echo '<form method="post" action="./ADMIN/index_admin.php">
+                                    <button class="custom-link-button" name="page" value="' . $chucNangADMIN . '">Chuyển sang ADMIN</button>
+                                </form>';
+                                } else {
+                                    
                                     echo '<hr style="margin-bottom:10px">';
                                     echo '<a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>';
                                 }
-                               ?>
+                                ?>
                             </div>
                         </div>
                     </li>
                 <?php else : ?>
                     <li style="display: flex; align-items: center;" class="element_TopMenu">
-                    
+
                         <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
                         <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
                             <img class="Img_user" src="Img/ic_user.png" alt="Login" style="cursor: pointer;">
