@@ -27,7 +27,7 @@ $(document).ready(function() {
               console.log(response)
               // Parse JSON response thành object
               var errors = JSON.parse(response);
-              console.log(errors.success)
+              console.log(errors.usernameError)
               // Kiểm tra nếu có thông báo lỗi từ máy chủ
               if (errors) {
                   // Hiển thị thông báo lỗi lên giao diện
