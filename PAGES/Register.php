@@ -24,25 +24,29 @@ $(document).ready(function() {
                 passwordRepeat: passwordRepeat
             },
             success: function(response) {
-              console.log(response)
-              // Parse JSON response thành object
-              var errors = JSON.parse(response);
-              console.log(errors.success)
-              // Kiểm tra nếu có thông báo lỗi từ máy chủ
-              if (errors) {
-                  // Hiển thị thông báo lỗi lên giao diện
-                  $("#usernameError").html(errors.usernameError || "");
-                  $("#passwordError").html(errors.passwordError || "");
-                  $("#passwordRepeatError").html(errors.passwordRepeatError || "");
-                  if (errors.success !== null && errors.success === "true") {
-                    // Nếu không có lỗi, hiển thị thông báo thành công và làm điều gì đó khác
-                    console.log(errors.success);
-                    // Ví dụ: chuyển hướng người dùng đến trang khác sau khi đăng ký thành công
-                    window.location.href = "Login.php?show=true";
-                  }
-              } else {
-                console.log("có lỗi xảy ra ");
-              }
+              try {
+                //console.log(response)
+                // Parse JSON response thành object
+                var errors = JSON.parse(response);
+                console.log(errors.success)
+                // Kiểm tra nếu có thông báo lỗi từ máy chủ
+                if (errors) {
+                    // Hiển thị thông báo lỗi lên giao diện
+                    $("#usernameError").html(errors.usernameError || "");
+                    $("#passwordError").html(errors.passwordError || "");
+                    $("#passwordRepeatError").html(errors.passwordRepeatError || "");
+                    if (errors.success !== null && errors.success === "true") {
+                      // Nếu không có lỗi, hiển thị thông báo thành công và làm điều gì đó khác
+                      console.log(errors.success);
+                      // Ví dụ: chuyển hướng người dùng đến trang khác sau khi đăng ký thành công
+                      window.location.href = "/PhoneShop/index.php?page=Home&show=true";
+                    }
+                } else {
+                  console.log("có lỗi xảy ra ");
+                }
+            }catch (error) {
+              console.log("Phản hồi không hợp lệ từ máy chủ:", response);
+            }
             }
         });
     });
@@ -73,7 +77,7 @@ $(document).ready(function() {
   </div>
 
   <div class="container1 signin">
-    <p>Bạn đã có tài khoản? <a href="/PhoneShop/index.php?page=Home">Đăng nhập</a>.</p>
+    <p>Bạn đã có tài khoản? <a href="/PhoneShop/index.php?page=Home&show=true">Đăng nhập</a>.</p>
   </div>
 
 </form>

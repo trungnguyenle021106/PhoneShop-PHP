@@ -55,9 +55,11 @@ function saveTK($username, $password) {
 
   // Kiểm tra tài khoản đã tồn tại hay chưa
   $existing_accounts = $connect->read("tai_khoan", "TEN_TK = '$username'");
+  reset($existing_accounts);
+  $user = current($existing_accounts);
   $errors = [];
-  
-  if ($existing_accounts === $username) {
+
+  if (isset($user) && isset($user["TEN_TK"]) && $user["TEN_TK"] === $username) {
       $connect->closeConnection();
       $errors['usernameError'] = "Tài khoản đã tồn tại.";
       return  $errors;
@@ -67,7 +69,7 @@ function saveTK($username, $password) {
           "TEN_TK" => $username,
           "MAT_KHAU" => $password,
           "NGAY_TAO_TK" => $currentDate,
-          "TINH_TRANG" => "True",
+          "TINH_TRANG" => "hoạt động",
           "MA_Q" => "2"
       ];
 
