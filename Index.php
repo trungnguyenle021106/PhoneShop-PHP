@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="CSS/base.css">
     <!-- <link rel="stylesheet" href="CSS/promotion.css"> -->
     <link rel="stylesheet" href="CSS/accessories.css">
-    <link rel="stylesheet" href="CSS/Shoppingcart.css">
+    <link rel="stylesheet" href="CSS/ShoppingCart.css">
     <link rel="stylesheet" href="CSS/register.css">
-    <link rel="stylesheet" href="./CSS/login.css">
+    <link rel="stylesheet" href="CSS/login.css">
     <link rel="stylesheet" href="./CSS/phone.css">
     <link rel="stylesheet" href="./CSS/DetailPhone.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

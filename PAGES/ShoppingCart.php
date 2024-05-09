@@ -5,7 +5,7 @@
 
     <div class="right">
 
-        <input class="btn_DatHang" onclick="showAsk(<?php echo $_SESSION['$isKH'];?>
+        <input class="btn_DatHang" onclick="showAsk(true
         )" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
     </div>
 </form>
