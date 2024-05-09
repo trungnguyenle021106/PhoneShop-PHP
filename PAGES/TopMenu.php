@@ -10,6 +10,8 @@ if (isset($_SESSION['user_name'])) {
 if (isset($_SESSION['Ma_KhachHang'])) {
     $Ma_KhachHang = $_SESSION['Ma_KhachHang'];
 }
+
+$isKH = $_SESSION['$isKH'];
 ?>
 
 
@@ -59,6 +61,13 @@ if (isset($_SESSION['Ma_KhachHang'])) {
                                 <a  href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
                                 <hr style="margin-bottom:10px">
                                <a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>
+                               <?php
+                                if($isKH == false)
+                                {
+                                    echo '<hr style="margin-bottom:10px">';
+                                    echo '<a href="/PhoneShop/index.php?page=profileUser">Chuyển sang ADMIN</a>';
+                                }
+                               ?>
                             </div>
                         </div>
                     </li>
