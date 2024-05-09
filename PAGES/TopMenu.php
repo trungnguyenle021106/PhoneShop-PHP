@@ -1,5 +1,15 @@
 <?php
+require_once "./Model/Database.php";
 session_start();
+$server = "localhost";
+$username = "root";
+$password = "";
+$database = "qldienthoai";
+
+$connect = new MyConnection($server, $username, $password, $database);
+$connect->connectDB();
+
+
 $userName = ""; // Giá trị mặc định nếu không tìm thấy tên trong session
 
 if (isset($_SESSION['user_name'])) {
@@ -16,6 +26,24 @@ if(isset($_SESSION['$isKH']))
     $isKH = $_SESSION['$isKH'];
 }
 
+// SELECT DISTINCT chuc_nang.TEN_CN
+// FROM tai_khoan
+// JOIN quyen ON tai_khoan.MA_Q = quyen.MA_Q
+// JOIN ctq_chuc_nang ON quyen.MA_Q = ctq_chuc_nang.MA_Q
+// JOIN chuc_nang ON ctq_chuc_nang.MA_CN = chuc_nang.MA_CN
+// WHERE tai_khoan.MA_TK = '2' LIMIT 1
+
+$chucNangADMIN ;
+if(isset($_SESSION['$userID']))
+{
+    $list_CN = $connect->readCustom("chuc_nang.TEN_CN","chuc_nang JOIN quyen ON tai_khoan.MA_Q = quyen.MA_Q 
+    JOIN ctq_chuc_nang ON quyen.MA_Q = ctq_chuc_nang.MA_Q
+    JOIN chuc_nang ON ctq_chuc_nang.MA_CN = chuc_nang.MA_CN","tai_khoan.MA_TK = '".$_SESSION['$userID']."' LIMIT 1");
+
+    reset($list_CN);
+
+    $chucNangADMIN = current($list_CN);
+}
 ?>
 
 
@@ -64,13 +92,15 @@ if(isset($_SESSION['$isKH']))
                             <img class="Img_user" src="Img/ic_user.png" alt="User" style="cursor: pointer;">
                             <div class="dropdown-content">
                                 <a  href="../PhoneShop/PAGES/logout.php">Đăng xuất</a>
-                                <hr style="margin-bottom:10px">
-                               <a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>
                                <?php
                                 if($isKH == false)
                                 {
                                     echo '<hr style="margin-bottom:10px">';
-                                    echo '<a href="/PhoneShop/index.php?page=profileUser">Chuyển sang ADMIN</a>';
+                                    echo '<form href="/PhoneShop/ADMIN/index_admin.php">Chuyển sang ADMIN</form>';
+                                }
+                                else{
+                                    echo '<hr style="margin-bottom:10px">';
+                                    echo '<a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>';
                                 }
                                ?>
                             </div>
