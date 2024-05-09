@@ -64,10 +64,11 @@
     display: inline-block;
     width: 25%;
     margin: 10px 10px;
+
 }
 
 .element_TopMenu a {
-    color: black;
+    color: black !important;
     text-align: center;
     display: block;
     font-weight: bold;

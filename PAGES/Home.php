@@ -13,20 +13,20 @@
        
         <div class="bannerWrapper">
             <div class="bannerWrapper__img">
-                <div class="bannerWrapper__btn"><a href="">View offers</a></div>
-                <img src="Img/TMS_MarchMadness_150K_iPhone14Pl.png" alt=""></div>
+                <div class="bannerWrapper__btn"><a href="">Mua ngay</a></div>
+                <img src="./Img/4.png" alt=""></div>
             <div class="bannerWrapper__img">
-                <div class="bannerWrapper__btn"><a href="">View offers</a></div>
-                <img src="Img/TMS_Freedom_Only-Offer_Web_Homep.png" alt=""></div>
+                <div class="bannerWrapper__btn"><a href="">Mua ngay</a></div>
+                <img src="./Img/5.png" alt=""></div>
             <div class="bannerWrapper__img">
-                <div class="bannerWrapper__btn"><a href="">Learn more</a></div>
-                <img src="Img/PCMobile_MarchMadness_TMS-Homepa.png" alt=""></div>
+                <div class="bannerWrapper__btn"><a href="">Mua ngay</a></div>
+                <img src="./Img/7.png" alt=""></div>
         </div>
 
         <div class="bannerMain">
             <div class="bannerMain__img">
                 <div class="bannerMain__btn"><a href="">Shop now</a></div>
-                <img src="Img/TMS_SamsungS24-Price-Promo_Web_P.png" alt=""></div>
+                <img src="./Img/3.png" alt=""></div>
             </div>
         </div>
 
@@ -74,14 +74,7 @@
                         
                         
                     </div>
-                    <div class="itemListBrand itemListBrand__Alcatel">
-                        <a href="">
-                            <img src="Img/Alcatel-1_black_front.png" alt="">
-                            <p>Alcatel</p>
-                        </a>
-                        
-                        
-                    </div>
+
                 </div>
             </div>
 
@@ -580,7 +573,7 @@
             <div class="bannerMain">
                 <div class="bannerMain__img">
                     <div class="bannerMain__btn"><a href="">Sign up</a></div>
-                    <img src="Img/TMS_BAU_15K-email-new-suscribers.png" alt=""></div>
+                    <img src="./Img/2.png" alt=""></div>
                 </div>
             </div>
         </section>

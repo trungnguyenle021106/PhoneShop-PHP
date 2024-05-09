@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,14 +15,15 @@
     
 </head>
 <?php 
-        require_once("./Model/Database.php");
+        require_once("Model/Database.php");
+        require_once("PAGES/XuLyTienVND.php");
         $server ="localhost";
         $username = "root";
         $password = "";
         $database = "qldienthoai";
         $conn = new MyConnection($server,$username,$password,$database);
         $conn->connectDB();
-
+        
         $hoTen='';
         $diaChi='';
         $soDT='';
@@ -40,14 +42,14 @@
                 "G_TINH" => "$gioiTinh",
                 "SO_CCCD" => "$soCCCD"
             );
-            $conn->update("khach_hang","MA_KH","1",$data);
+            $conn->update("khach_hang","MA_KH",$_SESSION['Ma_KhachHang'],$data);
             $_SESSION['update_success'] = true;
             
         }
 
         
         $tableName = "khach_hang";
-        $condition = "MA_KH = 1";
+        $condition = "MA_KH = ".$_SESSION['Ma_KhachHang'];
         $result = $conn->read( $tableName ,$condition);
         $hoTen = $result[0]['HOTEN_KH'];
         $gioiTinh = $result[0]['G_TINH'];
@@ -60,7 +62,7 @@
         $result = $conn->read( $tableName ,$condition);
         $tenTK = $result[0]['TEN_TK'];
 
-        $dataLog = $conn->read( "hoa_don" ,"MA_KH = 1");
+        $dataLog = $conn->read( "hoa_don" ,"MA_KH = ".$_SESSION['Ma_KhachHang']);
 
         
         $conn->closeConnection();
@@ -68,7 +70,7 @@
 <body style="background-color: rgb(243, 243, 243);">
     <div class="profile_content_container" style="margin-top: 100px;">
         <div class="profile_left" >
-            <img src="../Img/avtUser.png" alt="" >
+            <img src="Img/avtUser.png" alt="" >
             <span style="display: block; text-align: center;font-size: 18px;
             font-weight: bold;
             color: rgb(87, 79, 79);
@@ -78,7 +80,7 @@
             <div class="item_menu btn_log"><p>Đơn hàng</p></div>
         </div>
         <div class="profile_content">
-            <form method="post"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="profile_form">
+            <form method="post"  action="index.php?page=profileUser" id="profile_form">
                 <div class="input_field">
                     <div>
                         <label for="name">Họ tên:</label>
@@ -167,9 +169,9 @@
                 echo "<tr>";
                 echo "<td>" . $row["MA_HD"] . "</td>";
                 echo "<td>" . $row["NGAY_TAO"] . "</td>";
-                echo "<td>" . $row["TONG_TIEN"] . "</td>";
+                echo "<td>" . changePriceToString($row["TONG_TIEN"]) . "</td>";
                 echo "<td id=\"tinhTrangDonHang_" . $row["MA_HD"] . "\">" . $row["TINH_TRANG"] . "</td>";
-                if ($row["TINH_TRANG"] == "Đã hủy") {
+                if ($row["TINH_TRANG"] == "Đã hủy" || $row["TINH_TRANG"] == "Đã giao hàng") {
                     echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>";
                 }else{
                     echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>
@@ -213,7 +215,7 @@
             </form>`
         }
         async function openPopup(maHoaDon) {
-            const response = await fetch("XemChiTietHD.php?maHoaDon="+maHoaDon);
+            const response = await fetch("PAGES/XemChiTietHD.php?maHoaDon="+maHoaDon);
             const cthd = await response.json();
             console.log(cthd)
             let htmlContent = ""
@@ -224,11 +226,11 @@
                 htmlContent += `<tr>
                                 <td>`+detail.MA_SP+`</td>
                                 <td>`+product.TEN_SP+`</td>
-                                <td><img src="../Img/`+product.HINH_ANH+`" alt="" width="50"></td>
+                                <td><img src="Img/`+product.HINH_ANH+`" alt="" width="50"></td>
                                 <td>`+detail.SL_BAN+`</td>
-                                <td>`+product.GIA_BAN+`</td>
-                                <td>`+detail.THUE_SUAT+`</td>
-                                <td>`+detail.THANH_TIEN+`</td>
+                                <td>`+changePriceToString(product.GIA_BAN)+`</td>
+                                <td>`+changePriceToString(detail.THUE_SUAT)+`</td>
+                                <td>`+changePriceToString(detail.THANH_TIEN)+`</td>
                                 </tr>`
             } else {
                 console.log("Không tìm thấy sản phẩm tương ứng.");
@@ -292,7 +294,7 @@
             var jsonData = JSON.stringify(data);
           
             jQuery.ajax({
-                url: '../AJAX_PHP/CRUD.php',
+                url: 'AJAX_PHP/CRUD.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -320,7 +322,7 @@
                 var idName = "MA_HD";
                 var idValue = maDonHang;
                 jQuery.ajax({
-                    url: '../AJAX_PHP/CRUD.php',
+                    url: 'AJAX_PHP/CRUD.php',
                     type: 'POST',
                     dataType: 'json',
                     data: {
@@ -349,7 +351,7 @@
             var tableName = "chi_tiet_hoadon";
             var condition = "MA_HD =" + maDonHang;
             jQuery.ajax({
-                url: '../AJAX_PHP/CRUD.php',
+                url: 'AJAX_PHP/CRUD.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -367,4 +369,5 @@
 }
 
 </script>
+<script src="js/XuLyTienVND.js"></script>
 </html>
