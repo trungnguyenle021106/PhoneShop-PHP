@@ -23,7 +23,7 @@
         $database = "qldienthoai";
         $conn = new MyConnection($server,$username,$password,$database);
         $conn->connectDB();
-
+        
         $hoTen='';
         $diaChi='';
         $soDT='';
@@ -42,14 +42,14 @@
                 "G_TINH" => "$gioiTinh",
                 "SO_CCCD" => "$soCCCD"
             );
-            $conn->update("khach_hang","MA_KH","1",$data);
+            $conn->update("khach_hang","MA_KH",$_SESSION['Ma_KhachHang'],$data);
             $_SESSION['update_success'] = true;
             
         }
 
         
         $tableName = "khach_hang";
-        $condition = "MA_KH = 1";
+        $condition = "MA_KH = ".$_SESSION['Ma_KhachHang'];
         $result = $conn->read( $tableName ,$condition);
         $hoTen = $result[0]['HOTEN_KH'];
         $gioiTinh = $result[0]['G_TINH'];
@@ -62,7 +62,7 @@
         $result = $conn->read( $tableName ,$condition);
         $tenTK = $result[0]['TEN_TK'];
 
-        $dataLog = $conn->read( "hoa_don" ,"MA_KH = 1");
+        $dataLog = $conn->read( "hoa_don" ,"MA_KH = ".$_SESSION['Ma_KhachHang']);
 
         
         $conn->closeConnection();
