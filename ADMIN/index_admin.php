@@ -19,7 +19,9 @@ $list_CN_UI = array(
 
 session_start();
 // $ID = $_SESSION['$AccountID'];
-$ID = 1;
+
+$ID =  $_SESSION['$userID'];
+$userName =  $_SESSION['user_name'];
 $listTK = $connect->read("tai_khoan", "MA_TK =" . $ID);
 reset($listTK);
 $account = current($listTK);
@@ -80,7 +82,9 @@ $connect->closeConnection();
             ?>
         </div>
         <div id="user">
-            <div id="username">Username</div>
+            <div id="username"><?php
+            echo $userName;
+            ?></div>
             <image src="../Img/avatar.png" id="avatar"></image>
         </div>
     </header>
