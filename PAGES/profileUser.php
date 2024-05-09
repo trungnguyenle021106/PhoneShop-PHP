@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
     
 </head>
 <?php 
-        require_once("./Model/Database.php");
+        require_once("Model/Database.php");
         $server ="localhost";
         $username = "root";
         $password = "";
@@ -78,7 +79,7 @@
             <div class="item_menu btn_log"><p>Đơn hàng</p></div>
         </div>
         <div class="profile_content">
-            <form method="post"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="profile_form">
+            <form method="post"  action="index.php?page=profileUser" id="profile_form">
                 <div class="input_field">
                     <div>
                         <label for="name">Họ tên:</label>
@@ -169,7 +170,7 @@
                 echo "<td>" . $row["NGAY_TAO"] . "</td>";
                 echo "<td>" . $row["TONG_TIEN"] . "</td>";
                 echo "<td id=\"tinhTrangDonHang_" . $row["MA_HD"] . "\">" . $row["TINH_TRANG"] . "</td>";
-                if ($row["TINH_TRANG"] == "Đã hủy") {
+                if ($row["TINH_TRANG"] == "Đã hủy" || $row["TINH_TRANG"] == "Đã giao hàng") {
                     echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>";
                 }else{
                     echo "<td><button onclick="."openPopup(".$row["MA_HD"].")"." type="."button"." class="."btn".">Xem chi tiết</button>
@@ -292,7 +293,7 @@
             var jsonData = JSON.stringify(data);
           
             jQuery.ajax({
-                url: '../AJAX_PHP/CRUD.php',
+                url: 'AJAX_PHP/CRUD.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
@@ -320,7 +321,7 @@
                 var idName = "MA_HD";
                 var idValue = maDonHang;
                 jQuery.ajax({
-                    url: '../AJAX_PHP/CRUD.php',
+                    url: 'AJAX_PHP/CRUD.php',
                     type: 'POST',
                     dataType: 'json',
                     data: {
@@ -349,7 +350,7 @@
             var tableName = "chi_tiet_hoadon";
             var condition = "MA_HD =" + maDonHang;
             jQuery.ajax({
-                url: '../AJAX_PHP/CRUD.php',
+                url: 'AJAX_PHP/CRUD.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {
