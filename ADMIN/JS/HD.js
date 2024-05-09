@@ -1,14 +1,416 @@
 // Gọi hàm read để lấy dữ liệu 
-read();
+readVer2("tăng dần")
 // Gọi hàm read để lấy dữ liệu 
 
+// Biến toàn cục cho chi tiết hóa đơn xử lý
+var MAHD = "";
+var MAKH = "";
+// Biến toàn cục cho chi tiết hóa đơn xử lý
 
+//Xử lý đọc dữ liệu từ database
+function getSearchNormalCondition() {
+    var condition = "";
+    var seacrhType = document.getElementById("opt_timkiem_HD").value;
+    var searchValue = document.getElementById("txt_timkiem_HD").value;
 
- //loadData
- function read() {
+    if (searchValue != "") {
+        condition = seacrhType + " LIKE '%" + searchValue + "%' AND ";
+    }
+    else {
+        condition = "1=1 AND "
+    }
+    return condition;
+}
+
+function getDateCondition() {
+    var start = document.getElementById("start").value;
+    var end = document.getElementById("end").value;
+
+    var condition = "";
+
+    if (start == "" || end == "") {
+        alert("Không bỏ trống ngày bắt đầu hoặc kết thúc")
+        return false;
+    }
+    else if (start > end) {
+        alert("Ngày bắt đầu không lớn hơn ngày kết thúc");
+        return false;
+    }
+    condition = "hoa_don.NGAY_TAO >= '" + start + "' AND hoa_don.NGAY_TAO <= '" + end + "' ";
+    return condition;
+
+}
+
+function getSortCondition(sortValue) {
+    var typeSort = document.getElementById("opt_sapxep_HD").value;
+
+    var condition = ""
+    if (typeSort.includes("STR_")) {
+        typeSort = typeSort.split("STR_")[1];
+        typeSort = "LENGTH(" + typeSort + ")";
+    }
+
+    if (sortValue == "tăng dần") {
+        condition += "ORDER BY " + typeSort + " ASC"
+    }
+    else {
+        condition += " ORDER BY " + typeSort + " DESC"
+    }
+    return condition;
+
+}
+
+function readVer2(sortValue) {
     var operation = "Read";
     var tableName = "hoa_don";
-    var condition = "";
+
+    var searchCondition = getSearchNormalCondition();
+    var dateCondition = getDateCondition();
+    var sortCondition = getSortCondition(sortValue);
+
+    if (dateCondition !== false) {
+        var condition = searchCondition + dateCondition + sortCondition;
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                operation: operation,
+                tableName: tableName,
+                condition: condition
+            },
+            success: function (response) {
+
+                DisplayHDElement(response);
+                setAmountHD();
+                setUIElementHD()
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+}
+//Xử lý đọc dữ liệu từ database
+
+
+
+// Xử lý giao diện cho chi tiết hóa đơn
+function DisplayBackButton() {
+    document.getElementById("btn_back").style.display = "block";
+    document.getElementById("top_contentHD").style.display = "none";
+    document.getElementById("btn_back").addEventListener('click', function (event) {
+        ResetDate();
+        readVer2("tăng dần");
+    });
+}
+
+function setUIXuLyDonHangCTHD(flag) {
+    if (flag == true) {
+        document.getElementById("XuLyDonHang").style.display = "block"
+    }
+    else if (flag == false) {
+        document.getElementById("XuLyDonHang").style.display = "none"
+    }
+}
+
+
+function setUIKH_XULYHD() {
+    document.getElementById("KH_XULYHD").style.display = "block"
+    document.getElementById("scroll-container").classList.add("scroll-container-CTHD")
+}
+
+function setOptionXLDH(flag) {
+    var selectElement = document.getElementById("opt_TT_HD");
+    var options = selectElement.options;
+
+    if (flag == true) {
+        options[0].style.display = "none";
+        options[1].selected = true;
+    }
+    else {
+        options[0].style.display = "block";
+        options[0].selected = true;
+    }
+}
+
+function setTTHD_KH(maHD) {
+    var operation = "Custom Read";
+    var tableName = " hoa_don JOIN khach_hang ON hoa_don.MA_KH = khach_hang.MA_KH ";
+    var condition = " hoa_don.MA_HD =" + maHD;
+    var selectCondition = "khach_hang.MA_KH, khach_hang.HOTEN_KH, khach_hang.SO_DT, hoa_don.TINH_TRANG "
+
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition,
+            selectCondition: selectCondition
+        },
+        success: function (response) {
+            MAKH = response[0].MA_KH
+            document.getElementById("tenKH").innerText = response[0].HOTEN_KH;
+            document.getElementById("sdtKH").innerText = response[0].SO_DT;
+            document.getElementById("TTDH").innerText = response[0].TINH_TRANG;
+
+
+            if (searchChucNang("Sửa Hóa Đơn") == true) {
+                alert("gfsdgfg");
+                if (response[0].TINH_TRANG == "Đã giao hàng" || response[0].TINH_TRANG == "Hủy đơn hàng") {
+                    setUIXuLyDonHangCTHD(false);
+                    setUIKH_XULYHD();
+                }
+                else if (response[0].TINH_TRANG == "Đã liên lạc") {
+                    setUIXuLyDonHangCTHD(true);
+                    setUIKH_XULYHD();
+                    setOptionXLDH(true);
+                }
+                else {
+                    setUIXuLyDonHangCTHD(true);
+                    setOptionXLDH(false);
+                }
+            }
+            else{
+                setUIXuLyDonHangCTHD(false);
+                setUIKH_XULYHD();
+            }
+
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+
+function DisplayHeadTableCTHD() {
+    var html = "<tr>\
+    <td>Mã hóa đơn</td>\
+    <td>Mã sản phẩm</td>\
+    <td>Tên sản phẩm</td>\
+    <td>Số lượng</td>\
+    <td>Thành tiền</td>\
+    <td>Thuế suất</td>\
+</tr>";
+
+    var headTable = document.getElementById("head_table");
+    headTable.innerHTML = html;
+}
+
+function DisplayCTHDElement(maHD) {
+
+    setTTHD_KH(maHD)
+    MAHD = maHD;
+    var operation = "Custom Read";
+    var tableName = "san_pham JOIN chi_tiet_hoadon ON san_pham.MA_SP = chi_tiet_hoadon.MA_SP";
+    var condition = "MA_HD = " + maHD;
+
+    var selectCondition = "chi_tiet_hoadon.*, san_pham.TEN_SP "
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition,
+            selectCondition: selectCondition
+        },
+        success: function (response) {
+            DisplayBackButton()
+            DisplayHeadTableCTHD()
+
+            elementPage = response;
+            var html = "";
+            for (var i = 0; i < elementPage.length; i++) {
+                html += `
+        <tr>
+        <td >${elementPage[i].MA_HD}</td>
+        <td >${elementPage[i].MA_SP}</td>
+        <td style="width: 250px; word-wrap: break-word;" >${elementPage[i].TEN_SP}</td>
+        <td >${elementPage[i].SL_BAN}</td>
+        <td ><span>${changePriceToString(elementPage[i].THANH_TIEN)}</span></td>
+        <td ><span>${changePriceToString(elementPage[i].THUE_SUAT)}</span></td>
+       </tr>
+        `;
+            }
+
+            var tbody = document.getElementById("data");
+            tbody.innerHTML = html;
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+}
+// Xử lý giao diện cho chi tiết hóa đơn
+
+
+// Xử lý giao diện cho hóa đơn
+function setAmountHD() {
+    var SLHD_HT = document.querySelector('#SLHD_HT span');
+    var rows = document.querySelectorAll('#table_HD table tbody tr ');
+    SLHD_HT.innerText = rows.length;
+}
+
+function DisplayHeadTableHD() {
+    var html = "<tr>\
+    <td>Mã hóa đơn</td>\
+    <td>Mã khuyến mãi</td>\
+    <td>Mã khách hàng</td>\
+    <td>Mã nhân viên</td>\
+    <td>Ngày tạo</td>\
+    <td>Tổng tiền</td>\
+    <td>Tình trạng</td>\
+    <td colspan=\"3\">Thao tác</td>\
+    </tr>";
+
+    var headTable = document.getElementById("head_table");
+    headTable.innerHTML = html;
+}
+
+function DisplayHDElement(elementPage) {
+    DisplayHeadTableHD();
+
+    var html = "";
+    for (var i = 0; i < elementPage.length; i++) {
+        html += `
+        <tr><td id="HD_Ma">${elementPage[i].MA_HD}</td>
+        <td >${elementPage[i].MA_KM}</td>
+        <td >${elementPage[i].MA_KH}</td>
+        <td >${elementPage[i].MA_NV}</td>
+        <td >${elementPage[i].NGAY_TAO}</td>
+        <td ><span> ${changePriceToString(elementPage[i].TONG_TIEN)}</span></td>
+        <td >${elementPage[i].TINH_TRANG}</td>`
+        html += `<td><button onclick=" DisplayCTHDElement(${elementPage[i].MA_HD})" class="thaotac">Xem chi tiết hóa đơn</button></td>`
+        html += `</tr>`;
+    }
+    var tbody = document.getElementById("data");
+    tbody.innerHTML = html;
+    setAmountHD();
+}
+
+function setUIElementHD() {
+    document.getElementById("btn_back").style.display = "none";
+    document.getElementById("top_contentHD").style.display = "flex";
+    document.getElementById("KH_XULYHD").style.display = "none"
+    document.getElementById("scroll-container").classList.remove("scroll-container-CTHD")
+}
+// Xử lý giao diện cho hóa đơn
+
+
+//Xử lý tình trạng hóa đơn
+function AddSerial(maHD) {
+    GetChiTietHoaDon(maHD, function (list_cthd) {
+        var data = {};
+        var column = {
+            column1: "MA_SP",
+            column2: "SERIAL_NUMBER"
+        };
+        for (var i = 0; i < list_cthd.length; i++) {
+            data[i] = [list_cthd[i].MA_SP, "CHƯA CÓ SERIAL"]
+        }
+
+        var jsonData = JSON.stringify(data);
+        var jsonColumn = JSON.stringify(column);
+        var operation = "Create Custom";
+        var tableName = "serial";
+
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData: jsonData,
+                jsonColumn: jsonColumn,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function (response) {
+                AddPBH(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+}
+
+function AddPBH(response) {
+    var data = {};
+    var column = {
+        column1: "MA_SERIAL",
+        column2: "MA_KH",
+        column3: "THOI_GIAN_BAOHANH",
+        column4: "TINH_TRANG"
+    };
+    for (var i = 0; i < response.length; i++) {
+        data[i] = [response[i].MA_SERIAL, MAKH, "0", "Chưa có hiệu lực"]
+    }
+
+
+    var jsonData = JSON.stringify(data);
+    var jsonColumn = JSON.stringify(column);
+    var operation = "Create Custom";
+    var tableName = "phieu_bao_hanh";
+
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData: jsonData,
+            jsonColumn: jsonColumn,
+            operation: operation,
+            tableName: tableName
+        },
+        success: function (response) {
+            // console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
+        }
+    });
+
+}
+
+function HuyDonHang(maHD) {
+    GetChiTietHoaDon(maHD, function (list_cthd) {
+        var operation = "Update SL";
+
+        var data = {};
+        for (var i = 0; i < list_cthd.length; i++) {
+            data[list_cthd[i].MA_SP] = list_cthd[i].SL_BAN;
+        }
+        var jsonData = JSON.stringify(data);
+
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData: jsonData,
+                operation: operation,
+                operator: "+"
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+
+    });
+}
+
+function GetChiTietHoaDon(maHD, callback) {
+    var operation = "Read";
+    var tableName = "chi_tiet_hoadon";
+    var condition = "MA_HD =" + maHD;
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -18,332 +420,109 @@ read();
             tableName: tableName,
             condition: condition
         },
-        success: function(response) {
-
-            // Sau HDi nhận được dữ liệu, gọi hàm DisplayElementPage
-            DisplayElementPage(response);
-            display_sort();
-            //cập nhật lại số lượng sản phẩm
-            var SLHD_HT = document.querySelector('#SLHD_HT span');
-var rows = document.querySelectorAll('#table_HD table tbody tr ');
-SLHD_HT.innerText = rows.length;
-            //cập nhật lại số lượng sản phẩm
+        success: function (response) {
+            callback(response);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log(error);
         }
     });
 }
-   //loadData
 
-   // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
+function XuLyDonHang() {
+    var maHD = MAHD;
+    var tinhtrang = document.getElementById("opt_TT_HD").value;
+    var data = {
+        TINH_TRANG: tinhtrang
+    };
 
-
-   function DisplayElementPage(elementPage) {
-    var html = "";
-    for (var i = 0; i < elementPage.length; i++) {
-        html += `
-        <tr><td id="HD_Ma">${elementPage[i].MA_HD}</td>
-        <td id="HD_MaKM">${elementPage[i].MA_KM}</td>
-        <td id="HD_MaKH">${elementPage[i].MA_KH}</td>
-        <td id="HD_MaNV">${elementPage[i].MA_NV}</td>
-        <td id="HD_TinhTrang">${elementPage[i].TINH_TRANG}</td>
-        <td id="HD_NgayTao">${elementPage[i].NGAY_TAO}</td>
-        <td id="HD_TongTien">${changePriceToString(elementPage[i].TONG_TIEN)}</td>
-        <form action="" method="POST"><input type="hidden" name="MAHD"><td><input type="button" value="xóa" class="thaotac"></td></form> 
-        <form action="" method="POST"><input type="hidden" name="page" value="<?php echo $_POST["page"]; ?><td><input type="submit" id="HD_sua_btn" class="thaotac" value="sửa"></td></form>
-        </tr>
-        `;
+    if (tinhtrang == "Đã giao hàng") {
+        AddSerial(maHD);
     }
-    var tbody = document.getElementById("data");
-    tbody.innerHTML = html;
+    else if (tinhtrang == "Hủy đơn hàng") {
+        HuyDonHang(maHD);
     }
+    var jsonData = JSON.stringify(data);
+    var operation = "Update";
+    var tableName = "hoa_don";
+    var idName = "MA_HD";
 
-
-    
-
-     //chức năng tìm kiếm
-
-     document.addEventListener('DOMContentLoaded', function(){
-        var opt = document.getElementById('opt_timkiem_HD'); // Lấy thẻ select
-        var txt = document.getElementById('txt_timkiem_HD'); // Lấy thẻ select
-    
-        function toggleDateInput() {
-            if(opt.value === 'Ngày tạo'){
-               txt.type = 'date';
-            }
-            else {
-                txt.type = 'text';
-    
-            }
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            jsonData: jsonData,
+            operation: operation,
+            tableName: tableName,
+            idName: idName,
+            idValue: maHD
+        },
+        success: function (response) {
+            setTTHD_KH(maHD)
+        },
+        error: function (xhr, status, error) {
+            console.log(error);
         }
-        opt.addEventListener('change', toggleDateInput); // Lắng nghe sự kiện thay đổi của select
     });
-
-     document.getElementById('btn_timkiem_HD').addEventListener('click', function(event){
-        event.preventDefault();
-        var opt = document.getElementById('opt_timkiem_HD').value;
-        var txt = document.getElementById('txt_timkiem_HD').value;
-        var rows = document.querySelectorAll('#table_HD table tbody tr');
-    
-            for(var i = 0; i < rows.length; i++){
-                if(opt === 'MAHD'){
-                if(txt === ''){
-                    for(var i = 0; i < rows.length; i++){
-                rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-            }
-                }
-                else{
-                    var MAHD = rows[i].querySelector('#HD_Ma').innerText;
-        
-                    if(MAHD.includes(txt)){
-                        rows[i].style.display = 'table-row';
-                    }
-                    else{ 
-                        rows[i].style.display = 'none';
-                    }
-                }
-                }
-    
-                else if(opt === 'Ngày tạo'){
-                    if(txt === ''){
-                        for(var i = 0; i < rows.length; i++){
-                rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-            }
-                    }
-                    else{
-                        var MaHD = rows[i].querySelector('#HD_NgayTao').innerText;
-                        if(MaHD.includes(txt)){
-                            rows[i].style.display = 'table-row';
-                        }
-                        else{ 
-                            rows[i].style.display = 'none';
-                        }
-                    }
-                }
-                else if(opt === 'MaNV'){
-    
-                    if(txt === ''){
-                        for(var i = 0; i < rows.length; i++){
-                rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-            }
-             }
-                    else{
-                        var MaHD = rows[i].querySelector('#HD_MaNV').innerText;
-                        if(MaHD.includes(txt)){
-                            rows[i].style.display = 'table-row';
-                        }
-                        else{ 
-                            rows[i].style.display = 'none';
-                        }
-                    }
-                }
-    
-                else if(opt === 'MaKH'){
-    
-    if(txt === ''){
-        for(var i = 0; i < rows.length; i++){
-    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-    }
-    }
-    else{
-        var MaHD = rows[i].querySelector('#HD_MaKH').innerText;
-        if(MaHD.includes(txt)){
-            rows[i].style.display = 'table-row';
-        }
-        else{ 
-            rows[i].style.display = 'none';
-        }
-    }
-    }
-    
-    else if(opt === 'Tình trạng'){
-    
-    if(txt === ''){
-        for(var i = 0; i < rows.length; i++){
-    rows[i].style.display = 'table-row'; // Hiển thị lại toàn bộ các hàng
-    }
-    }
-    else{
-        var MaHD = rows[i].querySelector('#HD_TinhTrang').innerText;
-        if(MAHD.includes(txt)){
-            rows[i].style.display = 'table-row';
-        }
-    
-        
-        else{ 
-            rows[i].style.display = 'none';
-        }
-    }
-    }
-    
-    }
-    display_sort();
-    });
-    //chức năng tìm kiếm
-
-
-
-
-      //chức năng sắp xếp
-
-    // Hàm so sánh tăng dần
-    function sortByKey_tang(array, key) {
-        return array.sort(function(a, b) {
-            var x = a[key];
-            var y = b[key];
-            
-            // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
-            var xType = checkType(x);
-            var yType = checkType(y);
-            
-            if (xType === 1 && yType === 1) {
-                return x - y; // Sắp xếp theo số
-            } else if (xType === 2 && yType === 2) {
-                // Chuyển đổi x và y thành đối tượng Date để so sánh
-                var dateX = new Date(x);
-                var dateY = new Date(y);
-                return dateX - dateY; // Sắp xếp theo thời gian
-            } else {
-                // So sánh bình thường
-                if (x < y) return -1;
-                if (x > y) return 1;
-                return 0;
-            }
-        });
-    }
-    
-
-        // Hàm so sánh giảm dần
-        function sortByKey_giam(array, key) {
-            return array.sort(function(a, b) {
-                var x = a[key];
-                var y = b[key];
-                
-                // Kiểm tra xem x có phải là một số hoặc có đúng định dạng yyyy-mm-dd không
-                var xType = checkType(x);
-                var yType = checkType(y);
-                
-                if (xType === 1 && yType === 1) {
-                    return y - x; // Sắp xếp số giảm dần
-                } else if (xType === 2 && yType === 2) {
-                    // Chuyển đổi x và y thành đối tượng Date để so sánh
-                    var dateX = new Date(x);
-                    var dateY = new Date(y);
-                    return dateY - dateX; // Sắp xếp thời gian giảm dần
-                } else {
-                    // So sánh chuỗi giảm dần
-                    if (x > y) return -1;
-                    if (x < y) return 1;
-                    return 0;
-                }
-            });
-        }
-        
-
-
-    function display_sort() {
-        var table_HD = document.querySelectorAll('#table_HD tbody tr');
-        var jsonArray = [];
-        var jsonArray2 = [];
-
-        for (var i = 0; i < table_HD.length; i++) {
-            var MAHD = table_HD[i].querySelector('#HD_Ma').innerText;
-            var MAKM = table_HD[i].querySelector('#HD_MaKM').innerText;
-            var MANV = table_HD[i].querySelector('#HD_MaNV').innerText;
-            var MAKH = table_HD[i].querySelector('#HD_MaKH').innerText;
-            var TINH_TRANG = table_HD[i].querySelector('#HD_TinhTrang').innerText;
-            var NGAY_TAO = table_HD[i].querySelector('#HD_NgayTao').innerText;
-            var TONG_TIEN = changePriceToNormal(table_HD[i].querySelector('#HD_TongTien').innerText);
-
-            var object = { MA_HD: MAHD, MA_KM: MAKM, NGAY_TAO: NGAY_TAO, TINH_TRANG: TINH_TRANG, MA_NV: MANV, MA_KH: MAKH, TONG_TIEN: TONG_TIEN };
-            jsonArray.push(object);
-
-            if(window.getComputedStyle(table_HD[i]).display !== 'none'){
-                var object2 = { MA_HD: MAHD, MA_KM: MAKM, NGAY_TAO: NGAY_TAO, TINH_TRANG: TINH_TRANG, MA_NV: MANV, MA_KH: MAKH, TONG_TIEN: TONG_TIEN };
-                jsonArray2.push(object2);
-            }
-
-        }
-    
-        document.querySelector('.btn_sortAZ').addEventListener('click', function(event) {
-            event.preventDefault();
-            var tbody = document.querySelector('#table_HD tbody');
-            var key = document.querySelector('#opt_sapxep_HD').value;
-            tbody.innerHTML = '';
-            var array_sapxep = sortByKey_tang(jsonArray2, key); // sắp xếp mảng
-            console.log(array_sapxep);
-         DisplayElementPage(array_sapxep);
-        });
-
-        document.querySelector('.btn_sortZA').addEventListener('click', function(event) {
-            event.preventDefault();
-            var tbody = document.querySelector('#table_HD tbody');
-            var key = document.querySelector('#opt_sapxep_HD').value;
-            tbody.innerHTML = '';
-            var array_sapxep = sortByKey_giam(jsonArray2, key); // sắp xếp mảng
-            console.log(array_sapxep);
-         DisplayElementPage(array_sapxep);
-        });
-
-        
-        document.querySelector('.hoantac').addEventListener('click', function(event) {
-            event.preventDefault();
-            var tbody = document.querySelector('#table_HD tbody');
-            tbody.innerHTML = '';
-         DisplayElementPage(jsonArray);
-         jsonArray2 = [...jsonArray];
-
-        });
-
-    }
-
-  //chức năng sắp xếp
-
-  //hàm kiểm tra xem chuỗi là số hay chuỗi kí tự
-  function checkType(input) {
-    // Kiểm tra xem input có phải là số không
-    if (!isNaN(input)) {
-        return 1;
-    }
-    // Kiểm tra xem input có đúng định dạng yyyy-mm-dd không
-    else if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
-        return 2; // Trả về 2 để phân biệt với trường hợp là số
-    }
-    // Trường hợp còn lại
-    else {
-        return 0;
-    }
 }
+//Xử lý tình trạng hóa đơn
 
 
-     //hàm xử lí tiền
- //1000000  -> 1.000.000 đ
-function changePriceToString(price) {
-    var s = "";
-    var temp = 0;
-    var flag = 0;
-    var amountDot = Math.round(price.length / 3);
+//Xử lý sự kiện nút cho hóa đơn
+document.getElementById('btn_timkiem_HD').addEventListener('click', function (event) {
+    event.preventDefault();
 
-    if (price.length % 3 == 0) {
-        amountDot--;
+    readVer2("tăng dần")
+});
+
+document.getElementById('btn_tang').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    readVer2("tăng dần")
+});
+
+document.getElementById('btn_giam').addEventListener('click', function (event) {
+    event.preventDefault();
+    readVer2("giảm dần")
+});
+
+document.getElementById('btn_timTheoKhoangTG').addEventListener('click', function (event) {
+    event.preventDefault();
+    readVer2("tăng dần")
+});
+
+document.getElementById('RESET').addEventListener('click', function (event) {
+    ResetDate()
+    var list_opts_search = document.getElementById('opt_timkiem_HD').options;
+    list_opts_search[0].selected = true;
+    var list_optsx = document.getElementById('opt_sapxep_HD').options;
+    list_optsx[0].selected = true;
+    document.getElementById('txt_timkiem_HD').value = "";
+
+    readVer2("tăng dần");
+
+});
+
+//Xử lý sự kiện nút cho hóa đơn
+
+//Xử lý sự kiện nút cho chi tiết hóa đơn
+document.getElementById("UpdateDH").addEventListener('click', function (event) {
+    var result = confirm("Bạn có chắc chắn muốn thay đổi tình trạng đơn hàng?");
+    if (result === true) {
+        XuLyDonHang();
     }
-    for (var i = price.length - 1; i >= 0; i--) {
-        temp++;
-        if (temp == 3 && flag < amountDot) {
-            s = s + price[i] + ".";
-            flag++;
-            temp = 0;
-        }
-        else {
-            s = s + price[i];
-        }
-    }
-    return s.split("").reverse().join("") + "đ";
-}
+});
+//Xử lý sự kiện nút cho chi tiết hóa đơn
 
-//1.000.000 đ -> 1000000
-function changePriceToNormal(price)
-{
-    return price.replace(/\D/g, "");
+
+
+//Thiết lập về ngày mặc định
+function ResetDate() {
+    var currentYear = new Date().getFullYear();
+    var start = document.getElementById("start")
+    var end = document.getElementById("end")
+    end.value = currentYear + "-12-31"
+    start.value = currentYear + "-01-01"
 }
+//Thiết lập về ngày mặc định

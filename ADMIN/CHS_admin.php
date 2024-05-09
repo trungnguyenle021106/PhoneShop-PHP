@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require_once('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -7,7 +7,7 @@ $connect->connectDB();
 <link rel="stylesheet" href="CSS/SP_admin.css">
 <div  class="change_page_CHS">
 <form action="" method="POST">
-   <input type="hidden" name="page" value="Sản phẩm">
+   <input type="hidden" name="page" value="Sản Phẩm">
     <input type="submit" value="Sản phẩm" id="btn1">
     </form>
     <form action="" method="POST">

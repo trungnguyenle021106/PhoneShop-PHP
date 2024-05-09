@@ -7,7 +7,7 @@
 #table_HD{
     width: 70%;
     border: 1px solid black;
-    height: 93%;
+    height: 90%;
 }
 
 #chucnang_HD{
@@ -19,9 +19,13 @@
     border-collapse: collapse;
 }
 #scroll-container{
+    border: 1px solid black;
     overflow-y: scroll;
-    height: 88%;
-    
+    height: 87%;
+    margin-left: 10px;
+}
+.scroll-container-CTHD{
+    height: 70% !important;
 }
 #form_HD_admin table tr td{
     border: 1px solid black;
@@ -58,6 +62,16 @@
     border-radius: 50px;
 }
 #form_timkiem_HD #btn_timkiem_HD{
+    width: 30%;
+    height: 20px;
+    margin-left: 120px;
+    margin-top: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#form_timkiem_HD #btn_timTheoKhoangTG{
     width: 30%;
     height: 20px;
     margin-left: 120px;
@@ -119,14 +133,6 @@
     cursor: pointer;
     font-weight: bold;
 }
-
-.hoantac{
-    width: 30%;
-    height: 20px;
-    background-color: transparent;
-    cursor: pointer;
-    font-weight: bold;
-}
 /*form_HD_admin*/
 
 
@@ -135,7 +141,7 @@
 /*form_CTHD_admin*/
 #form_CTHD_admin{
     display: flex;
-    height: 93%;
+    height: 90%;
 }
 #table_CTHD{
     width: 70%;
@@ -198,8 +204,10 @@
 }
 #scroll-container1{
     overflow-y: scroll;
-    height: 88%;
-    
+    height: 87%;
+    border: solid 1px black;
+    margin-left: 10px;
+    border-bottom: none;
 }
 #form_sapxep_CTHD{
     border: 1px solid black;

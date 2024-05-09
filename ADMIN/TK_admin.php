@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require_once('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -9,10 +9,10 @@ $connect->connectDB();
 <div  class="change_page_TK">
 <form action="" method="POST">
    <input type="hidden" name="page" value="Tài khoản">
-    <input type="submit" value="Tài khoản" id="btn1">
+    <input type="submit" value="Tài Khoản" id="btn1">
     </form>
     <form action="" method="POST">
-    <input type="hidden" name="page" value="Quyen">
+    <input type="hidden" name="page" value="Quyền">
     <input type="submit" value="Quyền" id="btn2">
     </form>
 </div>
@@ -34,7 +34,7 @@ $connect->connectDB();
                     <td>Ngày tạo</td>
                     <td>Tình trạng</td>
                     <td>Mã Quyền</td>
-                    <td colspan="3" id="ThaoTac">Thao tác</td>
+                    <td colspan="2" id="ThaoTac">Thao tác</td>
                 </tr>
             </thead>
             <tbody id="data">
@@ -125,21 +125,4 @@ $connect->connectDB();
     </form>
 </div>
 
-
-<div id="LS_container">
-<form action="">
-    <h2>Lịch sử hoạt động</h2>
-    <section>
-        <table>
-            <thead>
-                <td>Hoạt động</td>
-                <td>Thời Gian</td>
-            </thead>
-            <tbody id="data_LS">
-                
-            </tbody>
-            </table>
-            </section>
-</form>
-</div>
 <script src="JS/TK.js"></script>

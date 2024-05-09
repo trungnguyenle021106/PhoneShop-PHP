@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require_once('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -8,11 +8,11 @@ $connect->connectDB();
 
 <div  class="change_page_Quyen">
 <form action="" method="POST">
-   <input type="hidden" name="page" value="Tài khoản">
+   <input type="hidden" name="page" value="Tài Khoản">
     <input type="submit" value="Tài khoản" id="btn1">
     </form>
     <form action="" method="POST">
-    <input type="hidden" name="page" value="Quyen">
+    <input type="hidden" name="page" value="Quyền">
     <input type="submit" value="Quyền" id="btn2">
     </form>
 </div>
@@ -107,6 +107,7 @@ $connect->connectDB();
 
         <div id="right-form">
             <h3>Chức năng hiện có</h3>
+            <input type="text" id="txt_chucnang_cap_right" placeholder="Tên chức năng cần tìm">
              <table id="data_chucnang_them">
 
            </table>
@@ -144,6 +145,7 @@ $connect->connectDB();
         </div>
         <div id="right-form">
             <h3>Chức năng hiện có</h3>
+            <input type="text" id="txt_chucnang_right" placeholder="Tên chức năng cần tìm">
              <table id="data_chucnang_sua">
 
            </table>

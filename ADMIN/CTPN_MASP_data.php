@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require_once('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 

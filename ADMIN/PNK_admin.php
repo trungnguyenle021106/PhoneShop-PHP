@@ -1,5 +1,5 @@
 <?php
-require('../Model/Database.php');
+require_once('../Model/Database.php');
 $connect = new MyConnection("127.0.0.1", "root", "", "qldienthoai");
 $connect->connectDB();
 ?>
@@ -8,7 +8,7 @@ $connect->connectDB();
 <script src="https://kit.fontawesome.com/3918fe69ba.js" crossorigin="anonymous"></script>
 <div  class="change_page_PN">
 <form action="" method="POST">
-   <input type="hidden" name="page" value="Nhập hàng">
+   <input type="hidden" name="page" value="Nhập Hàng">
     <input type="submit" value="Phiếu nhập" id="btn1">
     </form>
     <form action="" method="POST">

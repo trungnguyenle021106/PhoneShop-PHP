@@ -1,13 +1,15 @@
 <?php
 session_start();
 // $userID = $_SESSION['ID_ACCOUNT'];
-$userID = 9;
+
 require '../Model/Database.php';
 $connect = new MyConnection('localhost', 'root', '', 'qldienthoai');
 $connect->connectDB();
 
+$userID  = $_SESSION['$userID'];
 
-$users = $connect->read("tai_khoan", "MA_TK = ". $userID);
+
+$users = $connect->read("tai_khoan", "MA_TK = ".  $userID );
 reset($users);
 $user = current($users);
 
@@ -24,7 +26,6 @@ foreach ($list_ctq_cn as $ctq_cn) {
         }
     }
 }
-
 
 $data = array(
     'tai_khoan' => $user ,
