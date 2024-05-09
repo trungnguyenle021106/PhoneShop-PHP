@@ -58,6 +58,7 @@ if(isset($_SESSION['$isKH']))
                 <?php if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])) : ?>
                     <li style="display: flex; align-items: center;" class="element_TopMenu">
                         <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
+                        
                         <!-- Dropdown để đăng xuất -->
                         <div class="dropdown">
                             <img class="Img_user" src="Img/ic_user.png" alt="User" style="cursor: pointer;">
@@ -77,6 +78,7 @@ if(isset($_SESSION['$isKH']))
                     </li>
                 <?php else : ?>
                     <li style="display: flex; align-items: center;" class="element_TopMenu">
+                    
                         <div id="user_name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
                         <a href="#" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
                             <img class="Img_user" src="Img/ic_user.png" alt="Login" style="cursor: pointer;">
@@ -94,17 +96,17 @@ if(isset($_SESSION['$isKH']))
         </div>
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(".Img_user").click(function(event) {
+    jQuery(document).ready(function() {
+        jQuery(".Img_user").click(function(event) {
             //event.stopPropagation(); // Ngăn ngừa sự kiện nổi bọt
-            $(".dropdown-content").toggle(); // Toggle hiển thị dropdown content
+            jQuery(".dropdown-content").toggle(); // Toggle hiển thị dropdown content
         });
 
-        $(document).click(function(event) {
-            if (!$(event.target).closest('.dropdown').length) {
-                $('.dropdown-content').hide(); // Ẩn dropdown khi click ra ngoài
+        jQuery(document).click(function(event) {
+            if (!jQuery(event.target).closest('.dropdown').length) {
+                jQuery('.dropdown-content').hide(); // Ẩn dropdown khi click ra ngoài
             }
         });
     });
