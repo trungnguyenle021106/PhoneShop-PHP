@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="./CSS/login.css">
     <link rel="stylesheet" href="./CSS/phone.css">
     <link rel="stylesheet" href="./CSS/DetailPhone.css">
-     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
 </head>
 
 <body>
@@ -31,7 +32,6 @@
 
     ?>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="js/event.js"></script>
 </html>

@@ -12,4 +12,5 @@
         
     </div>
 </div>
+
 <script src="./js/shoppingCart.js"></script>

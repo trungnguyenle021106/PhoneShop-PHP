@@ -2,12 +2,11 @@
 session_start();
 // $userID = $_SESSION['ID_ACCOUNT'];
 
-require '../Model/Database.php';
+require './Model/Database.php';
 $connect = new MyConnection('localhost', 'root', '', 'qldienthoai');
 $connect->connectDB();
 
 $userID  = $_SESSION['$userID'];
-
 
 $users = $connect->read("tai_khoan", "MA_TK = ".  $userID );
 reset($users);
@@ -31,5 +30,9 @@ $data = array(
     'tai_khoan' => $user ,
     'array_TenChucNang' => $array_TenChucNang
 );
+
+function getUser() {
+    return "hello";
+}
 
 echo json_encode($data);

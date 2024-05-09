@@ -180,6 +180,7 @@ function read() {
         success: function (response) {
 
             dataArray = convert_JsonToArray(response);
+            console.log(dataArray)
             loadData(1, 10, 5);
         },
         error: function (xhr, status, error) {

@@ -166,6 +166,7 @@ function showAsk() {
     }
 
     document.querySelector('.yes').onclick = () => {
+        
         form.submit()
     }
 }
