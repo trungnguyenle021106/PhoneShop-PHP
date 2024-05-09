@@ -102,7 +102,7 @@ $connect->connectDB();
 
             </div>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="submit" class="btn_them_KM" name="btn_them_KM" value="Thêm" onclick="add()">
+            <input type="submit" class="btn_them_KM" name="btn_them_KM" value="Thêm" onclick="xacnhan()">
         </form>
 
 
@@ -140,7 +140,7 @@ $connect->connectDB();
                     <!-- <input type="text" value="" name="TrangThaiKM_sua" id="TrangThaiKM_sua"> -->
                     <select name="TrangThaiKM_sua" id="TrangThaiKM_sua" style="height: 35px; width: 400px; margin-bottom: 15px; ">
                         <!-- <option value="Có hiệu lực">Có hiệu lực</option> -->
-                        <option value="Hết hiệu lực">Hết hiệu lực</option> 
+                        <option value="Hết hiệu lực" selected >Hết hiệu lực</option> 
                     </select>
                 </div>
 
@@ -158,9 +158,10 @@ $connect->connectDB();
                 <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
                 <input type="hidden" name="MA_KM" value="" id="MAKM_sua"> 
 
-                <input type="submit" class="btn_xac_nhan_them" name="btn_xac_nhan_them" value="OK" onclick="">
-                <input type="submit" class="btn_xac_nhan_them" name="btn_xac_nhan_them" value="Cancel" onclick="">
-
+                <div class="towbtn">
+                    <input type="button" class="btn_xac_nhan_them" name="btn_xac_nhan_them" value="OK" onclick="add()">
+                    <input type="button" class="btn_xac_nhan_cancel" name="btn_xac_nhan_cancel" value="Cancel" onclick="tatform()">
+                </div>
             </form>
         </div>
     </div>

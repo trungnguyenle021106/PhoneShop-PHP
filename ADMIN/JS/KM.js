@@ -283,12 +283,14 @@ function DisplayElementPage(elementPage) {
             // form_sua_KM.querySelector('#So_tien_giam_sua').value = changePriceToNormal(elementPage[index].SO_TIEN_GIAM);
             // form_sua_KM.querySelector('#startDate_sua').value = elementPage[index].NGAY_BĐ;
             // form_sua_KM.querySelector('#endDate_sua').value = elementPage[index].NGAY_KT;
-            form_sua_KM.querySelector('#TrangThaiKM_sua').value = elementPage[index].TINH_TRANG;
+            // form_sua_KM.querySelector('#TrangThaiKM_sua').value = elementPage[index].TINH_TRANG;
             form_sua_KM.querySelector('#MAKM_sua').value = elementPage[index].MA_KM;
             form_sua_KM.style.display = 'block';
         });
     });
 }
+
+
 
 //chức năng ẩn hiện form sửa
 document.addEventListener('click', function(event){
@@ -298,6 +300,56 @@ document.addEventListener('click', function(event){
     }
 
 })
+
+function xacnhan(){
+
+    // Kiểm tra các trường dữ liệu bắt buộc
+    var tenKM = $('#TenKM_add').val();
+    var dieuKien = $('#Dieu_kien_KM').val();
+    var soTienGiam = $('#Tien_giam_KM').val();
+    var ngayBD = $('#startDate').val();
+    var ngayKT = $('#endDate').val();
+
+    if (tenKM === '' || dieuKien === '' || soTienGiam === '' || ngayBD === '' || ngayKT === '') {
+        return;
+    }
+
+    // Lấy phần tử chứa form xác nhận
+    var container = document.getElementById("container_xac_nhan_them_KM");
+
+    // Lấy nút "Thêm" và gán sự kiện onclick
+    var btnThem = document.querySelector(".btn_them_KM");
+    btnThem.onclick = function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi
+
+        // Hiển thị phần tử chứa form xác nhận
+        container.style.display = "block";
+    };
+}
+
+function tatform(){
+    // Lấy phần tử chứa form xác nhận
+    var container = document.getElementById("container_xac_nhan_them_KM");
+
+    // Lấy nút "cancel" và gán sự kiện onclick
+    var btnThem = document.querySelector(".btn_xac_nhan_cancel");
+    btnThem.onclick = function (event) {
+        event.preventDefault(); // Ngăn chặn form gửi đi
+
+        // ẩn phần tử chứa form xác nhận
+        container.style.display = "none";
+    };
+}
+
+//chức năng ẩn hiện form sửa
+document.addEventListener('click', function(event){
+    var form_xac_nhan_KM = document.getElementById('container_xac_nhan_them_KM');
+    if(event.target === form_xac_nhan_KM){
+        form_xac_nhan_KM.style.display = 'none';
+    }
+
+})
+
 
 function changePriceToString(price) {
     var s = "";
