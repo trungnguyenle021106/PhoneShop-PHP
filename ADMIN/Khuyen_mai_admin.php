@@ -76,33 +76,33 @@ $connect->connectDB();
 
             <div>
                 <label for="">Tên khuyến mãi: </label> 
-                <input type="text" name="TenKM_add" id="TenKM_add"> 
+                <input type="text" name="TenKM_add" id="TenKM_add" required > 
             </div>
 
             <div>
                 <label for="">Điều kiện: </label> 
-                <input type="number" name="Dieu_kien_KM" id="Dieu_kien_KM"> <span style="color: red; ">(*)</span>
+                <input type="number" name="Dieu_kien_KM" id="Dieu_kien_KM" required>
             </div>
 
             <div>
                 <label for="">Số tiền giảm: </label> 
-                <input type="number" name="Tien_giam_KM" id="Tien_giam_KM"> <span style="color: red; ">(*)</span>
+                <input type="number" name="Tien_giam_KM" id="Tien_giam_KM" required>
             </div>
 
             <div>
                 <label for="">Ngày bắt đầu:</label>
-                <input type="date" id="startDate" name="startDate"> <span style="color: red; ">(*)</span>
+                <input type="date" id="startDate" name="startDate" required > 
             </div>
 
             <div>
                 <label for="">Ngày kết thúc:</label>
-                <input type="date" id="endDate" name="endDate"> <span style="color: red; ">(*)</span>
+                <input type="date" id="endDate" name="endDate" required>
             </div>
 
 
             </div>
             <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-            <input type="button" class="btn_them_KM" name="btn_them_KM" value="Thêm" onclick="add()">
+            <input type="submit" class="btn_them_KM" name="btn_them_KM" value="Thêm" onclick="add()">
         </form>
 
 
@@ -139,14 +139,27 @@ $connect->connectDB();
                     <label for="">Trạng thái: </label> 
                     <!-- <input type="text" value="" name="TrangThaiKM_sua" id="TrangThaiKM_sua"> -->
                     <select name="TrangThaiKM_sua" id="TrangThaiKM_sua" style="height: 35px; width: 400px; margin-bottom: 15px; ">
-                        <option value="Có hiệu lực">Có hiệu lực</option>
-                        <option value="Hết hiệu lực">Hết hiệu lực</option>
+                        <!-- <option value="Có hiệu lực">Có hiệu lực</option> -->
+                        <option value="Hết hiệu lực">Hết hiệu lực</option> 
                     </select>
                 </div>
 
                 <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
                 <input type="hidden" name="MA_KM" value="" id="MAKM_sua"> 
                 <input type="submit" class="btn_suaKM" name="btn_suaKM" value="Sửa" onclick="update()">
+
+            </form>
+        </div>
+
+        <div id="container_xac_nhan_them_KM">
+            <form action="" method="POST" id="form_xac_nhan_them_KM">
+                <h2 style="text-align: center; ">Bạn chắc chắn muốn thêm 1 khuyến mãi mới ?</h2>
+
+                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
+                <input type="hidden" name="MA_KM" value="" id="MAKM_sua"> 
+
+                <input type="submit" class="btn_xac_nhan_them" name="btn_xac_nhan_them" value="OK" onclick="">
+                <input type="submit" class="btn_xac_nhan_them" name="btn_xac_nhan_them" value="Cancel" onclick="">
 
             </form>
         </div>

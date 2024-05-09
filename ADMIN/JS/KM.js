@@ -174,14 +174,26 @@ function timkiem(){
 
 function add(){
 
+    // Kiểm tra các trường dữ liệu bắt buộc
+    var tenKM = $('#TenKM_add').val();
+    var dieuKien = $('#Dieu_kien_KM').val();
+    var soTienGiam = $('#Tien_giam_KM').val();
+    var ngayBD = $('#startDate').val();
+    var ngayKT = $('#endDate').val();
+
+    if (tenKM === '' || dieuKien === '' || soTienGiam === '' || ngayBD === '' || ngayKT === '') {
+        return;
+    }
+
+    // Tiếp tục xử lý logic khi các trường dữ liệu đã được điền đầy đủ
     var data = {
-        TEN_KM: $('#TenKM_add').val(),
-        DIEU_KIEN: $('#Dieu_kien_KM').val(),
-        SO_TIEN_GIAM: $('#Tien_giam_KM').val(),
-        NGAY_BĐ: $('startDate').val(),
-        NGAY_KT: $('#endDate').val(),
+        TEN_KM: tenKM,
+        DIEU_KIEN: dieuKien,
+        SO_TIEN_GIAM: soTienGiam,
+        NGAY_BĐ: ngayBD,
+        NGAY_KT: ngayKT,
         TINH_TRANG: "Có hiệu lực"
-      };
+    };
 
     var jsonData = JSON.stringify(data);
     var operation = "Create";
