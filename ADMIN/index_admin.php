@@ -171,6 +171,18 @@ $connect->closeConnection();
             }
             ?>
         </div>
+
+        <div id="form_TK_nguoidung">
+    <div id="form_TK">
+        <div id="infor_KH">
+            <h2 style="text-align: center;">Thông tin người dùng</h2>
+            <div>Tên tài khoản: <span id="ten_user"></span></div>
+            <div>Password: <span id="pass_user"></span></div>
+            <div>Ngày tạo: <span id="NT_user"></span></div>
+            <button id="logout_btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </div>
+    </div>
+</div>
     </section>
 </body>
 
@@ -191,6 +203,70 @@ $connect->closeConnection();
             input.style.fontSize = fontSize + 'px';
         }
     }
+
+    
+
+
+document.addEventListener('DOMContentLoaded', function(){
+    var username = document.getElementById('ten_user');
+    var CCCD = document.getElementById('CCCD_user');
+    var PASS = document.getElementById('pass_user');
+    var NT = document.getElementById('NT_user');
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response0){
+            $condition = "Read"
+    var operation = "Read";
+    var tableName = "tai_khoan";
+    var condition = "MA_TK=" + response0.tai_khoan['MA_TK'];
+    
+    $.ajax({
+        url: '../AJAX_PHP/CRUD.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            operation: operation,
+            tableName: tableName,
+            condition: condition
+        },
+        success: function(response){
+            username.innerText = response[0].TEN_TK;
+            PASS.innerText = response[0].MAT_KHAU;
+            NT.innerText = response[0].NGAY_TAO_TK;
+            },
+        error: function(xhr, status, error) {
+           console.log(error);
+        }
+     });
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
+});
+
+
+document.getElementById("form_TK_nguoidung").addEventListener("click", function(event){
+    if(event.target == document.getElementById("form_TK_nguoidung")){
+        document.getElementById("form_TK_nguoidung").style.display = "none";
+    }
+});
+
+
+var logo = document.querySelector('#avatar');
+
+logo.addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById("form_TK_nguoidung").style.display = "block";
+});
+
+
+document.getElementById("logout_btn").addEventListener("click", function(){
+    window.location.href = '../PAGES/logout.php';
+});
 </script>
 
 </html>
