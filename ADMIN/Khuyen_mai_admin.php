@@ -160,7 +160,7 @@ $connect->connectDB();
 
                 <div class="towbtn">
                     <input type="button" class="btn_xac_nhan_them" name="btn_xac_nhan_them" value="OK" onclick="add()">
-                    <input type="button" class="btn_xac_nhan_cancel" name="btn_xac_nhan_cancel" value="Cancel" onclick="tatform()">
+                    <input type="button" class="btn_xac_nhan_cancel" name="btn_xac_nhan_cancel" value="Cancel" >
                 </div>
             </form>
         </div>

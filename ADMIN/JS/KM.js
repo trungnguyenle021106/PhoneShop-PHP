@@ -301,19 +301,28 @@ document.addEventListener('click', function(event){
 
 })
 
-function xacnhan(){
-
-    // Kiểm tra các trường dữ liệu bắt buộc
+function xacnhan() {
+    // Lấy giá trị của các trường dữ liệu
     var tenKM = $('#TenKM_add').val();
     var dieuKien = $('#Dieu_kien_KM').val();
     var soTienGiam = $('#Tien_giam_KM').val();
     var ngayBD = $('#startDate').val();
     var ngayKT = $('#endDate').val();
 
-    if (tenKM === '' || dieuKien === '' || soTienGiam === '' || ngayBD === '' || ngayKT === '') {
-        return;
-    }
+    console.log('tenKM:', tenKM);
+    console.log('dieuKien:', dieuKien);
+    console.log('soTienGiam:', soTienGiam);
+    console.log('ngayBD:', ngayBD);
+    console.log('ngayKT:', ngayKT);
 
+    // Kiểm tra các trường dữ liệu bắt buộc
+    if (tenKM === '' || dieuKien === '' || soTienGiam === '' || ngayBD === '' || ngayKT === '') {
+        console.log('Vui lòng điền đầy đủ thông tin');
+        return false;
+    }
+    return true;
+
+}
     // Lấy phần tử chứa form xác nhận
     var container = document.getElementById("container_xac_nhan_them_KM");
 
@@ -321,13 +330,15 @@ function xacnhan(){
     var btnThem = document.querySelector(".btn_them_KM");
     btnThem.onclick = function (event) {
         event.preventDefault(); // Ngăn chặn form gửi đi
-
-        // Hiển thị phần tử chứa form xác nhận
-        container.style.display = "block";
+        var check = xacnhan();
+        if(check == true){
+            // Hiển thị phần tử chứa form xác nhận
+            container.style.display = "block";
+        } else {
+            return 0;
+        }
     };
-}
 
-function tatform(){
     // Lấy phần tử chứa form xác nhận
     var container = document.getElementById("container_xac_nhan_them_KM");
 
@@ -339,7 +350,6 @@ function tatform(){
         // ẩn phần tử chứa form xác nhận
         container.style.display = "none";
     };
-}
 
 //chức năng ẩn hiện form sửa
 document.addEventListener('click', function(event){
