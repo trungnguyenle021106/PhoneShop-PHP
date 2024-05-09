@@ -69,7 +69,7 @@ function saveTK($username, $password) {
           "TEN_TK" => $username,
           "MAT_KHAU" => $password,
           "NGAY_TAO_TK" => $currentDate,
-          "TINH_TRANG" => "True",
+          "TINH_TRANG" => "hoạt động",
           "MA_Q" => "2"
       ];
 
