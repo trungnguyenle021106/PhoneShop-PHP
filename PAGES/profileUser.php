@@ -68,7 +68,7 @@
 <body style="background-color: rgb(243, 243, 243);">
     <div class="profile_content_container" style="margin-top: 100px;">
         <div class="profile_left" >
-            <img src="../Img/avtUser.png" alt="" >
+            <img src="Img/avtUser.png" alt="" >
             <span style="display: block; text-align: center;font-size: 18px;
             font-weight: bold;
             color: rgb(87, 79, 79);
@@ -213,7 +213,7 @@
             </form>`
         }
         async function openPopup(maHoaDon) {
-            const response = await fetch("XemChiTietHD.php?maHoaDon="+maHoaDon);
+            const response = await fetch("PAGES/XemChiTietHD.php?maHoaDon="+maHoaDon);
             const cthd = await response.json();
             console.log(cthd)
             let htmlContent = ""
@@ -224,7 +224,7 @@
                 htmlContent += `<tr>
                                 <td>`+detail.MA_SP+`</td>
                                 <td>`+product.TEN_SP+`</td>
-                                <td><img src="../Img/`+product.HINH_ANH+`" alt="" width="50"></td>
+                                <td><img src="Img/`+product.HINH_ANH+`" alt="" width="50"></td>
                                 <td>`+detail.SL_BAN+`</td>
                                 <td>`+product.GIA_BAN+`</td>
                                 <td>`+detail.THUE_SUAT+`</td>
