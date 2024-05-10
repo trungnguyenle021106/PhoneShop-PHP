@@ -3,6 +3,16 @@
     <div class="content-detail-phone">
         <a href="?page=Phones" class="link_back">Back to Phones</a>
         <?php
+        $isKH = false;
+        $userID = "";
+        if (isset( $_SESSION['$isKH'])) {
+            $isKH = $_SESSION['$isKH'];
+        }
+        if(isset($_SESSION['$userID']))
+        {
+            $userID  = $_SESSION['$userID'];
+        }
+        echo "<input type='hidden' class='id-km' value='$userID'/>";
         require_once("./Model/Database.php");
         require_once("XuLyTienVND.php");
         $server = "localhost";

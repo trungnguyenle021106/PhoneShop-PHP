@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="./CSS/ShoppingCart.css">
-
 <?php
 $isKH = false;
 $userID = "";
@@ -10,6 +8,7 @@ if(isset($_SESSION['$userID']))
 {
     $userID  = $_SESSION['$userID'];
 }
+echo "<input type='hidden' class='id-km-cart' value='$userID'/>";
 ?>
 <form class="ShoppingCart_Page" method="POST" action="handleInvoice.php" >
     <div class="left">
@@ -17,7 +16,7 @@ if(isset($_SESSION['$userID']))
     </div>
 
     <div class="right">
-        <input class="btn_DatHang" onclick="showAsk(<?php echo $isKH ;?>, <?php echo $userID  ;?>)" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
+        <input class="btn_DatHang" onclick="showAsk(<?php echo $isKH . ',' . $userID;?>)" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
     </div>
 </form>
 <div class="ask">

@@ -5,7 +5,7 @@ const phone = {
     loadAjax: (pageCurrent,pagePerNumber,...cond) => {
         var operation = "Read";
         var tableName = "san_pham INNER JOIN loai ON san_pham.MA_LOAI = loai.MA_LOAI INNER JOIN nha_sx ON san_pham.MA_NSX = nha_sx.MA_NSX";
-        var condition = "";
+        var condition = "san_pham.MA_LOAI = 1";
         $.ajax({
             url: './AJAX_PHP/CRUD.php',
             type: 'POST',
@@ -43,13 +43,8 @@ const phone = {
             list = []
             for(dataArray of dataArrays) {
                 for(idx of cond) {
-                    if(dataArray.TEN_LOAI === idx) {
-                        for(idx of cond) {
-                            if(dataArray.TEN_NSX === idx) {
-                                list.push(dataArray)
-                                break
-                            }
-                        }
+                    if(dataArray.TEN_NSX === idx) {
+                        list.push(dataArray)
                         break
                     }
                 }
@@ -121,7 +116,7 @@ const phone = {
         }
         phone.nav.innerHTML = 
             `<div class="change_slide_content">
-                <div class="change_slide" id="Pagination" style="width: 50%">
+                <div class="change_slide" id="Pagination">
                         <button onclick="phone.prevPage(${pageCurrent},${pagePerNumber},${stringCond})"><<</button>
                         ${start > 1 ? `<button class="destroy-btn">...</button>`: ''}
                         ${html1}
@@ -157,8 +152,8 @@ for(btnCheck of btnChecks) {
                 list.push(btnCheck.nextElementSibling.innerText)
             }
         }
-        phone.loadAjax(1,3,...list)
+        phone.loadAjax(1,6,...list)
     })
 }
 
-phone.loadAjax(1,3)
+phone.loadAjax(1,6)

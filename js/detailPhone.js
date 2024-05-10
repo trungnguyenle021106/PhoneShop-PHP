@@ -13,17 +13,23 @@ currentUrl = currentUrl.split('=')[1]
 img = document.querySelector('.img-content')
 Name = document.querySelector('.model')
 price = document.querySelector('.carrier-pricing-wrapper span')
+id = document.querySelector('.id-km').value
 
-infoItem = {
+infoItem = {id:id,order:
+    {
     MA_SP: currentUrl,
     name: Name.innerText,
     img: img.src,
     value: 1,
     price: price.innerText,
-}
+},}
 
 addCart = document.querySelector('.compare-phone-button')
 addCart.onclick = () => {
-    successToast("Thêm vào giở hàng thành công!")
-    cart.addCart(infoItem)
+    if(id == '') {
+        errorToast("Vui lòng đăt nhập để thêm! ")
+    } else {
+        successToast("Thêm vào giỏ hàng thành công! ")
+        cart.addCart(infoItem)
+    }
 }

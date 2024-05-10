@@ -30,6 +30,12 @@ function createStorage(key) {
             save()
         },
 
+        editAll(data = undefined) {
+            store.splice(0, store.length)
+            store.push(data)
+            save()
+        },
+
         // xoa du lieu tu locastorage
         remove(id = undefined) {
             if(id != undefined) {
@@ -72,7 +78,7 @@ function loadAjax(callback) {
 function loadAjax1(callback, id) {
     var operation = "Read";
     var tableName = "khach_hang";
-    var condition = "MA_KH = " + id;
+    var condition = "MA_TK = " + id;
     console.log(condition)
     $.ajax({
         url: 'AJAX_PHP/CRUD.php',
@@ -108,7 +114,7 @@ const cart = {
     list: document.querySelector('.left'),
     ordersApi: createStorage('orders'),
     orders: createStorage('orders').get(),
-
+    id: document.querySelector('.id-km-cart').value,
     loadDataIsEmpty: () => {
         if(cart.ordersApi.get().length == 0) {
             cart.ordersApi.set({id: 0,order: [
@@ -130,8 +136,13 @@ const cart = {
         }
     },
     loadLayouts: () => {
-        listOrder = cart.orders[0].order
-        html = listOrder.map((item,idx) => {
+        var listCurrent = []
+        for(elem of cart.orders) {
+            if(elem.id === cart.id) {
+                listCurrent = elem.order
+            }
+        }
+        html = listCurrent.map((item,idx) => {
             return `
                     <div class="CartItem">
                         <div class="product_image">
@@ -195,26 +206,47 @@ const cart = {
         cart.orders[0].order.splice(idx, 1);
         cart.loadLayouts()
         cart.ordersApi.edit(cart.orders[0])
-        if(cart.orders[0].order.length == 0) {
-           localStorage.removeItem('orders');
-        }
     },
     addCart: (data = undefined) => {
         if(data != undefined) {
-            cart.orders[0].order.push(data);
-            cart.ordersApi.edit(cart.orders[0])
+            if(cart.orders.length == 0) {
+                cart.ordersApi.set({
+                    id: data.id,
+                    order: [data.order]
+                })
+            } else {
+                for(item of cart.orders) {
+                    if(item.id == data.id) {
+                        for(itemOrder of item.order) {
+                            if(itemOrder.MA_SP == data.order.MA_SP) {
+                                itemOrder.value +=1
+                                cart.ordersApi.editAll(...cart.orders)
+                                return
+                            }
+                        }
+                        
+                        item.order.push(data.order)
+                        console.log(item.order)
+                        console.log(cart.orders)
+                        cart.ordersApi.editAll(...cart.orders)
+                        return
+                    }
+                }
+                cart.ordersApi.set({
+                    id: data.id,
+                    order: [data.order]
+                })
+            }
         }
     }
 }
 
-cart.loadDataIsEmpty()
 cart.loadLayouts()
 
 form = document.querySelector('.ShoppingCart_Page')
 
 function showAsk(dk, tk) {
     loadAjax1(list => {
-        console.log(list)
         if(list[0].DIA_CHI == '' || list[0].G_TINH == '' || list[0].SO_CCCD == '' || list[0].SO_DT == '') {
             errorToast("Vui lòng nhập thông tin trước khi thanh toán!")
         } else {

@@ -1,7 +1,15 @@
 <div class="content">
-    <!-- <div style="width: 100%; height:1000px"></div> XOA DONG NAY DI -->
     <?php
-    require("Login.php");
+    $isKH = false;
+    $userID = "";
+    if (isset( $_SESSION['$isKH'])) {
+        $isKH = $_SESSION['$isKH'];
+    }
+    if(isset($_SESSION['$userID']))
+    {
+        $userID  = $_SESSION['$userID'];
+    }
+
     if (isset($_GET['page'])) {
         if ($_GET['page'] == 'Promotion') {
             require("Promotion.php");
@@ -10,7 +18,12 @@
         } elseif ($_GET['page'] == 'Accessories') {
             require("Accessories.php");
         } elseif ($_GET['page'] == 'ShoppingCart') {
-            require("ShoppingCart.php");
+            if($userID != '') {
+                require("ShoppingCart.php");
+            } else {
+                header("Location: ./index.php?page=Home&&show=true");
+                exit;
+            }
         } elseif ($_GET['page'] == 'Home') {
             require("Home.php");
         } elseif ($_GET['page'] == 'Search') {
@@ -25,5 +38,6 @@
     else {
         require("Home.php");
     }
+    require("Login.php");
     ?>
 </div>

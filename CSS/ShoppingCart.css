@@ -8,7 +8,9 @@
 }
 .left{
     float: left;
+    max-height: 800px;
     width: 70%;
+    overflow-y: scroll;
 }
 .CartItem{
     width: auto;

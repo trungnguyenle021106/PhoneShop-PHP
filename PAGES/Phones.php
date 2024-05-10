@@ -8,23 +8,7 @@
             $category = $connection->read('loai');
             $made = $connection->read('nha_sx');
             
-            echo '<div class="container-left-info">
-                        <div class="header">
-                            <span class="header-title">Danh mục</span>
-                        </div>
-                        <div class="content1">';
-
-            foreach ($category as $item) {
-                echo '
-                    <div class="content-item">
-                        <input type="checkbox" class="content-item-check" checked/>
-                        <span class="content-item-title">'. $item["TEN_LOAI"] .'</span>
-                    </div>';
-                            
-            }
-            
-            echo'</div>
-            </div>
+            echo'
             <div class="container-left-info">
                 <div class="header">
                     <span class="header-title">Hãng</span>
