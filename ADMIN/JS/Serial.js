@@ -243,6 +243,7 @@ function Delete(maSerial) {
             <td id="Serial_SO_SERIAL">${soSerial}</td>
             <td id="Serial_TEN_SP">${response[0].TEN_SP}</td>
             <td id="Serial_HINH_ANH_SP"><img src="../Img/${response[0].HINH_ANH}" alt="##" style="height: 50px;"></td>
+            <td><input type="button" value="xóa" class="thaotac" onclick="Delete(${maSerial})"></td>
             <td><input type="button" class="Serial_sua_btn" name="sua${t}" id="thaotac_Serial" value="sửa" data-index="${t}"></td>
         </tr>`;
         html += rowHtml;

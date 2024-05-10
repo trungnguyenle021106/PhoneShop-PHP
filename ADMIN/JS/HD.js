@@ -156,7 +156,7 @@ function setTTHD_KH(maHD) {
             document.getElementById("sdtKH").innerText = response[0].SO_DT;
             document.getElementById("TTDH").innerText = response[0].TINH_TRANG;
 
-            console.log(searchChucNang("Sửa Hóa Đơn") == true)
+
             if (searchChucNang("Sửa Hóa Đơn") == true) {
                 if (response[0].TINH_TRANG == "Đã giao hàng" || response[0].TINH_TRANG == "Hủy đơn hàng") {
                     setUIXuLyDonHangCTHD(false);
@@ -169,13 +169,13 @@ function setTTHD_KH(maHD) {
                 }
                 else {
                     setUIXuLyDonHangCTHD(true);
+                    setUIKH_XULYHD();
                     setOptionXLDH(false);
                 }
             }
             else{
                 setUIXuLyDonHangCTHD(false);
                 setUIKH_XULYHD();
-                alert("yes")
             }
 
         },
