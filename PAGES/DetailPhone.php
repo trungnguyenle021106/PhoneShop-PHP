@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./CSS/detailPhone.css">
 <div class="main">
     <div class="content-detail-phone">
-        <a href="?page=Phones" class="link_back">Back to Phones</a>
+        <a href="index.php?page=Search&TenSP=" class="link_back">Back to Phones</a>
         <?php
         $isKH = false;
         $userID = "";

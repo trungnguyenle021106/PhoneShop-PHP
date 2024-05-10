@@ -107,6 +107,7 @@ $connect->connectDB();
 
         <div id="right-form">
             <h3>Chức năng hiện có</h3>
+            <input type="text" id="txt_chucnang_cap_right" placeholder="Tên chức năng cần tìm">
              <table id="data_chucnang_them">
 
            </table>
@@ -144,6 +145,7 @@ $connect->connectDB();
         </div>
         <div id="right-form">
             <h3>Chức năng hiện có</h3>
+            <input type="text" id="txt_chucnang_right" placeholder="Tên chức năng cần tìm">
              <table id="data_chucnang_sua">
 
            </table>

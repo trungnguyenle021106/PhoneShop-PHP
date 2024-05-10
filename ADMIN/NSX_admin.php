@@ -61,15 +61,15 @@ $connect->connectDB();
 
     <form action="" method="POST" id="form_them_NSX">
         <h2 style="text-align: center; ">Thêm nhà sản xuất</h2>
-        <div style="dispaly: flex;">
+        <div style="display: flex;">
             <label for="">Tên NSX: </label> 
             <input type="text" name="TenNSX" id="TenNSX_add"> <span style="color: red; ">(*)</span>
         </div>
-        <div style="dispaly: flex;">
+        <div style="display: flex;">
             <label for="">SDT: </label> 
             <input type="number" name="SDT_NSX" id="SDT_NSX_add"> <span style="color: red; ">(*)</span>
     </div>
-    <div style="dispaly: flex;">
+    <div style="display: flex;">
         <label for="">Địa chỉ: </label>
         <input type="text" name="DiaChiNSX" id="DiaChiNSX_add"> <span style="color: red; ">(*)</span>
 </div>

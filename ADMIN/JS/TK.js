@@ -36,40 +36,6 @@ SLTK_HT.innerText = rows.length;
     });
 }
    //loadData
-
-function read_LS(MATK){
-    var operation = "Read";
-    var tableName = "lichsu_hd";
-    var condition = "MA_TK=" + MATK;
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: operation,
-            tableName: tableName,
-            condition: condition
-        },
-        success: function(response) {
-            var tbody = document.querySelector('#data_LS');
-            var html = "";
-            // Sau Khi nhận được dữ liệu, hiển thị lịch sử lên trang
-            for(var i=0; i<response.length;i++){
-                html += ` <tr>
-                <td>${response[i].MOTA_HĐ}</td>
-                <td>${response[i].TG_HD}</td>
-                </tr>
-                `;
-            }
-            tbody.innerHTML = html;
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
-
-
-}
    function add()
 {
     
@@ -258,10 +224,6 @@ function mo(MATK)
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
                <td class="TK_SUA_btn"><input type="submit" class="TK_sua_btn" id="thaotac_TK" value="Đổi mật khẩu" data-index="${i}"></td>
                </form>
-               <form action="" method="POST">
-               <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-               <td><input type="submit" class="TK_LS_btn" id="thaotac_LS" value="lịch sử" data-index1="${i}"></td>
-               </form>
            </tr>
             `;
         }
@@ -281,10 +243,6 @@ function mo(MATK)
                <form action="" method="POST">
                <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
                <td class="TK_SUA_btn"><input type="submit" class="TK_sua_btn" id="thaotac_TK" value="Đổi mật khẩu" data-index="${i}"></td>
-               </form>
-               <form action="" method="POST">
-               <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-               <td><input type="submit" class="TK_LS_btn" id="thaotac_LS" value="lịch sử" data-index1="${i}"></td>
                </form>
            </tr>
             `;
@@ -306,20 +264,6 @@ function mo(MATK)
                     form_sua_KH.style.display = 'block';
                 });
             });
-
-// Lặp qua tất cả các nút lịch sử và gán sự kiện cho từng nút
-var editButtons = document.querySelectorAll('.TK_LS_btn');
-editButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-        // Lấy giá trị của thuộc tính data-ma-tk từ nút được nhấn
-        var index = this.getAttribute('data-index1');
-       var MA_TK_btn_temp = elementPage[index].MA_TK;
-       
-       read_LS(MA_TK_btn_temp);
-        document.querySelector('#LS_container').style.display = 'block';
-    });
-});
-
     }
 
 
@@ -612,6 +556,10 @@ function PhanQuyen(){
                     sua.remove();
                 }
             })
+
+            if(!check_cn(arr_cn, "Sửa Tài Khoản")){
+                document.getElementById("ThaoTac").style.display = "none";
+            }
 
             
             document.querySelectorAll('.TK_kichhoat_btn').forEach(function(xoa){
