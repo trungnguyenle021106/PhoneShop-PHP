@@ -17,7 +17,7 @@
             $ngayTao = date("Y-m-d");
             $tinhTrang = "Chưa liên lạc";
             $manv = 1;
-            $makh = 1;
+            $makh = $_POST['Makh'];
             $tongTien = $_POST['total'];
             $thue = $_POST['vat'];
 

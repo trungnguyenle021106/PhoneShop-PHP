@@ -24,6 +24,6 @@ infoItem = {
 
 addCart = document.querySelector('.compare-phone-button')
 addCart.onclick = () => {
-    console.log(cart)
+    successToast("Thêm vào giở hàng thành công!")
     cart.addCart(infoItem)
 }
