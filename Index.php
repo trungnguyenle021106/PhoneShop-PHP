@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="CSS/Template.css">
     <link rel="stylesheet" href="CSS/base.css">
     <link rel="stylesheet" href="CSS/register.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <title>Document</title>
 </head>
