@@ -539,7 +539,7 @@
                 </div>
                 <img src="Img/Mobilst_Woman_home-page_desktop.png" alt="">
             </div>
-            <a class="seeAllPhone" href="">See all phones</a>
+            <a class="seeAllPhone" href="index.php?page=Phones">See all phones</a>
         </div>
         <div class="bannerMain">
             <div class="bannerMain__img">
