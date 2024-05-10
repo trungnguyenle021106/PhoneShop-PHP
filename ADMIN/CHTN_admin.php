@@ -80,7 +80,7 @@ $connect->connectDB();
         </div>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="hidden" name="MACHTN" value="" id="MACHTN_sua"> 
-        <input type="submit" class="btn_suaCHTN" name="btn_suaCHTN" value="sửa" onclick="update()">
+        <input type="button" class="btn_suaCHTN" name="btn_suaCHTN" value="sửa" onclick="update()">
 
     </form>
     </div>

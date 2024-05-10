@@ -38,60 +38,62 @@ SLTK_HT.innerText = rows.length;
    //loadData
    function add()
 {
-    
-    var NGAY_TAO = new Date();
-    var TEN_TK = $('#TenTK_add').val();
-    var MAT_KHAU = $('#MATKHAU_add').val();
-    var MA_Q = $('#quyen').val();
+    if (confirm("Bạn có chắc chắn muốn tạo tài khoản không?")) {
 
-    var tr = document.querySelectorAll('#form_TK_admin table tbody tr');
-    var check_TEN_TK = true;
-    for(var i=0; i<tr.length; i++){
-        if(tr[i].querySelector('#TK_TenTK').innerText === TEN_TK){
-            check_TEN_TK = false;
-        }
-    }
-
-    if(TEN_TK === "" || MAT_KHAU === ""){
-        alert('Vui lòng nhập đầy đủ thông tin !!');
-    }
-
-    else if(!check_TEN_TK){
-        alert("Tên tài khoản đã tồn tại !!")
-    }
-    else if(!isValidString(MAT_KHAU)  || !isValidString(TEN_TK)){
-        alert("Mật khẩu hoặc tên tài khoản phải tối thiểu 6 kí tự và tối đa 11 kí tự không bao gồm kí tự đặc biệt");
-    }
-    else{
-        var data = {
-            TEN_TK: TEN_TK,
-            MAT_KHAU: MAT_KHAU,
-            MA_Q: MA_Q,
-            TINH_TRANG: "không hoạt động",
-            NGAY_TAO_TK: NGAY_TAO
-        };
+        var NGAY_TAO = new Date();
+        var TEN_TK = $('#TenTK_add').val();
+        var MAT_KHAU = $('#MATKHAU_add').val();
+        var MA_Q = $('#quyen').val();
     
-        var jsonData = JSON.stringify(data);
-    
-        var operation = "Create";
-        var tableName = "tai_khoan";
-        $.ajax({
-            url: '../AJAX_PHP/CRUD.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                jsonData : jsonData,
-                operation: operation,
-                tableName: tableName
-            }, 
-            success: function(response){
-                console.log(response);
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
+        var tr = document.querySelectorAll('#form_TK_admin table tbody tr');
+        var check_TEN_TK = true;
+        for(var i=0; i<tr.length; i++){
+            if(tr[i].querySelector('#TK_TenTK').innerText === TEN_TK){
+                check_TEN_TK = false;
             }
-        })
+        }
+    
+        if(TEN_TK === "" || MAT_KHAU === ""){
+            alert('Vui lòng nhập đầy đủ thông tin !!');
+        }
+    
+        else if(!check_TEN_TK){
+            alert("Tên tài khoản đã tồn tại !!")
+        }
+        else if(!isValidString(MAT_KHAU)  || !isValidString(TEN_TK)){
+            alert("Mật khẩu hoặc tên tài khoản phải tối thiểu 6 kí tự và tối đa 11 kí tự không bao gồm kí tự đặc biệt");
+        }
+        else{
+            var data = {
+                TEN_TK: TEN_TK,
+                MAT_KHAU: MAT_KHAU,
+                MA_Q: MA_Q,
+                TINH_TRANG: "không hoạt động",
+                NGAY_TAO_TK: NGAY_TAO
+            };
+        
+            var jsonData = JSON.stringify(data);
+        
+            var operation = "Create";
+            var tableName = "tai_khoan";
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData : jsonData,
+                    operation: operation,
+                    tableName: tableName
+                }, 
+                success: function(response){
+                    console.log(response);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            })
+        }
     }
    }
 
@@ -99,6 +101,8 @@ SLTK_HT.innerText = rows.length;
    
    function update()
 {
+    if (confirm("Bạn có chắc chắn muốn đổi mật khẩu tài khoản này không?")) {
+
         if(!isValidString($('#MKTK_sua').val())){
             alert("Mật khẩu cần tối thiểu 6 kí tự và tối đa 11 kí tự !!");
         }
@@ -132,11 +136,12 @@ SLTK_HT.innerText = rows.length;
             }
         });
     }
+    }
 }
 
 function vohieu(MATK)
 {
-
+    if (confirm("Bạn có chắc chắn muốn vô hiệu tài khoản này không?")) {
         var data = {
             TINH_TRANG: "không hoạt động"
           };
@@ -165,12 +170,13 @@ function vohieu(MATK)
             console.log(error);
         }
     });
+    }
 }
 
 
 function mo(MATK)
 {
-
+    if (confirm("Bạn có chắc chắn muốn kích hoạt tài khoản này không?")) {
         var data = {
             TINH_TRANG: "hoạt động"
           };
@@ -199,6 +205,7 @@ function mo(MATK)
             console.log(error);
         }
     });
+    }
 }
  
 // -------------------------------------------formation-chức năng phụ------------------------------------------------ //

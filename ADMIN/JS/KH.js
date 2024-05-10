@@ -40,67 +40,78 @@ SLKH_HT.innerText = rows.length;
 
    function update()
 {
-
-        var data = {
-            HOTEN_KH: $('#TenKH_sua').val(),
-            SO_DT: $('#SDT_KH').val(),
-            DIA_CHI: $('#DiaChiKH').val(),
-            SO_CCCD: $('#CCCD_KH').val(),
-            G_TINH: $('#GT_KH').val()
-          };
-          var jsonData = JSON.stringify(data);
-
-    var operation = "Update";
-    var tableName = "khach_hang";
-    var idName = "MA_KH";
-    var idValue = $('#MAKH_sua').val();
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData : jsonData,
-            operation: operation,
-            tableName: tableName,
-            idName : idName,
-            idValue : idValue
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
-}
-
-
-
-function Delete(MAKH) {
-    var operation = "Delete";
-    var idName = "MA_KH";
-    var idValue = MAKH;
-
-    // Hàm xóa từng bảng
-    function deleteFromTable(tableName, idName, idValue) {
+    if($('#CCCD_KH').val().length !== 12){
+        alert('CCCD phải đúng 12 số');
+    }
+    else if($('#SDT_KH').val().length !== 10){
+        alert('SDT phải đúng 10 số');
+    }
+    else{
+        if (confirm("Bạn có chắc chắn muốn sửa không?")) {
+    
+            var data = {
+                HOTEN_KH: $('#TenKH_sua').val(),
+                SO_DT: $('#SDT_KH').val(),
+                DIA_CHI: $('#DiaChiKH').val(),
+                SO_CCCD: $('#CCCD_KH').val(),
+                G_TINH: $('#GT_KH').val()
+              };
+              var jsonData = JSON.stringify(data);
+    
+        var operation = "Update";
+        var tableName = "khach_hang";
+        var idName = "MA_KH";
+        var idValue = $('#MAKH_sua').val();
         $.ajax({
             url: '../AJAX_PHP/CRUD.php',
             type: 'POST',
             dataType: 'json',
             data: {
+                jsonData : jsonData,
                 operation: operation,
                 tableName: tableName,
-                idName: idName,
-                idValue: idValue
+                idName : idName,
+                idValue : idValue
             },
             success: function(response) {
-                console.log(response);
+                location.reload();
             },
             error: function(xhr, status, error) {
                 console.log(error);
             }
         });
+        }
+    }
+}
 
+
+
+function Delete(MAKH) {
+    if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+        var operation = "Delete";
+        var idName = "MA_KH";
+        var idValue = MAKH;
+    
+        // Hàm xóa từng bảng
+        function deleteFromTable(tableName, idName, idValue) {
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    operation: operation,
+                    tableName: tableName,
+                    idName: idName,
+                    idValue: idValue
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+    }
     }
 
 

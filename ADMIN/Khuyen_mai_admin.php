@@ -18,7 +18,7 @@
                         <td>Ngày bắt đầu</td>
                         <td>Ngày kết thúc</td>
                         <td>Trạng thái</td>
-                        <td colspan="2" id="thao_tac">Thao tác</td>
+                        <td colspan="3" id="thao_tac">Thao tác</td>
                     </tr>
                 </thead>
 

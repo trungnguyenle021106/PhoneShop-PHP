@@ -16,7 +16,7 @@ require_once('../Model/Database.php');
                         <td>Số Serial</td>
                         <td>Tên sản phẩm</td>
                         <td>Hình ảnh</td>
-                        <td colspan="2" id="ThaoTac">Thao tác</td>
+                        <td colspan="2">Thao tác</td>
                     </tr>
                 </thead>
                 <tbody id="data">

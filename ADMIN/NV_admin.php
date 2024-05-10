@@ -119,7 +119,7 @@ $connect->connectDB();
 
     <input type="hidden" value="<?php echo $_POST['page']; ?>" name="page" >
     <input type="hidden" value="" name="MAPN" id="MANV_sua_hidden">
-    <input type="submit" value="Xác nhận" name="btn_xacnhan_sua" id="btn_xacnhan_sua" onclick="update()">
+    <input type="button" value="Xác nhận" name="btn_xacnhan_sua" id="btn_xacnhan_sua" onclick="update()">
 </form>
 </div>
 

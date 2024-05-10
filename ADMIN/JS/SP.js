@@ -8,25 +8,27 @@ read();
 
     function add_CHSP()
 { 
+    if (confirm("Bạn có chắc chắn muốn thêm không?")) {
+    
 //thêm sản phẩm trước
-    var loai = $("#opt_loai").val();
-    var MANSX = $("#opt_MANSX").val();
-    var Ten_SP = $("#TenSP_add").val();
-    var Gia = $("#GIA_SP_add").val();
+var loai = $("#opt_loai").val();
+var MANSX = $("#opt_MANSX").val();
+var Ten_SP = $("#TenSP_add").val();
+var Gia = $("#GIA_SP_add").val();
 
 var filePath = $('#ANH_SP_add').val();
 var ANH = filePath.split('\\').pop();
 
-    var data = {
-        MA_LOAI: loai,
-        MA_NSX: MANSX,
-        TEN_SP: Ten_SP,
-        GIA_BAN: Gia,
-        HINH_ANH: ANH,
-        SO_LUONG: 1
-      };
-      var jsonData = JSON.stringify(data);
-      console.log(jsonData);
+var data = {
+    MA_LOAI: loai,
+    MA_NSX: MANSX,
+    TEN_SP: Ten_SP,
+    GIA_BAN: Gia,
+    HINH_ANH: ANH,
+    SO_LUONG: 1
+  };
+  var jsonData = JSON.stringify(data);
+  console.log(jsonData);
 var operation = "Create";
 var tableName = "san_pham";
 $.ajax({
@@ -34,244 +36,39 @@ url: '../AJAX_PHP/CRUD.php',
 type: 'POST',
 dataType: 'json',
 data: {
-    jsonData : jsonData,
-    operation: operation,
-    tableName: tableName
+jsonData : jsonData,
+operation: operation,
+tableName: tableName
 },
 success: function(response) {
-    var loai = $("#opt_loai").val();
-    if(loai === "1"){
-        if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== "" && $("#OS_them").val() !== ""){
-        
-            var data = {
-                MA_SP: response[response.length-1].MA_SP,
-                RAM: $("#RAM_them").val() + "GB",
-                BO_NHO_TRONG: $("#BNT_them").val() + "GB",
-                MAN_HINH: $("#MH_them").val(),
-                MAU_SAC: $("#MS_them").val(),
-                PIN: $("#PIN_them").val() + "Mah",
-                CAMERA_TRUOC: $("#CAMTRC_them").val() + "px",
-                CAMERA_SAU: $("#CAMSAU_them").val() + "px",
-                OS: $("#OS_them").val()
-            };
-            
-            var jsonData = JSON.stringify(data);
-        
-            var operation = "Create";
-            var tableName = "cau_hinh_dien_thoai";
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData : jsonData,
-                    operation: operation,
-                    tableName: tableName
-                },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-            location.reload();   
-
-        }
-                else{
-            alert("Hãy nhập đầy đủ thông tin !!");
-        }
-      
-    }
-
-    else if(loai === "3"){
-        if($("#KNTN_them").val() !== "" && $("#TNTN_them").val() !== ""){
-
-            var data = {
-                MA_SP: response[response.length-1].MA_SP,
-                KET_NOI: $("#KNTN_them").val(),
-                TINH_NANG: $("#TNTN_them").val(),
-            };
-            
-            var jsonData = JSON.stringify(data);
-        
-            var operation = "Create";
-            var tableName = "cau_hinh_tai_nghe";
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData : jsonData,
-                    operation: operation,
-                    tableName: tableName
-                },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-            location.reload();   
-
-        }
-        else{
-            alert("Hãy nhập đầy đủ thông tin !!");
-        }
-    }
-
-
-    else if(loai === "5"){
-        if($("#CHSKN_them").val() !== "" && $("#CsS_them").val() !== "" && $("#CHSTN_them").val() !== ""){
-          
-
-            var data = {
-                MA_SP: response[response.length-1].MA_SP,       
-                KET_NOI: $("#CHSKN_them").val(),
-                CONG_SUAT: $("#CsS_them").val() + "W",
-                TINH_NANG: $("#CHSTN_them").val()
-            };
-            
-            var jsonData = JSON.stringify(data);
-        
-            var operation = "Create";
-            var tableName = "cau_hinh_sac";
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData : jsonData,
-                    operation: operation,
-                    tableName: tableName
-                },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-            location.reload();   
-
-        }
-        else{
-            alert("Hãy nhập đầy đủ thông tin !!");
-        }
-    }
-
-    else if(loai === "4"){
-        if($("#CLOL_them").val() !== "" && $("#TNOL_them").val() !== ""){
-
-            var data = {
-                MA_SP: response[response.length-1].MA_SP,
-                CHAT_LIEU: $("#CLOL_them").val(),
-                TINH_NANG: $("#TNOL_them").val()
-            };
-            
-            var jsonData = JSON.stringify(data);
-        
-            var operation = "Create";
-            var tableName = "cau_hinh_oplung";
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData : jsonData,
-                    operation: operation,
-                    tableName: tableName
-                },
-                success: function(response) {
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-         location.reload();   
-        }
-        else{
-            alert("Hãy nhập đầy đủ thông tin !!");
-        }
-    }
-},
-error: function(xhr, status, error) {
-    console.log(error);
-}
-});
-      
-}
+var loai = $("#opt_loai").val();
+if(loai === "1"){
+    if($("#RAM_them").val() !== "" && $("#BNT_them").val() !== "" && $("#MH_them").val() !== "" && $("#MS_them").val() !== "" && $("#PIN_them").val() !== "" && $("#CAMTRC_them").val() !== "" && $("#CAMSAU_them").val() !== "" && $("#OS_them").val() !== ""){
     
-function update()
-{
-    var TenSP = $('#TenSP_sua').val();
-    var Gia = $('#Gia_SP').val();
-    var fileInput = $('#AnhSP')[0]; 
-// Lấy giá trị của phần tử input loại file bằng jQuery
-var filePath = $('#AnhSP').val();
-
-// Tách phần cuối của đường dẫn file (tức là tên file) bằng cách chia chuỗi bằng dấu gạch chéo (/)
-var file = filePath.split('\\').pop();
-    var files = fileInput.files;
-    var MASP = $('#MASP_sua').val();
-
-    if (files.length !== 0) {
         var data = {
-            TEN_SP: TenSP,
-            GIA_BAN: Gia,
-            HINH_ANH: file
-          };
-    }
-    else{
-        var data = {
-            TEN_SP: TenSP,
-            GIA_BAN: Gia,
-            HINH_ANH: $('#anh_su').val()
-          };
-}
-    var jsonData = JSON.stringify(data);
-    var operation = "Update";
-    var tableName = "san_pham";
-    var idName = "MA_SP";
-    var idValue = MASP;
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData : jsonData,
-            operation: operation,
-            tableName: tableName,
-            idName : idName,
-            idValue : idValue
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
-}
-
-function Delete(MASP) {
-    var operation = "Delete";
-    var idName = "MA_SP";
-    var idValue = MASP;
-
-    // Hàm xóa từng bảng
-    function deleteFromTable(tableName, idName, idValue) {
+            MA_SP: response[response.length-1].MA_SP,
+            RAM: $("#RAM_them").val() + "GB",
+            BO_NHO_TRONG: $("#BNT_them").val() + "GB",
+            MAN_HINH: $("#MH_them").val(),
+            MAU_SAC: $("#MS_them").val(),
+            PIN: $("#PIN_them").val() + "Mah",
+            CAMERA_TRUOC: $("#CAMTRC_them").val() + "px",
+            CAMERA_SAU: $("#CAMSAU_them").val() + "px",
+            OS: $("#OS_them").val()
+        };
+        
+        var jsonData = JSON.stringify(data);
+    
+        var operation = "Create";
+        var tableName = "cau_hinh_dien_thoai";
         $.ajax({
             url: '../AJAX_PHP/CRUD.php',
             type: 'POST',
             dataType: 'json',
             data: {
+                jsonData : jsonData,
                 operation: operation,
-                tableName: tableName,
-                idName: idName,
-                idValue: idValue
+                tableName: tableName
             },
             success: function(response) {
                 console.log(response);
@@ -280,56 +77,266 @@ function Delete(MASP) {
                 console.log(error);
             }
         });
+        location.reload();   
 
     }
+            else{
+        alert("Hãy nhập đầy đủ thông tin !!");
+    }
+  
+}
 
-    // Xóa cấu hình tai nghe
-    deleteFromTable("cau_hinh_tai_nghe", idName, idValue);
+else if(loai === "3"){
+    if($("#KNTN_them").val() !== "" && $("#TNTN_them").val() !== ""){
 
-    // // Xóa cấu hình điện thoại
-    deleteFromTable("cau_hinh_dien_thoai", idName, idValue);
+        var data = {
+            MA_SP: response[response.length-1].MA_SP,
+            KET_NOI: $("#KNTN_them").val(),
+            TINH_NANG: $("#TNTN_them").val(),
+        };
+        
+        var jsonData = JSON.stringify(data);
+    
+        var operation = "Create";
+        var tableName = "cau_hinh_tai_nghe";
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+        location.reload();   
 
-    // // Xóa cấu hình sạc
-    deleteFromTable("cau_hinh_sac", idName, idValue);
+    }
+    else{
+        alert("Hãy nhập đầy đủ thông tin !!");
+    }
+}
 
-    // // Xóa cấu hình ốp lưng
-    deleteFromTable("cau_hinh_oplung", idName, idValue);
 
-    // // Xóa chi tiết hóa đơn
-    deleteFromTable("chi_tiet_hoadon", idName, idValue);
+else if(loai === "5"){
+    if($("#CHSKN_them").val() !== "" && $("#CsS_them").val() !== "" && $("#CHSTN_them").val() !== ""){
+      
 
-    // // Xóa chi tiết nhập
-    deleteFromTable("chi_tiet_nhap", idName, idValue);
+        var data = {
+            MA_SP: response[response.length-1].MA_SP,       
+            KET_NOI: $("#CHSKN_them").val(),
+            CONG_SUAT: $("#CsS_them").val() + "W",
+            TINH_NANG: $("#CHSTN_them").val()
+        };
+        
+        var jsonData = JSON.stringify(data);
+    
+        var operation = "Create";
+        var tableName = "cau_hinh_sac";
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+        location.reload();   
 
-    // Đọc mã serial và xóa phiếu bảo hành và mã serial
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: "Read",
-            tableName: "serial",
-            condition: "MA_SP=" + MASP,
-        },
-        success: function(response) {
-                // Xóa phiếu bảo hành
-                for(var i = 0; i < response.length; i++){
-                    deleteFromTable("phieu_bao_hanh", "MA_SERIAL", response[i].MA_SERIAL);
-                }
-                // Xóa mã serial
-                deleteFromTable("serial", "MA_SP", MASP);
-            
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
+    }
+    else{
+        alert("Hãy nhập đầy đủ thông tin !!");
+    }
+}
+
+else if(loai === "4"){
+    if($("#CLOL_them").val() !== "" && $("#TNOL_them").val() !== ""){
+
+        var data = {
+            MA_SP: response[response.length-1].MA_SP,
+            CHAT_LIEU: $("#CLOL_them").val(),
+            TINH_NANG: $("#TNOL_them").val()
+        };
+        
+        var jsonData = JSON.stringify(data);
+    
+        var operation = "Create";
+        var tableName = "cau_hinh_oplung";
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+     location.reload();   
+    }
+    else{
+        alert("Hãy nhập đầy đủ thông tin !!");
+    }
+}
+},
+error: function(xhr, status, error) {
+console.log(error);
+}
+});
+    } 
+}
+    
+function update()
+{
+
+    if (confirm("Bạn có chắc chắn muốn sửa không?")) {
+        var TenSP = $('#TenSP_sua').val();
+        var Gia = $('#Gia_SP').val();
+        var fileInput = $('#AnhSP')[0]; 
+    // Lấy giá trị của phần tử input loại file bằng jQuery
+    var filePath = $('#AnhSP').val();
+    
+    // Tách phần cuối của đường dẫn file (tức là tên file) bằng cách chia chuỗi bằng dấu gạch chéo (/)
+    var file = filePath.split('\\').pop();
+        var files = fileInput.files;
+        var MASP = $('#MASP_sua').val();
+    
+        if (files.length !== 0) {
+            var data = {
+                TEN_SP: TenSP,
+                GIA_BAN: Gia,
+                HINH_ANH: file
+              };
         }
-    });
+        else{
+            var data = {
+                TEN_SP: TenSP,
+                GIA_BAN: Gia,
+                HINH_ANH: $('#anh_su').val()
+              };
+    }
+        var jsonData = JSON.stringify(data);
+        var operation = "Update";
+        var tableName = "san_pham";
+        var idName = "MA_SP";
+        var idValue = MASP;
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName,
+                idName : idName,
+                idValue : idValue
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+}
 
-    // Xóa sản phẩm
-    deleteFromTable("san_pham", idName, idValue);
-    location.reload();
-
-
+function Delete(MASP) {
+    if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+        var operation = "Delete";
+        var idName = "MA_SP";
+        var idValue = MASP;
+    
+        // Hàm xóa từng bảng
+        function deleteFromTable(tableName, idName, idValue) {
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    operation: operation,
+                    tableName: tableName,
+                    idName: idName,
+                    idValue: idValue
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+    
+        }
+    
+        // Xóa cấu hình tai nghe
+        deleteFromTable("cau_hinh_tai_nghe", idName, idValue);
+    
+        // // Xóa cấu hình điện thoại
+        deleteFromTable("cau_hinh_dien_thoai", idName, idValue);
+    
+        // // Xóa cấu hình sạc
+        deleteFromTable("cau_hinh_sac", idName, idValue);
+    
+        // // Xóa cấu hình ốp lưng
+        deleteFromTable("cau_hinh_oplung", idName, idValue);
+    
+        // // Xóa chi tiết hóa đơn
+        deleteFromTable("chi_tiet_hoadon", idName, idValue);
+    
+        // // Xóa chi tiết nhập
+        deleteFromTable("chi_tiet_nhap", idName, idValue);
+    
+        // Đọc mã serial và xóa phiếu bảo hành và mã serial
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                operation: "Read",
+                tableName: "serial",
+                condition: "MA_SP=" + MASP,
+            },
+            success: function(response) {
+                    // Xóa phiếu bảo hành
+                    for(var i = 0; i < response.length; i++){
+                        deleteFromTable("phieu_bao_hanh", "MA_SERIAL", response[i].MA_SERIAL);
+                    }
+                    // Xóa mã serial
+                    deleteFromTable("serial", "MA_SP", MASP);
+                
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    
+        // Xóa sản phẩm
+        deleteFromTable("san_pham", idName, idValue);
+        location.reload();
+    
+    
+    }
 }
 
                 

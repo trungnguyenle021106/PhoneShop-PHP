@@ -98,15 +98,15 @@ $connect->connectDB();
 </div>
 <div>
         <label for="">Pin: </label>
-        <input type="number" name="PIN_CHDT" id="PIN_CHDT_sua"> 
+        <input type="text" name="PIN_CHDT" id="PIN_CHDT_sua"> 
 </div>
 <div>
         <label for="">Camera trước: </label>
-        <input type="number" name="CAMTRC_CHDT" id="CAMTRC_CHDT_sua"> 
+        <input type="text" name="CAMTRC_CHDT" id="CAMTRC_CHDT_sua"> 
 </div>
 <div>
         <label for="">Camera sau: </label>
-        <input type="number" name="CAMSAU_CHDT" id="CAMSAU_CHDT_sua"> 
+        <input type="text" name="CAMSAU_CHDT" id="CAMSAU_CHDT_sua"> 
 </div>
 <div>
         <label for="">OS: </label>
@@ -116,7 +116,7 @@ $connect->connectDB();
         <input type="hidden" name="MACHDT" value="" id="MACHDT_sua"> 
         <input type="hidden" name="anh_su" value="" id="anh_su"> 
 
-        <input type="submit" class="btn_suaCHDT" name="btn_suaCHDT" value="sửa" onclick="update()">
+        <input type="button" class="btn_suaCHDT" name="btn_suaCHDT" value="sửa" onclick="update()">
     </form>
 </div>
 

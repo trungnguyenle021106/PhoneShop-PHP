@@ -7,15 +7,14 @@ function readAccount() {
         dataType: 'json',
         success: function (response) {
             dataAccount = response.array_TenChucNang;
-
         },
         error: function (xhr, status, error) {
             console.log(error);
         }
     });
 }
+
 function searchChucNang(tenChucNang) {
-    console.log(dataAccount);
     for (var i = 0; i < this.dataAccount.length; i++) {
         if(tenChucNang === this.dataAccount[i])
             {

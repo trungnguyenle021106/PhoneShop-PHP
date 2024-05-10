@@ -158,7 +158,6 @@ function setTTHD_KH(maHD) {
 
 
             if (searchChucNang("Sửa Hóa Đơn") == true) {
-                alert("gfsdgfg");
                 if (response[0].TINH_TRANG == "Đã giao hàng" || response[0].TINH_TRANG == "Hủy đơn hàng") {
                     setUIXuLyDonHangCTHD(false);
                     setUIKH_XULYHD();
@@ -170,6 +169,7 @@ function setTTHD_KH(maHD) {
                 }
                 else {
                     setUIXuLyDonHangCTHD(true);
+                    setUIKH_XULYHD();
                     setOptionXLDH(false);
                 }
             }

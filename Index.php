@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/Template.css">
     <link rel="stylesheet" href="CSS/base.css">
-    <!-- <link rel="stylesheet" href="CSS/promotion.css"> -->
-    <link rel="stylesheet" href="CSS/accessories.css">
-    <link rel="stylesheet" href="CSS/Shoppingcart.css">
     <link rel="stylesheet" href="CSS/register.css">
+    <link rel="stylesheet" href="./CSS/ShoppingCart.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <title>Document</title>
 </head>
 
 <body>
-
     <?php
 
     require("PAGES/TopMenu.php");
@@ -29,11 +26,10 @@
     require("PAGES/Footer.php");
 
     ?>
-
-
-
-
+    <div id="toast"></div>
 </body>
 
-<script src="js/event.js"></script>
+<script src="./js/event.js"></script>
+<script src="js/toast.js"></script>
+<script src="./js/UpdateTimeKM.js"></script>
 </html>

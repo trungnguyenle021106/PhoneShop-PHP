@@ -78,7 +78,7 @@ $connect->connectDB();
         </div>
         <div>
             <label for="">Công suất: </label> 
-            <input type="number" name="CS_CHS" id="CS_CHS_sua"> 
+            <input type="text" name="CS_CHS" id="CS_CHS_sua"> 
         </div>
         <div>
             <label for="">Tính năng: </label> 
@@ -86,7 +86,7 @@ $connect->connectDB();
         </div>
         <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
         <input type="hidden" name="MACHS" value="" id="MACHS_sua"> 
-        <input type="submit" class="btn_suaCHS" name="btn_suaCHS" value="sửa" onclick="update()">
+        <input type="button" class="btn_suaCHS" name="btn_suaCHS" value="sửa" onclick="update()">
 
     </form>
     </div>

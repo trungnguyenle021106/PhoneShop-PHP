@@ -70,7 +70,7 @@ function saveTK($username, $password) {
           "MAT_KHAU" => $password,
           "NGAY_TAO_TK" => $currentDate,
           "TINH_TRANG" => "hoạt động",
-          "MA_Q" => "2"
+          "MA_Q" => "4"
       ];
 
        $connect->create("tai_khoan", $data);

@@ -137,7 +137,7 @@ function setUICTPBH(data) {
     var TGBH = data[0].THOI_GIAN_BAOHANH;
     var TINH_TRANG = data[0].TINH_TRANG;
     var flag = checkCTPBH(TGBH, TINH_TRANG);
-    if (searchChucNang("Sửa Hóa Đơn") == false) {
+    if (searchChucNang("Sửa Phiếu Bảo Hành") == false) {
         flag = "";
     }
 
