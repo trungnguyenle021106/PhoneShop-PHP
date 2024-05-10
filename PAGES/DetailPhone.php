@@ -12,7 +12,9 @@
         {
             $userID  = $_SESSION['$userID'];
         }
-        echo "<input type='hidden' class='id-km' value='$userID'/>";
+
+        echo "<input type='hidden' class='id-kh' value='$userID'/>";
+
         require_once("./Model/Database.php");
         require_once("XuLyTienVND.php");
         $server = "localhost";
