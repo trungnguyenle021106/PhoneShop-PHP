@@ -23,20 +23,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response = [
         'status' => 'fail',
         'tinhtrang' => 'no name',
+        'tentk' => 'null',
+        'matkhau' => 'null',
         'name' => 'no name ',
         'avt' => 'no avt'
     ];
 
     $found = false;
+    $temp_TK = "ok";
+    $temp_MK = "ok";
     foreach ($lsTK as $TK) {
         if ($form_username === $TK["TEN_TK"] && $form_password === $TK["MAT_KHAU"]) {
             
+            $temp_TK = 1;
+            $temp_MK = 1;
+
             $tinhTrang = $TK["TINH_TRANG"];
+
 
             if( $tinhTrang === "không hoạt động"){
                 $response = [
                     'status' => 'fail',
                     'tinhtrang' => 'no',
+                    'tentk' => 'ok',
+                    'matkhau' => 'ok',
                     'name' => 'no name ',
                     'avt' => 'no avt'
                 ];
@@ -58,6 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $response = [
                             'status' => 'success',
                             'tinhtrang' => $tinhTrang,
+                            'tentk' => 'ok',
+                            'matkhau' => 'ok',
                             'name' => $NV["HOTEN_NV"],
                             'avt' => 'no avt'
                         ];
@@ -77,6 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $response = [
                             'status' => 'success',
                             'tinhtrang' => $tinhTrang,
+                            'tentk' => 'ok',
+                            'matkhau' => 'ok',
                             'name' => $KH["HOTEN_KH"],
                             'avt' => 'no avt'
                         ];
@@ -86,9 +100,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
 
-            
+            break; // Thoát khỏi vòng lặp sau khi tìm thấy kết quả khớp
         }
+
+        if ($form_username != $TK["TEN_TK"]) {
+            $temp_TK = "no";
+        }
+        if ($form_password != $TK["MAT_KHAU"]) {
+            $temp_MK = "no";
+        }
+
+
+        
     }
+
+    if($temp_TK == "no" ){
+        $response = [
+            'status' => 'fail',
+            'tinhtrang' => 'no name',
+            'tentk' => 'loi',
+            'matkhau' => 'null',
+            'name' => 'no name ',
+            'avt' => 'no avt'
+        ];
+    }
+
+    if($temp_MK == "no" ){
+        $response = [
+            'status' => 'fail',
+            'tinhtrang' => 'no name',
+            'tentk' => 'null',
+            'matkhau' => 'loi',
+            'name' => 'no name ',
+            'avt' => 'no avt'
+        ];
+    
+    }
+    
 
     // Chuyển mảng $response thành JSON và gửi lại cho client
     $kq = json_encode($response);

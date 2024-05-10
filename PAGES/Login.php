@@ -14,10 +14,10 @@
 
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input id="input" type="text" placeholder="Nhập tài khoản" name="uname" required>
+      <input class="input-u" id="input" type="text" placeholder="Nhập tài khoản" name="uname" required>
 
       <label for="psw"><b>Password</b></label>
-      <input id="input" type="password" placeholder="Nhập mật khẩu" name="psw" required>
+      <input class="input-p" id="input" type="password" placeholder="Nhập mật khẩu" name="psw" required>
         
       <button type="button" class="btnLogin" onclick="checkLogin()" >Login</button>
       <!-- <label>

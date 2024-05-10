@@ -18,10 +18,34 @@ function checkLogin() {
             // Parse JSON response thành object
             var kq = JSON.parse(response);
             console.log(kq.tinhtrang);
-            
+            console.log("tk: " + kq.tentk);
+            console.log("mk: " +kq.matkhau);
+            console.log(kq.status);
+
+            if(kq.tentk === "loi"){
+                $('#messenger').text('Tài khoản sai!');
+                var inputElement = document.querySelector('.input-u'); // Thay '.your-class' bằng lớp của phần tử bạn muốn tập trung vào
+                if (inputElement) {
+                   inputElement.focus(); // Tập trung vào phần tử
+                   inputElement.select();
+                }
+                return;
+            }
+            if(kq.matkhau === "loi"){
+                $('#messenger').text('Mật khẩu sai!');
+                var inputElement = document.querySelector('.input-p'); // Thay '.your-class' bằng lớp của phần tử bạn muốn tập trung vào
+                if (inputElement) {
+                   inputElement.focus(); // Tập trung vào phần tử
+                   inputElement.select();
+                }
+                return;
+            }
             if(kq.tinhtrang === "no"){
                 $('#messenger').text('Tài khoản đang bị khóa!');
             }
+            // if (kq.status === "fail") {
+            //     $('#messenger').text('Tài khoản hoặc mật khẩu sai!');
+            // }
             // Xử lý dựa trên kết quả trả về
             if (kq.status === "success") {
                 $('#messenger').text('Đăng nhập thành công ...');
