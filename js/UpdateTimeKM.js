@@ -62,7 +62,7 @@ function setTT_KM() {
 
 function getTimeUntilTargetTime() {
     var now = new Date();
-    var targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 16, 5, 0);
+    var targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 24, 0, 0);
     var timeUntilTargetTime = targetTime - now;
     
     if (timeUntilTargetTime < 0) {
