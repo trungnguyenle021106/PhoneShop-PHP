@@ -20,16 +20,15 @@
       <input id="input" type="password" placeholder="Nhập mật khẩu" name="psw" required>
         
       <button type="button" class="btnLogin" onclick="checkLogin()" >Login</button>
-      <label>
+      <!-- <label>
         <input type="checkbox" checked="checked" name="remember"> Nhớ mật khẩu
-      </label>
+      </label> -->
     </div>
     <p id="messenger"></p>
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button"  onclick="window.location.href = '/PhoneShop/index.php?page=Home'" class="cancelbtn">Cancel</button>
       <span class="Register">Bạn chưa có tài khoản <a href="/PhoneShop/PAGES/Register.php" >Đăng ký ngay</a></span>
-      <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>
 </div>
