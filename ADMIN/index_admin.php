@@ -86,8 +86,8 @@ $connect->closeConnection();
         </div>
         <div id="user">
             <div id="username"><?php
-            echo $userName;
-            ?></div>
+                                echo $userName;
+                                ?></div>
             <image src="../Img/avatar.png" id="avatar"></image>
         </div>
     </header>
@@ -99,15 +99,23 @@ $connect->closeConnection();
                 foreach ($list_cn as $cn) {
                     $result = $cn["TEN_CN"];
 
-                    if (strpos($result, "Xóa ") !== false) {
-                        $result = str_replace("Xóa ", "", $result);
-                    } elseif (strpos($result, "Thêm ") !== false) {
-                        $result = str_replace("Thêm ", "", $result);
-                    } elseif (strpos($result, "Sửa ") !== false) {
-                        $result = str_replace("Sửa ", "", $result);
-                    }
-
-                    if (strpos($result, "Nhập") !== false) {
+                    if (strpos($result, "Khách Hàng") !== false) {
+                        $result = "Khách Hàng";
+                    } else if (strpos($result, "Nhân Viên") !== false) {
+                        $result = "Nhân Viên";
+                    } else if (strpos($result, "Tài Khoản") !== false) {
+                        $result = "Tài Khoản";
+                    } else if (strpos($result, "Nhà Sản Xuất") !== false) {
+                        $result = "Nhà Sản Xuất";
+                    } else if (strpos($result, "Sản Phẩm") !== false) {
+                        $result = "Sản Phẩm";
+                    } else if (strpos($result, "Serial") !== false) {
+                        $result = "Serial";
+                    } else if (strpos($result, "Khuyến Mãi") !== false) {
+                        $result = "Khuyến Mãi";
+                    } else if (strpos($result, "Thống Kê") !== false) {
+                        $result = "Thống Kê";
+                    } else if (strpos($result, "Nhập") !== false) {
                         $result = "Nhập Hàng";
                     } else if (strpos($result, "Hóa Đơn") !== false) {
                         $result = "Bán Hàng";
@@ -116,6 +124,15 @@ $connect->closeConnection();
                     } else if (strpos($result, "Bảo Hành") !== false) {
                         $result = "Bảo Hành";
                     }
+
+                    // if (strpos($result, "Xóa ") !== false) {
+                    //     $result = str_replace("Xóa ", "", $result);
+                    // } elseif (strpos($result, "Thêm ") !== false) {
+                    //     $result = str_replace("Thêm ", "", $result);
+                    // } elseif (strpos($result, "Sửa ") !== false) {
+                    //     $result = str_replace("Sửa ", "", $result);
+                    // }
+
 
                     if ($list_CN_UI[$result] == 1) {
                         $list_CN_UI[$result] = 0;
@@ -176,16 +193,16 @@ $connect->closeConnection();
         </div>
 
         <div id="form_TK_nguoidung">
-    <div id="form_TK">
-        <div id="infor_KH">
-            <h2 style="text-align: center;">Thông tin người dùng</h2>
-            <div>Tên tài khoản: <span id="ten_user"></span></div>
-            <div>Password: <span id="pass_user"></span></div>
-            <div>Ngày tạo: <span id="NT_user"></span></div>
-            <button id="logout_btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+            <div id="form_TK">
+                <div id="infor_KH">
+                    <h2 style="text-align: center;">Thông tin người dùng</h2>
+                    <div>Tên tài khoản: <span id="ten_user"></span></div>
+                    <div>Password: <span id="pass_user"></span></div>
+                    <div>Ngày tạo: <span id="NT_user"></span></div>
+                    <button id="logout_btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     </section>
 </body>
 
@@ -207,69 +224,69 @@ $connect->closeConnection();
         }
     }
 
-    
 
 
-document.addEventListener('DOMContentLoaded', function(){
-    var username = document.getElementById('ten_user');
-    var CCCD = document.getElementById('CCCD_user');
-    var PASS = document.getElementById('pass_user');
-    var NT = document.getElementById('NT_user');
 
-    $.ajax({
-        url: '../AJAX_PHP/Current_Account.php',
-        type: 'POST',
-        dataType: 'json',
-        success: function(response0){
-            $condition = "Read"
-    var operation = "Read";
-    var tableName = "tai_khoan";
-    var condition = "MA_TK=" + response0.tai_khoan['MA_TK'];
-    
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: operation,
-            tableName: tableName,
-            condition: condition
-        },
-        success: function(response){
-            username.innerText = response[0].TEN_TK;
-            PASS.innerText = response[0].MAT_KHAU;
-            NT.innerText = response[0].NGAY_TAO_TK;
+    document.addEventListener('DOMContentLoaded', function() {
+        var username = document.getElementById('ten_user');
+        var CCCD = document.getElementById('CCCD_user');
+        var PASS = document.getElementById('pass_user');
+        var NT = document.getElementById('NT_user');
+
+        $.ajax({
+            url: '../AJAX_PHP/Current_Account.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(response0) {
+                $condition = "Read"
+                var operation = "Read";
+                var tableName = "tai_khoan";
+                var condition = "MA_TK=" + response0.tai_khoan['MA_TK'];
+
+                $.ajax({
+                    url: '../AJAX_PHP/CRUD.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        operation: operation,
+                        tableName: tableName,
+                        condition: condition
+                    },
+                    success: function(response) {
+                        username.innerText = response[0].TEN_TK;
+                        PASS.innerText = response[0].MAT_KHAU;
+                        NT.innerText = response[0].NGAY_TAO_TK;
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
             },
-        error: function(xhr, status, error) {
-           console.log(error);
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        })
+    });
+
+
+    document.getElementById("form_TK_nguoidung").addEventListener("click", function(event) {
+        if (event.target == document.getElementById("form_TK_nguoidung")) {
+            document.getElementById("form_TK_nguoidung").style.display = "none";
         }
-     });
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    })
-});
+    });
 
 
-document.getElementById("form_TK_nguoidung").addEventListener("click", function(event){
-    if(event.target == document.getElementById("form_TK_nguoidung")){
-        document.getElementById("form_TK_nguoidung").style.display = "none";
-    }
-});
+    var logo = document.querySelector('#avatar');
+
+    logo.addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("form_TK_nguoidung").style.display = "block";
+    });
 
 
-var logo = document.querySelector('#avatar');
-
-logo.addEventListener("click", function(event){
-    event.preventDefault();
-    document.getElementById("form_TK_nguoidung").style.display = "block";
-});
-
-
-document.getElementById("logout_btn").addEventListener("click", function(){
-    window.location.href = '../PAGES/logout.php';
-});
+    document.getElementById("logout_btn").addEventListener("click", function() {
+        window.location.href = '../PAGES/logout.php';
+    });
 </script>
 
 </html>
