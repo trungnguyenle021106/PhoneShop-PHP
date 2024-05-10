@@ -16,7 +16,7 @@ const phone = {
                 condition: condition
             },
             success: function (response) {
-                dataArray = JSON.parse(response)
+                dataArray = (response)
                 dataArray = phone.loadDataCondition(dataArray,cond)
                 datalist = phone.loadData(dataArray,pageCurrent,pagePerNumber)
                 phone.loadItem(datalist)
