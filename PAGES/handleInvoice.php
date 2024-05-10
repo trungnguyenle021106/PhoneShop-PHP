@@ -1,9 +1,10 @@
 <?php
-    require_once '../Model/Database.php';
+    require '../Model/Database.php';
     $conn = new MyConnection('localhost', 'root', '', 'qldienthoai');
     $conn->connectDB();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
         if(isset($_POST['product_id']) && isset($_POST['soluong']) && isset($_POST['price'])) {
             $sql1 = "hoa_don ORDER BY MA_HD DESC";
             $order = $conn->read($sql1);
