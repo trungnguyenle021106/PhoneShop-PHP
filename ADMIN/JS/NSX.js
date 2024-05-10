@@ -3,7 +3,6 @@ read();
 // Gọi hàm read để lấy dữ liệu 
 
 
-
  //loadData
  function read() {
     var operation = "Read";
@@ -215,7 +214,7 @@ SLNSX_HT.innerText = rows.length;
        <form action="" method="POST">
        <input type="hidden" name="MANSX" value="${elementPage[i].MA_NSX}">
        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-      <td><input type="button" value="xóa" class="thaotac" name="btn_xoa_NSX" onclick="Delete(${elementPage[i].MA_NSX})"></td>
+      <td><input type="button" value="xóa" class="thaotac thaotac_Xoa" name="btn_xoa_NSX" onclick="Delete(${elementPage[i].MA_NSX})"></td>
       <td><input type="button" value="sửa" class="thaotac thaotac_Sua" id="NSX_sua_btn" name="NSX_sua_btn" data-index="${i}"></td>
 
        </form>
@@ -225,8 +224,8 @@ SLNSX_HT.innerText = rows.length;
     var tbody = document.getElementById("data");
     tbody.innerHTML = html;
     // Lặp qua tất cả các nút sửa và gán sự kiện cho từng nút
-var editButtons = document.querySelectorAll('.thaotac_Sua');
-editButtons.forEach(function(button) {
+    var editButtons = document.querySelectorAll('.thaotac_Sua');
+    editButtons.forEach(function(button) {
     button.addEventListener('click', function() {
         var index = this.getAttribute('data-index');
         var form_sua_NSX = document.getElementById('container_suaNSX');
@@ -238,7 +237,23 @@ editButtons.forEach(function(button) {
 
         form_sua_NSX.style.display = 'block';
     });
+    if (searchChucNang("Sửa Nhà Sản Xuất") == false){
+        button.style.display = 'none';
+    }
+    
+    var formThem = document.getElementById('form_them_NSX');
+    if (searchChucNang("Thêm Nhà Sản Xuất") == false){
+    formThem.style.display = 'none';
+    
+}
+    
 });
+    var deleteButtons = document.querySelectorAll('.thaotac_Xoa');
+    deleteButtons.forEach(function (btn) {
+        if (searchChucNang("Xóa Nhà Sản Xuất") == false){
+            btn.style.display = 'none';
+        }
+    })
     }
 
 
