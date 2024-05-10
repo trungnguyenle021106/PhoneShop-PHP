@@ -81,7 +81,7 @@ function loadAjax1(callback, id) {
     var condition = "MA_TK = " + id;
     console.log(condition)
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {

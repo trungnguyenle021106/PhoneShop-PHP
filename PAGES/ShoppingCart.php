@@ -10,7 +10,7 @@ if(isset($_SESSION['$userID']))
 }
 echo "<input type='hidden' class='id-kh-cart' value='$userID'/>";
 ?>
-<form class="ShoppingCart_Page" method="POST" action="handleInvoice.php" >
+<form class="ShoppingCart_Page" method="POST" action="./PAGES/handleInvoice.php" >
     <div class="left">
         <!-- innerHTML -->
     </div>
