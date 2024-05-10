@@ -1,5 +1,5 @@
 
-<section id="container_formthemPNK">
+<section id="container_formthemPNK" style="width:100%">
     <div id="content_thmPNK">
         <button id="btn_an_formthemCTPN">X</button>
     <h2>Thêm phiếu nhập</h2>
