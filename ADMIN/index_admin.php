@@ -41,6 +41,7 @@ $connect->closeConnection();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/index_admin.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="JS/AccountCurrent.js"></script>
     <title>admin</title>
 </head>
 
@@ -186,7 +187,7 @@ $connect->closeConnection();
     </section>
 </body>
 
-<script src="JS/AccountCurrent.js"></script>
+
 
 <script>
     var table = document.getElementById('MYtableTab');
