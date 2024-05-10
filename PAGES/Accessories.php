@@ -12,7 +12,7 @@ $connect->connectDB();
 
 
 ?>
-
+<link rel="stylesheet" href="./CSS/accessories.css">
 <div class="accessories_content">
 
         <div class="filter">

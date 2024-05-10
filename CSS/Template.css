@@ -1,4 +1,4 @@
-.page {    
+.page {
     max-width: 100%;
 }
 
@@ -46,7 +46,7 @@
     width: 5%;
 }
 
-.cart-icon{
+.cart-icon {
     width: 35px;
     height: 29px;
     cursor: pointer;
@@ -81,7 +81,7 @@
     text-decoration: underline;
 }
 
-.element_TopMenu div{
+.element_TopMenu div {
     margin: auto 10px;
     width: auto;
     /* height: 25px; */
@@ -89,18 +89,20 @@
     color: black;
     font-size: 20px;
 }
-.Img_user{
+
+.Img_user {
     height: 40px;
     width: 40px;
 
     border-radius: 50%;
 }
+
 /* TOP MENU */
 
 /* CONTENT */
 
 .content {
-    
+
     width: 100%;
     min-height: 1000px;
     max-height: none;
@@ -141,16 +143,17 @@
     margin: 20px;
 }
 
-.row_OfCol a{
+.row_OfCol a {
     color: white;
     text-decoration: none;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.row_OfCol a:hover{
+.row_OfCol a:hover {
     text-decoration: underline;
 }
+
 /* FOOTER */
 
 
@@ -166,4 +169,47 @@
 
 .custom-link-button:hover {
     text-decoration: underline;
+}
+
+.search {
+    position: relative;
+}
+
+#icon-search {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+
+.search input::-webkit-input-placeholder {
+    /* đưa placeholder về giữa*/
+    text-align: center;
+}
+
+.search input {
+    width: 40px;
+    border-radius: 10px;
+    width: 240px;
+    height: 35px;
+}
+
+.wrap-search {
+    width: auto !important;
+    height: auto !important;
+    position: relative;
+}
+
+.input-search {
+    width: 200px !important;
+    padding: 15px 15px 15px 45px !important;
+    font-size: 20px;
+    margin: 0 !important;
+}
+
+.search-icon {
+    position: absolute;
+    height: 20px;
+    top: calc(50% - 12px);
+    left: 8px;
+    cursor: pointer;
 }
