@@ -253,7 +253,7 @@ SLNSX_HT.innerText = rows.length;
         if (searchChucNang("Xóa Nhà Sản Xuất") == false){
             btn.style.display = 'none';
         }
-    })
+    });
     }
 
 
