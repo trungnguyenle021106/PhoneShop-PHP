@@ -1,5 +1,5 @@
 <?php
-    require_once './Model/Database.php';
+    require_once '../Model/Database.php';
     $conn = new MyConnection('localhost', 'root', '', 'qldienthoai');
     $conn->connectDB();
 
@@ -55,7 +55,7 @@
         }
         
         if (isset($_SERVER['HTTP_REFERER'])) {
-            header("Location: " . $_SERVER['HTTP_REFERER'] . "&&buy=success");
+            header("Location: " . $_SERVER['HTTP_REFERER'] . "&buy=success");
             exit;
         }
     }

@@ -30,9 +30,16 @@ function createStorage(key) {
             save()
         },
 
-        editAll(data = undefined) {
+        editAll(data) {
             store.splice(0, store.length)
-            store.push(data)
+            if(data.length == 1) {
+                store.push(...data)
+            } else {
+                for(idx of data) {
+                    store.push(idx)
+                }
+            }
+            console.log(store)
             save()
         },
 
@@ -81,7 +88,7 @@ function loadAjax1(callback, id) {
     var condition = "MA_TK = " + id;
     console.log(condition)
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -114,7 +121,7 @@ const cart = {
     list: document.querySelector('.left'),
     ordersApi: createStorage('orders'),
     orders: createStorage('orders').get(),
-    id: document.querySelector('.id-km-cart').value,
+
     loadDataIsEmpty: () => {
         if(cart.ordersApi.get().length == 0) {
             cart.ordersApi.set({id: 0,order: [
@@ -136,12 +143,14 @@ const cart = {
         }
     },
     loadLayouts: () => {
+        id = document.querySelector('.id-kh-cart').value
         var listCurrent = []
         for(elem of cart.orders) {
-            if(elem.id === cart.id) {
+            if(elem.id === id) {
                 listCurrent = elem.order
             }
         }
+        console.log(id)
         html = listCurrent.map((item,idx) => {
             return `
                     <div class="CartItem">
@@ -182,30 +191,44 @@ const cart = {
         `
     },
     plusOrder: (idx) => {
+        id = document.querySelector('.id-kh-cart').value
         const listValue = [...document.querySelectorAll('.input-quantity')]
         var inputCurrentValue = listValue[idx].value
         var currentValue = parseInt(inputCurrentValue);
         listValue[idx].value = currentValue + 1
-        cart.orders[0].order[idx].value = currentValue + 1
-        cart.ordersApi.edit(cart.orders[0])
+        for(elem of cart.orders) {
+            if(elem.id === id) {
+                elem.order[idx].value = currentValue + 1
+                cart.ordersApi.editAll(cart.orders)
+            }
+        }
     },
     minusOrder: (idx) => {
+        id = document.querySelector('.id-kh-cart').value
         const listValue = [...document.querySelectorAll('.input-quantity')]
         if(parseInt(listValue[idx].value) > 1) {
             var inputCurrentValue = listValue[idx].value
             var currentValue = parseInt(inputCurrentValue);
             listValue[idx].value = currentValue - 1
-            cart.orders[0].order[idx].value = currentValue - 1
-            cart.ordersApi.edit(cart.orders[0])
+            for(elem of cart.orders) {
+                if(elem.id === id) {
+                    elem.order[idx].value = currentValue - 1
+                    cart.ordersApi.editAll(cart.orders)
+                }
+            }
         } else {
             cart.deleteOrder(idx)
         }
     },
     deleteOrder: (idx) => {
-        console.log(cart.orders[0].order)
-        cart.orders[0].order.splice(idx, 1);
-        cart.loadLayouts()
-        cart.ordersApi.edit(cart.orders[0])
+        id = document.querySelector('.id-kh-cart').value
+        for(elem of cart.orders) {
+            if(elem.id === id) {
+                elem.order.splice(idx, 1);
+                cart.loadLayouts()
+                cart.ordersApi.editAll(cart.orders)
+            }
+        }
     },
     addCart: (data = undefined) => {
         if(data != undefined) {
@@ -220,7 +243,7 @@ const cart = {
                         for(itemOrder of item.order) {
                             if(itemOrder.MA_SP == data.order.MA_SP) {
                                 itemOrder.value +=1
-                                cart.ordersApi.editAll(...cart.orders)
+                                cart.ordersApi.editAll(cart.orders)
                                 return
                             }
                         }
@@ -228,7 +251,7 @@ const cart = {
                         item.order.push(data.order)
                         console.log(item.order)
                         console.log(cart.orders)
-                        cart.ordersApi.editAll(...cart.orders)
+                        cart.ordersApi.editAll(cart.orders)
                         return
                     }
                 }
@@ -240,8 +263,6 @@ const cart = {
         }
     }
 }
-
-cart.loadLayouts()
 
 form = document.querySelector('.ShoppingCart_Page')
 
@@ -288,31 +309,37 @@ function showAsk(dk, tk) {
         if(dk == true) {
             document.querySelector('.ask').classList.add('ask--active')
         }
+        id = document.querySelector('.id-kh-cart').value
+        var listCurrent = []
+        for(elem of cart.orders) {
+            if(elem.id === id) {
+                listCurrent = elem.order
+            }
+        }
 
-        listOrder = cart.orders[0].order
-            html = listOrder.map((item,idx) => {
-                return `
-                        <div class="CartItem" style="display:flex; width:40%">
-                            <div class="product_image" style="width: 40%">
-                                <img src="${item.img}" alt="loi anh">
+        html = listCurrent.map((item,idx) => {
+            return `
+                    <div class="CartItem" style="display:flex; width:40%">
+                        <div class="product_image" style="width: 40%">
+                            <img src="${item.img}" alt="loi anh">
+                        </div>
+                        <div class="product_detail">
+                            <input type="hidden" name="product_id[]" value="${item.MA_SP}">
+                            <input type="hidden" name="price[]" value="${item.price.replace(/[.đĐ]/g, '')}">
+                            <div class="thongtinsp" >
+                                <div style="width: 50   %;"><a class="thea"  href="#">${item.name}</a></div>
+                                <div style="font-weight: bold; font-size:16px; margin-left:24px;">${item.price}</div>
                             </div>
-                            <div class="product_detail">
-                                <input type="hidden" name="product_id[]" value="${item.MA_SP}">
-                                <input type="hidden" name="price[]" value="${item.price.replace(/[.đĐ]/g, '')}">
-                                <div class="thongtinsp" >
-                                    <div style="width: 50   %;"><a class="thea"  href="#">${item.name}</a></div>
-                                    <div style="font-weight: bold; font-size:16px; margin-left:24px;">${item.price}</div>
-                                </div>
 
-                                <div style="display: flex; width: 100%; margin-top: 30px; justify-content: space-between;;">
-                                    <div class="soluong">
-                                        <span style="font-size:16px;">số lượng</span>
-                                        <input class="input-quantity" readonly type="text" name="soluong[]" id="" value="${item.value}">
-                                    </div>
+                            <div style="display: flex; width: 100%; margin-top: 30px; justify-content: space-between;;">
+                                <div class="soluong">
+                                    <span style="font-size:16px;">số lượng</span>
+                                    <input class="input-quantity" readonly type="text" name="soluong[]" id="" value="${item.value}">
                                 </div>
                             </div>
-                        </div>`
-            }).join("")
+                        </div>
+                    </div>`
+        }).join("")
 
         document.querySelector('.ask-container').innerHTML = `
         <p class="ask-content">Bạn có muốn mua hàng</p>

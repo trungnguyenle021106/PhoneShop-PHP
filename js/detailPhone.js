@@ -13,7 +13,7 @@ currentUrl = currentUrl.split('=')[1]
 img = document.querySelector('.img-content')
 Name = document.querySelector('.model')
 price = document.querySelector('.carrier-pricing-wrapper span')
-id = document.querySelector('.id-km').value
+id = document.querySelector('.id-kh').value
 
 infoItem = {id:id,order:
     {
