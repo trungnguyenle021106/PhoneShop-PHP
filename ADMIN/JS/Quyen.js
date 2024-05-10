@@ -587,10 +587,21 @@ document.querySelector('#txt_chucnang').addEventListener('keypress', function(ev
     }
 });
 
+document.querySelector('#txt_chucnang_right').addEventListener('keypress', function(event) {
+    // Kiểm tra nếu phím nhấn là "Enter"
+    if (event.key === "Enter") {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
+        searchCN_sua(); // Gọi hàm tìm kiếm
+    }
+});
+
 // Hàm tìm kiếm chức năng
 function searchCN_sua() {
     var txt = document.querySelector('#container_suaCN #left-form #txt_chucnang').value.trim();
+    var txt_right = document.querySelector('#container_suaCN #right-form #txt_chucnang_right').value.trim();
+
     var tr = document.querySelectorAll('#container_suaCN #left-form table tr');
+    var tr_right = document.querySelectorAll('#container_suaCN #right-form table tr');
 
     if (txt === '') {
         for (var i = 0; i < tr.length; i++) {
@@ -606,7 +617,23 @@ function searchCN_sua() {
             }
         }
     }
+
+    if (txt_right === '') {
+        for (var i = 0; i < tr_right.length; i++) {
+            tr_right[i].style.display = 'table-row';
+        }
+    } else {
+        for (var i = 0; i < tr_right.length; i++) {
+            var tenCN = tr_right[i].querySelector('#TEN_CN_da_sua').textContent.trim();
+            if (chuyenDoiChuoi(tenCN).includes(chuyenDoiChuoi(txt_right))) {
+                tr_right[i].style.display = 'table-row';
+            } else {
+                tr_right[i].style.display = 'none';
+            }
+        }
+    }
 }
+
 
 
 // tìm khiếm chức năng trong form cấp
@@ -617,11 +644,21 @@ document.querySelector('#txt_chucnang_cap').addEventListener('keypress', functio
         searchCN_cap(); // Gọi hàm tìm kiếm
     }
 });
+document.querySelector('#txt_chucnang_cap_right').addEventListener('keypress', function(event) {
+    // Kiểm tra nếu phím nhấn là "Enter"
+    if (event.key === "Enter") {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của phím Enter
+        searchCN_cap(); // Gọi hàm tìm kiếm
+    }
+});
 
 // Hàm tìm kiếm chức năng
 function searchCN_cap() {
     var txt = document.querySelector('#container_capCN #left-form #txt_chucnang_cap').value.trim();
+    var txt_right = document.querySelector('#container_capCN #right-form #txt_chucnang_cap_right').value.trim();
+
     var tr = document.querySelectorAll('#container_capCN #left-form table tr');
+    var tr_right = document.querySelectorAll('#container_capCN #right-form table tr');
 
     if (txt === '') {
         for (var i = 0; i < tr.length; i++) {
@@ -634,6 +671,21 @@ function searchCN_cap() {
                 tr[i].style.display = 'table-row';
             } else {
                 tr[i].style.display = 'none';
+            }
+        }
+    }
+
+    if (txt_right === '') {
+        for (var i = 0; i < tr_right.length; i++) {
+            tr_right[i].style.display = 'table-row';
+        }
+    } else {
+        for (var i = 0; i < tr_right.length; i++) {
+            var tenCN = tr_right[i].querySelector('#TEN_CN_da_them').textContent.trim();
+            if (chuyenDoiChuoi(tenCN).includes(chuyenDoiChuoi(txt_right))) {
+                tr_right[i].style.display = 'table-row';
+            } else {
+                tr_right[i].style.display = 'none';
             }
         }
     }
