@@ -71,7 +71,7 @@
 
                 </div>
                 <div class="itemListBrand itemListBrand__Motorola">
-                    <a href="">
+                    <a href="index.php?page=Search&ThuongHieu=Motorola">
                         <img src="Img/moto-g-power_flash-gray_front.png" alt="">
                         <p>Motorola</p>
                     </a>
@@ -79,7 +79,7 @@
 
                 </div>
                 <div class="itemListBrand itemListBrand__Google">
-                    <a href="">
+                    <a href="index.php?page=Search&ThuongHieu=Google">
                         <img src="Img/google-pixel-6-pro-front.png" alt="">
                         <p>Google</p>
                     </a>
@@ -87,7 +87,7 @@
 
                 </div>
                 <div class="itemListBrand itemListBrand__TCL">
-                    <a href="">
+                    <a href="index.php?page=Search&ThuongHieu=TCL">
                         <img src="Img/tcl_20-s_milky-way-grey_front.png" alt="">
                         <p>TCL</p>
                     </a>
@@ -99,424 +99,87 @@
         </div>
 
         <div class="phoneSectionContainer">
-            <h3 class="phoneSectionContainer__title">The latest phones & the best deals.</h3>
+            <h3 class="phoneSectionContainer__title">Các thương hiệu điện thoại bán chạy.</h3>
             <div class="phoneContainer">
-                <div class="phone">
-                    <a class="img_phone" href="">
-                        <div class="img_front"><img src="Img/Galaxy-A54-5G_Awesome-Graphite_F.png" alt=""></div>
-                        <div class="img_back"><img src="Img/Galaxy-A54-5G_Awesome-Graphite_B.png" alt=""></div>
-                    </a>
-                    <div class="infor">
-                        <a title="Samsung Galaxy A54" href="">
-                            <h4>Samsung</h4>
-                            <p class="title_phone">Galaxy A54</p>
-                        </a>
 
-
-                    </div>
-                    <div class="button">
-                        <div class="checkboxCompare">
-                            <label for="SamSung_Galaxy_54" class="  ">
-                                <input type="checkbox" id="SamSung_Galaxy_54">
-                                <div class="focusWrapper">
-                                    <div class="styleCheckbox"></div>
-                                    <p style="font-size: 11px;
-                                        margin-bottom: 0px;
-                                        white-space: nowrap;
-                                        color: rgb(51, 51, 51);font-family: sans-serif;">Compare</p>
-                                </div>
-                            </label>
-                        </div>
-                        <a href="" class="button__card viewDetails">View details</a>
-                        <button class="button__card btnStartChat">Start a chat</button>
-                    </div>
-                </div>
                 <div class="phone">
-                    <a class="img_phone" href="">
+                    <a class="img_phone" href="index.php?page=Search&ThuongHieu=Google">
                         <div class="img_front"><img src="Img/Google-Pixel7a_Carbon_Front.png" alt=""></div>
                         <div class="img_back"><img src="Img/Google-Pixel7a_Carbon_Back.png" alt=""></div>
                     </a>
                     <div class="infor">
-                        <a title="Google Pixel 7a" href="">
+                        <a title="Google Pixel 7a"  href="index.php?page=Search&ThuongHieu=Google">
                             <h4>Google</h4>
                             <p class="title_phone">Pixel 7a</p>
                         </a>
-                        <div class="color_phone">
-                            <div style="background-color: rgb(86, 86, 86);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
 
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <p>
-                                    <span style="display: block;
-                                        position: relative;
-                                        color: rgb(235, 0, 0);
-                                        font-size: 11px;
-                                        line-height: 1;
-                                        font-weight: 400;
-                                        ">Earn up to</span>
-                                    <span class="phone_span" style="display: block;
-                                        position: relative;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                        color: rgb(235, 0, 0);
-                                        line-height: 1;">200,000</span>
-                                </p>
-                            </div>
-                            <p style="font-size: 14px;
-                                    margin: 0.5rem 0px 8px;
-                                    color: rgb(51, 51, 51);
-                                    font-weight: 600;
-                                    line-height: 1.2;">
-                                from
-                                <br>
-                                <span style="font-weight: 600;
-                                    font-size: 25px;
-                                    line-height: 22px;
-                                    color: rgb(51, 51, 51);">$0.00</span>
-                                <br>
-                                per month
-                                <br>
-                                <span style="font-size: 9px;
-                                    margin-top: 5px;
-                                    display: block;
-                                    color: rgb(51, 51, 51);">on a 2-year term on select carriers.</span>
-                            </p>
-                        </div>
+
                     </div>
-                    <div class="button">
-                        <div class="checkboxCompare">
-                            <label for="Google_Pixel_7a" class="  ">
-                                <input type="checkbox" id="Google_Pixel_7a">
-                                <div class="focusWrapper">
-                                    <div class="styleCheckbox"></div>
-                                    <p style="font-size: 11px;
-                                        margin-bottom: 0px;
-                                        white-space: nowrap;
-                                        color: rgb(51, 51, 51);font-family: sans-serif;">Compare</p>
-                                </div>
-                            </label>
-                        </div>
-                        <a href="" class="button__card viewDetails">View details</a>
-                        <button class="button__card btnStartChat">Start a chat</button>
-                    </div>
+
                 </div>
-                <div class="phone">
-                    <a class="img_phone" href="">
-                        <div id="iphone14Img"><img src="Img/iPhone_14_Plus_Blue_Pure_Double.png" alt=""></div>
 
+                <div class="phone">
+                    <a class="img_phone" href="index.php?page=Search&ThuongHieu=Samsung">
+                        <!-- <div class="img_front"><img src="Img/Google-Pixel7a_Carbon_Front.png" alt=""></div> -->
+                        <div style="left:-10px" class="img_back"><img src="Img/samsung_galaxy_a55_didongviet_xanhden_8.webp" alt=""></div>
                     </a>
                     <div class="infor">
-                        <a title="Apple iPhone 14 Plus" href="">
+                        <a title="Samsung Galaxy"  href="index.php?page=Search&ThuongHieu=Samsung">
+                            <h4>Samsung</h4>
+                            <p class="title_phone">Samsung Galaxy</p>
+                        </a>
+
+
+                    </div>
+
+                </div>
+                <div class="phone">
+                    <a class="img_phone" href="index.php?page=Search&ThuongHieu=Apple">
+                        <div style="left:-10px" class="img_back"><img src="Img/iPhone_15_Pro_Black_Titanium_Double.png" alt=""></div>
+                        <!-- <div class="img_front"><img src="Img/Google-Pixel7a_Carbon_Back.png" alt=""></div> -->
+                    </a>
+                    <div class="infor">
+                        <a title="Iphone 15" href="index.php?page=Search&ThuongHieu=Apple">
                             <h4>Apple</h4>
-                            <p class="title_phone">iPhone 14 Plus</p>
+                            <p class="title_phone">Iphone 15</p>
                         </a>
-                       
-                        <div>
-                          
-                            <p style="font-size: 14px;
-                                    margin: 0.5rem 0px 8px;
-                                    color: rgb(51, 51, 51);
-                                    font-weight: 600;
-                                    line-height: 1.2;">
-                                from
-                                <br>
-                                <span style="font-weight: 600;
-                                    font-size: 25px;
-                                    line-height: 22px;
-                                    color: rgb(51, 51, 51);">$10.00</span>
-                                <br>
-                                per month
-                                <br>
-                                <span style="font-size: 9px;
-                                    margin-top: 5px;
-                                    display: block;
-                                    color: rgb(51, 51, 51);">on a 2-year term on select carriers.</span>
-                            </p>
-                        </div>
+
+
                     </div>
-                    <div class="button">
-                        <div class="checkboxCompare">
-                            <label for="Apple_iPhone_14_Plus" class="  ">
-                                <input type="checkbox" id="Apple_iPhone_14_Plus">
-                                <div class="focusWrapper">
-                                    <div class="styleCheckbox"></div>
-                                    <p style="font-size: 11px;
-                                        margin-bottom: 0px;
-                                        white-space: nowrap;
-                                        color: rgb(51, 51, 51);font-family: sans-serif;">Compare</p>
-                                </div>
-                            </label>
-                        </div>
-                        <a href="" class="button__card viewDetails">View details</a>
-                        <button class="button__card btnStartChat">Start a chat</button>
-                    </div>
+
                 </div>
                 <div class="phone">
-                    <a class="img_phone" href="">
-                        <div class="img_front"><img src="Img/Galaxy-S23-FE_Graphite_Front.png" alt=""></div>
-                        <div class="img_back"><img src="Img/Galaxy-S23-FE_Graphite_Back.png" alt=""></div>
+                    <a class="img_phone" href="index.php?page=Search&ThuongHieu=TCL">
+                        <!-- <div class="img_front"><img src="Img/Google-Pixel7a_Carbon_Front.png" alt=""></div> -->
+                        <div style="left:-50px"  class="img_back"><img src="Img/TCL6.jpg" alt=""></div>
                     </a>
-                    <div class="infor">
-                        <a title="Samsung Galaxy S23 FE 5G" href="">
-                            <h4>Samsung</h4>
-                            <p class="title_phone">Galaxy S23 FE 5G</p>
+                    <div class="infor" style="z-index: 1;">
+                        <a title="TCL 30SE" href="index.php?page=Search&ThuongHieu=TCL">
+                            <h4>TCL</h4>
+                            <p class="title_phone">TCL 30SE</p>
                         </a>
-                        <div class="color_phone">
-                            <div style="background-color: rgb(65, 65, 68);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
 
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <p>
-                                    <span style="display: block;
-                                        position: relative;
-                                        color: rgb(235, 0, 0);
-                                        font-size: 11px;
-                                        line-height: 1;
-                                        font-weight: 400;
-                                        ">Earn up to</span>
-                                    <span class="phone_span" style="display: block;
-                                        position: relative;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                        color: rgb(235, 0, 0);
-                                        line-height: 1;">150,000</span>
-                                </p>
-                            </div>
-                            <p style="font-size: 14px;
-                                    margin: 0.5rem 0px 8px;
-                                    color: rgb(51, 51, 51);
-                                    font-weight: 600;
-                                    line-height: 1.2;">
-                                from
-                                <br>
-                                <span style="font-weight: 600;
-                                    font-size: 25px;
-                                    line-height: 22px;
-                                    color: rgb(51, 51, 51);">$5.00</span>
-                                <br>
-                                per month
-                                <br>
-                                <span style="font-size: 9px;
-                                    margin-top: 5px;
-                                    display: block;
-                                    color: rgb(51, 51, 51);">on a 2-year term on select carriers.</span>
-                            </p>
-                        </div>
+
                     </div>
-                    <div class="button">
-                        <div class="checkboxCompare">
-                            <label for="SamSung_Galaxy_S23_FE_5G" class="  ">
-                                <input type="checkbox" id="SamSung_Galaxy_S23_FE_5G">
-                                <div class="focusWrapper">
-                                    <div class="styleCheckbox"></div>
-                                    <p style="font-size: 11px;
-                                        margin-bottom: 0px;
-                                        white-space: nowrap;
-                                        color: rgb(51, 51, 51);font-family: sans-serif;">Compare</p>
-                                </div>
-                            </label>
-                        </div>
-                        <a href="" class="button__card viewDetails">View details</a>
-                        <button class="button__card btnStartChat">Start a chat</button>
-                    </div>
+
                 </div>
                 <div class="phone">
-                    <a class="img_phone" href="">
-                        <div class="img_front"><img src="Img/galaxy-s22_phantomwhite_front.png" alt=""></div>
-                        <div class="img_back"><img src="Img/galaxy-s22_phantomwhite_back.png" alt=""></div>
+                    <a class="img_phone" href="index.php?page=Search&ThuongHieu=Motorola">
+                        <div class="img_front"><img src="Img/Google-Pixel7a_Carbon_Front.png" alt=""></div>
+                        <div class="img_back"><img src="Img/Motorolaofi.png" alt=""></div>
                     </a>
                     <div class="infor">
-                        <a title="Samsung Galaxy S22 5G" href="">
-                            <h4>Samsung</h4>
-                            <p class="title_phone">Galaxy S22 5G</p>
+                        <a title="Motorola Moto" href="index.php?page=Search&ThuongHieu=Motorola">
+                            <h4>Motorola</h4>
+                            <p class="title_phone">Motorola Moto</p>
                         </a>
-                        <div class="color_phone">
-                            <div style="background-color: rgb(34, 36, 36);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
 
-                            </div>
-                            <div style="background-color: rgb(247, 247, 247);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
 
-                            </div>
-                            <div style="background-color: rgb(59, 83, 80);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
-
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <p>
-                                    <span style="display: block;
-                                        position: relative;
-                                        color: rgb(235, 0, 0);
-                                        font-size: 11px;
-                                        line-height: 1;
-                                        font-weight: 400;
-                                        ">Earn up to</span>
-                                    <span class="phone_span" style="display: block;
-                                        position: relative;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                        color: rgb(235, 0, 0);
-                                        line-height: 1;">150,000</span>
-                                </p>
-                            </div>
-                            <p style="font-size: 14px;
-                                    margin: 0.5rem 0px 8px;
-                                    color: rgb(51, 51, 51);
-                                    font-weight: 600;
-                                    line-height: 1.2;">
-                                from
-                                <br>
-                                <span style="font-weight: 600;
-                                    font-size: 25px;
-                                    line-height: 22px;
-                                    color: rgb(51, 51, 51);">$33.33</span>
-                                <br>
-                                per month
-                                <br>
-                                <span style="font-size: 9px;
-                                    margin-top: 5px;
-                                    display: block;
-                                    color: rgb(51, 51, 51);">on a 2-year term on select carriers.</span>
-                            </p>
-                        </div>
                     </div>
-                    <div class="button">
-                        <div class="checkboxCompare">
-                            <label for="Samsung_Galaxy_S22_5G" class="  ">
-                                <input type="checkbox" id="Samsung_Galaxy_S22_5G">
-                                <div class="focusWrapper">
-                                    <div class="styleCheckbox"></div>
-                                    <p style="font-size: 11px;
-                                        margin-bottom: 0px;
-                                        white-space: nowrap;
-                                        color: rgb(51, 51, 51);font-family: sans-serif;">Compare</p>
-                                </div>
-                            </label>
-                        </div>
-                        <a href="" class="button__card viewDetails">View details</a>
-                        <button class="button__card btnStartChat">Start a chat</button>
-                    </div>
+
                 </div>
-                <div class="phone">
-                    <a class="img_phone" href="">
-                        <div class="img_front"><img src="Img/galaxy-s21-fe-5g_grphite-grey_fr.png" alt=""></div>
-                        <div class="img_back"><img src="Img/galaxy-s21-fe-5g_grphite-grey_ba.png" alt=""></div>
-                    </a>
-                    <div class="infor">
-                        <a title="Samsung Galaxy S21 FE 5G" href="">
-                            <h4>Samsung</h4>
-                            <p class="title_phone">Galaxy S21 FE 5G</p>
-                        </a>
-                        <div class="color_phone">
-                            <div style="background-color: rgb(54, 53, 58);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
 
-                            </div>
-                            <div style="background-color: rgb(182, 184, 158);
-                                display: block;
-                                border-radius: 100px;
-                                margin: 0px 5px 5px 0px;
-                                width: 10px;
-                                height: 10px;
-                                border: 1px solid rgb(151, 151, 151);">
 
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <p>
-                                    <span style="display: block;
-                                        position: relative;
-                                        color: rgb(235, 0, 0);
-                                        font-size: 11px;
-                                        line-height: 1;
-                                        font-weight: 400;
-                                        ">Earn up to</span>
-                                    <span class="phone_span" style="display: block;
-                                        position: relative;
-                                        font-size: 18px;
-                                        font-weight: bold;
-                                        color: rgb(235, 0, 0);
-                                        line-height: 1;">150,000</span>
-                                </p>
-                            </div>
-                            <p style="font-size: 14px;
-                                    margin: 0.5rem 0px 8px;
-                                    color: rgb(51, 51, 51);
-                                    font-weight: 600;
-                                    line-height: 1.2;">
-                                from
-                                <br>
-                                <span style="font-weight: 600;
-                                    font-size: 25px;
-                                    line-height: 22px;
-                                    color: rgb(51, 51, 51);">$20.00</span>
-                                <br>
-                                per month
-                                <br>
-                                <span style="font-size: 9px;
-                                    margin-top: 5px;
-                                    display: block;
-                                    color: rgb(51, 51, 51);">on a 2-year term on select carriers.</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="button">
-                        <div class="checkboxCompare">
-                            <label for="Galaxy_S21_FE_5G" class="  ">
-                                <input type="checkbox" id="Galaxy_S21_FE_5G">
-                                <div class="focusWrapper">
-                                    <div class="styleCheckbox"></div>
-                                    <p style="font-size: 11px;
-                                        margin-bottom: 0px;
-                                        white-space: nowrap;
-                                        color: rgb(51, 51, 51);font-family: sans-serif;">Compare</p>
-                                </div>
-                            </label>
-                        </div>
-                        <a href="" class="button__card viewDetails">View details</a>
-                        <button class="button__card btnStartChat">Start a chat</button>
-                    </div>
-                </div>
             </div>
             <div class="intro">
                 <div class="title_intro">
