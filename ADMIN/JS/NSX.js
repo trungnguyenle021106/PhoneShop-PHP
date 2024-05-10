@@ -238,7 +238,7 @@ SLNSX_HT.innerText = rows.length;
         form_sua_NSX.style.display = 'block';
     });
     if (searchChucNang("Sửa Nhà Sản Xuất") == false){
-        button.style.display = 'none';
+        button.disabled = true;
     }
     
     var formThem = document.getElementById('form_them_NSX');
@@ -251,7 +251,7 @@ SLNSX_HT.innerText = rows.length;
     var deleteButtons = document.querySelectorAll('.thaotac_Xoa');
     deleteButtons.forEach(function (btn) {
         if (searchChucNang("Xóa Nhà Sản Xuất") == false){
-            btn.style.display = 'none';
+            btn.disabled = true;
         }
     });
     }

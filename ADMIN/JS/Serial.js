@@ -259,12 +259,12 @@ function Delete(maSerial) {
         var editButton = document.querySelector(`input[name="sua${t}"]`);
         //gán sự kiện cho nút sửa
         if (searchChucNang("Sửa Serial") == false){
-            editButton.style.display = 'none';
+            editButton.disabled = true;
         }
         var delButtons = document.querySelectorAll('.thaotac_Xoa');
         delButtons.forEach(function (btn) {
             if (searchChucNang("Xóa Serial") == false){
-                btn.style.display = 'none';
+                btn.disabled = true;
             }
         })
         
