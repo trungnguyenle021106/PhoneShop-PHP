@@ -557,6 +557,10 @@ function PhanQuyen(){
                 }
             })
 
+            if(!check_cn(arr_cn, "Sửa Tài Khoản")){
+                document.getElementById("ThaoTac").style.display = "none";
+            }
+
             
             document.querySelectorAll('.TK_kichhoat_btn').forEach(function(xoa){
                 if(!check_cn(arr_cn, "Kích Hoạt Tài Khoản")){

@@ -44,83 +44,88 @@ read();
     var MA_NSX = $("#opt_MANSX_themPNK").val();
     var TRANG_THAI = "CHƯA XỬ LÝ";
     var table_CTPN = document.querySelectorAll('#data_CTSP tr');
-    var check = true;
-    for (var i = 0; i < table_CTPN.length; i++) {
-        var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
-        if(THANHTIEN_CTPN == '0'){
-            check = false; break;
+    if(table_CTPN.length == 0){
+        alert('Phiếu nhập phải có ít nhất 1 chi tiết');
+    }
+    else{
+        var check = true;
+        for (var i = 0; i < table_CTPN.length; i++) {
+            var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
+            if(THANHTIEN_CTPN == '0'){
+                check = false; break;
+            }
+        }
+    
+        if(check){
+            var data = {
+                NGAY_NHAP: NGAY_NHAP,
+                MA_NSX: MA_NSX,
+                MA_NV: MA_NV,
+                TRANG_THAI: TRANG_THAI
+            };
+        
+            var jsonData = JSON.stringify(data);
+        
+            var operation = "Create";
+            var tableName = "phieu_nhap";
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    jsonData: jsonData,
+                    operation: operation,
+                    tableName: tableName
+                },
+                success: function(response) {
+                    //đọc ra phiếu nhập vừa thêm
+                    var newMAPN = response[response.length - 1].MA_PN;
+                    var table_CTPN = document.querySelectorAll('#data_CTSP tr');
+                    for (var i = 0; i < table_CTPN.length; i++) {
+                        var MASP_CTPN = table_CTPN[i].querySelector('#MASP_CTPN').innerText;
+                        var DONGIA_CTPN = table_CTPN[i].querySelector('#DONGIA_CTPN input').value;
+                        var SL_CTPN = table_CTPN[i].querySelector('#SL_CTPN input').value;
+                        var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
+                        var data = {
+                            MA_PN: newMAPN,
+                            MA_SP: MASP_CTPN,
+                            DON_GIA: DONGIA_CTPN,
+                            SO_LUONG: SL_CTPN,
+                            THANH_TIEN: THANHTIEN_CTPN
+                        };
+        
+                        var jsonData = JSON.stringify(data);
+        
+                        $.ajax({
+                            url: '../AJAX_PHP/CRUD.php',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                jsonData: jsonData,
+                                operation: "Create",
+                                tableName: 'chi_tiet_nhap'
+                            },
+                            success: function(response) {
+                                console.log(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+                       location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    
+        else{
+            alert("chi tiết phải có số lượng và đơn giá ít nhất 1 !!");
         }
     }
 
-    if(check){
-        var data = {
-            NGAY_NHAP: NGAY_NHAP,
-            MA_NSX: MA_NSX,
-            MA_NV: MA_NV,
-            TRANG_THAI: TRANG_THAI
-        };
-    
-        var jsonData = JSON.stringify(data);
-    
-        var operation = "Create";
-        var tableName = "phieu_nhap";
-        $.ajax({
-            url: '../AJAX_PHP/CRUD.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                jsonData: jsonData,
-                operation: operation,
-                tableName: tableName
-            },
-            success: function(response) {
-                //đọc ra phiếu nhập vừa thêm
-                var newMAPN = response[response.length - 1].MA_PN;
-                var table_CTPN = document.querySelectorAll('#data_CTSP tr');
-    
-                for (var i = 0; i < table_CTPN.length; i++) {
-                    var MASP_CTPN = table_CTPN[i].querySelector('#MASP_CTPN').innerText;
-                    var DONGIA_CTPN = table_CTPN[i].querySelector('#DONGIA_CTPN input').value;
-                    var SL_CTPN = table_CTPN[i].querySelector('#SL_CTPN input').value;
-                    var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
-                    var data = {
-                        MA_PN: newMAPN,
-                        MA_SP: MASP_CTPN,
-                        DON_GIA: DONGIA_CTPN,
-                        SO_LUONG: SL_CTPN,
-                        THANH_TIEN: THANHTIEN_CTPN
-                    };
-    
-                    var jsonData = JSON.stringify(data);
-    
-                    $.ajax({
-                        url: '../AJAX_PHP/CRUD.php',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            jsonData: jsonData,
-                            operation: "Create",
-                            tableName: 'chi_tiet_nhap'
-                        },
-                        success: function(response) {
-                            console.log(response);
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(error);
-                        }
-                    });
-                }
-                   location.reload();
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-    }
-
-    else{
-        alert("chi tiết phải có số lượng và đơn giá ít nhất 1 !!");
-    }
     
 }
 
