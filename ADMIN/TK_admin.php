@@ -34,7 +34,7 @@ $connect->connectDB();
                     <td>Ngày tạo</td>
                     <td>Tình trạng</td>
                     <td>Mã Quyền</td>
-                    <td colspan="3" id="ThaoTac">Thao tác</td>
+                    <td colspan="2" id="ThaoTac">Thao tác</td>
                 </tr>
             </thead>
             <tbody id="data">
@@ -125,21 +125,4 @@ $connect->connectDB();
     </form>
 </div>
 
-
-<div id="LS_container">
-<form action="">
-    <h2>Lịch sử hoạt động</h2>
-    <section>
-        <table>
-            <thead>
-                <td>Hoạt động</td>
-                <td>Thời Gian</td>
-            </thead>
-            <tbody id="data_LS">
-                
-            </tbody>
-            </table>
-            </section>
-</form>
-</div>
 <script src="JS/TK.js"></script>

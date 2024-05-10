@@ -19,7 +19,7 @@
 
             // Sau khi nhận được dữ liệu, gọi hàm DisplayElementPage
             DisplayElementPage(response);
-
+            PhanQuyen();
             //cập nhật lại số lượng khuyến mãi
             var SLSP_HT = document.querySelector('#SLKM span');
             var rows = document.querySelectorAll('#table_KM table tbody tr ');
@@ -382,4 +382,43 @@ function changePriceToString(price) {
         }
     }
     return s.split("").reverse().join("") + "đ";
+}
+
+
+
+function PhanQuyen(){
+
+    function check_cn(arr_cn, chuc_nang) {
+        return arr_cn.includes(chuc_nang);
+    }
+    
+
+    $.ajax({
+        url: '../AJAX_PHP/Current_Account.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response){
+
+            
+            var arr_cn = response.array_TenChucNang;
+            
+            if(!check_cn(arr_cn, "Sửa Khuyến Mãi") && !check_cn(arr_cn, "Xóa Khuyến Mãi")){
+                document.querySelector("#thao_tac").remove();
+            }
+
+
+            document.querySelectorAll('.KM_sua_btn').forEach(function(sua){
+                if(!check_cn(arr_cn, "Sửa Khuyến Mãi")){
+                    sua.remove();
+                }
+            })
+
+            if(!check_cn(arr_cn, "Thêm Khuyến Mãi")){
+                document.querySelector("#container_xac_nhan_them_KM").remove();
+            }            
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
+    })
 }

@@ -169,6 +169,7 @@ function setTTHD_KH(maHD) {
                 }
                 else {
                     setUIXuLyDonHangCTHD(true);
+                    setUIKH_XULYHD();
                     setOptionXLDH(false);
                 }
             }

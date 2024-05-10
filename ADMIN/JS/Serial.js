@@ -231,6 +231,7 @@ function Delete(maSerial) {
         .catch(error => {
             console.log(error); // Xử lý lỗi nếu có
         });
+        
     }
     function addRowToTable(maSerial,soSerial,response,t) {
         console.log(maSerial)
@@ -243,7 +244,7 @@ function Delete(maSerial) {
             <td id="Serial_SO_SERIAL">${soSerial}</td>
             <td id="Serial_TEN_SP">${response[0].TEN_SP}</td>
             <td id="Serial_HINH_ANH_SP"><img src="../Img/${response[0].HINH_ANH}" alt="##" style="height: 50px;"></td>
-            <td><input type="button" value="xóa" class="thaotac" onclick="Delete(${maSerial})"></td>
+            <td><input type="button" value="xóa" class="thaotac thaotac_Xoa" onclick="Delete(${maSerial})"></td>
             <td><input type="button" class="Serial_sua_btn" name="sua${t}" id="thaotac_Serial" value="sửa" data-index="${t}"></td>
         </tr>`;
         html += rowHtml;
@@ -257,10 +258,20 @@ function Delete(maSerial) {
         //cập nhật lại số lượng serial
         var editButton = document.querySelector(`input[name="sua${t}"]`);
         //gán sự kiện cho nút sửa
+        if (searchChucNang("Sửa Serial") == false){
+            editButton.disabled = true;
+        }
+        var delButtons = document.querySelectorAll('.thaotac_Xoa');
+        delButtons.forEach(function (btn) {
+            if (searchChucNang("Xóa Serial") == false){
+                btn.disabled = true;
+            }
+        })
+        
         editButton.addEventListener('click', function() {
                 // var index = this.getAttribute('data-index');
                 var form_sua_Serial = document.getElementById('suaSerial_container');
-        
+
                 form_sua_Serial.querySelector('#SO_SERIAL_sua_SERIAL').value = soSerial;
                 form_sua_Serial.querySelector('#MASERIAL_sua_hidden').value = maSerial;
                 form_sua_Serial.style.display = 'block';
@@ -329,3 +340,15 @@ function chuyenDoiChuoi(chuoi) {
                 .normalize("NFD")
                 .replace(/[\u0300-\u036f\s]/g, "");
 }
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Mã JavaScript của bạn ở đây
+//     var deleteButtons = document.querySelectorAll('.thaotac_Xoa');
+//     console.log("nut xoa" + deleteButtons[0]);
+//     console.log("an xoa" + searchChucNang("Xóa Serial"));
+//     deleteButtons.forEach(function(btn) {
+//         // console.log("nut xoa" + deleteButtons);
+//         if (searchChucNang("Xóa Serial") == false) {
+//             btn.style.display = 'none';
+//         }
+//     });
+// });
