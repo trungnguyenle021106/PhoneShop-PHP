@@ -1,4 +1,4 @@
-function getKM(callback) {
+function getPBH(callback) {
     var operation = "Read";
     var tableName = "phieu_bao_hanh";
     var condition = "NGAY_HET_HAN < CURRENT_DATE";
@@ -28,8 +28,8 @@ function getKM(callback) {
 }
 
 
-function setTT_KM() {
-    getKM(function (data) {
+function setTT_PBH() {
+    getPBH(function (data) {
 
         var operation = "Update TinhTrang";
         var tableName = "phieu_bao_hanh";
@@ -62,25 +62,25 @@ function setTT_KM() {
 
 function getTimeUntilTargetTime() {
     var now = new Date();
-    var targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 16, 7, 0);
+    var targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 24, 0, 0);
     var timeUntilTargetTime = targetTime - now;
-    
+
     if (timeUntilTargetTime < 0) {
-      // Nếu thời gian đã quá thì tính lại cho ngày hôm sau
-      targetTime.setDate(targetTime.getDate() + 1);
-      timeUntilTargetTime = targetTime - now;
+        // Nếu thời gian đã quá thì tính lại cho ngày hôm sau
+        targetTime.setDate(targetTime.getDate() + 1);
+        timeUntilTargetTime = targetTime - now;
     }
 
     return timeUntilTargetTime;
-  }
- 
-  var timeUntilTargetTime = getTimeUntilTargetTime();
-  
-  // Đặt timeout để gọi hàm setTT_PBH() vào 16 giờ 55 phút mỗi ngày
-  setTimeout(function () {
-    setTT_KM();
+}
+
+var timeUntilTargetTime = getTimeUntilTargetTime();
+
+// Đặt timeout để gọi hàm setTT_PBH() vào 16 giờ 55 phút mỗi ngày
+setTimeout(function () {
+    setTT_PBH();
     // Lặp lại việc đặt timeout hàng ngày
-    setInterval(function() {
-      setTT_KM();
+    setInterval(function () {
+        setTT_PBH();
     }, 24 * 60 * 60 * 1000); // 24 giờ
-  }, timeUntilTargetTime);
+}, timeUntilTargetTime);

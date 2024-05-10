@@ -176,4 +176,9 @@ class MyConnection
             return false;
         }
     }
+
+    public function error() {
+        return $this->connection->error;
+    }
+
 }

@@ -1,176 +1,94 @@
-
+<link rel="stylesheet" href="./CSS/phone.css">
 <div class="container">
     <div class="container-left">
+        <?php
+            require_once './Model/Database.php';
+            $connection = new MyConnection('localhost', 'root', '', 'qldienthoai');
+            $connection->connectDB();
+            $category = $connection->read('loai');
+            $made = $connection->read('nha_sx');
+            
+            echo '<div class="container-left-info">
+                        <div class="header">
+                            <span class="header-title">Danh mục</span>
+                        </div>
+                        <div class="content1">';
+
+            foreach ($category as $item) {
+                echo '
+                    <div class="content-item">
+                        <input type="checkbox" class="content-item-check" checked/>
+                        <span class="content-item-title">'. $item["TEN_LOAI"] .'</span>
+                    </div>';
+                            
+            }
+            
+            echo'</div>
+            </div>
+            <div class="container-left-info">
+                <div class="header">
+                    <span class="header-title">Hãng</span>
+                </div>
+
+                <div class="content1">';
+
+            foreach ($made as $item) {
+                echo '
+                    <div class="content-item">
+                        <input type="checkbox" class="content-item-check" checked/>
+                        <span class="content-item-title">
+                        '. $item["TEN_NSX"] .'</span>
+                    </div>';
+            }
+
+            echo '</div>
+            </div>';
+            $connection->closeConnection();
+        ?>
         <div class="container-left-info">
             <div class="header">
-                <span class="header-title">Carriers</span>
-                <span class="header-clear-all">Clear All</span>
+                <span class="header-title">Sắp xếp</span>
             </div>
-
-            <div class="content">
+            <div class="content1">
                 <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Bell</span>
+                    <input name="price" type="radio" class="content-item-check" checked/>
+                    <span class="content-item-title">Giá: mặc định</span>
                 </div>
                 <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Rogers</span>
+                    <input name="price" type="radio" class="content-item-check"/>
+                    <span class="content-item-title">Giá: nhỏ đến lớn</span>
                 </div>
                 <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Telus</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Freedom Mobile</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Fido</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Koodo</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Virgin</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Chatr</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Lucky Moblie</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">PC Mobile</span>
+                    <input name="price" type="radio" class="content-item-check"/>
+                    <span class="content-item-title">Giá: lớn đến nhỏ</span>
                 </div>
             </div>
         </div>
-
-        <div class="container-left-info">
-                <div class="header">
-                <span class="header-title">Brand</span>
-            </div>
-
-            <div class="content">
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Apple</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Samsung</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Motorola</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Google</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">TCL</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">ALcatel</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-left-info">
-                <div class="header">
-                <span class="header-title">Categories</span>
-            </div>
-
-            <div class="content">
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Phones</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Prepaid Phones</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Tablets</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-left-info">
-                <div class="header">
-                <span class="header-title">Operating System</span>
-            </div>
-
-            <div class="content">
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">iOS</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Android</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-left-info">
-                <div class="header">
-                <span class="header-title">Offers</span>
-            </div>
-
-            <div class="content">
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">PC Optimum points</span>
-                </div>
-                <div class="content-item">
-                    <input type="checkbox" class="content-item-check"/>
-                    <span class="conten-item-title">Pre-Order Bonus</span>
-                </div>
-            </div>
-        </div>
-
         <h1 class="advanced">Advanced</h1>
         <div class="advanced-wrap">
             <div class="advanced-item">
-                <div class="advanced-title">Battery</div>
+                <div class="advanced-title">PIN</div>
                 <button class="advanced-btn">
                     <i class="icon"></i>
                 </button>
             </div>
 
             <div class="advanced-item">
-                <div class="advanced-title">Battery</div>
+                <div class="advanced-title">MÀN HÌNH</div>
                 <button class="advanced-btn">
                     <i class="icon"></i>
                 </button>
             </div>
 
             <div class="advanced-item">
-                <div class="advanced-title">Camera</div>
+                <div class="advanced-title">RAM</div>
                 <button class="advanced-btn">
                     <i class="icon"></i>
                 </button>
             </div>
 
             <div class="advanced-item">
-                <div class="advanced-title">Memory</div>
-                <button class="advanced-btn">
-                    <i class="icon"></i>
-                </button>
-            </div>
-
-            <div class="advanced-item">
-                <div class="advanced-title">Screen Size</div>
+                <div class="advanced-title">BỘ NHỚ TRONG</div>
                 <button class="advanced-btn">
                     <i class="icon"></i>
                 </button>
@@ -179,494 +97,33 @@
     </div>
     <div class="container-right">
         <div class="right-content">
-            <div class="content-header">
-                <div class="header-pts">
-                    <img class="pts-icon" src="./img/pts.svg"/>
-                    <div class="pts-title">Trade in for up to 335,000 points.</div>
-                    <button class="pts-btn">Get a quote</button>
-                </div>
-
-                <div class="header-search">
-                    <img class="search-icon" src="./img/search.svg"/>
-                    <div class="search-title">Need help finding a phone?</div>
-                    <button class="search-btn">Get startd</button>
-                </div>
-            </div>
-
             <div class="content-container">
-                <img class="container-banner" src="./img/banner.webp" alt="">
                 <h1 class="container-title">Phones</h1>
                 <div class="phone-list">
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-                    
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
-
-                    <div class="phone-item">
-                        <img class="phone-img" src="./img/phone1.webp" alt="">
-                        <div class="phone-wrap">    
-                            <a href="#" class="phone-link">
-                                <p class="phone-producer">Apple</p>
-                                <p class="phone-producer">iPhone 15 Pro Max</p>
-                            </a>
-                            <div class="phone-color">
-                                <div class="phone-black"></div>
-                                <div class="phone-blue"></div>
-                                <div class="phone-natural"></div>
-                                <p class="phone-title">
-                                    from
-                                    <br>
-                                    <span class="phone-price">$19.99</span>
-                                    <br>
-                                    per month
-                                    <br>
-                                    <p class="phone-guarantee">on a 2-year term on select carriers.</p>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="phone-footer">
-                            <div class="phone-footer-wrap">
-                                <input class="content-item-check" type="checkbox">
-                                <span>Compare</span>
-                            </div>
-                            <a href="#" class="phone-detail">View details</a>
-                        </div>
-                    </div>
+                    <!-- innerHTML page  -->
                 </div>
+                <div class="nav">
+                    <!-- inner nav -->
+                </div>
+                <!-- test -->
+                <!-- <div class="container-search-price">
+                    <div class="content-price">
+                        <p class="price-left">0đ</p>
+                        <p class="price-right">100.000.000đ</p>
+                    </div>
+                    <div id="slider">                    
+                        <div class="left1"></div>
+                        <div class="right1"></div>
+                    </div>
+                    <div class="group-btn">
+                        <div class="btn-close">đóng</div>
+                        <div class="btn-search">xem kết quả</div>
+                    </div>
+                </div> -->
+                <!-- test -->
             </div>
         </div>
     </div>
+    <script src="./js/pageHandler.js"></script>
+    <script src="./js/phone.js"></script>
 </div>
-
-<?php
-    echo'';
-?>

@@ -17,7 +17,10 @@
             require("Search.php");
         } elseif ($_GET['page'] == 'profileUser') {
             require("profileUser.php");
-        } 
+        }
+        else if($_GET['page'] == 'DetailPhone') {
+            require("DetailPhone.php");
+        }
     }
     else {
         require("Home.php");

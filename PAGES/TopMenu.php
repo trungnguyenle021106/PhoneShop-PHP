@@ -20,7 +20,7 @@ if (isset($_SESSION['user_name'])) {
 if (isset($_SESSION['Ma_KhachHang'])) {
     $Ma_KhachHang = $_SESSION['Ma_KhachHang'];
 }
-$isKH;
+$isKH = false;
 if (isset($_SESSION['$isKH'])) {
     $isKH = $_SESSION['$isKH'];
 }

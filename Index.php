@@ -25,8 +25,10 @@
     require("PAGES/Footer.php");
 
     ?>
+    <div id="toast"></div>
 </body>
 
 <script src="./js/event.js"></script>
+<script src="js/toast.js"></script>
 <script src="./js/UpdateTimeKM.js"></script>
 </html>
