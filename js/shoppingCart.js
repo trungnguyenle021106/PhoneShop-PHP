@@ -212,7 +212,7 @@ cart.loadLayouts()
 
 form = document.querySelector('.ShoppingCart_Page')
 
-function showAsk(dk = false, tk = 3) {
+function showAsk(dk, tk) {
     loadAjax1(list => {
         console.log(list)
         if(list[0].DIA_CHI == '' || list[0].G_TINH == '' || list[0].SO_CCCD == '' || list[0].SO_DT == '') {

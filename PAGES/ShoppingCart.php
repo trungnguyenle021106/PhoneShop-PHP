@@ -2,17 +2,22 @@
 
 <?php
 $isKH = false;
-if (isset($_SESSION[$isKH])) {
-    $isKH = $_SESSION[$isKH];
+$userID = "";
+if (isset( $_SESSION['$isKH'])) {
+    $isKH = $_SESSION['$isKH'];
+}
+if(isset($_SESSION['$userID']))
+{
+    $userID  = $_SESSION['$userID'];
 }
 ?>
-<form class="ShoppingCart_Page" method="POST" action="PAGES/handleInvoice.php" >
+<form class="ShoppingCart_Page" method="POST" action="handleInvoice.php" >
     <div class="left">
         <!-- innerHTML -->
     </div>
 
     <div class="right">
-        <input class="btn_DatHang" onclick="showAsk(<?php echo $isKH ?>)" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
+        <input class="btn_DatHang" onclick="showAsk(<?php echo $isKH ;?>, <?php echo $userID  ;?>)" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
     </div>
 </form>
 <div class="ask">

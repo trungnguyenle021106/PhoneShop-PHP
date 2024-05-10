@@ -7,7 +7,7 @@ for(imgBtn of imgBtns) {
 }
 
 var currentUrl = window.location.href;
-currentUrl = currentUrl.split('&&')[1]
+currentUrl = currentUrl.split('&')[1]
 currentUrl = currentUrl.split('=')[1]
 
 img = document.querySelector('.img-content')

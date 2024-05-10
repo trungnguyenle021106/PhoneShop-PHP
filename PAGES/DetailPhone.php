@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="../CSS/detailPhone.css">
+<link rel="stylesheet" href="./CSS/detailPhone.css">
 <div class="main">
     <div class="content-detail-phone">
         <a href="?page=Phones" class="link_back">Back to Phones</a>
         <?php
-        require("./Model/Database.php");
-        require("/PAGES/XuLyTienVND.php");
+        require_once("./Model/Database.php");
+        require_once("XuLyTienVND.php");
         $server = "localhost";
         $username = "root";
         $password = "";
@@ -247,13 +247,12 @@
             return $s;
         }
         ?>
-
         <div class="img-detail">
             <div class="img-gallery">
                
                 <div class="img-primary">
                     <img class="img-content" src="<?php
-                                        echo "../Img/". $product["HINH_ANH"]
+                                        echo "./Img/". $product["HINH_ANH"]
                                         ?>" alt="">
                 </div>
             </div>
@@ -336,8 +335,8 @@
 
     </div>
 </div>
-<script src="../js/detailPhone.js"></script>
-
+<script src="./js/detailPhone.js"></script>
+<script src="./js/shoppingCart.js"></script>
 <?php
 $connect->closeConnection();
 ?>
