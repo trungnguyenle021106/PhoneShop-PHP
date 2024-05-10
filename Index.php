@@ -26,6 +26,7 @@
     require("PAGES/Footer.php");
 
     ?>
+    <div id="toast"></div>
 </body>
 
 <script src="./js/event.js"></script>
