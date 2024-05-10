@@ -67,7 +67,8 @@
         
         $conn->closeConnection();
 ?>
-<body style="background-color: rgb(243, 243, 243);">
+<!-- style="background-color: rgb(243, 243, 243);" -->
+<body> 
     <div class="profile_content_container" style="margin-top: 100px;">
         <div class="profile_left" >
             <img src="Img/avtUser.png" alt="" >

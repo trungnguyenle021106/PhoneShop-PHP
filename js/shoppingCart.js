@@ -49,7 +49,7 @@ function loadAjax(callback) {
     var tableName = "khuyen_mai";
     var condition = "";
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -58,7 +58,7 @@ function loadAjax(callback) {
             condition: condition
         },
         success: function (response) {
-            var dataArray = JSON.parse(response);
+            var dataArray = (response);
             if (typeof callback === 'function') {
                 callback(dataArray);
             }
@@ -84,7 +84,7 @@ function loadAjax1(callback, id) {
             condition: condition
         },
         success: function (response) {
-            var dataArray = JSON.parse(response);
+            var dataArray = (response);
             if (typeof callback === 'function') {
                 callback(dataArray);
             }
