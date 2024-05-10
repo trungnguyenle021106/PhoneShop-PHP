@@ -14,11 +14,14 @@ function checkLogin() {
         },
         success: function(response) {
 
-        
-            // console.log(response);
+            // console.log(kq.tinhtrang);
             // Parse JSON response thành object
             var kq = JSON.parse(response);
-
+            console.log(kq.tinhtrang);
+            
+            if(kq.tinhtrang === "no"){
+                $('#messenger').text('Tài khoản đang bị khóa!');
+            }
             // Xử lý dựa trên kết quả trả về
             if (kq.status === "success") {
                 $('#messenger').text('Đăng nhập thành công ...');

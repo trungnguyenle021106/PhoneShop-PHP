@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $response = [
         'status' => 'fail',
+        'tinhtrang' => 'no name',
         'name' => 'no name ',
         'avt' => 'no avt'
     ];
@@ -29,46 +30,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $found = false;
     foreach ($lsTK as $TK) {
         if ($form_username === $TK["TEN_TK"] && $form_password === $TK["MAT_KHAU"]) {
-            $id_tk = $TK["MA_TK"];
-            $_SESSION['$userID'] = $TK["MA_TK"];
-            $_SESSION['$isKH'] = false;
-            foreach ($lsNV as $NV) {
-                if ($id_tk === $NV["MA_TK"]) {
-                    $_SESSION['$isKH'] = false;
-                    $_SESSION['user_name'] = $NV["HOTEN_NV"]; // Tên khách hàng
-                    // $_SESSION['Ma_KhachHang'] = $NV["MA_NV"]; // Mã khách hàng
+            
+            $tinhTrang = $TK["TINH_TRANG"];
 
-                    // $_SESSION['avatar'] = $KH["AVATAR"]; // Ảnh đại diện
+            if( $tinhTrang === "không hoạt động"){
+                $response = [
+                    'status' => 'fail',
+                    'tinhtrang' => 'no',
+                    'name' => 'no name ',
+                    'avt' => 'no avt'
+                ];
+            }
 
-                    //set name và avt để gửi đi 
-                    $response = [
-                        'status' => 'success',
+            if( $tinhTrang === "hoạt động") {
+                $id_tk = $TK["MA_TK"];
+                $_SESSION['$userID'] = $TK["MA_TK"];
+                $_SESSION['$isKH'] = false;
+                foreach ($lsNV as $NV) {
+                    if ($id_tk === $NV["MA_TK"]) {
+                        $_SESSION['$isKH'] = false;
+                        $_SESSION['user_name'] = $NV["HOTEN_NV"]; // Tên khách hàng
+                        // $_SESSION['Ma_KhachHang'] = $NV["MA_NV"]; // Mã khách hàng
 
-                        'name' => $NV["HOTEN_NV"],
-                        'avt' => 'no avt'
-                    ];
-                    break;
+                        // $_SESSION['avatar'] = $KH["AVATAR"]; // Ảnh đại diện
+
+                        //set name và avt để gửi đi 
+                        $response = [
+                            'status' => 'success',
+                            'tinhtrang' => $tinhTrang,
+                            'name' => $NV["HOTEN_NV"],
+                            'avt' => 'no avt'
+                        ];
+                        break;
+                    }
+                }
+
+                foreach ($lsKH as $KH) {
+                    if ($id_tk === $KH["MA_TK"]) {
+                        $_SESSION['$isKH'] = true;
+                        $_SESSION['user_name'] = $KH["HOTEN_KH"]; // Tên khách hàng
+                        $_SESSION['Ma_KhachHang'] = $KH["MA_KH"]; // Mã khách hàng
+
+                        // $_SESSION['avatar'] = $KH["AVATAR"]; // Ảnh đại diện
+
+                        //set name và avt để gửi đi 
+                        $response = [
+                            'status' => 'success',
+                            'tinhtrang' => $tinhTrang,
+                            'name' => $KH["HOTEN_KH"],
+                            'avt' => 'no avt'
+                        ];
+                        break;
+                    }
+                
                 }
             }
 
-            foreach ($lsKH as $KH) {
-                if ($id_tk === $KH["MA_TK"]) {
-                    $_SESSION['$isKH'] = true;
-                    $_SESSION['user_name'] = $KH["HOTEN_KH"]; // Tên khách hàng
-                    $_SESSION['Ma_KhachHang'] = $KH["MA_KH"]; // Mã khách hàng
-
-                    // $_SESSION['avatar'] = $KH["AVATAR"]; // Ảnh đại diện
-
-                    //set name và avt để gửi đi 
-                    $response = [
-                        'status' => 'success',
-
-                        'name' => $KH["HOTEN_KH"],
-                        'avt' => 'no avt'
-                    ];
-                    break;
-                }
-            }
+            
         }
     }
 
