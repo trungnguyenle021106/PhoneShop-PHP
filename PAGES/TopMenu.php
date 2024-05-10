@@ -33,41 +33,42 @@ if (isset($_SESSION['$isKH'])) {
 // WHERE tai_khoan.MA_TK = '2' LIMIT 1
 
 $chucNangADMIN;
-if (isset($_SESSION['$userID'])) {
+if (isset($_SESSION['$userID']) && isset($_SESSION['$isKH'])) {
 
 
-
-    $list_CN = $connect->readCustom("chuc_nang.TEN_CN", "tai_khoan JOIN quyen ON tai_khoan.MA_Q = quyen.MA_Q 
+    if ($isKH == false) {
+        $list_CN = $connect->readCustom("chuc_nang.TEN_CN", "tai_khoan JOIN quyen ON tai_khoan.MA_Q = quyen.MA_Q 
     JOIN ctq_chuc_nang ON quyen.MA_Q = ctq_chuc_nang.MA_Q
     JOIN chuc_nang ON ctq_chuc_nang.MA_CN = chuc_nang.MA_CN", "tai_khoan.MA_TK = '" . $_SESSION['$userID'] . "' LIMIT 1");
 
-    reset($list_CN);
+        reset($list_CN);
 
 
-    $result =  current($list_CN)["TEN_CN"];
+        $result =  current($list_CN)["TEN_CN"];
 
-    if (strpos($result, "Xóa ") !== false) {
-        $result = str_replace("Xóa ", "", $result);
-    } elseif (strpos($result, "Thêm ") !== false) {
-        $result = str_replace("Thêm ", "", $result);
-    } elseif (strpos($result, "Sửa ") !== false) {
-        $result = str_replace("Sửa ", "", $result);
+        if (strpos($result, "Xóa ") !== false) {
+            $result = str_replace("Xóa ", "", $result);
+        } elseif (strpos($result, "Thêm ") !== false) {
+            $result = str_replace("Thêm ", "", $result);
+        } elseif (strpos($result, "Sửa ") !== false) {
+            $result = str_replace("Sửa ", "", $result);
+        }
+
+        if (strpos($result, "Nhập") !== false) {
+            $result = "Nhập Hàng";
+        } else if (strpos($result, "Hóa Đơn") !== false) {
+            $result = "Bán Hàng";
+        } else if (strpos($result, "Chức Năng") !== false || strpos($result, "Quyền") !== false) {
+            $result = "Tài Khoản";
+        } else if (strpos($result, "Bảo Hành") !== false) {
+            $result = "Bảo Hành";
+        }
+
+
+
+
+        $chucNangADMIN = $result;
     }
-
-    if (strpos($result, "Nhập") !== false) {
-        $result = "Nhập Hàng";
-    } else if (strpos($result, "Hóa Đơn") !== false) {
-        $result = "Bán Hàng";
-    } else if (strpos($result, "Chức Năng") !== false || strpos($result, "Quyền") !== false) {
-        $result = "Tài Khoản";
-    } else if (strpos($result, "Bảo Hành") !== false) {
-        $result = "Bảo Hành";
-    }
-
-
-
-
-    $chucNangADMIN = $result;
     $connect->closeConnection();
 }
 ?>
@@ -125,7 +126,7 @@ if (isset($_SESSION['$userID'])) {
                                     <button class="custom-link-button" name="page" value="' . $chucNangADMIN . '">Chuyển sang ADMIN</button>
                                 </form>';
                                 } else {
-                                    
+
                                     echo '<hr style="margin-bottom:10px">';
                                     echo '<a href="/PhoneShop/index.php?page=profileUser">Thông tin tài khoản</a>';
                                 }
