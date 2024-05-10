@@ -91,7 +91,7 @@ $connect->connectDB();
 
                         $list_data = $connect->read('san_pham', "MA_LOAI <> 1 ORDER BY MA_SP DESC LIMIT 5");
                         foreach ($list_data as $data) {
-                                echo '<a href="" class="products" style="border: 1px solid black;">';
+                                echo '<a href="index.php?page=DetailPhone&MaSP=' . $data['MA_SP'].'" class="products" style="border: 1px solid black;">';
                                 echo '<div class="name">' . $data['TEN_SP'] . '</div>';
                                 echo '<div class="Img"><img src="Img/' . $data['HINH_ANH'] . '" alt="##"></div>';
                                 echo '<div class="price">' . changePriceToString($data['GIA_BAN']) . '</div>';

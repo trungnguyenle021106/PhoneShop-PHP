@@ -209,7 +209,7 @@ function loadData(pageNumber, itemsPerPage, maxPage) {
 function loadDataForPage(dataForPage) {
     var html = ""
     for (var i = 0; i < dataForPage.length; i++) {
-        html += '<a href="" class="products">';
+        html += '<a href="index.php?page=DetailPhone&MaSP='+ dataForPage[i].MA_SP + '"class="products">';
         html += '<div class="name">' + dataForPage[i].TEN_SP + '</div>';
         html += '<div class="Img"><img src="Img/' + dataForPage[i].HINH_ANH + '"></div>';
         html += '<div class="price">' + changePriceToString(dataForPage[i].GIA_BAN) + '</div>';
