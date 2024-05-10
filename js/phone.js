@@ -79,7 +79,7 @@ const phone = {
                 
                     <div class="phone-footer">
                         <div class="phone-footer-wrap">
-                    <span style="font-size: 20px; font-weight:bold ">Giá : ${item.GIA_BAN}đ</span>
+                    <span style="font-size: 20px; font-weight:bold ">Giá : ${changePriceToString(item.GIA_BAN)}</span>
                     </div>
                         <a href="index.php?page=DetailPhone&MaSP=${item.MA_SP}" class="phone-detail">View details</a>
                     </div>

@@ -110,4 +110,5 @@
     </div>
     <script src="./js/pageHandler.js"></script>
     <script src="./js/phone.js"></script>
+    <script src="./js/XuLyTienVND.js"></script>
 </div>

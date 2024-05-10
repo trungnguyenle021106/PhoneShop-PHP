@@ -30,9 +30,16 @@ function createStorage(key) {
             save()
         },
 
-        editAll(data = undefined) {
+        editAll(data) {
             store.splice(0, store.length)
-            store.push(data)
+            if(data.length == 1) {
+                store.push(...data)
+            } else {
+                for(idx of data) {
+                    store.push(idx)
+                }
+            }
+            console.log(store)
             save()
         },
 
@@ -81,7 +88,7 @@ function loadAjax1(callback, id) {
     var condition = "MA_TK = " + id;
     console.log(condition)
     $.ajax({
-        url: 'AJAX_PHP/CRUD.php',
+        url: './AJAX_PHP/CRUD.php',
         type: 'POST',
         dataType: 'json',
         data: {
@@ -192,7 +199,7 @@ const cart = {
         for(elem of cart.orders) {
             if(elem.id === id) {
                 elem.order[idx].value = currentValue + 1
-                cart.ordersApi.editAll(...cart.orders)
+                cart.ordersApi.editAll(cart.orders)
             }
         }
     },
@@ -206,7 +213,7 @@ const cart = {
             for(elem of cart.orders) {
                 if(elem.id === id) {
                     elem.order[idx].value = currentValue - 1
-                    cart.ordersApi.editAll(...cart.orders)
+                    cart.ordersApi.editAll(cart.orders)
                 }
             }
         } else {
@@ -219,7 +226,7 @@ const cart = {
             if(elem.id === id) {
                 elem.order.splice(idx, 1);
                 cart.loadLayouts()
-                cart.ordersApi.editAll(...cart.orders)
+                cart.ordersApi.editAll(cart.orders)
             }
         }
     },
@@ -236,7 +243,7 @@ const cart = {
                         for(itemOrder of item.order) {
                             if(itemOrder.MA_SP == data.order.MA_SP) {
                                 itemOrder.value +=1
-                                cart.ordersApi.editAll(...cart.orders)
+                                cart.ordersApi.editAll(cart.orders)
                                 return
                             }
                         }
@@ -244,7 +251,7 @@ const cart = {
                         item.order.push(data.order)
                         console.log(item.order)
                         console.log(cart.orders)
-                        cart.ordersApi.editAll(...cart.orders)
+                        cart.ordersApi.editAll(cart.orders)
                         return
                     }
                 }
