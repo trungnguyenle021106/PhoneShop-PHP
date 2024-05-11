@@ -39,117 +39,122 @@ SLQuyen_HT.innerText = rows.length;
 
 
    function add() {
-    // Tạo quyền trước
-    var data = { TEN_Q: $('#TenQuyen_add').val() };
-    var jsonData = JSON.stringify(data);
-    var operation = "Create";
-    var tableName = "quyen";
-    var tr_right = document.querySelectorAll('#form_cap_CN #right-form table tr');
-    if (tr_right.length === 0) {
-        alert("Hãy chọn chức năng của quyền");
-    }
-    else {
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData: jsonData,
-            operation: operation,
-            tableName: tableName
-        },
-        success: function(response) {
-            // Tạo chức năng cho quyền
-                for (var i = 0; i < tr_right.length; i++) {
-                    var data = {
-                        MA_Q: response[response.length - 1].MA_Q,
-                        MA_CN: tr_right[i].querySelector("input").value
-                    };
-                    var jsonData = JSON.stringify(data);
-                    var operation = "Create";
-                    var tableName = "ctq_chuc_nang";
-                    $.ajax({
-                        url: '../AJAX_PHP/CRUD.php',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            jsonData: jsonData,
-                            operation: operation,
-                            tableName: tableName
-                        },
-                        success: function(response) {    
-                            location.reload();                        
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(error);
-                        }
-                    });
-                }
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
+    if (confirm("Bạn có chắc chắn muốn thêm quyền không?")) {
+
+        // Tạo quyền trước
+        var data = { TEN_Q: $('#TenQuyen_add').val() };
+        var jsonData = JSON.stringify(data);
+        var operation = "Create";
+        var tableName = "quyen";
+        var tr_right = document.querySelectorAll('#form_cap_CN #right-form table tr');
+        if (tr_right.length === 0) {
+            alert("Hãy chọn chức năng của quyền");
         }
-    });
-}
+        else {
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData: jsonData,
+                operation: operation,
+                tableName: tableName
+            },
+            success: function(response) {
+                // Tạo chức năng cho quyền
+                    for (var i = 0; i < tr_right.length; i++) {
+                        var data = {
+                            MA_Q: response[response.length - 1].MA_Q,
+                            MA_CN: tr_right[i].querySelector("input").value
+                        };
+                        var jsonData = JSON.stringify(data);
+                        var operation = "Create";
+                        var tableName = "ctq_chuc_nang";
+                        $.ajax({
+                            url: '../AJAX_PHP/CRUD.php',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                jsonData: jsonData,
+                                operation: operation,
+                                tableName: tableName
+                            },
+                            success: function(response) {    
+                                location.reload();                        
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+        });
+    }
+    }
 }
 
 
 function update()
 {
-    var operation = "Delete";
-    var idName = "MA_Q";
-    var idValue = $('#MAQ_sua').val();
+    if (confirm("Bạn có chắc chắn muốn sửa quyền không?")) {
 
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            operation: operation,
-            tableName: 'ctq_chuc_nang',
-            idName: idName,
-            idValue: idValue
-        },
-        success: function(response) {
-           
-            var tbody_right = document.querySelectorAll('#data_chucnang_sua tr');
-            if(tbody_right.length == 0) {
-                alert('Hãy chọn chức năng cho quyền này !!');
-            }
-            else{
-                for(var i=0; i<tbody_right.length; i++) {
-
-                    var data = {
-                         MA_Q: $('#MAQ_sua').val(),
-                         MA_CN:  tbody_right[i].querySelector('input').value
-                        };
-                    var jsonData = JSON.stringify(data);
-                    var operation = "Create";
-                    var tableName = "ctq_chuc_nang";  
-                    $.ajax({
-                        url: '../AJAX_PHP/CRUD.php',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            jsonData: jsonData,
-                            operation: operation,
-                            tableName: tableName
-                        },
-                        success: function(data) {
-                           location.reload();
-                        },
-                        error: function(xhr, status, error) {
-                            console.log(error);
-                        }                    
-                    })
+        var operation = "Delete";
+        var idName = "MA_Q";
+        var idValue = $('#MAQ_sua').val();
+    
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                operation: operation,
+                tableName: 'ctq_chuc_nang',
+                idName: idName,
+                idValue: idValue
+            },
+            success: function(response) {
+               
+                var tbody_right = document.querySelectorAll('#data_chucnang_sua tr');
+                if(tbody_right.length == 0) {
+                    alert('Hãy chọn chức năng cho quyền này !!');
                 }
+                else{
+                    for(var i=0; i<tbody_right.length; i++) {
+    
+                        var data = {
+                             MA_Q: $('#MAQ_sua').val(),
+                             MA_CN:  tbody_right[i].querySelector('input').value
+                            };
+                        var jsonData = JSON.stringify(data);
+                        var operation = "Create";
+                        var tableName = "ctq_chuc_nang";  
+                        $.ajax({
+                            url: '../AJAX_PHP/CRUD.php',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                jsonData: jsonData,
+                                operation: operation,
+                                tableName: tableName
+                            },
+                            success: function(data) {
+                               location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }                    
+                        })
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
             }
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
-
+        });
+    }
 }
 
 

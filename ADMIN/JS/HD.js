@@ -429,12 +429,11 @@ function GetChiTietHoaDon(maHD, callback) {
     });
 }
 
-
 function XuLyDonHang() {
     var maHD = MAHD;
     var tinhtrang = document.getElementById("opt_TT_HD").value;
     var data = {
-        MA_NV: idNV,
+        MA_NV : idNV,
         TINH_TRANG: tinhtrang
     };
 

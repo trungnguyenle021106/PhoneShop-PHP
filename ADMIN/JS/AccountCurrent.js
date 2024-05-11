@@ -1,12 +1,11 @@
 var dataAccount = [];
-var idAccount = 1
-var idNV = 1;
-function readNV()
-{
+var idAccount = 1;
+var idNV =1;
+
+function readNV() {
     var operation = "Read";
     var tableName = "nhan_vien";
-
-
+    var condition = "MA_TK ="+idAccount;
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
         type: 'POST',
@@ -14,12 +13,13 @@ function readNV()
         data: {
             operation: operation,
             tableName: tableName,
-            condition:"MA_TK ="+idAccount
+            condition: condition
         },
-        success: function (response) {
+        success: function(response) {
+   
             idNV = response[0].MA_NV;
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             console.log(error);
         }
     });
@@ -33,7 +33,8 @@ function readAccount() {
         success: function (response) {
             dataAccount = response.array_TenChucNang;
             idAccount = response.tai_khoan.MA_TK;
-             readNV();
+            readNV();
+            
         },
         error: function (xhr, status, error) {
             console.log(error);

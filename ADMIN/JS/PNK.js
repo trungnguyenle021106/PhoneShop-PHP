@@ -38,134 +38,140 @@ read();
 }
    //loadData
    function add() {
-    var currentDate = new Date();
-    var NGAY_NHAP = currentDate;
-    var MA_NV = $("#opt_MANV_themPNK").val();
-    var MA_NSX = $("#opt_MANSX_themPNK").val();
-    var TRANG_THAI = "CHƯA XỬ LÝ";
-    var table_CTPN = document.querySelectorAll('#data_CTSP tr');
-    if(table_CTPN.length == 0){
-        alert('Phiếu nhập phải có ít nhất 1 chi tiết');
-    }
-    else{
-        var check = true;
-        for (var i = 0; i < table_CTPN.length; i++) {
-            var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
-            if(THANHTIEN_CTPN == '0'){
-                check = false; break;
+    if (confirm("Bạn có chắc chắn muốn thêm không?")) {
+        var currentDate = new Date();
+        var NGAY_NHAP = currentDate;
+        var MA_NV = $("#opt_MANV_themPNK").val();
+        var MA_NSX = $("#opt_MANSX_themPNK").val();
+        var TRANG_THAI = "CHƯA XỬ LÝ";
+        var table_CTPN = document.querySelectorAll('#data_CTSP tr');
+        if(table_CTPN.length == 0){
+            alert('Phiếu nhập phải có ít nhất 1 chi tiết');
+        }
+        else{
+            var check = true;
+            for (var i = 0; i < table_CTPN.length; i++) {
+                var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
+                if(THANHTIEN_CTPN == '0'){
+                    check = false; break;
+                }
+            }
+        
+            if(check){
+                var data = {
+                    NGAY_NHAP: NGAY_NHAP,
+                    MA_NSX: MA_NSX,
+                    MA_NV: MA_NV,
+                    TRANG_THAI: TRANG_THAI
+                };
+            
+                var jsonData = JSON.stringify(data);
+            
+                var operation = "Create";
+                var tableName = "phieu_nhap";
+                $.ajax({
+                    url: '../AJAX_PHP/CRUD.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        jsonData: jsonData,
+                        operation: operation,
+                        tableName: tableName
+                    },
+                    success: function(response) {
+                        //đọc ra phiếu nhập vừa thêm
+                        var newMAPN = response[response.length - 1].MA_PN;
+                        var table_CTPN = document.querySelectorAll('#data_CTSP tr');
+                        for (var i = 0; i < table_CTPN.length; i++) {
+                            var MASP_CTPN = table_CTPN[i].querySelector('#MASP_CTPN').innerText;
+                            var DONGIA_CTPN = table_CTPN[i].querySelector('#DONGIA_CTPN input').value;
+                            var SL_CTPN = table_CTPN[i].querySelector('#SL_CTPN input').value;
+                            var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
+                            var data = {
+                                MA_PN: newMAPN,
+                                MA_SP: MASP_CTPN,
+                                DON_GIA: DONGIA_CTPN,
+                                SO_LUONG: SL_CTPN,
+                                THANH_TIEN: THANHTIEN_CTPN
+                            };
+            
+                            var jsonData = JSON.stringify(data);
+            
+                            $.ajax({
+                                url: '../AJAX_PHP/CRUD.php',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    jsonData: jsonData,
+                                    operation: "Create",
+                                    tableName: 'chi_tiet_nhap'
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                           location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+        
+            else{
+                alert("chi tiết phải có số lượng và đơn giá ít nhất 1 !!");
             }
         }
     
-        if(check){
-            var data = {
-                NGAY_NHAP: NGAY_NHAP,
-                MA_NSX: MA_NSX,
-                MA_NV: MA_NV,
-                TRANG_THAI: TRANG_THAI
-            };
         
-            var jsonData = JSON.stringify(data);
-        
-            var operation = "Create";
-            var tableName = "phieu_nhap";
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData: jsonData,
-                    operation: operation,
-                    tableName: tableName
-                },
-                success: function(response) {
-                    //đọc ra phiếu nhập vừa thêm
-                    var newMAPN = response[response.length - 1].MA_PN;
-                    var table_CTPN = document.querySelectorAll('#data_CTSP tr');
-                    for (var i = 0; i < table_CTPN.length; i++) {
-                        var MASP_CTPN = table_CTPN[i].querySelector('#MASP_CTPN').innerText;
-                        var DONGIA_CTPN = table_CTPN[i].querySelector('#DONGIA_CTPN input').value;
-                        var SL_CTPN = table_CTPN[i].querySelector('#SL_CTPN input').value;
-                        var THANHTIEN_CTPN = table_CTPN[i].querySelector('#THANHTIEN_CTPN input').value;
-                        var data = {
-                            MA_PN: newMAPN,
-                            MA_SP: MASP_CTPN,
-                            DON_GIA: DONGIA_CTPN,
-                            SO_LUONG: SL_CTPN,
-                            THANH_TIEN: THANHTIEN_CTPN
-                        };
-        
-                        var jsonData = JSON.stringify(data);
-        
-                        $.ajax({
-                            url: '../AJAX_PHP/CRUD.php',
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                jsonData: jsonData,
-                                operation: "Create",
-                                tableName: 'chi_tiet_nhap'
-                            },
-                            success: function(response) {
-                                console.log(response);
-                            },
-                            error: function(xhr, status, error) {
-                                console.log(error);
-                            }
-                        });
-                    }
-                       location.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        }
-    
-        else{
-            alert("chi tiết phải có số lượng và đơn giá ít nhất 1 !!");
-        }
     }
-
     
 }
 
 
 
 function Delete(MAPN) {
-    var operation = "Delete";
-    var idName = "MA_PN";
-    var idValue = MAPN;
+    if (confirm("Bạn có chắc chắn muốn xóa không?")) {
 
-    // Hàm xóa từng bảng
-    function deleteFromTable(tableName, idName, idValue) {
-        $.ajax({
-            url: '../AJAX_PHP/CRUD.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                operation: operation,
-                tableName: tableName,
-                idName: idName,
-                idValue: idValue
-            },
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-
+        var operation = "Delete";
+        var idName = "MA_PN";
+        var idValue = MAPN;
+    
+        // Hàm xóa từng bảng
+        function deleteFromTable(tableName, idName, idValue) {
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    operation: operation,
+                    tableName: tableName,
+                    idName: idName,
+                    idValue: idValue
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+    
+        }
+    
+        // Xóa chi tiết phiếu nhập
+        deleteFromTable("chi_tiet_nhap", idName, idValue);
+    
+       
+        // Xóa sản phẩm
+        deleteFromTable("phieu_nhap", idName, idValue);
+        location.reload();
+    
     }
-
-    // Xóa chi tiết phiếu nhập
-    deleteFromTable("chi_tiet_nhap", idName, idValue);
-
-   
-    // Xóa sản phẩm
-    deleteFromTable("phieu_nhap", idName, idValue);
-    location.reload();
-
 }
 
 
@@ -302,10 +308,9 @@ function PhanQuyen(){
            <form action="" method="POST">
            <input type="hidden" name="MAPNK_xoa"  value="${elementPage[i].MA_PN}">
            <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-          <td class="btn_xoa_PN"><input type="submit"  value="xóa"  class="thaotac" onclick="Delete(${elementPage[i].MA_PN})"></td>
            </form>
            <form action="" method="POST">
-          <td class="btn_nhap_PN"><input style="opacity: 0.5;" type="button" value="nhập" name="btn_nhap_PN"  class="thaotac"></td>
+          <td class="btn_nhap_PN" colspan="2"><input style="opacity: 0.5;" type="button" value="nhập" name="btn_nhap_PN"  class="thaotac"></td>
            </form>
            </tr>
             `;
@@ -434,69 +439,71 @@ document.querySelector('#btn_an_formthemCTPN').addEventListener('click', functio
 //ẩn hiện form nhập
 
 
-
-//hàm cho nút nhập
+// Hàm cho nút nhập
 function nhap(MAPN) {
-    var data = {
-        TRANG_THAI: "ĐÃ XỬ LÝ"
-    };
-    var jsonData = JSON.stringify(data);
+    // Hiển thị cửa sổ xác nhận
+    if (confirm("Bạn có chắc chắn muốn nhập không?")) {
+        var data = {
+            TRANG_THAI: "ĐÃ XỬ LÝ"
+        };
+        var jsonData = JSON.stringify(data);
 
-    var operation = "Update";
-    var tableName = "phieu_nhap";
-    var idName = "MA_PN";
-    var idValue = MAPN;
+        var operation = "Update";
+        var tableName = "phieu_nhap";
+        var idName = "MA_PN";
+        var idValue = MAPN;
 
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData: jsonData,
-            operation: operation,
-            tableName: tableName,
-            idName: idName,
-            idValue: idValue
-        },
-        success: function(response) {
-            // đọc ra các chi tiết phiếu nhập
-            var operation = "Read";
-            var tableName = "chi_tiet_nhap";
-            var condition = "MA_PN=" + MAPN;
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    operation: operation,
-                    tableName: tableName,
-                    condition: condition
-                },
-                success: function(response) {
-                    var updateCounter = 0;
-                    var totalUpdates = response.length;
-                    for (var i = 0; i < response.length; i++) {
-                        update(response[i].MA_SP, response[i].SO_LUONG, function() {
-                            updateCounter++;
-                            if (updateCounter === totalUpdates) {
-                                console.log(updateCounter);
-                                location.reload();
-                            }
-                        });
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData: jsonData,
+                operation: operation,
+                tableName: tableName,
+                idName: idName,
+                idValue: idValue
+            },
+            success: function(response) {
+                // Đọc ra các chi tiết phiếu nhập
+                var operation = "Read";
+                var tableName = "chi_tiet_nhap";
+                var condition = "MA_PN=" + MAPN;
+                $.ajax({
+                    url: '../AJAX_PHP/CRUD.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        operation: operation,
+                        tableName: tableName,
+                        condition: condition
+                    },
+                    success: function(response) {
+                        var updateCounter = 0;
+                        var totalUpdates = response.length;
+                        for (var i = 0; i < response.length; i++) {
+                            update(response[i].MA_SP, response[i].SO_LUONG, function() {
+                                updateCounter++;
+                                if (updateCounter === totalUpdates) {
+                                    console.log(updateCounter);
+                                    location.reload();
+                                }
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-        
-    });
+                });
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+
+        });
+    }
 }
-//hàm cho nút nhập
+
 
 
 

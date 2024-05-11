@@ -41,7 +41,8 @@ read();
 
 function update()
 {
-
+    if (confirm("Bạn có chắc chắn muốn sửa không?")) {
+    
         var data = {
             CHAT_LIEU: $('#CL_CHOL_sua').val(),
             TINH_NANG: $('#TN_CHOL_sua').val(),
@@ -64,12 +65,13 @@ function update()
             idValue : idValue
         },
         success: function(response) {
-            console.log(response);
+            location.reload();
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
+    }
 }
 
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //

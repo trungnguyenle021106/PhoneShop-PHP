@@ -40,10 +40,10 @@ read();
 
    function update()
 {
-
+    if (confirm("Bạn có chắc chắn muốn sửa không?")) {
         var data = {
             KET_NOI: $('#KN_CHS_sua').val(),
-            CONG_SUAT: $('#CS_CHS_sua').val() + " W",
+            CONG_SUAT: $('#CS_CHS_sua').val(),
             TINH_NANG: $('#TN_CHS_sua').val()
           };
           var jsonData = JSON.stringify(data);
@@ -64,12 +64,13 @@ read();
             idValue : idValue
         },
         success: function(response) {
-            console.log(response);
+            location.reload();
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
+    }
 }
 
 
@@ -106,7 +107,7 @@ read();
         
                     form_sua_CHS.querySelector('#KN_CHS_sua').value = elementPage[index].KET_NOI;
                     console.log(form_sua_CHS.querySelector('#KN_CHS_sua').value);
-                    form_sua_CHS.querySelector('#CS_CHS_sua').value = elementPage[index].CONG_SUAT.split(" W")[0];
+                    form_sua_CHS.querySelector('#CS_CHS_sua').value = elementPage[index].CONG_SUAT;
                     form_sua_CHS.querySelector('#TN_CHS_sua').value = elementPage[index].TINH_NANG;
                     form_sua_CHS.querySelector('#MACHS_sua').value = elementPage[index].MA_CHS;
         

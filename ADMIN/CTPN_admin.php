@@ -103,7 +103,7 @@ $connect->connectDB();
         <input type="hidden" value="<?php echo $_POST['page']; ?>" name="page" >
         <input type="hidden" value="" name="MAPN" id="MAPN_sua_hidden">
         <input type="hidden" value="" name="MASP" id="MASP_sua_hidden">
-        <input type="submit" value="Xác nhận" name="btn_xacnhan_sua" id="btn_xacnhan_sua">
+        <input type="button" value="Xác nhận" name="btn_xacnhan_sua" id="btn_xacnhan_sua">
     </form>
 </div>
 

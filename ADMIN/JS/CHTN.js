@@ -42,7 +42,7 @@ SLTN_HT.innerText = rows.length;
 
    function update()
 {
-
+    if (confirm("Bạn có chắc chắn muốn sửa không?")) {
         var data = {
             KET_NOI: $('#KN_CHTN_sua').val(),
             TINH_NANG: $('#TN_CHTN_sua').val(),
@@ -65,12 +65,13 @@ SLTN_HT.innerText = rows.length;
             idValue : idValue
         },
         success: function(response) {
-            console.log(response);
+            location.reload();
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
+    }
 }
 
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //

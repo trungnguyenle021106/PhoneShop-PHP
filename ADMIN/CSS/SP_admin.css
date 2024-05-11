@@ -163,7 +163,7 @@
     border-radius: 4px;
 }
 
-#form_sua_SP input[type="submit"] {
+#form_sua_SP input[type="button"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -173,7 +173,7 @@
     cursor: pointer;
 }
 
-#form_sua_SP input[type="submit"]:hover {
+#form_sua_SP input[type="button"]:hover {
     background-color: #45a049;
 }
 
@@ -447,7 +447,7 @@
     margin-bottom: 10px;
 }
 
-#form_sua_CHOL input[type="submit"] {
+#form_sua_CHOL input[type="button"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -457,7 +457,7 @@
     cursor: pointer;
 }
 
-#form_sua_CHOL input[type="submit"]:hover {
+#form_sua_CHOL input[type="button"]:hover {
     background-color: #45a049;
 }
 
@@ -631,16 +631,15 @@
     margin-bottom: 5px;
 }
 
-#form_sua_CHDT input[type="text"],
-#form_sua_CHDT input[type="number"] {
-    width: calc(100% - 20px);
+#form_sua_CHDT input[type="text"]
+{    width: calc(100% - 20px);
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-#form_sua_CHDT input[type="submit"] {
+#form_sua_CHDT input[type="button"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -650,7 +649,7 @@
     cursor: pointer;
 }
 
-#form_sua_CHDT input[type="submit"]:hover {
+#form_sua_CHDT input[type="button"]:hover {
     background-color: #45a049;
 }
 
@@ -834,7 +833,7 @@
     border-radius: 4px;
 }
 
-#form_sua_CHS input[type="submit"] {
+#form_sua_CHS input[type="button"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -844,7 +843,7 @@
     cursor: pointer;
 }
 
-#form_sua_CHS input[type="submit"]:hover {
+#form_sua_CHS input[type="button"]:hover {
     background-color: #45a049;
 }
 
@@ -1024,7 +1023,7 @@
     border-radius: 4px;
 }
 
-#form_sua_CHTN input[type="submit"] {
+#form_sua_CHTN input[type="button"] {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -1034,7 +1033,7 @@
     cursor: pointer;
 }
 
-#form_sua_CHTN input[type="submit"]:hover {
+#form_sua_CHTN input[type="button"]:hover {
     background-color: #45a049;
 }
 

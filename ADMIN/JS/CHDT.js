@@ -5,15 +5,16 @@ read();
 
 function update()
 {
+    if (confirm("Bạn có chắc chắn muốn sửa không?")) {
 
         var data = {
-            RAM: $('#RAM_CHDT_sua').val() + "GB",
-            BO_NHO_TRONG: $('#BNT_CHDT_sua').val() + "GB",
+            RAM: $('#RAM_CHDT_sua').val(),
+            BO_NHO_TRONG: $('#BNT_CHDT_sua').val(),
             MAN_HINH: $('#MH_CHDT_sua').val(),
             MAU_SAC: $('#MS_CHDT_sua').val(),
-            PIN: $('#PIN_CHDT_sua').val() + "Mah",
-            CAMERA_TRUOC: $('#CAMTRC_CHDT_sua').val() + "px",
-            CAMERA_SAU: $('#CAMSAU_CHDT_sua').val() + "px",
+            PIN: $('#PIN_CHDT_sua').val(),
+            CAMERA_TRUOC: $('#CAMTRC_CHDT_sua').val(),
+            CAMERA_SAU: $('#CAMSAU_CHDT_sua').val(),
             OS: $('#OS_CHDT_sua').val()
           };
           var jsonData = JSON.stringify(data);
@@ -34,12 +35,13 @@ function update()
             idValue : idValue
         },
         success: function(response) {
-            console.log(response);
+            location.reload();
         },
         error: function(xhr, status, error) {
             console.log(error);
         }
     });
+    }
 }
 
 
@@ -112,13 +114,13 @@ function DisplayElementPage(elementPage) {
             var index = this.getAttribute('data-index');
             var form_sua_CHDT = document.getElementById('container_suaCHDT');
 
-            form_sua_CHDT.querySelector('#RAM_CHDT_sua').value = elementPage[index].RAM.split("GB")[0];
-            form_sua_CHDT.querySelector('#BNT_CHDT_sua').value = elementPage[index].BO_NHO_TRONG.split("GB")[0];
+            form_sua_CHDT.querySelector('#RAM_CHDT_sua').value = elementPage[index].RAM;
+            form_sua_CHDT.querySelector('#BNT_CHDT_sua').value = elementPage[index].BO_NHO_TRONG;
             form_sua_CHDT.querySelector('#MH_CHDT_sua').value = elementPage[index].MAN_HINH;
             form_sua_CHDT.querySelector('#MS_CHDT_sua').value = elementPage[index].MAU_SAC;
-            form_sua_CHDT.querySelector('#PIN_CHDT_sua').value = elementPage[index].PIN.split("Mah")[0];
-            form_sua_CHDT.querySelector('#CAMSAU_CHDT_sua').value = elementPage[index].CAMERA_SAU.split("px")[0];
-            form_sua_CHDT.querySelector('#CAMTRC_CHDT_sua').value = elementPage[index].CAMERA_TRUOC.split("px")[0];
+            form_sua_CHDT.querySelector('#PIN_CHDT_sua').value = elementPage[index].PIN;
+            form_sua_CHDT.querySelector('#CAMSAU_CHDT_sua').value = elementPage[index].CAMERA_SAU;
+            form_sua_CHDT.querySelector('#CAMTRC_CHDT_sua').value = elementPage[index].CAMERA_TRUOC;
             form_sua_CHDT.querySelector('#OS_CHDT_sua').value = elementPage[index].OS;
             form_sua_CHDT.querySelector('#MACHDT_sua').value = elementPage[index].MA_CHĐT;
 

@@ -9,15 +9,16 @@
             $sql1 = "hoa_don ORDER BY MA_HD DESC";
             $order = $conn->read($sql1);
             $listKm = $conn->read('khuyen_mai');
+            $mahd = 1;
             if (empty($order)) {
                 $mahd = 1;
             } else {
                 $mahd = $order[0]["MA_HD"] + 1;
             }
             $makm = $_POST['km'];
-            $ngayTao = date("Y-m-d");
+
             $tinhTrang = "Chưa liên lạc";
-            $manv = 1;
+            $manv = 2;
             $makh = $_POST['Makh'];
             $tongTien = $_POST['total'];
             $thue = $_POST['vat'];
@@ -28,7 +29,7 @@
 
             $conn->error();
 
-            $sql2 = "INSERT INTO hoa_don (MA_HD,MA_KM,NGAY_TAO,TINH_TRANG,MA_NV,MA_KH,TONG_TIEN) VALUES ('$mahd','$makm','$ngayTao','$tinhTrang','$manv','$makh','$tongTien')";
+            $sql2 = "INSERT INTO hoa_don (MA_HD,MA_KM,TINH_TRANG,MA_NV,MA_KH,TONG_TIEN) VALUES ('$mahd','$makm','$tinhTrang','$manv','$makh','$tongTien')";
             if ($conn->query($sql2) === TRUE) {
                 for($i = 0; $i < count($ids); $i++) {
                     $thanhtien = (int)$quantities[$i] * (int)$prices[$i];   

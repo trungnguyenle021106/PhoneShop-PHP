@@ -39,132 +39,171 @@ SLNV_HT.innerText = rows.length;
 
    function update()
 {
-
-        var data = {
-            DIA_CHI: $('#DIACHI_sua_NV').val(),
-            HOTEN_NV: $('#TEN_sua_NV').val(),
-            SO_DT: $('#SDT_sua_NV').val(),
-            SO_CCCD: $('#CCCD_sua_NV').val(),
-            G_TINH: $('#GT_sua_NV').val(),
-            N_SINH: $('#NS_sua_NV').val(),
-  
-          };
-          var jsonData = JSON.stringify(data);
-    var operation = "Update";
-    var tableName = "nhan_vien";
-    var idName = "MA_NV";
-    var idValue = $('#MANV_sua_hidden').val();
-    $.ajax({
-        url: '../AJAX_PHP/CRUD.php',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            jsonData : jsonData,
-            operation: operation,
-            tableName: tableName,
-            idName : idName,
-            idValue : idValue
-        },
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
+    if($('#SDT_sua_NV').val().length !== 10){
+        alert("SDT phải đúng 10 số");
         }
-    });
+        else if($('#CCCD_sua_NV').val().length !== 12){
+            alert("CCCD phải đúng 12 số");
+        }
+        else{
+            if (confirm("Bạn có chắc chắn muốn sửa không?")) {
+            var data = {
+                DIA_CHI: $('#DIACHI_sua_NV').val(),
+                HOTEN_NV: $('#TEN_sua_NV').val(),
+                SO_DT: $('#SDT_sua_NV').val(),
+                SO_CCCD: $('#CCCD_sua_NV').val(),
+                G_TINH: $('#GT_sua_NV').val(),
+                N_SINH: $('#NS_sua_NV').val(),
+      
+              };
+              var jsonData = JSON.stringify(data);
+        var operation = "Update";
+        var tableName = "nhan_vien";
+        var idName = "MA_NV";
+        var idValue = $('#MANV_sua_hidden').val();
+        $.ajax({
+            url: '../AJAX_PHP/CRUD.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                jsonData : jsonData,
+                operation: operation,
+                tableName: tableName,
+                idName : idName,
+                idValue : idValue
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }   
+        });
+        }
+        }
 }
 
 function add()
 {
 
-    var data = {
-       HOTEN_NV : $('#TenNV_add').val(),
-        DIA_CHI: $('#DIACHI_add').val(),
-        SO_DT: $('#SDT_add').val(),
-        SO_CCCD: $('#CCCD_add').val(),
-        G_TINH: $('[name="opt_gt"]:checked').val(),
-        N_SINH: $('#ngaysinh_add').val(),
-        MA_TK: $('#MA_TK_tam').val()
-      };
-      var MA_TK = $('#MA_TK_tam').val();
-      var jsonData = JSON.stringify(data);
-var operation = "Create";
-var tableName = "nhan_vien";
-        if(MA_TK === ""){
-            alert("Hãy chọn tài khoản muốn cấp !!");
-          }
-          else{
-            $.ajax({
-                url: '../AJAX_PHP/CRUD.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    jsonData : jsonData,
-                    operation: operation,
-                    tableName: tableName,
-                },
-                success: function(response) {
-                    //cập nhật lại trangj thái cho tài khoản
-                    var data = {
-                       TINH_TRANG: "hoạt động" 
-                    }
-                    var jsonData = JSON.stringify(data);
-                    console.log(JSON.stringify(jsonData));
+        if (confirm("Bạn có chắc chắn muốn thêm không?")) {
+    
+            var data = {
+               HOTEN_NV : $('#TenNV_add').val(),
+                DIA_CHI: $('#DIACHI_add').val(),
+                SO_DT: $('#SDT_add').val(),
+                SO_CCCD: $('#CCCD_add').val(),
+                G_TINH: $('[name="opt_gt"]:checked').val(),
+                N_SINH: $('#ngaysinh_add').val(),
+                MA_TK: $('#MA_TK_tam').val()
+              };
+              var MA_TK = $('#MA_TK_tam').val();
+              var jsonData = JSON.stringify(data);
+        var operation = "Create";
+        var tableName = "nhan_vien";
+                if(MA_TK === ""){
+                    alert("Hãy chọn tài khoản muốn cấp !!");
+                  }
+                  else{
                     $.ajax({
                         url: '../AJAX_PHP/CRUD.php',
                         type: 'POST',
                         dataType: 'json',
                         data: {
                             jsonData : jsonData,
-                            operation: "Update",
-                            tableName: "tai_khoan",
-                            idName : "MA_TK",
-                            idValue : $('#MA_TK_tam').val()
+                            operation: operation,
+                            tableName: tableName,
                         },
                         success: function(response) {
-                            location.reload();
+                            //cập nhật lại trangj thái cho tài khoản
+                            var data = {
+                               TINH_TRANG: "hoạt động" 
+                            }
+                            var jsonData = JSON.stringify(data);
+                            console.log(JSON.stringify(jsonData));
+                            $.ajax({
+                                url: '../AJAX_PHP/CRUD.php',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    jsonData : jsonData,
+                                    operation: "Update",
+                                    tableName: "tai_khoan",
+                                    idName : "MA_TK",
+                                    idValue : $('#MA_TK_tam').val()
+                                },
+                                success: function(response) {
+                                    location.reload();
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log(error);
+                                }
+                            });
                         },
                         error: function(xhr, status, error) {
                             console.log(error);
                         }
                     });
-                },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                }
-            });
-          }   
-}
+                  }   
+        }
+    }
 
 
 
-function Delete(MANV) {
-    var operation = "Delete";
-    var idName = "MA_NV";
-    var idValue = MANV;
 
-    // Hàm xóa từng bảng
-    function deleteFromTable(tableName, idName, idValue) {
+function Delete(MANV,MATK) {
+    if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+    
+        var data = {
+            TINH_TRANG: 'không hoạt động',
+          };
+          var jsonData = JSON.stringify(data);
+
+          var operation = "Update";
+          var tableName = "tai_khoan";
+          var idName = "MA_TK";
+          var idValue = MATK;
         $.ajax({
             url: '../AJAX_PHP/CRUD.php',
             type: 'POST',
             dataType: 'json',
             data: {
+                jsonData : jsonData,
                 operation: operation,
                 tableName: tableName,
-                idName: idName,
-                idValue: idValue
-            },
-            success: function(response) {
-                console.log(response);
+                idName : idName,
+                idValue : idValue
             },
             error: function(xhr, status, error) {
                 console.log(error);
             }
-        });
-
+        })
+        
+        var operation = "Delete";
+        var idName = "MA_NV";
+        var idValue = MANV;
+    
+        // Hàm xóa từng bảng
+        function deleteFromTable(tableName, idName, idValue) {
+            $.ajax({
+                url: '../AJAX_PHP/CRUD.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    operation: operation,
+                    tableName: tableName,
+                    idName: idName,
+                    idValue: idValue
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
     }
-
+    
     // Đọc mã hóa đơn
     $.ajax({
         url: '../AJAX_PHP/CRUD.php',
@@ -182,10 +221,10 @@ function Delete(MANV) {
                 }
                 // Xóa hóa đơn
                 deleteFromTable("hoa_don", "MA_NV", MANV);
-            
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
+                
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
         }
     });
 
@@ -213,11 +252,12 @@ function Delete(MANV) {
             }
         });
 
+
+
     // Xóa nhân viên
     deleteFromTable("nhan_vien", idName, idValue);
     location.reload();
-
-
+}
 }
 
    // -------------------------------------------formation-chức năng phụ------------------------------------------------ //
@@ -235,7 +275,7 @@ function Delete(MANV) {
             <td id="NV_tuoi">${elementPage[i].N_SINH}</td>
             <td id="NV_MATK">${elementPage[i].MA_TK}</td>
             <form action="" method="POST"><input type="hidden" name="MANV">
-            <td class="NV_XOA_btn"><input type="button" value="xóa" class="thaotac" onclick="Delete(${elementPage[i].MA_NV})"></td></form>
+            <td class="NV_XOA_btn"><input type="button" value="xóa" class="thaotac" onclick="Delete(${elementPage[i].MA_NV},${elementPage[i].MA_TK})"></td></form>
             <form action="" method="POST"><input type="hidden" name="page" value="<?php echo $_POST["page"]; ?><td class="NV_SUA_btn"><input type="submit" class="NV_sua_btn" id="thaotac_NV" value="sửa" data-index="${i}"></td>
             </form></tr>
             `;
@@ -276,20 +316,6 @@ document.addEventListener('click', function(event){
 
 })
 //chức năng ẩn form sửa
-
-//hàm tính tuổi
-function calculateAge(birthDate) {
-    const today = new Date();
-    const birthDateObj = new Date(birthDate.replace(/-/g, '/')); // Chuyển đổi định dạng 'yyyy-mm-dd' thành 'yyyy/mm/dd'
-    const age = today.getFullYear() - birthDateObj.getFullYear();
-    
-    return age + " tuổi";
-}
-
-//hàm tính tuổi
-
-
-
 
 
      //chức năng tìm kiếm
@@ -473,11 +499,17 @@ function calculateAge(birthDate) {
             var G_TINH = $('[name="opt_gt"]').val();
             var N_SINH = $('#ngaysinh_add').val();
              
-            if(HOTEN_NV !== "" && DIA_CHI !== "" && SO_DT !== "" && SO_CCCD !== "" && G_TINH !== "" && N_SINH !== ""){
-            document.querySelector('#capTK_container').style.display = 'block';
-            }
-            else{
+            if(HOTEN_NV == "" || DIA_CHI == "" || SO_DT == "" || SO_CCCD == "" || G_TINH == "" || N_SINH == ""){
                 alert("Hãy nhập đầy đủ thông tin !!");
+            }
+            else if($('#SDT_add').val().length !== 10){
+                alert("SDT phải đúng 10 số");
+                }
+            else if($('#CCCD_add').val().length !== 12){
+                    alert("CCCD phải đúng 12 số");
+                }
+            else{
+                document.querySelector('#capTK_container').style.display = 'block';
             }
         })
 
