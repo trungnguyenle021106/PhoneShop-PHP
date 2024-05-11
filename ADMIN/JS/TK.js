@@ -564,7 +564,7 @@ function PhanQuyen(){
                 }
             })
 
-            if(!check_cn(arr_cn, "Sửa Tài Khoản")){
+            if(!check_cn(arr_cn, "Sửa Tài Khoản") && !check_cn(arr_cn, "Kích Hoạt Tài Khoản")){
                 document.getElementById("ThaoTac").style.display = "none";
             }
 

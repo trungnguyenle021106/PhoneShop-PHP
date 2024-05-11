@@ -214,7 +214,7 @@ SLNSX_HT.innerText = rows.length;
        <form action="" method="POST">
        <input type="hidden" name="MANSX" value="${elementPage[i].MA_NSX}">
        <input type="hidden" name="page" value="<?php echo $_POST['page']; ?>">
-      <td><input type="button" value="xóa" class="thaotac thaotac_Xoa" name="btn_xoa_NSX" onclick="Delete(${elementPage[i].MA_NSX})"></td>
+      
       <td><input type="button" value="sửa" class="thaotac thaotac_Sua" id="NSX_sua_btn" name="NSX_sua_btn" data-index="${i}"></td>
 
        </form>
@@ -248,12 +248,12 @@ SLNSX_HT.innerText = rows.length;
 }
     
 });
-    var deleteButtons = document.querySelectorAll('.thaotac_Xoa');
-    deleteButtons.forEach(function (btn) {
-        if (searchChucNang("Xóa Nhà Sản Xuất") == false){
-            btn.disabled = true;
-        }
-    });
+    // var deleteButtons = document.querySelectorAll('.thaotac_Xoa');
+    // deleteButtons.forEach(function (btn) {
+    //     if (searchChucNang("Xóa Nhà Sản Xuất") == false){
+    //         btn.disabled = true;
+    //     }
+    // });
     }
 
 

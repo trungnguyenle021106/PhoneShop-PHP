@@ -244,7 +244,7 @@ function Delete(maSerial) {
             <td id="Serial_SO_SERIAL">${soSerial}</td>
             <td id="Serial_TEN_SP">${response[0].TEN_SP}</td>
             <td id="Serial_HINH_ANH_SP"><img src="../Img/${response[0].HINH_ANH}" alt="##" style="height: 50px;"></td>
-            <td><input type="button" value="xóa" class="thaotac thaotac_Xoa" onclick="Delete(${maSerial})"></td>
+            
             <td><input type="button" class="Serial_sua_btn" name="sua${t}" id="thaotac_Serial" value="sửa" data-index="${t}"></td>
         </tr>`;
         html += rowHtml;
@@ -261,12 +261,12 @@ function Delete(maSerial) {
         if (searchChucNang("Sửa Serial") == false){
             editButton.disabled = true;
         }
-        var delButtons = document.querySelectorAll('.thaotac_Xoa');
-        delButtons.forEach(function (btn) {
-            if (searchChucNang("Xóa Serial") == false){
-                btn.disabled = true;
-            }
-        })
+        // var delButtons = document.querySelectorAll('.thaotac_Xoa');
+        // delButtons.forEach(function (btn) {
+        //     if (searchChucNang("Xóa Serial") == false){
+        //         btn.disabled = true;
+        //     }
+        // })
         
         editButton.addEventListener('click', function() {
                 // var index = this.getAttribute('data-index');

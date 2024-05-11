@@ -290,17 +290,7 @@
                 <!-- Có thời gian thì làm chọn màu -->
 
                 <!-- Nếu là điện thoại thì echo ra -->
-                <?php
-                if ($product["MA_LOAI"] == 1) {
-                    echo '<div class="memory-container">
-                    <p class="section-heading">Memory</p>
-                    <div class="storage-options memory-selector">
-                        <button class="storage-selector">256GB</button>
-                        <button class="storage">512GB</button>
-                        <button class="storage">1TB</button>
-                    </div>
-                </div>';
-                } ?>
+               
                 <!-- <div class="memory-container">
                     <p class="section-heading">Memory</p>
                     <div class="storage-options memory-selector">

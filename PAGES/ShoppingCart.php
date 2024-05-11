@@ -8,6 +8,9 @@ if(isset($_SESSION['$userID']))
 {
     $userID  = $_SESSION['$userID'];
 }
+if (isset($_SESSION['Ma_KhachHang'])) {
+    $Ma_KhachHang = $_SESSION['Ma_KhachHang'];
+}
 echo "<input type='hidden' class='id-kh-cart' value='$userID'/>";
 ?>
 <form class="ShoppingCart_Page" method="POST" action="./PAGES/handleInvoice.php" >
@@ -16,7 +19,7 @@ echo "<input type='hidden' class='id-kh-cart' value='$userID'/>";
     </div>
 
     <div class="right">
-        <input class="btn_DatHang" onclick="showAsk(<?php echo $isKH . ',' . $userID;?>)" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
+        <input class="btn_DatHang" onclick="showAsk(<?php echo $isKH . ','.$userID.',' . $Ma_KhachHang;?>)" type="button" name="btn_dat_hang" id="" value="Mua Hàng">
     </div>
 </form>
 <div class="ask">

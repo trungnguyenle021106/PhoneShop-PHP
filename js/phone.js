@@ -112,16 +112,16 @@ const phone = {
         }
 
         for (i = start; i <= end; i++) {
-            html1 += `<button class="${i == pageCurrent ? "cyan" : ''}" onclick="phone.loadAjax(${i},${pagePerNumber},${stringCond})">${i}</button>`
+            html1 += `<button style="width:50px; height:50px; margin:0 8px" class="${i == pageCurrent ? "cyan" : ''}" onclick="phone.loadAjax(${i},${pagePerNumber},${stringCond})">${i}</button>`
         }
         phone.nav.innerHTML = 
             `<div class="change_slide_content">
                 <div class="change_slide" id="Pagination">
-                        <button onclick="phone.prevPage(${pageCurrent},${pagePerNumber},${stringCond})"><<</button>
-                        ${start > 1 ? `<button class="destroy-btn">...</button>`: ''}
+                        <button style="width:50px; height:50px;" onclick="phone.prevPage(${pageCurrent},${pagePerNumber},${stringCond})"><<</button>
+                        ${start > 1 ? `<button style="width:50px; height:50px;" class="destroy-btn">...</button>`: ''}
                         ${html1}
-                        ${end < maxLength ? `<button class="destroy-btn">...</button>`: ''}
-                        <button onclick="phone.nextPage(${maxLength},${pageCurrent},${pagePerNumber},${stringCond})">>></button>
+                        ${end < maxLength ? `<button style="width:50px; height:50px;" class="destroy-btn">...</button>`: ''}
+                        <button style="width:50px; height:50px;" onclick="phone.nextPage(${maxLength},${pageCurrent},${pagePerNumber},${stringCond})">>></button>
                 </div>
             </div>`
     },

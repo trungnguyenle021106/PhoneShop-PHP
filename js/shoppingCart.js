@@ -266,7 +266,7 @@ const cart = {
 
 form = document.querySelector('.ShoppingCart_Page')
 
-function showAsk(dk, tk) {
+function showAsk(dk, tk,kh) {
     loadAjax1(list => {
         if(list[0].DIA_CHI == '' || list[0].G_TINH == '' || list[0].SO_CCCD == '' || list[0].SO_DT == '') {
             errorToast("Vui lòng nhập thông tin trước khi thanh toán!")
@@ -277,26 +277,32 @@ function showAsk(dk, tk) {
 
     function showInvoice() {
         loadAjax(list => {
-            listOrder = cart.orders[0].order
-            const total = listOrder.reduce((acc, product) => {
+            id = document.querySelector('.id-kh-cart').value
+            var listCurrent = []
+            for(elem of cart.orders) {
+                if(elem.id === id) {
+                    listCurrent = elem.order
+                }
+            }
+            const total = listCurrent.reduce((acc, product) => {
                 const totalPrice = product.price.replace(/[.đĐ]/g, '') * product.value;
 
                 acc.totalPrice += totalPrice;
                 
                 return acc;
             }, { totalPrice: 0});
-            var km = 0;
+            var km = 1;
             var sotg = 0;
-            for(var i = 0; i < list.length; i++) {
-                if(total.totalPrice > Number(list[i].DIEU_KIEN)) {
-                    if(sotg < Number(list[i].SO_TIEN_GIAM)) {
-                        sotg = list[i].SO_TIEN_GIAM
-                        km = list[i].MA_KM
+            for(var i = 0; i < listCurrent.length; i++) {
+                if(total.totalPrice > Number(listCurrent[i].DIEU_KIEN)) {
+                    if(sotg < Number(listCurrent[i].SO_TIEN_GIAM)) {
+                        sotg = listCurrent[i].SO_TIEN_GIAM
+                        km = listCurrent[i].MA_KM
                     }
                 }
-            } 
+            }
 
-            document.querySelector('.Makh').value = tk
+            document.querySelector('.Makh').value = kh
             document.querySelector('.vat').value = total.totalPrice/100*10
             document.querySelector('.MaKm').value = km
             document.querySelector('.total').value = total.totalPrice + total.totalPrice/100*10 - sotg
