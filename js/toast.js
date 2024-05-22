@@ -47,7 +47,7 @@ function errorToast(mess) {
     toast({
         message: mess,
         type: 'error',
-        duration: 2000
+        duration: 10000
     });
 }
 
@@ -55,6 +55,6 @@ function successToast(mess) {
     toast({
         message: mess,
         type: 'success',
-        duration: 2000
+        duration: 10000
     });
 }
