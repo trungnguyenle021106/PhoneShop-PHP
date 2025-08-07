@@ -1,2 +1,2 @@
 # Features : 
-+ Manage Products, User, 
++ Manage Products (Phone, Accessory), User, Promotion
