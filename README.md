@@ -1,4 +1,24 @@
-DATABASE :
+# Giới thiệu
+## Dự án này là một website thương mại điện tử chuyên bán các sản phẩm điện thoại và phụ kiện đi kèm.
+
+## Công nghệ sử dụng
+Liệt kê các công nghệ, ngôn ngữ lập trình, framework, thư viện mà dự án sử dụng.
+- Frontend: HTML, JS, CSS, Bootstrap
+- Backend: PHP
+- Cơ sở dữ liệu: MySQL
+
+## Các chức năng chính
+Liệt kê các tính năng và chức năng chính của dự án.
+- **Quản lý sản phẩm**: Thêm, sửa, xóa các loại sản phẩm (điện thoại, ốp lưng, sạc, tai nghe).
+- **Quản lý bán hàng**: Tạo, quản lý hóa đơn, theo dõi tình trạng đơn hàng.
+- **Quản lý người dùng**: Phân quyền (Admin, Khách hàng), quản lý tài khoản, thông tin cá nhân.
+- **Quản lý kho hàng**: Nhập hàng, quản lý phiếu nhập.
+- **Quản lý khuyến mãi**: Tạo và áp dụng các chương trình khuyến mãi.
+- **Quản lý bảo hành**: Tạo và theo dõi phiếu bảo hành sản phẩm.
+- **Thống kê báo cáo**: Cung cấp các báo cáo về doanh thu theo sản phẩm, theo loại, theo thời gian
+
+
+# Query DATABASE :
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
