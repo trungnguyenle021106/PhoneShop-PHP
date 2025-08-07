@@ -8,7 +8,6 @@ Liệt kê các công nghệ, ngôn ngữ lập trình, framework, thư viện m
 - Cơ sở dữ liệu: MySQL
 
 ## Các chức năng chính
-Liệt kê các tính năng và chức năng chính của dự án.
 - **Quản lý sản phẩm**: Thêm, sửa, xóa các loại sản phẩm (điện thoại, ốp lưng, sạc, tai nghe).
 - **Quản lý bán hàng**: Tạo, quản lý hóa đơn, theo dõi tình trạng đơn hàng.
 - **Quản lý người dùng**: Phân quyền (Admin, Khách hàng), quản lý tài khoản, thông tin cá nhân.
