@@ -2,7 +2,7 @@
 ## Dự án này là một website thương mại điện tử chuyên bán các sản phẩm điện thoại và phụ kiện đi kèm.
 
 ## Công nghệ sử dụng
-- Frontend: HTML, JS, CSS, JQuery
+- Frontend: HTML, JS, CSS, JQuery, AJAX
 - Backend: PHP
 - Cơ sở dữ liệu: MySQL
 
